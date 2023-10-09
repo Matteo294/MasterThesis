@@ -1,0 +1,29 @@
+\section{Appendix A}
+technical details such as algorithmic implementation of coloured noise, choice of basis, .....
+\raggedright Continuous version
+\begin{equation*}
+    \mathcal{D} = \gamma^\mu \partial_\mu + m_0 + g \, \sigma + i \, g \, \gamma^5 \, \tau^j \pi^j - \frac{r}{2} \partial^2
+\end{equation*}
+Discretized version
+\begin{align*}
+    \mathcal{D}_{mn} &= (m + g \, \sigma + i \, g \, \gamma^5 \, \tau^j \pi^j) \, \delta_{mn} \\
+    &- \left( \frac{\Gamma_{+ \hat 0}}{2} \ \delta_{m, m + \hat 0} - \frac{\Gamma_{- \hat 0}}{2} \ \delta_{m, m - \hat 0} - \frac{\Gamma_{+ \hat 1}}{2} \ \delta_{m, m + \hat 1} - \frac{\Gamma_{- \hat 1}}{2} \ \delta_{m, m - \hat 1} \right) \, \delta_{f f'}
+\end{align*}
+where 
+\begin{equation*}
+    \Gamma_{+\hat 0} =  r - \gamma_0  \qquad \Gamma_{-\hat 0} = r + \gamma_0 \qquad \Gamma_{+\hat 1} = r - \gamma_1 \qquad \Gamma_{-\hat 1} = r + \gamma_1
+\end{equation*}
+The Dirac basis in two dimensions is $\gamma_0 = \sigma_3$, $\gamma_1 = \sigma_1$ 
+\begin{equation*}
+    \Gamma_{+ \hat 0} = \begin{pmatrix*}[r] r - 1 & 0 \\ 0 & r + 1\end{pmatrix*} \qquad 
+    \Gamma_{- \hat 0} = \begin{pmatrix*}[r] r + 1 & 0 \\ 0 & r - 1\end{pmatrix*} \qquad 
+    \Gamma_{+ \hat 1} = \begin{pmatrix*}[r] r & -1 \\ -1 &  r\end{pmatrix*} \qquad
+    \Gamma_{- \hat 1} = \begin{pmatrix*}[r] r & 1 \\ 1 & r\end{pmatrix*}
+\end{equation*}
+With $r=1$ the Wilson projectors become
+\begin{equation*}
+    \frac{\Gamma_{+ \hat 0}}{2} = \begin{pmatrix*}[r] 0 & 0 \\ 0 & 1\end{pmatrix*} \qquad 
+    \frac{\Gamma_{- \hat 0}}{2} = \begin{pmatrix*}[r] 1 & 0 \\ 0 & 0\end{pmatrix*} \qquad 
+    \frac{\Gamma_{+ \hat 1}}{2} = \frac{1}{2} \begin{pmatrix*}[r] 1 & -1 \\ -1 &  1\end{pmatrix*} \qquad
+    \frac{\Gamma_{- \hat 1}}{2} = \frac{1}{2} \begin{pmatrix*}[r] 1 & 1 \\ 1 & 1\end{pmatrix*}
+\end{equation*}

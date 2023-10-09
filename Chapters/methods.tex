@@ -1,0 +1,410 @@
+\chapter{Methods and algorithms}
+\section{Langevin equation}
+First in general, providing path integral solutions, eq. distribution ecc. Then do the specific case for a scalar theory. Then add fermions and discuss the tracelog contribution, mentioning stochastic trace evaluation. \\
+Scalar theory:
+\begin{equation}
+    \partial_\tau \phi(\tau, x) = - \frac{\delta S[\phi]}{\delta \phi (\tau, x)} + \eta (\tau, x)
+    \label{eq:Langevin_scalar_full}
+\end{equation}
+At equilibrium the probability of a field configuration $\phi$ reads
+\begin{equation}
+    \mathcal{P}(\phi) = \frac{1}{Z} \, \exp\left(-S[\phi])\right)
+    \label{eq:probability_field_configuration_full}
+\end{equation}
+This allow one to compute correlation functions as moments of the distribution \eqref{eq:probability_field_configuration_full}.
+
+
+
+\section{Coloured noise}
+\label{sec:coloured_noise}
+\note{Mention some possible uses of colored noise beside taking continuum limits.} \\
+In the stochastic quantisation procedure the noise which accounts for the quantum fluctuations of the theory is assumed to be white noise. This means that its power spectrum is flat in momentum space, extending in all the first Brillouin zone, namely for $p_\mu \ in [-\pi/a, \pi/a]$. One could modify this spectrum, and in this case one says \emph{colored noise}. In particular one could put a sharp cutoff on the total momentum, imposing $p^2 \leq \Lambda^2$. We refer to this particular case as \emph{regularised noise}. An example for the one-dimensional case is reported in figure \ref{fig:white_noise_colored_noise}.
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.7]{figures/colorednoise.png}
+    \caption{Regularised noise}
+    \label{fig:white_noise_colored_noise}
+\end{figure}
+In such case the Langevin equation for the scalar field \eqref{eq:Langevin_scalar_full} assumes the form
+\begin{equation*}
+    \partial_\tau \phi(\tau, x) = - \frac{\delta S[\phi]}{\delta \phi (\tau, x)} + r_\Lambda (x) \, \eta (\tau, x)
+    \label{eq:Langevin_scalar_regularised}
+\end{equation*}
+where the regularising function $r_\Lambda(x)$ can be easilly expressed in momentum space as $r_\Lambda(p) = \theta(\Lambda^2 - p^2)$. One can show \cite{Pawlowski2017CoolingNoise} that the stochastic process is now driven towards a new equilibrium distribution
+\begin{equation}
+    \mathcal{P}_\Lambda(\phi) = \frac{1}{Z} \, \exp\left(-S_\Lambda[\phi])\right) = \frac{1}{Z} \, \exp\left(-(S[\phi] + \Delta S_\Lambda[\phi])\right)
+    \label{eq:probability_field_configuration_regularised}
+\end{equation}
+where the correction term $S_\Lambda[\phi]$ ensures that the probability measure $\mathcal{P}_\Lambda$ vanishes for squared field's momenta greater than the cutoff $\Lambda^2$. \\
+An explicit example of such regulator for a free scalar field can be ADD EQUATION PAWLOWSKI.
+This is just one example of regularisation and different ones can be chosen. See \cite{Pawlowski2017CoolingNoise} for details. \\
+Note that the formulation presented in this section includes also the NJL-model as a particular case, after integrating out the fermionic fields as described in section \ref{sec:lattice_discretisation}.
+
+
+\section{Lattice QFT with regularised noise}
+After the general introduction on coloured noise given in the previous paragraph, let us now look more closely on the lattice formulation and at the various applications of such techniques.
+From a code perspective, the algorithm to regularise noise with a sharp cutoff is presented in Appendix WHICH ONE?. \\
+Let us consider a squared two-dimensional lattice with size $L \equiv L_x = L_y$ and spacing $a \equiv a_x = a_y$. This implies a maximum momentum $p_\text{max} = \pi / a$ in each space-time direction. We consider a regularised simulation with cutoff $\Lambda'$. Let us also define $\Lambda^2 \equiv (p^x_\text{max})^2 + (p^y_\text{max})^2$. At this point we introduce a parameter, called \emph{cutoff fraction}, defined as $s^2 \equiv \Lambda^2 / \Lambda'^{\,2}$. With this notation, $s=1$ is the full white noise case, while for any regularised noise one has $0 < s < 1$. \\
+We now want to address the following question: given the stationary probability distribution \ref{eq:probability_field_configuration_regularised}, is it possible to compensate the change in physical observables caused by the removal of the quantum modes via regularised noise, by a rescaling of the bare parameters that enter the lattice discretised action? Remembering from sections \ref{sec:lattice_discretisation} and \ref{sec:continuum_limit} that $\Lambda \sim a^{-1}$, this question would also address the problem of continuum limit of effective field theories. In fact the question we want to address is completely equivalent to the following: can one compensate a change in the spacing (controlled by the bare parameters), by a change of the noise in the simulation, in order to keep physical observables constant?\\
+To this end, let us consider a noise regularisation given by $s^2 = \Lambda^2 / \Lambda'^{\,2} < 1$ ($s = a' / a < 1$), which means a higher cutoff (a smaller spacing $a'$). We now introduce an approximate ansatz which is based on the analogy to standard block-spin transformations. Higher order corrections to this simple ansatz are discussed in WHICH SECTION? \\
+A change in the spacing $a \to ra$ will cause the following
+\begin{gather*}
+    \hat m_0^2 = (a m_0)^2 \to (ra m_0)^2 = r^2 (a m_0)^2 = r^2 \hat m_0^2 \\
+    \Lambda \to \Lambda / r
+\end{gather*}
+
+Not that after rescaling, the Dirac operator transforms as $D \to s D$. This means that the full action transforms as $S = S_\phi + \text{Tr} \log D \to S' = S_\phi + s^2 \text{Tr} \log D + s^2 \text{Tr} \log s$.
+The last term is field independent, hence one could simply drop it and the equations of motion would remain the same. Equivalently, the Langevin drift contribution of that term is zero, hence it does not contribute to the dynamics. This means in particular that one does not have to rescale the couplings that enter only in the Dirac operator, such as $m_q$ and $g$.
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{cccccccc}
+        \toprule
+         $s$ & $a$ & $\Lambda$ & $N$ & $m_\phi^2$ & $\lambda$ & $m_{q, 0}$ & $g_0$  \\
+         \midrule 
+         $1$ & $a$ & $\Lambda$ & $8$ & $m_{\phi, 0}^2$ & $\lambda$ & $m_{q, 0}$ & $g_0$ \\
+         $2$ & $a/2$ & $2\Lambda$ & $16$ & $m_{\phi, 0}^2 / 4$ & $\lambda / 4$ & $m_{q, 0}$ & $g_0$ \\
+         $4$ & $a/4$ & $4\Lambda$ & $32$ & $m_{\phi, 0}^2 / 16$ & $\lambda / 16$ & $m_{q, 0}$ & $g_0$ \\
+         $8$ & $a/8$ & $8\Lambda$ & $64$ & $m_{\phi, 0}^2 / 64$ & $\lambda / 64$ & $m_{q, 0}$ & $g_0$ \\
+         \bottomrule
+    \end{tabular}
+    \caption{Rescaling}
+    \label{block_spin_steps}
+\end{table}
+
+\newpage
+
+\begin{figure}[h]
+\centering
+\begin{minipage}{0.45\textwidth}
+    \begin{tikzpicture}
+        \begin{axis} [axis lines=center, xtick=\empty, ytick=\empty, xlabel=$\phi$, ylabel=$V(\phi)$,
+        every axis x label/.style={
+            at={(ticklabel* cs:1.0)},
+            anchor=west,
+        },
+        every axis y label/.style={
+            at={(ticklabel* cs:1.0)},
+            anchor=south,
+        },]
+            \addplot [domain=-3:3, smooth, thick] { 6*x^2 + x^4 - 6*x };
+        \end{axis}
+     
+    \end{tikzpicture}
+    
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textwidth}
+    \begin{tikzpicture}
+        \begin{axis} [axis lines=center, xtick=\empty, ytick=\empty, xlabel=$\phi$, ylabel=$V(\phi)$,
+        every axis x label/.style={
+            at={(ticklabel* cs:1.0)},
+            anchor=west,
+        },
+        every axis y label/.style={
+            at={(ticklabel* cs:1.0)},
+            anchor=south,
+        },]
+            \addplot [domain=-3:3, smooth, thick] { -6*x^2 + x^4 - 2*x };
+        \end{axis}
+     
+    \end{tikzpicture}
+\end{minipage}
+\label{fig:breaking_O1_symmetry}
+\caption{The introduction of the boson-fermion interaction, with a finite fermionic mass, causes the breaking of the O(1) symmetry. It shifts the equilibrium position in the symmetric phase (left) causing $\left\langle \phi \right\rangle = 0$, and tilts the potential in the broken phase (right), making the two minima not equivalent.}
+\end{figure}
+
+
+\section{Langevin dynamics for NJL}
+\textcolor{red}{This has to be rewritten for Wilson fermions, in a discretised way}
+The effective action after solving the fermionic path integral reads
+\begin{equation*}
+    S[\phi] = S_\phi - \trlog{D(\phi)} = \int_x \left[ \phi_x \, \left(-\frac{\partial ^2}{2} + \frac{m_\phi^2}{2}\right) \, \phi_x \right]+ \frac{\lambda}{4!} \, \phi_x^4 - \trlog{D(\phi_x)}
+\end{equation*}
+with $D(\phi) = \slashed{\partial} + m_q + g\phi$. \\
+Hence the drift is 
+\begin{equation*}
+    \frac{\delta S}{\delta \phi(x)} = \frac{\delta S_\phi}{\delta \phi(x)} - \tr \left[D^{-1} \frac{\partial D}{\partial \phi(x)}\right] = \frac{\delta S_\phi}{\delta \phi(x)} - g \, \tr \left[D^{-1}\right]
+\end{equation*}
+To evaluate the trace we use the bilinear noise scheme \textcolor{red}{add reference} 
+\begin{equation}
+    \tr {A} = \lim_{N \to \infty} \sum_i^N \eta_i^T D_{ij} \eta_j
+    \label{eq:bilinear_noise_scheme}
+\end{equation}
+where $\eta_i$ is a gaussian random field where each component is drawn from a normal distribution $\mathcal{N}(0,1)$. \\
+More precisely each vector component $\eta_i^\alpha$ satisfies
+\begin{equation*}
+    \left\langle \eta_i^{\alpha} \right\rangle = 0 \qquad\qquad \left\langle \eta_i^{\alpha}\eta_j^{\beta} \right\rangle = \delta_{i,j} \, \delta^{\alpha \beta}
+\end{equation*}
+The series \eqref{eq:bilinear_noise_scheme} requires in principle an infinite number of vectors to evaluate the trace exactly. In practice we truncate it and choose $N=1$ \note{:D :D}. The average over Monte Carlo samples will eventually converge nevertheless to the right result. \\~\\
+The full quantum dynamics is described by \eqref{eq:Langevin_scalar_full}. One can find an analytical solution, in some limiting cases. For example let us consider a classical simulation with $\lambda = 0, D = m_q + g\phi$. Equilibrium will be reached when $\frac{\delta S}{\delta \phi(x)} = 0$ which means, assuming zero momentum,
+\begin{equation*}
+    m_\phi^2 \, \phi(x) = g \tr \left[D^{-1}(\phi(x))\right]
+\end{equation*}
+Since the fermionic kinetic term has been removed from the action by assumption and no fluctuations, except from numerical issues, are present in the simulation, the Dirac operator is diagonal and can be inverted explicitly
+\begin{equation}
+    D^{-1}(\phi(x)) = \frac{1}{m_q + g \, \phi(x)}
+    \label{eq:classical_eq_motion_approx}
+\end{equation}
+yielding $\tr D^{-1} =  4 \left(m_q + g \, \phi\right)^{-1}$. \\
+Inserting this result into \eqref{eq:classical_eq_motion_approx} and solving for $\phi(x)$ one finds the two field configurations that minimise the action, in accordance to what pictured in figure \ref{fig:breaking_O1_symmetry}
+
+\begin{equation*}
+    \phi^*_{1,2} = \frac{m_q}{2 \, g} \left(-1 \pm \sqrt{1 + 16 \, g^2 / m_q^2 m_\phi^2}\right)
+\end{equation*}
+
+\newpage 
+
+\section{Linear solvers in Lattice QFT ?}
+The full inversion of the Dirac operator is a very expensive computation, given that the Dirac operator has dimension $(2 \, N_t \, N_x \, N_f)^2$, even though it is very sparse and has only few non-zero entries. One can note that for the purpose of computing the fermionic contribution to the drift force and the extraction of the physical quark mass from the correlator (details in section x and section y), only the inverse operator applied to a vector is needed. Hence it is sufficient to compute 
+\begin{equation}
+    \psi = D^{-1} \left| \eta \right\rangle
+    \label{Dirac_inversion_linear_system}
+\end{equation}
+Computing $\psi$ via equation \eqref{Dirac_inversion_linear_system} is equivalent to solve the linear system $D \psi = \eta$, which can be done efficiently by employing a method for sparse matrices such as Conjugate Gradient (CG) as explained in the following way.
+
+\subsection{inversion via CG}
+We want to solve the equation
+\begin{equation*} 
+    D \, \psi = \eta
+\end{equation*}
+CG requires the matrix to be hermitian while D is only $\gamma^5$-hermitian (really? under which assumptions?). One can thus solve the linear system
+\begin{equation*}
+    \left(D D^{\dagger} \right) \xi = \eta
+\end{equation*}
+and then obtain $\psi$ by multiplying the solution $\xi$ by $D^{\dagger}$ since 
+\begin{equation}
+    D^{\dagger} \xi = D^{\dagger} \ \left(D D^{\dagger}\right)^{-1} \eta = D^{-1} \eta = \psi
+\end{equation}
+Analogously one can calculate
+\begin{equation*}
+    \chi = D^{\dagger} \eta
+\end{equation*}
+by solving
+\begin{equation*}
+    \left(D^{\dagger} D\right) \xi = \eta
+\end{equation*}
+and then applying $D$ to the result.
+
+\subsection{Pre conditioning}
+One can improve the solution via CG by solving a \emph{preconditioned} equation. Suppose that we want to solve the equation
+\begin{equation*}
+    M x = b
+\end{equation*}
+via CG. \\
+Let us express the matrix $A$ as a block matrix
+\begin{equation}
+    M = \begin{pmatrix*}
+        A & B \\ C & D
+    \end{pmatrix*}
+    \label{eq:block_matrix}
+\end{equation}
+We introduce the Schur complement of $M$
+\begin{equation}
+    M/D = A - B D^{-1} C
+    \label{eq:schur_complement}
+\end{equation}
+This allows one to write $M$ (LDU decomposition, Gaussian elimination) as 
+
+\begin{equation*}
+M=\left[\begin{array}{ll}
+A & B \\
+C & D
+\end{array}\right]=\left[\begin{array}{cc}
+\mathbf{1}_p & -B D^{-1} \\
+0 & \mathbf{1}_q
+\end{array}\right]\left[\begin{array}{cc}
+M / D & 0 \\
+0 & D
+\end{array}\right]\left[\begin{array}{cc}
+\mathbf{1}_p & 0 \\
+D^{-1} C & \mathbf{1}_q
+\end{array}\right] = L A R
+\end{equation*}
+
+Which allows for an easy block inversion
+
+\begin{equation*}
+M^{-1} = \left[\begin{array}{cc}
+I_p & 0 \\
+-D^{-1} C & I_q
+\end{array}\right]\left[\begin{array}{cc}
+\left(A-B D^{-1} C\right)^{-1} & 0 \\
+0 & D^{-1}
+\end{array}\right]\left[\begin{array}{cc}
+I_p & -B D^{-1} \\
+0 & I_q
+\end{array}\right]
+= L^{-1} A^{-1} R^{-1}
+\end{equation*}
+The equation to solve now reads
+\begin{equation*}
+x = L^{-1} A^{-1} R^{-1} \ b \qquad \text{or} \qquad  y = A^{-1} c
+\end{equation*}
+with $y = L x$ and $c = R^{-1} b$. One can then solve the equation $y = A^{-1}c$ and get the solution $x$ by applying $L^{-1}$ to x. \\~\\
+An example of preconditioning is the even-odd preconditioning. Let us write the dirac operator in the form of equation \eqref{eq:block_matrix} in the following way
+\begin{equation*}
+     M = \begin{pmatrix*}
+        M_{ee} & M_{eo} \\ M_{oe} & M_{oo}
+    \end{pmatrix*}
+\end{equation*}
+The Schur complement \eqref{eq:schur_complement} is 
+\begin{equation*}
+    \hat M \equiv M/M_{oo} = 
+\end{equation*}
+
+\section{Relevant quantities}
+Two-points function
+\begin{align*}
+    \left\langle \psi(x) \, \bar\psi(y) \right\rangle 
+    &= \frac{1}{Z} \, \int \mathcal{D}\phi \, \mathcal{D}\psi \, \mathcal{D}\bar\psi \ \psi(x) \, \bar\psi(y) \, \exp \left( - S_\phi - \psi D \psi + \bar\eta \psi + \bar \psi \eta \right) \\
+    &= \frac{1}{Z} \, \int \mathcal{D}\phi \, \mathcal{D}\psi \, \mathcal{D}\bar\psi \ \frac{\delta}{\delta \bar \eta(x)} \frac{\delta}{\delta \eta(y)} \, \exp \left( - S_\phi - \psi D \psi + \bar\eta \psi + \bar \psi \eta \right) \\
+    &= \frac{1}{Z} \, \int \mathcal{D}\phi \ \text{det}\left[D(\phi)\right] \ \exp \left( - S_\phi \right) \ \frac{\delta}{\delta \bar \eta(x)} \frac{\delta}{\delta \eta(y)} \, \exp\left( \bar\eta D^{-1} \eta \right) \\
+    &= \left\langle \left[D^{-1}(\phi)\right](x,y)\right\rangle
+\end{align*}
+
+On the lattice it still holds that 
+\begin{equation*}
+     \left\langle \psi_m \, \bar\psi_n \right\rangle =     \left\langle \left[D^{-1}(\phi)\right]_{mn}\right\rangle
+\end{equation*}
+with $D$ beeing the Wilson Dirac operator REFERENCE
+
+Now consider a source at the origin at time $t=0$, namely a state $\psi(t,x) = c \, \delta_{t,0} \, \delta_{x,0}$. After letting it propagate for a time $t$, me might ask how is a point on the lattice, on average, correlated to the initial source. This is quantified by the \emph{correlator}, which, on the lattice, it is defined as
+\begin{align*}
+    C(n_t,0) \equiv \frac{1}{N_x} \sum_{n_x} \left[\left\langle \psi(n_t, n_x) \, \bar\psi(0,0)\right\rangle + \left\langle \psi(N_t-n_t, n_x) \, \bar\psi(0,0) \right] \right\rangle
+\end{align*}
+Note that we sum up two waves because the source propagates both forward and backward in time due to the boundary conditions. \\
+Since for $t \to \infty$ one has that $C(t,p) \propto e^{-E_0(p) t}$, we expect 
+\begin{equation*}
+    C(t,p) \approx \sinh \left(E_0 \left(\frac{N_t}{2} - t\right)\right)
+\end{equation*}
+
+Pole mass, renormalized mass, effective mass, bare mass, physical mass
+
+
+In momentum space
+\begin{equation*}
+    \tilde D(p,q) = m + g \, \sigma + i \, g \, \gamma^5 \, \tau^j \pi^j + \sum_{\mu} \sin^2\left(\frac{p_\mu}{2}\right) + \sum_\mu \gamma_\mu \sin\left(p_\mu\right)
+\end{equation*}
+Or making explicit the flavour and spinor components
+\begin{gather*}
+     \tilde D(p,q) = M \, \mathds{1}_f \otimes \mathds{1}_s  + i \, g \, \pi^j \, \tau^j \otimes \gamma^5   + \left(\sum_\mu \sin\left(p_\mu\right) \mathds{1}_f \otimes \gamma_\mu\right)
+\end{gather*}
+where 
+\begin{equation*}
+   M = m + g \, \sigma + \sum_{\mu} \sin^2\left(\frac{p_\mu}{2}\right)
+\end{equation*}
+
+
+
+
+
+
+
+
+
+Effective action
+\begin{equation*}
+    S_{\text{eff}} = S_\phi + \text{Tr} \log D(\phi)
+\end{equation*}
+Drift force
+\begin{equation*}
+    K_{\phi^j} = - \frac{\delta S}{\delta \phi^j} = - \frac{\delta S_\phi}{\delta \phi^j} - \text{Tr} \left[ D^{-1} \, \frac{\delta D}{\delta \phi^j} \right]
+\end{equation*}
+
+\begin{align*}
+    \frac{\delta D}{\delta \phi^j} = 
+    \begin{cases}
+        g \qquad &\text{if } j = 0 \\
+        i \, g \, \gamma^5 \, \tau^j \qquad &\text{if } j = 1,2,3
+    \end{cases}
+\end{align*}
+
+Bilinear noise scheme
+
+\begin{equation*}
+    \text{Tr} \left[ D^{-1} \, \frac{\delta D}{\delta \phi^j} \right] \approx \left\langle \eta \right|  D^{-1} \, \frac{\delta D}{\delta \phi^j} \left| \eta \right\rangle = 
+    \left\langle \psi \right| \frac{\delta D}{\delta \phi^j} \left| \eta \right\rangle
+    \qquad\qquad \left| \psi \right\rangle = D^{-1} \left| \eta \right\rangle = D^\dagger \, \underbrace{(D D^\dagger)^{-1} \left| \eta \right\rangle}_{\text{CG}}
+\end{equation*}
+
+\begin{align*}
+    \tau^1 \otimes \gamma^5 &= 
+    \begin{pmatrix*}
+        0 & 1 \\
+        1 & 0
+    \end{pmatrix*}
+    \otimes
+    \begin{pmatrix*}
+        0 & i \\
+        -i & 0
+    \end{pmatrix*}
+    & = &
+    \begin{pmatrix*}
+        0 & 0 & 0 & i \\
+        0 & 0 & -i & 0 \\
+        0 & i & 0 & 0 \\
+        -i & 0 & 0 & 0
+    \end{pmatrix*}
+    \\~\\
+     \tau^2 \otimes \gamma^5 &= 
+    \begin{pmatrix*}
+        0 & -i \\
+        i & 0
+    \end{pmatrix*}
+    \otimes
+    \begin{pmatrix*}
+        0 & i \\
+        -i & 0
+    \end{pmatrix*}
+    & = &
+    \begin{pmatrix*}
+        0 & 0 & 0 & 1 \\
+        0 & 0 & -1 & 0 \\
+        0 & -1 & 0 & 0 \\
+        1 & 0 & 0 & 0
+    \end{pmatrix*}
+    \\~\\
+     \tau^2 \otimes \gamma^5 &= 
+     \begin{pmatrix*}
+        1 & 0 \\
+        0 & -1
+    \end{pmatrix*}
+    \otimes
+    \begin{pmatrix*}
+        0 & i \\
+        -i & 0
+    \end{pmatrix*}
+    & = &
+    \begin{pmatrix*}
+        0 & i & 0 & 0 \\
+        -i & 0 & 0 & 0 \\
+        0 & 0 & 0 & -i \\
+        0 & 0 & i & 0
+    \end{pmatrix*}
+\end{align*}
+
+
+
+
+
+
+
+Quark-meson model action in the continuum
+\begin{align*}
+    S[\sigma, \pi^j, \psi, \bar\psi] & = \int_x \sum_{j=1}^3 \{ \frac{1}{2} \ \left(\partial_\mu \sigma\right)^2 + \frac{1}{2} \left(\partial_\mu \pi^j \right)^2 + \frac{m^2}{2} \left(\sigma^2 + (\pi^j)^2\right) + \frac{\lambda}{4!} \left(\sigma^2 + (\pi^j)^2\right)^2 \\ 
+    & + \bar \psi \left( \slashed{\partial} + m_q \right) \psi + \bar \psi \left(g \, \sigma + i \, g \,\gamma^5 \pi^j \tau^j\right) \psi \}
+\end{align*}
+
+
+
+
+\subsection{Test with background mesons}
+The Dirac operator for Wilson fermions in the yukawa model is
+\begin{equation*}
+D_{n m}=\sum_\alpha\left[\frac{\gamma_\alpha \delta_{n+\alpha, m} - \gamma_\alpha \delta_{n-\alpha, m}}{2} + (m_q + g \phi) \, \delta_{n m}\right] .
+\end{equation*}
+In momentum space it reads
+\begin{equation*}
+\bar{D}_{f f^{\prime}}(p)=\delta_{f f^{\prime}}\left(m+ g \sigma \sum_\mu 2 \sin ^2\left(\frac{p_\mu}{2}\right)+i \sum_\mu \gamma_\mu \sin \left(p_\mu\right)\right)
+\end{equation*}

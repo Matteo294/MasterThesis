@@ -115,28 +115,27 @@ The last term is field independent, hence one could simply drop it and the equat
 \end{figure}
 
 
-\section{Langevin dynamics for NJL}
+\section{Dynamics}
 \textcolor{red}{This has to be rewritten for Wilson fermions, in a discretised way}
 The effective action after solving the fermionic path integral reads
 \begin{equation*}
-    S[\phi] = S_\phi - \trlog{D(\phi)} = \int_x \left[ \phi_x \, \left(-\frac{\partial ^2}{2} + \frac{m_\phi^2}{2}\right) \, \phi_x \right]+ \frac{\lambda}{4!} \, \phi_x^4 - \trlog{D(\phi_x)}
+    S[\phi] = S_\phi - \underset{x,s,f}{\tr}log{D(\phi)} = \int_x \left[ \phi_x \, \left(-\frac{\partial_x^2}{2} + \frac{m_\phi^2}{2}\right) \, \phi_x + \frac{\lambda}{4!} \, \phi_x^4 \right] - \underset{x,s,f}\tr\log{D(\phi_x)}
 \end{equation*}
 with $D(\phi) = \slashed{\partial} + m_q + g\phi$. \\
-Hence the drift is 
+One can derive the classical equations of motions by imposing $\frac{\delta S}{\delta \phi} = 0$. \\ For $\lambda = 0$ they assume a simple form
+\begin{equation*}
+    \phi(x) = \frac{g}{m_\phi^2 + k^2} \ \underset{s,f}{\tr} \left[D^{-1}(\phi(x)\right]
+\end{equation*}
+In the discretised theory
+\begin{equation*}
+    S[\phi] = \dots
+\end{equation*}
+one can calculate the drift for the Langevin evolution as
 \begin{equation*}
     \frac{\delta S}{\delta \phi(x)} = \frac{\delta S_\phi}{\delta \phi(x)} - \tr \left[D^{-1} \frac{\partial D}{\partial \phi(x)}\right] = \frac{\delta S_\phi}{\delta \phi(x)} - g \, \tr \left[D^{-1}\right]
 \end{equation*}
-To evaluate the trace we use the bilinear noise scheme \textcolor{red}{add reference} 
-\begin{equation}
-    \tr {A} = \lim_{N \to \infty} \sum_i^N \eta_i^T D_{ij} \eta_j
-    \label{eq:bilinear_noise_scheme}
-\end{equation}
-where $\eta_i$ is a gaussian random field where each component is drawn from a normal distribution $\mathcal{N}(0,1)$. \\
-More precisely each vector component $\eta_i^\alpha$ satisfies
-\begin{equation*}
-    \left\langle \eta_i^{\alpha} \right\rangle = 0 \qquad\qquad \left\langle \eta_i^{\alpha}\eta_j^{\beta} \right\rangle = \delta_{i,j} \, \delta^{\alpha \beta}
-\end{equation*}
-The series \eqref{eq:bilinear_noise_scheme} requires in principle an infinite number of vectors to evaluate the trace exactly. In practice we truncate it and choose $N=1$ \note{:D :D}. The average over Monte Carlo samples will eventually converge nevertheless to the right result. \\~\\
+where $D$ is the Wilson-Dirac operator given by equation \eqref{eq:wilson-dirac_operator}. \\
+To evaluate the trace we use the bilinear noise scheme \textcolor{red}{add reference} which is illustrated in Appendix \ref{AppendixC}.
 The full quantum dynamics is described by \eqref{eq:Langevin_scalar_full}. One can find an analytical solution, in some limiting cases. For example let us consider a classical simulation with $\lambda = 0, D = m_q + g\phi$. Equilibrium will be reached when $\frac{\delta S}{\delta \phi(x)} = 0$ which means, assuming zero momentum,
 \begin{equation*}
     m_\phi^2 \, \phi(x) = g \tr \left[D^{-1}(\phi(x))\right]
@@ -155,103 +154,7 @@ Inserting this result into \eqref{eq:classical_eq_motion_approx} and solving for
 
 \newpage 
 
-\section{Linear solvers in Lattice QFT ?}
-The full inversion of the Dirac operator is a very expensive computation, given that the Dirac operator has dimension $(2 \, N_t \, N_x \, N_f)^2$, even though it is very sparse and has only few non-zero entries. One can note that for the purpose of computing the fermionic contribution to the drift force and the extraction of the physical quark mass from the correlator (details in section x and section y), only the inverse operator applied to a vector is needed. Hence it is sufficient to compute 
-\begin{equation}
-    \psi = D^{-1} \left| \eta \right\rangle
-    \label{Dirac_inversion_linear_system}
-\end{equation}
-Computing $\psi$ via equation \eqref{Dirac_inversion_linear_system} is equivalent to solve the linear system $D \psi = \eta$, which can be done efficiently by employing a method for sparse matrices such as Conjugate Gradient (CG) as explained in the following way.
 
-\subsection{inversion via CG}
-We want to solve the equation
-\begin{equation*} 
-    D \, \psi = \eta
-\end{equation*}
-CG requires the matrix to be hermitian while D is only $\gamma^5$-hermitian (really? under which assumptions?). One can thus solve the linear system
-\begin{equation*}
-    \left(D D^{\dagger} \right) \xi = \eta
-\end{equation*}
-and then obtain $\psi$ by multiplying the solution $\xi$ by $D^{\dagger}$ since 
-\begin{equation}
-    D^{\dagger} \xi = D^{\dagger} \ \left(D D^{\dagger}\right)^{-1} \eta = D^{-1} \eta = \psi
-\end{equation}
-Analogously one can calculate
-\begin{equation*}
-    \chi = D^{\dagger} \eta
-\end{equation*}
-by solving
-\begin{equation*}
-    \left(D^{\dagger} D\right) \xi = \eta
-\end{equation*}
-and then applying $D$ to the result.
-
-\subsection{Pre conditioning}
-One can improve the solution via CG by solving a \emph{preconditioned} equation. Suppose that we want to solve the equation
-\begin{equation*}
-    M x = b
-\end{equation*}
-via CG. \\
-Let us express the matrix $A$ as a block matrix
-\begin{equation}
-    M = \begin{pmatrix*}
-        A & B \\ C & D
-    \end{pmatrix*}
-    \label{eq:block_matrix}
-\end{equation}
-We introduce the Schur complement of $M$
-\begin{equation}
-    M/D = A - B D^{-1} C
-    \label{eq:schur_complement}
-\end{equation}
-This allows one to write $M$ (LDU decomposition, Gaussian elimination) as 
-
-\begin{equation*}
-M=\left[\begin{array}{ll}
-A & B \\
-C & D
-\end{array}\right]=\left[\begin{array}{cc}
-\mathbf{1}_p & -B D^{-1} \\
-0 & \mathbf{1}_q
-\end{array}\right]\left[\begin{array}{cc}
-M / D & 0 \\
-0 & D
-\end{array}\right]\left[\begin{array}{cc}
-\mathbf{1}_p & 0 \\
-D^{-1} C & \mathbf{1}_q
-\end{array}\right] = L A R
-\end{equation*}
-
-Which allows for an easy block inversion
-
-\begin{equation*}
-M^{-1} = \left[\begin{array}{cc}
-I_p & 0 \\
--D^{-1} C & I_q
-\end{array}\right]\left[\begin{array}{cc}
-\left(A-B D^{-1} C\right)^{-1} & 0 \\
-0 & D^{-1}
-\end{array}\right]\left[\begin{array}{cc}
-I_p & -B D^{-1} \\
-0 & I_q
-\end{array}\right]
-= L^{-1} A^{-1} R^{-1}
-\end{equation*}
-The equation to solve now reads
-\begin{equation*}
-x = L^{-1} A^{-1} R^{-1} \ b \qquad \text{or} \qquad  y = A^{-1} c
-\end{equation*}
-with $y = L x$ and $c = R^{-1} b$. One can then solve the equation $y = A^{-1}c$ and get the solution $x$ by applying $L^{-1}$ to x. \\~\\
-An example of preconditioning is the even-odd preconditioning. Let us write the dirac operator in the form of equation \eqref{eq:block_matrix} in the following way
-\begin{equation*}
-     M = \begin{pmatrix*}
-        M_{ee} & M_{eo} \\ M_{oe} & M_{oo}
-    \end{pmatrix*}
-\end{equation*}
-The Schur complement \eqref{eq:schur_complement} is 
-\begin{equation*}
-    \hat M \equiv M/M_{oo} = 
-\end{equation*}
 
 \section{Relevant quantities}
 Two-points function
@@ -399,12 +302,4 @@ Quark-meson model action in the continuum
 
 
 
-\subsection{Test with background mesons}
-The Dirac operator for Wilson fermions in the yukawa model is
-\begin{equation*}
-D_{n m}=\sum_\alpha\left[\frac{\gamma_\alpha \delta_{n+\alpha, m} - \gamma_\alpha \delta_{n-\alpha, m}}{2} + (m_q + g \phi) \, \delta_{n m}\right] .
-\end{equation*}
-In momentum space it reads
-\begin{equation*}
-\bar{D}_{f f^{\prime}}(p)=\delta_{f f^{\prime}}\left(m+ g \sigma \sum_\mu 2 \sin ^2\left(\frac{p_\mu}{2}\right)+i \sum_\mu \gamma_\mu \sin \left(p_\mu\right)\right)
-\end{equation*}
+

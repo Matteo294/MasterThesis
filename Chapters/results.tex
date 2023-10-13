@@ -2,23 +2,26 @@
 
 \section{Inversion of the Dirac operator - background mesons}
 
+The Dirac operator for Wilson fermions in the yukawa model is
+\begin{equation*}
+D_{n m}=\sum_\alpha\left[\frac{\gamma_\alpha \delta_{n+\alpha, m} - \gamma_\alpha \delta_{n-\alpha, m}}{2} + (m_q + g \phi) \, \delta_{n m}\right] .
+\end{equation*}
+In momentum space it reads
+\begin{equation*}
+\bar{D}_{f f^{\prime}}(p)=\delta_{f f^{\prime}}\left(m+ g \sigma \sum_\mu 2 \sin ^2\left(\frac{p_\mu}{2}\right)+i \sum_\mu \gamma_\mu \sin \left(p_\mu\right)\right)
+\end{equation*}
+
 \section{Classical to quantum interpolation}
 
-Let us start by analising the coloured noise field in the simulation and relevant properties that emerge from it. For simplicity we hereby restrict to the NJL model analysis. \\
-In figure \ref{fig:thermalisation_different_noise_fracs} the system is initialised in the same state for all the configurations, and then evolved with the Langevin equation with various noise fractions. The red line corresponds to the case $s=0$, namely a classical simulation. The blue line corresponds to the case $s=1$, namely the fully quantum case. As one can notice, the introduction of noise shifts the equilibrium expectation value of the field monotonically with the cutoff fraction: this is due to the fact that WHAT???. Note that a lower noise fraction is correlated to a faster convergence towards equilibrium.
+Let us start by analising the coloured noise field in the simulation and relevant properties that emerge from it. We consider the Yukawa model described by the continuum action \ref{eq:yukaw_continuum}.
+In figure \ref{fig:thermalisation_different_noise_fracs} the system is initialised in the same state for all the configurations, and then evolved with the Langevin equation with various noise fractions. The red line corresponds to the case $s=0$, namely a classical simulation. The blue line corresponds to the case $s=1$, namely the fully quantum case. As one can notice, the introduction of noise shifts the equilibrium expectation value of the field monotonically with the cutoff fraction: this is due to the fact that WHAT???. Note that a lower noise fraction is correlated to a faster convergence towards equilibrium. Moreover, low-distance fluctuations are suppressed due to the removal of the ultraviolet modes in the noise term.
 \begin{figure}
     \centering
     \includegraphics[scale=0.7]{figures/thermalisation.pdf}
     \caption{Thermalisation for different noise fractions}
     \label{fig:thermalisation_different_noise_fracs}
 \end{figure}
-Look at various things such as magnetization, mass, etc.
-As a consistency test, one could verify the classical equation of motion 
-\begin{equation}
-    K \sigma + \frac{\lambda}{3!} \sigma^3 = - g  \, \bar\psi \psi
-    \label{eq:eq_motion_NJL}
-\end{equation} 
-which is proven to hold not only classically but also on the mean-field quantum level (ADD REFERENCE TO THE PAPER CITED IN JP's THESIS). \\
+
 For $\lambda = 0$ one has
 \begin{equation}
     \sigma = -\frac{g}{m_\phi^2 + k^2} \, \bar\psi \psi
@@ -66,7 +69,7 @@ Each figure reports two plots corresponding to two different parameter configura
 
 
 
-\section{Block spin steps}
+\section{Cooling with coloured noise}
 In this section we report and discuss results of the NJL model and Quark-Meson model using the technique of coloured noise to perform block-spin steps as outlined in the paragraph \ref{sec:coloured_noise}. We first set up the white noise simulation with $s=1$ on a lattice of size $8 \times 8$, with spacing $a$ and cutoff $\Lambda$. We then start performing complete block-spin steps as summarised in table \ref{tab:block_spin_steps}. \\
 As in the previous section, we first focus on the NJL model, and subsequently introduce the full Quark-Meson model.
 

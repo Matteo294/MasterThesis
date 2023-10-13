@@ -41,15 +41,7 @@ headsepline, % Uncomment to get a line under the header
 \usepackage[utf8]{inputenc} % Required for inputting international characters
 \usepackage[T1]{fontenc} % Output font encoding for international characters
 
-\usepackage{mathpazo} % Use the Palatino font by default
 \usepackage{packages}
-
-\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
-
-\addbibresource{example.bib} % The filename of the bibliography
-
-\usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
-\usepackage{pdfpages}
 
 %----------------------------------------------------------------------------------------
 %	MARGIN SETTINGS
@@ -211,8 +203,11 @@ $\omega$ & angular frequency & \si{\radian} \\
 % Uncomment the lines as you write the Appendices
 
 \include{Appendices/AppendixA}
-%\include{Appendices/AppendixB}
-%\include{Appendices/AppendixC}
+
+\include{Appendices/AppendixB}
+
+\include{Appendices/AppendixC}
+
 
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY

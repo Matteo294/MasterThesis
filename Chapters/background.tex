@@ -64,12 +64,13 @@ For what concerns the fermionic action, a naive discretisation is not sufficient
     S_\psi[\phi, \psi, \bar\psi] = \sum_{m,n} \bar\psi_m \, D_{m,n} \psi_n + g \, \sum_n \bar\psi_n \phi_n \psi_n
 \end{equation*}
 with $\psi_n$ beeing a four-component spinor (2 flavour components and 2 Dirac components), and $D_{m,n}$ beeing the Wilson-Dirac operator \note{is $g\phi$ included in the definition of $D$?)} defined as 
-\begin{equation*}
+\begin{equation}
     \begin{aligned}
     D_{m, n} = &- \left(\frac{\Gamma_{+0}}{2} \, \delta_{m, m+0} +\frac{\Gamma_{-0}}{2} \, \delta_{m, m-0} + \frac{\Gamma_{+1}}{2} \, \delta_{m, m+1} + \frac{\Gamma_{-1}}{2} \, \delta_{m, m-1}\right) \, \delta _{f, f'} \\
      &+ \left(2 + m + g\phi\right) \ \delta_{s,s'} \delta_{m,n} \\
     \end{aligned}
-\end{equation*}
+    \label{eq:wilson-dirac_operator}
+\end{equation}
 The Wilson projectors $\Gamma_{\pm \mu}$ are defined as
 \begin{equation*}
     \Gamma_{\pm \mu} = 1 \mp \gamma_\mu 

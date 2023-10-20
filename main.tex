@@ -38,10 +38,18 @@ headsepline, % Uncomment to get a line under the header
 %consistentlayout, % Uncomment to change the layout of the declaration, abstract and acknowledgements pages to match the default layout
 ]{MastersDoctoralThesis} % The class file specifying the document structure
 
+\usepackage{packages}
 \usepackage[utf8]{inputenc} % Required for inputting international characters
 \usepackage[T1]{fontenc} % Output font encoding for international characters
 
-\usepackage{packages}
+\usepackage{mathpazo} % Use the Palatino font by default
+
+\usepackage[]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
+
+\bibliography{resources.bib, references.bib} % The filename of the bibliography
+
+\usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
+
 
 %----------------------------------------------------------------------------------------
 %	MARGIN SETTINGS
@@ -89,7 +97,7 @@ headsepline, % Uncomment to get a line under the header
 \DeclareMathOperator{\tr}{\text{Tr}}
 \newcommand{\trlog}[1]{\text{Tr} \log\left(#1\right)}
 \newcommand{\note}[1]{\textcolor{red}{#1}}
-
+\newcommand{\expect}[1]{\left\langle #1 \right\rangle}
 
 
 \begin{document}
@@ -212,7 +220,6 @@ $\omega$ & angular frequency & \si{\radian} \\
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
-
 \printbibliography[heading=bibintoc]
 
 %----------------------------------------------------------------------------------------

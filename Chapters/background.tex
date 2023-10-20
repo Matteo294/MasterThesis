@@ -1,19 +1,124 @@
 \chapter{Theoretical background}
+\label{chap:theoretical_background}
+
+\section{Lattice formulation of Euclidean Quantum Field Theory}
+\label{sec:lattice_formulation}
+In the euclidean formulation of quantum field theory, one typically defines the path integral as 
+\begin{equation}
+    Z = \int \mathcal{D}\phi\mathcal{D}\psi\mathcal{D}\psi \ e^{-S[\phi, \psi, \bar\psi]}
+    \label{eq:path_integral_generic}
+\end{equation}
+and aims to compute correlation functions as
+\begin{equation*}
+        \left\langle \xi_{x_1} \dots \xi_{x_n}  \right\rangle = \frac{1}{Z} \int \mathcal{D}\phi\mathcal{D}\psi\mathcal{D}\psi \ \xi_{x_1} \dots \xi_{x_n} \ e^{-S[\phi, \psi, \bar\psi]} \qquad \xi_{x_i} \in \{\phi_{x_i}, \psi_{x_i}, \bar\psi_{x_i}\} \\
+\end{equation*}
 
 \section{Yukawa theory}
-\label{subsec:Yukawa_theory}
+\label{sec:Yukawa_theory}
 Let us consider the Yukawa theory defined by the action
 \begin{equation}
 \begin{aligned}
-    S[\phi,\psi,\bar\psi] &= S_\phi[\phi] + S_\psi[\phi, \psi, \bar\psi] \\
+    S[\phi,\psi,\bar\psi] &= S_\phi[\phi] + S_\psi[\psi, \bar\psi] + S_\text{int}[\phi, \psi, \bar\psi]\\
      S_\phi[\phi] &= \int_x \phi_x \left(-\frac{\partial^2_x}{2} + \frac{m_\phi^2}{2}\right) \phi_x + \frac{\lambda}{4!} \, \phi_x^4 \\
-     S_\psi[\phi, \psi, \bar\psi] &= \int_x \bar \psi_x \left(\slashed{\partial}_x + m_q + g \, \phi_x \right) \psi_x
-    \label{eq:yukaw_continuum}
+     S_\psi[\phi, \psi, \bar\psi] &= \int_x \bar \psi_x \left(\slashed{\partial}_x + m_q \right) \psi_x \\
+     S_\text{int}[\phi, \psi, \bar\psi] &= g \, \int_x \bar \psi_x \, \phi_x \, \psi_x
+    \label{eq:yukawa_continuum}
 \end{aligned}
 \end{equation}
-\section{QM model}
-Slightly more technical: what is QM model and why it is useful for QCD
-\section{Lattice discretisation}
+One can see that the action is made of a scalar part $S_\phi[\phi]$, a fermionic part $S_\psi[\psi, \bar\psi]$ and a Yukawa interaction term $S_\text{int}[\phi, \psi, \bar\psi]$. \\
+It is also convenient for later purposes to define the operators $K, D$ as 
+\begin{equation}
+    \begin{aligned}
+        K &=  -\frac{\partial^2_x}{2} + \frac{m_\phi^2}{2} \\
+        D &= \slashed{\partial} + m_q + g\phi 
+    \end{aligned}
+    \label{eq:definition_kinetic_terms_continuum}
+\end{equation}
+This allows one to rewrite the action as
+\begin{equation*}
+    S[\phi,\psi,\bar\psi] = \int_x \phi_x K \phi_x + \frac{\lambda}{4!}\phi_x^4 + \bar\psi_x D \psi_x
+\end{equation*}
+For vanishing quark mass the action is fully invariant under the chiral transformation
+\begin{equation}
+    \begin{aligned}
+        \phi &\to -\phi \\
+        \psi &\to e^{i\alpha} \, \psi \\
+        \bar\psi &\to \bar\psi \, e^{-i\alpha} \\
+    \end{aligned}
+    \label{eq:yukawa_continuum_rewritten}
+\end{equation}
+The main feature of the model is chiral symmetry breaking \cite{Nambu1961DynamicalI, Nambu1961DynamicalII}, which can happen explicitly at the level of the classical action for a non-zero quark mass, or spontaneously when the scalar field gains a non-zero expectation value. One can in fact notice already by looking at \eqref{eq:definition_kinetic_terms_continuum}, that $\left\langle\phi\right\rangle \neq 0$ has the same effect on the action as a finite bare quark mass. This observation will be made more quantitative in section (SECCCC) where it will be shown that  
+\begin{equation*}
+    \left\langle \phi \right\rangle \sim \left\langle \bar \psi \psi \right\rangle \sim D^{-1}
+\end{equation*}
+The fermionic part of the path integral \eqref{eq:path_integral_generic} can be performed explicitly
+\begin{equation*}
+    \int \mathcal{D} \bar\psi \mathcal{D} \psi \ \exp\left( - \int_x \bar\psi_x \,  D \, \psi_x \right) = \text{det} \, D[\phi] = e^{\tr \log (D[\phi])}
+\end{equation*}
+where the trace is performed over space-time, flavour and spinor components. \\ 
+The full path integral can now be expressed in terms of the resulting effective action for the scalar fields
+\begin{equation*}
+    Z = \int \mathcal{D}\phi \ e^{-S_\text{eff}[phi]}
+\end{equation*}
+with
+\begin{equation*}
+    S_\text{eff}[\phi] = S_{\phi}[\phi] - \underset{x,s,f}{\tr} \log D[\phi]
+\end{equation*}
+One can derive the classical equations of motion by imposing $\frac{\delta S}{\delta \phi} = 0$, here expressed in momentum space
+\begin{equation*}
+     (k^2 + m_\phi^2) \, \phi(x) + \frac{\lambda}{6} \, \phi^3(x) = g \ \underset{s,f}{\tr} \left[D^{-1}(\phi(x)\right] = - g \ \bar\psi(x) \psi(x)
+\end{equation*}
+where the trace is performed over spin and flavour components. For $\lambda = 0$, they highlight a simple proportionality relation between magnetisation and chiral condensate, which for zero momentum reads
+\begin{equation}
+    \phi(x) = - \frac{g}{m_\phi^2} \ \bar \psi(x) \psi(x)
+    \label{eq:classical_EOM}
+\end{equation}
+The classical relation \eqref{eq:classical_EOM} is proven to hold also at mean field on the quantum level \cite{Buballa2005NJL-modelMatter} and will be studied in the discretised theory in section \ref{sec:classical_to_quantum}. \\~\\
+
+
+\begin{figure}[h]
+\centering
+\begin{minipage}{0.45\textwidth}
+    \begin{tikzpicture}
+        \begin{axis} [axis lines=center, xtick=\empty, ytick=\empty, xlabel=$\phi$, ylabel=$V(\phi)$,
+        every axis x label/.style={
+            at={(ticklabel* cs:1.0)},
+            anchor=west,
+        },
+        every axis y label/.style={
+            at={(ticklabel* cs:1.0)},
+            anchor=south,
+        },]
+            \addplot [domain=-3:3, smooth, thick] { 6*x^2 + x^4 - 6*x };
+        \end{axis}
+     
+    \end{tikzpicture}
+    
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textwidth}
+    \begin{tikzpicture}
+        \begin{axis} [axis lines=center, xtick=\empty, ytick=\empty, xlabel=$\phi$, ylabel=$V(\phi)$,
+        every axis x label/.style={
+            at={(ticklabel* cs:1.0)},
+            anchor=west,
+        },
+        every axis y label/.style={
+            at={(ticklabel* cs:1.0)},
+            anchor=south,
+        },]
+            \addplot [domain=-3:3, smooth, thick] { -6*x^2 + x^4 - 2*x };
+        \end{axis}
+     
+    \end{tikzpicture}
+\end{minipage}
+\label{fig:breaking_O1_symmetry}
+\caption{The introduction of the boson-fermion interaction, with a finite fermionic mass, causes the breaking of the O(1) symmetry. It shifts the equilibrium position in the symmetric phase (left) causing $\left\langle \phi \right\rangle = 0$, and tilts the potential in the broken phase (right), making the two minima not equivalent.}
+\end{figure}
+
+
+
+\section{Discrete formulation}
 \label{sec:lattice_discretisation}
 \textbf{NOTE} We start from discretising the scalar theory O(N). We then introduce Wilson fermions (with details in appendix) and we write down the discretised version of the action for NJL and QM. \\~\\
 In this section we provide a discretised formulation of the Yukawa model introduced in section \ref{subsec:Yukawa_theory}. \\~\\
@@ -85,25 +190,39 @@ One can then proceed by defining dimensionless fields and couplings
     \label{eq:fermionic_theory_dimless_redefinitions}
 \end{equation*}
 to describe the action only in terms of dimensionless quantities. \\
-It is customary to perform the fermionic part of the path integral explicitly
+In the remaining of this work, the dimensionless couplings and fields will be adopted, unless otherwise specified. Additionally, both the original action $S$ and the effective action $S_\text{eff}$ will be denoted by $S$ for simplicity. It will be clear from the context to which of the two we will be referring. \\
+
+
+\section{Block spin RG}
+\label{sec:blockspin}
+Cite Kadanoff article \cite{PhysicsPhysiqueFizika.2.263}. Average spins and rescale stuff to keep correlation length fixed.
+
+\section{Wilson RG}
+\label{sec:wilson_rg}
+Extends block spin RG. \\
+One splits the fields as $\Phi = \phi + \varphi$ where $\phi$ are fields with momenta $p \leq b\Lambda$ and $\varphi$ are fields with momenta $b\Lambda < p < \Lambda$, then one writes the path integral in terms of the Wilsonian effective action
 \begin{equation*}
-    \int \mathcal{D}\hat{\bar\psi} \mathcal{D}\hat\psi \ \exp\left( - \sum_{m,n} \hat{\bar\psi_m} \, \hat D_{mn} \, \hat\psi_n \right) = \text{det} \, \hat D[\hat\phi] = e^{\tr \log (\hat D[\hat\phi])}
+    Z = \int D\Phi_\Lambda \, e^{-S_\Lambda[\Phi]} = \int D\phi_{b\Lambda} \, e^{-S_{b\Lambda}[\phi]} \int D\varphi_{b\Lambda, \Lambda}  \, e^{-S_{b\Lambda, \Lambda}[\phi, \varphi]} = \int D\phi_{b\Lambda} \, e^{-S_{b\Lambda}^\text{eff}[\phi]}
 \end{equation*}
-where the trace is performed over space-time, flavour and spinor components. \\ 
-The full path integral  reads 
+where 
 \begin{equation*}
-    Z = \int \mathcal{D}\hat\phi \ e^{-S_\text{eff}[\hat\phi]}
+    S_{b\Lambda}^\text{eff}[\phi] = S_{b\Lambda}[\phi] - \log\left( \int D\varphi_{b\Lambda, \Lambda}  \, e^{-S_{b\Lambda, \Lambda}[\phi, \varphi]}\right) =  S_{b\Lambda}[\phi] + \Delta S_{b\Lambda, \Lambda}[\phi]
 \end{equation*}
-with the effective action
-\begin{equation*}
-    S_\text{eff}[\hat\phi] = S_{\phi}[\hat\phi] - \underset{x,s,f}{\tr} \log D[\hat\phi]
-\end{equation*}
-In the remainder of this work, the dimensionless couplings and fields will be adopted, unless otherwise specified. Additionally, both the original action $S$ and the effective action $S_\text{eff}$ will be denoted by $S$ for simplicity. It will be clear from the context to which of the two we will be referring.
+Note that all the steps above are exact identities. In particular, performing the integral over ultraviolet modes, is the continuum version of the block spinning procedure outlined in the previous section. \\
+Note also that $S_{b\Lambda}[\phi]$ is the same as the initial action, but it is non-zero only for fields with $p^2 \leq b\Lambda^2$. \\
+At this point one can expand $\Delta S_{b\Lambda, \Lambda}$ in powers of the field \textcolor{red}{(before, another step, see jan pawlowski's notes)}. Powers that are present also in $S_{b\Lambda}$ can be absorbed into the latter by redefining the coupling
+\begin{equation}
+\begin{aligned}
+& \phi^{\prime}\left(x^{\prime}\right)=\left[b^{2-d}(1+\Delta z)\right]^{\frac{1}{2}} \phi(x), \quad m^{\prime 2}=\left(m^2+\Delta m^2\right) \frac{1}{1+\Delta z} \frac{1}{b^2}, \quad \lambda^{\prime}=(\lambda+\Delta \lambda) \frac{1}{(1+\Delta z)^2} b^{d-4}, \\
+& \alpha^{\prime}=(\alpha+\Delta \alpha) \frac{1}{(1+\Delta z)^2} b^d, \quad \lambda_6^{\prime}=\left(\lambda_6+\Delta \lambda_6\right) \frac{1}{(1+\Delta z)^3} b^{2 d-6}, \quad \ldots \\
+&
+\end{aligned}
+\end{equation}
+higher powers are suppressed (non-renormalisable terms) are suppressed. By neglecting these higher order powers, one can bring the action in the same form as the initial one via redefinition of the parameters. The whole procedure is non-perturbative. The result can be compared to the initial action after redefinition of all the dimensionful quantities i.e. via $p'\equiv p/b$. 
+
 \section{Continuum limit}
 \label{sec:continuum_limit}
-We briefly explain how the continuum limit is, in general, taken in LFT and the problem with effective theories, so that we can motivate the use of colored noise for the next section. \\~\\
-We are constrained to the manifold of fixed $m^2_{\phi, 0}, m_{q,0}, g_0, \lambda_0$. We use $m_{q,r}$ to fix the scales for all the other dimensionful quantities. The cutoff is hence $1/{m_{q,r} a}$.
-For perturbatively renormalisable theories, we know that we can fine tune the bare parameters (as a function of the cutoff?) to keep renormalised quantities finite as we take the continuum limit. Introduce renormalisation as a mapping as in page 40 of Montvay Munster.
+Introduce renormalisation as a mapping as in page 40 of Montvay Munster.
 We are interest in the set of theories in theories space that have constant renormalised couplings (trajectories in Kadanoff-Wilson RG) but different dimless masses $m_{q,r} \, a$. Since the latter gives the cutoff, we are moving the cutoff while keeping the other renormalised couplings fixed. How does this happen? We have to compensate the change in the cutoff by a change in the bare couplings as detailed here. IN perturbation theory we can compute renormalised couplings as functions of the bare ones. We can the (HOPEFULLY) invert these relations and determine bare parameters as functions of the renormalised ones. Near the continuum limit we can expect renormalised vertex functions to depend only weakly on the spacing so that we can impose
 \begin{equation*}
     a \frac{d}{da} \Gamma_R^n(p^i, g^i_R, m_{q,r} \, a) = 0
@@ -121,4 +240,4 @@ Integrating these equations leaves us with functions
     g_0^i(a)
 \end{equation*}
 that tell us how to change bare couplings as a back reaction to a change in the spacing in order to keep physics constant. \\
-In this perspective we want renormalised fixed and we change bare ones. In the callan symanzik we keep bare fixed and we see how the renormalised change. How are the two beta functions related? See 1.271 in Montvay and Munster. In this way one gets the relation between the two beta functions. The normal one ca be computed in the continuum with standard renormalisation techniques, the lattice one deduced. They match till second order.
+In this perspective we want renormalised fixed and we change bare ones. 

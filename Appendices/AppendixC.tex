@@ -100,8 +100,13 @@ The Schur complement \eqref{eq:schur_complement} is
 \end{equation*}
 
 \section{Bilinear noise}
+\begin{equation*}
+    \text{Tr} \left[ D^{-1} \, \frac{\delta D}{\delta \phi^j} \right] \approx \left\langle \eta \right|  D^{-1} \, \frac{\delta D}{\delta \phi^j} \left| \eta \right\rangle = 
+    \left\langle \psi \right| \frac{\delta D}{\delta \phi^j} \left| \eta \right\rangle
+    \qquad\qquad \left| \psi \right\rangle = D^{-1} \left| \eta \right\rangle = D^\dagger \, \underbrace{(D D^\dagger)^{-1} \left| \eta \right\rangle}_{\text{CG}}
+\end{equation*}
 \begin{equation}
-    \tr {A} = \lim_{N \to \infty} \sum_i^N \eta_i^T D_{ij} \eta_j
+    \tr {A} = \frac{1}{N} \ \lim_{N \to \infty} \sum_i^N \eta_i^T D_{ij} \eta_j
     \label{eq:bilinear_noise_scheme}
 \end{equation}
 where $\eta_i$ is a gaussian random field where each component is drawn from a normal distribution $\mathcal{N}(0,1)$. \\

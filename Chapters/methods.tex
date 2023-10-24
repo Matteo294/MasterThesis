@@ -1,4 +1,7 @@
+% !TeX root = ../main.tex
+
 \chapter{Methods and algorithms}
+\label{chapt:methods}
 
 \section{Discretisation of the Yukawa theory}
 \label{sec:lattice_discretisation}
@@ -140,57 +143,44 @@ A change in the spacing $a \to ra$ will cause the following
 One then accomodates the change of the spacing (cutoff) by a change in the bare dimensionful couplings, as explained in chapter \ref{chap:theoretical_background}. At lowest order one can perform standard block spin step, which corresponds to a tree level analysis in the wilsonian perspective. This means that all the dimensionful quantities, couplings, momenta, fields, have to be rescaled according to their dimension, as detailed in the following lines. \\
 For what concerns the scalr part of the action, the rescaling at tree level is rather trivial 
 \begin{equation*}
-    m_\phi^2 \to s^2m_{\phi}^2, \quad \lambda \to s^s\lambda, \quad \phi \to \phi \quad
+    (a^2m_\phi^2) \to s^2(a^2m_\phi^2), \quad (a^2\lambda) \to s^2 (a^2\lambda), \quad \phi \to \phi \quad
 \end{equation*}
-The fermionic parts need a more careful analysis of the drift term, since the fermionic fields are not explictly present in the dynamics as can be seen in equation \ref{eq:drift_continuum_full_theory}. To start with let us consider the full action with fermionic fields $S[\phi, \psi, \bar\psi]$ defined by equation \eqref{eq:full_action_continuum}. 
-The corresponding drift at Langevin time $\tau$ reads
+The fermionic part needs some more careful analysis. 
+In a lattice simulation one wants to perform the integral over the fermionic fields and works with the effective action \eqref{eq:effective_action_no_fermions}. In this case the drift is given by equation \eqref{eq:drift_continuum_full_theory}, with the fermionic contribution beeing
+\begin{equation*}
+    K_{\psi} = g \, \underset{s,f}{\tr}{D^{-1}}
+\end{equation*}
+or, in terms of dimensionless quantities
+\begin{equation*}
+    \widehat{K}_{\psi} = (ag) \, \underset{s,f}{\tr}{(aD)^{-1}}
+\end{equation*}
+This implies that under a lattice block-spin transformation, where $a \to sa$,
+\begin{equation}
+    \widehat{K}_{\psi} \to  (sag) \, \underset{s,f}{\tr}{(saD)^{-1}} = \widehat{K}_{\psi}
+    \label{eq:fermionic_rescaling_naive}
+\end{equation}
+On the other side, when computing the fermionic contribution to the drift via the original action \eqref{eq:full_action_continuum}, one gets
 \begin{equation*}
     \begin{aligned}
         K(\tau, x) &= - \frac{\delta S}{\delta \phi(\tau, x)} = K_\phi(\tau, x) - g \, \bar\psi(\tau, x)\psi(\tau,x) = \\
         &= -\left(-\partial_x + m_\phi^2\right) \phi - \frac{\lambda}{6} \, \phi^3 - g \, \bar\psi\psi
     \end{aligned}
+    \label{eq:drift_continuum_from_full_action}
 \end{equation*}
-Note that all the terms in the last equation have dimension 2, in units of energy, which means that after a lattice block-spin transformation where $a \to sa$, one has
+where the fermionic contribution is 
 \begin{equation*}
-    \hat (ag) (a\bar\psi \psi) \to s^2 \hat (ag) (a\bar\psi \psi)
+    g \, \bar\psi\psi
 \end{equation*}
-On the other side, the drift term term for the effective action $S_\text{eff}$ defined in 
+Note that all the terms in the equation \eqref{eq:drift_continuum_from_full_action} have dimension 2, in units of energy, which means, in particular, that after a lattice block-spin transformation where $a \to sa$, one has
+\begin{equation}
+    \widehat{K}'_\psi = (ag) (a\bar\psi \psi) \to s^2 (ag) (a\bar\psi \psi) = s^2 \widehat{K}'_\psi
+    \label{eq:rescaling_blinear}
+\end{equation}
+in contrast with \eqref{eq:fermionic_rescaling_naive}. For this reason, in order to have the correct scaling, we compute the contribution to the drift using \eqref{eq:fermionic_rescaling_naive} without rescaling the Dirac operator (and hence the Yukawa coupling), and then rescale the whole drift via 
 \begin{equation*}
-    K(\tau, x) \to s^2 K(\tau, x) 
+    \widehat{K}_\psi \to s^2 \widehat{K}_\psi
 \end{equation*}
-We first recall the relation
-\begin{equation*}
-    \bar\psi \psi = a^{-2} \, \underset{s,f}{\tr} \, D^{-1}
-\end{equation*}
-which we rewrite as 
-\begin{equation*}
-    \Sigma = a^{-2} \, \chi
-\end{equation*}
-for simplicity. \\
-The drift term is
-
-To compute the fermionic contribution we would like to use the relation (SIGMA, CHI). Thus, one has to take into account that the rescaling of the fermionic fields, which are dimensionful, cause a rescaling in the fermionic contribu
-\begin{table}[]
-    \centering
-    \begin{tabular}{cccccccc}
-        \toprule
-         $s$ & $a$ & $\Lambda$ & $N$ & $m_\phi^2$ & $\lambda$ & $m_{q, 0}$ & $g_0$  \\
-         \midrule 
-         $1$ & $a$ & $\Lambda$ & $8$ & $m_{\phi, 0}^2$ & $\lambda$ & $m_{q, 0}$ & $g_0$ \\
-         $2$ & $a/2$ & $2\Lambda$ & $16$ & $m_{\phi, 0}^2 / 4$ & $\lambda / 4$ & $m_{q, 0}$ & $g_0$ \\
-         $4$ & $a/4$ & $4\Lambda$ & $32$ & $m_{\phi, 0}^2 / 16$ & $\lambda / 16$ & $m_{q, 0}$ & $g_0$ \\
-         $8$ & $a/8$ & $8\Lambda$ & $64$ & $m_{\phi, 0}^2 / 64$ & $\lambda / 64$ & $m_{q, 0}$ & $g_0$ \\
-         \bottomrule
-    \end{tabular}
-    \caption{Rescaling}
-    \label{block_spin_steps}
-\end{table}
-
+mathing the scaling of the other quantities in the drift. \\
+\textcolor{red}{Mention that this could mean that for a higher order rescaling one might have to look at how the quark bilinear renormalises.}
 
 \newpage 
-
-
-
-
-
-

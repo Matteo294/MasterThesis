@@ -1,7 +1,7 @@
 \chapter{Algorithms and technical details}
 \label{AppendixC}
 
-\section{Linear solvers in Lattice QFT ?}
+\subsection{Conjugate Gradient algorithm and the Dirac operator}
 The full inversion of the Dirac operator is a very expensive computation, given that the Dirac operator has dimension $(2 \, N_t \, N_x \, N_f)^2$, even though it is very sparse and has only few non-zero entries. One can note that for the purpose of computing the fermionic contribution to the drift force and the extraction of the physical quark mass from the correlator (details in section x and section y), only the inverse operator applied to a vector is needed. Hence it is sufficient to compute 
 \begin{equation}
     \psi = D^{-1} \left| \eta \right\rangle
@@ -9,7 +9,6 @@ The full inversion of the Dirac operator is a very expensive computation, given 
 \end{equation}
 Computing $\psi$ via equation \eqref{Dirac_inversion_linear_system} is equivalent to solve the linear system $D \psi = \eta$, which can be done efficiently by employing a method for sparse matrices such as Conjugate Gradient (CG) as explained in the following way.
 
-\subsection{Inversion of the Dirac operator via Conjugate Gradient}
 We want to solve the equation
 \begin{equation*} 
     D \, \psi = \eta
@@ -32,7 +31,6 @@ by solving
 \end{equation*}
 and then applying $D$ to the result.
 
-\subsection{Pre conditionin}
 One can improve the solution via CG by solving a \emph{preconditioned} equation. Suppose that we want to solve the equation
 \begin{equation*}
     M x = b
@@ -99,7 +97,7 @@ The Schur complement \eqref{eq:schur_complement} is
     \hat M \equiv M/M_{oo} = 
 \end{equation*}
 
-\section{Bilinear noise}
+\section{Bilinear noise scheme}
 \begin{equation*}
     \text{Tr} \left[ D^{-1} \, \frac{\delta D}{\delta \phi^j} \right] \approx \left\langle \eta \right|  D^{-1} \, \frac{\delta D}{\delta \phi^j} \left| \eta \right\rangle = 
     \left\langle \psi \right| \frac{\delta D}{\delta \phi^j} \left| \eta \right\rangle

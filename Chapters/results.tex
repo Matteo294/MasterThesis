@@ -1,6 +1,8 @@
 \chapter{Numerical investigation}
 
-\section{Inversion of the Dirac operator - background mesons}
+\section{Perfomance of the GPU implementation of the Conjugate Gradient algorithm}
+
+\section{Test with background mesons}
 
 The Dirac operator for Wilson fermions in the yukawa model is
 \begin{equation*}
@@ -45,7 +47,6 @@ In figure \ref{fig:equation_motion_NJL} one can see that equation \eqref{eq:equa
 \end{figure}
 
 
-\subsection{slide broken NJL}
 Figures \ref{fig:slide_broken_phi} - \ref{fig:slide_broken_mphir} report a few observables as a function of the cutoff fraction $s$. In this case all the coupling constants are kept fixed while changing the value of $s$, in order to provide a smooth interpolation between the fully classical and fully quantum picture. \\
 Each figure reports two plots corresponding to two different parameter configurations. The COLOR1 line corresponds to a system in the symmetric phase, while the COLOR2 line correspond to the broken phase. The exact parameters for the two configurations are reported under the figure.
 \begin{figure}
@@ -76,12 +77,11 @@ Each figure reports two plots corresponding to two different parameter configura
 \label{fig:slide_broken}
 \end{figure}
 
-
+\section{Chiral fermions and the chiral phase transition}
 
 \section{Cooling with coloured noise}
 In this section we report and discuss results of the NJL model and Quark-Meson model using the technique of coloured noise to perform block-spin steps as outlined in the paragraph \ref{sec:coloured_noise}. We first set up the white noise simulation with $s=1$ on a lattice of size $8 \times 8$, with spacing $a$ and cutoff $\Lambda$. We then start performing complete block-spin steps as summarised in table \ref{tab:block_spin_steps}. \\
 
-\subsection{NJL - yukawa scan}
 Figure \ref{fig:yukawa_scan_phi}, \ref{fig:yukawa_scan_chi2} report the analysis of the system for various values of the Yukawa coupling $g$. The classical equation of motion \eqref{eq:eq_motion_NJL} is invariant under the transformation $g \to -g, \sigma \to -\sigma$. This means that one should expect, from a classical point of view, the order parameter $\sigma$ to be anti-symmetric around $g = 0$. By looking at figrue \ref{fig:yukawa_scan_phi}, one can conclude that the symmetry is still present on the quantum level, but around a point $g_0 \neq 0$ which is solution of the equation $\left\langle \sigma \right\rangle = 0$. DOES THE POINT $g_0$ IDENTIFY A PHASE TRANSITION?
 
 \begin{figure}[h]

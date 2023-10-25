@@ -26,3 +26,4 @@
 \contentsline {chapter}{\numberline {C}Algorithms and technical details}{29}{appendix.64}%
 \contentsline {subsection}{\numberline {C.0.1}Conjugate Gradient algorithm and the Dirac operator}{29}{subsection.65}%
 \contentsline {section}{\numberline {C.1}Bilinear noise scheme}{30}{section.70}%
+\contentsline {chapter}{Bibliography}{33}{appendix*.72}%

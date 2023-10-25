@@ -4,26 +4,26 @@
 \contentsline {section}{\numberline {1.2}The renormalisation group}{1}{section.12}%
 \contentsline {section}{\numberline {1.3}Effective theories}{1}{section.13}%
 \contentsline {chapter}{\numberline {2}Theoretical background}{3}{chapter.14}%
-\contentsline {section}{\numberline {2.1}Lattice formulation of Euclidean Quantum Field Theory}{3}{section.15}%
-\contentsline {section}{\numberline {2.2}Yukawa theory}{3}{section.17}%
-\contentsline {section}{\numberline {2.3}Block spin RG}{5}{section.25}%
-\contentsline {section}{\numberline {2.4}Wilson RG}{5}{section.26}%
-\contentsline {section}{\numberline {2.5}Continuum limit}{6}{section.28}%
+\contentsline {section}{\numberline {2.1}Lattice Field Theory}{4}{section.16}%
+\contentsline {section}{\numberline {2.2}Block-spin renormalisation}{4}{section.17}%
+\contentsline {section}{\numberline {2.3}Wilson renormalisation}{4}{section.18}%
+\contentsline {section}{\numberline {2.4}Continuum limit of lattice field theories}{5}{section.20}%
+\contentsline {section}{\numberline {2.5}Yukawa theory}{6}{section.22}%
 \contentsline {chapter}{\numberline {3}Methods and algorithms}{9}{chapter.30}%
 \contentsline {section}{\numberline {3.1}Discretisation of the Yukawa theory}{9}{section.31}%
-\contentsline {section}{\numberline {3.2}Langevin equation}{10}{section.35}%
-\contentsline {section}{\numberline {3.3}Coloured noise}{11}{section.39}%
+\contentsline {section}{\numberline {3.2}Stochastic quantisation and Langevin Monte Carlo}{10}{section.35}%
+\contentsline {section}{\numberline {3.3}Langevin dynamics with coloured noise}{11}{section.39}%
 \contentsline {section}{\numberline {3.4}Lattice QFT with regularised noise}{12}{section.41}%
-\contentsline {chapter}{\numberline {4}Numerical investigation}{15}{chapter.44}%
-\contentsline {section}{\numberline {4.1}Perfomance of the GPU implementation of the Conjugate Gradient algorithm}{15}{section.45}%
-\contentsline {section}{\numberline {4.2}Test with background mesons}{15}{section.46}%
-\contentsline {section}{\numberline {4.3}Classical to quantum interpolation}{15}{section.47}%
-\contentsline {section}{\numberline {4.4}Chiral fermions and the chiral phase transition}{16}{section.50}%
-\contentsline {section}{\numberline {4.5}Cooling with coloured noise}{16}{section.51}%
-\contentsline {chapter}{\numberline {5}Conclusions and outlook}{23}{chapter.59}%
-\contentsline {chapter}{\numberline {A}Useful relations and definitions}{25}{appendix.60}%
-\contentsline {chapter}{\numberline {B}Wilson fermions}{27}{appendix.62}%
-\contentsline {chapter}{\numberline {C}Algorithms and technical details}{29}{appendix.64}%
-\contentsline {subsection}{\numberline {C.0.1}Conjugate Gradient algorithm and the Dirac operator}{29}{subsection.65}%
-\contentsline {section}{\numberline {C.1}Bilinear noise scheme}{30}{section.70}%
-\contentsline {chapter}{Bibliography}{33}{appendix*.72}%
+\contentsline {chapter}{\numberline {4}Numerical investigation}{15}{chapter.49}%
+\contentsline {section}{\numberline {4.1}Perfomance of the GPU implementation of the Conjugate Gradient algorithm}{15}{section.50}%
+\contentsline {section}{\numberline {4.2}Test with background mesons}{15}{section.51}%
+\contentsline {section}{\numberline {4.3}Classical to quantum interpolation}{15}{section.52}%
+\contentsline {section}{\numberline {4.4}Chiral fermions and the chiral phase transition}{16}{section.55}%
+\contentsline {section}{\numberline {4.5}Cooling with coloured noise}{16}{section.56}%
+\contentsline {chapter}{\numberline {5}Conclusions and outlook}{23}{chapter.64}%
+\contentsline {chapter}{\numberline {A}Useful relations and definitions}{25}{appendix.65}%
+\contentsline {chapter}{\numberline {B}Wilson fermions}{27}{appendix.67}%
+\contentsline {chapter}{\numberline {C}Algorithms and technical details}{29}{appendix.69}%
+\contentsline {section}{\numberline {C.1}Conjugate Gradient algorithm and the Dirac operator}{29}{section.70}%
+\contentsline {section}{\numberline {C.2}Bilinear noise scheme}{30}{section.75}%
+\contentsline {chapter}{Bibliography}{33}{appendix*.77}%

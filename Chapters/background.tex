@@ -1,20 +1,83 @@
 % !TeX root = ../main.tex
 \chapter{Theoretical background}
-\label{chap:theoretical_background}
+\label{chap:background}
 
-Da qualche parte cita \cite{carosso2020novel}
-
-\section{Lattice formulation of Euclidean Quantum Field Theory}
-\label{sec:lattice_formulation}
-In the euclidean formulation of quantum field theory, one typically defines the path integral as 
+Da qualche parte cita \cite{carosso2020novel}. \\~\\
+In this chapter we want to provide with an overview on the general theoretical framework that supports this work, and introduce the main concepts for the successive parts. Each section in this chapter is, by no means, meant as an exhaustive introduction to the corresponding topic. The description will be quite conceptual, rather than technical, and aims at recalling the main concepts and fix notation. We ask the reader to consult appropriate references,  which will be given in the corresponding sections, for a more detailed treatment of the topics. \\~\\
+The starting set up is the euclidean formulation of quantum field theory, where one typically defines a path integral $Z$ as 
 \begin{equation}
     Z = \int \mathcal{D}\phi\mathcal{D}\psi\mathcal{D}\psi \ e^{-S[\phi, \psi, \bar\psi]}
     \label{eq:path_integral_generic}
 \end{equation}
-and aims to compute correlation functions as
+and aims to compute correlation functions
 \begin{equation*}
         \left\langle \xi_{x_1} \dots \xi_{x_n}  \right\rangle = \frac{1}{Z} \int \mathcal{D}\phi\mathcal{D}\psi\mathcal{D}\psi \ \xi_{x_1} \dots \xi_{x_n} \ e^{-S[\phi, \psi, \bar\psi]} \qquad \xi_{x_i} \in \{\phi_{x_i}, \psi_{x_i}, \bar\psi_{x_i}\} \\
 \end{equation*}
+Computing physical quantities from such a direct approach is not only hard to, but often results impossible due to the appearence of divergences in the calculations.  In addition, such formulation is also not much suitable for numerical computations, since both the path integral and action measure are infinite dimensional objects. Lattice field theory is meant at first as a powerful regularisation tool to prevent divergences to occur and render the computation of the correlation functions finite. \textcolor{red}{Make a short comment on the origin of such divergences} Moreover, it can also provide a framework to study quantum field theory numerically. In order to accomplish this, one typically defines the theory on a space-time lattice and makes use of statistical methods such as Monte Carlo algorithms to compute observables. One may wonder how can one reconstruct the results in the continuum theory, keeping the results finite, and matching the results on the discretised theory to physically measured ones. This task, far from beeing simple, will be the focus of the next sections, in which we will first introduce relevant theoretical tools, such as the renormalisation group, and then discuss the existence of a continuum limit of a lattice theory and, if it exists, how it can be extracted. This will motivate the introduction of coloured noise in the context of continuum limits of effective theories, a technique which will be shown to be powerful also for other various reasons, which will be the main focus of the analysis carried in the remaining chapters.
+
+\section{Lattice Field Theory}
+\label{sec:lattice_formulation}
+As mentioned before, lattice field theory consists in formulating QFT on a space-time lattice
+\begin{equation*}
+	S = \int d^dx \, \mathcal{L}(x) \ t
+\end{equation*}
+
+\section{Block-spin renormalisation}
+\label{sec:blockspin}
+Cite Kadanoff article \cite{PhysicsPhysiqueFizika.2.263}. Average spins and rescale stuff to keep correlation length fixed.
+
+\section{Wilson renormalisation}
+\label{sec:wilson_rg}
+Extends block spin RG. \\
+One splits the fields as $\Phi = \phi + \varphi$ where $\phi$ are fields with momenta $p \leq b\Lambda$ and $\varphi$ are fields with momenta $b\Lambda < p < \Lambda$, then one writes the path integral in terms of the Wilsonian effective action
+\begin{equation*}
+    Z = \int D\Phi_\Lambda \, e^{-S_\Lambda[\Phi]} = \int D\phi_{b\Lambda} \, e^{-S_{b\Lambda}[\phi]} \int D\varphi_{b\Lambda, \Lambda}  \, e^{-S_{b\Lambda, \Lambda}[\phi, \varphi]} = \int D\phi_{b\Lambda} \, e^{-S_{b\Lambda}^\text{eff}[\phi]}
+\end{equation*}
+where 
+\begin{equation*}
+    S_{b\Lambda}^\text{eff}[\phi] = S_{b\Lambda}[\phi] - \log\left( \int D\varphi_{b\Lambda, \Lambda}  \, e^{-S_{b\Lambda, \Lambda}[\phi, \varphi]}\right) =  S_{b\Lambda}[\phi] + \Delta S_{b\Lambda, \Lambda}[\phi]
+\end{equation*}
+Note that all the steps above are exact identities. In particular, performing the integral over ultraviolet modes, is the continuum version of the block spinning procedure outlined in the previous section. \\
+Note also that $S_{b\Lambda}[\phi]$ is the same as the initial action, but it is non-zero only for fields with $p^2 \leq b\Lambda^2$. \\
+At this point one can expand $\Delta S_{b\Lambda, \Lambda}$ in powers of the field \textcolor{red}{(before, another step, see jan pawlowski's notes)}. Powers that are present also in $S_{b\Lambda}$ can be absorbed into the latter by redefining the coupling
+\begin{equation}
+\begin{aligned}
+& \phi^{\prime}\left(x^{\prime}\right)=\left[b^{2-d}(1+\Delta z)\right]^{\frac{1}{2}} \phi(x), \quad m^{\prime 2}=\left(m^2+\Delta m^2\right) \frac{1}{1+\Delta z} \frac{1}{b^2}, \quad \lambda^{\prime}=(\lambda+\Delta \lambda) \frac{1}{(1+\Delta z)^2} b^{d-4}, \\
+& \alpha^{\prime}=(\alpha+\Delta \alpha) \frac{1}{(1+\Delta z)^2} b^d, \quad \lambda_6^{\prime}=\left(\lambda_6+\Delta \lambda_6\right) \frac{1}{(1+\Delta z)^3} b^{2 d-6}, \quad \ldots \\
+&
+\end{aligned}
+\end{equation}
+higher powers are suppressed (non-renormalisable terms) are suppressed. By neglecting these higher order powers, one can bring the action in the same form as the initial one via redefinition of the parameters. The whole procedure is non-perturbative. The result can be compared to the initial action after redefinition of all the dimensionful quantities i.e. via $p'\equiv p/b$. 
+
+\section{Continuum limit of lattice field theories}
+\label{sec:continuum_limit}
+Introduce renormalisation as a mapping as in page 40 of Montvay Munster. \\
+Continuum limits in lattice theories are intimately connected to the existence of critical points in the theories. In fact, to take a continuum limit, one want the dimensionless correlation length $\hat \xi$ to diverge: in this way one can represent an infinite number of points inside a finite volume (\textcolor{red}{explain better here}). For this to happen, the system must go under a second order phase transition, whose critical point is identified by a set of values for the bare parameters $g_0^{i*}$. \textcolor{red}{differentiate well between dimful and dimless}. \\
+Consider $O$ to be an observable which has to be matched to a physical measurable quantity, and compare it to the dimensionless quantity $\hat O$ given by a lattice simulation. In general the physical observable is assumed to be a function of the spacing and the bare couplings of the theory 
+\begin{equation*}
+    O = O(a, g^i_0)
+\end{equation*}
+while its lattice counterpart can only depend on the dimensionless coupling $hat g_0^i$, i.e.
+\begin{equation*}
+    \hat O = \hat O(g_0^i)
+\end{equation*}
+Let $d_O$ be the physical dimension of the observable $O$ in units of energy. Then one can relate the two quantities as 
+\begin{equation}
+    O(a, g^i_0) = \left(\frac{1}{a}\right)^{d_O} \hat O(\hat g_0^i)
+    \label{eq:physical_observable_lattice_observable}
+\end{equation}
+We now want to address the following question: given a (small enough) a, is it possible to find a value $\hat g_0^i(a)$ such that the value of $O$ given by \eqref{eq:physical_observable_lattice_observable} does not depend on $a$? \\
+We then impose such condition via 
+\begin{equation*}
+    \frac{d}{da} \, O(a, g^i_O) = \left(a\frac{\partial}{\partial a} - \beta(g_0^i) \frac{\partial}{\partial g_0^i}\right) \, O(a, g^i_O) = 0
+\end{equation*}
+with
+\begin{equation*}
+    \beta(g_0^i) = - a \frac{\partial g_0^i}{\partial a}
+\end{equation*}
+Integrating such $\beta$ functions tells one how to change bare couplings as a backreaction to a change in the spacing, in order to keep observables constant. We then say that the theory admits a continuum limit if there exists some set of values $(g_0^i)^*$ such that when $g_0^i \to (g_0^i)^*$ one has $\hat \xi \to +\infty$ and $O \to O_{phys}$. \textcolor{red}{Connection with fixed points and beta function. Comment also on beta functions for dimless couplings}. \\
+Of course one does not know a priori the full lattice beta functions, but they can be computed via approximate or continuum methods. For example, in continuum perturbation theory, one can compute $g_r^i(\Lambda) = g_r^i(\Lambda, g_0^j)$, where $\Lambda$ is a sharp momentum cutoff and then try to invert them to find $g_0^i = g_0^i(\Lambda, g_r^j)$. The connection is then given by making the identification $a \sim \Lambda^{-1}$. \\
+Generally speaking, we are interested in the set of theories in theories space that have constant renormalised couplings but different dimless couplings $g_r^i \, a$ (trajectories in Kadanoff-Wilson RG).
 
 \section{Yukawa theory}
 \label{sec:Yukawa_theory}
@@ -125,65 +188,7 @@ The classical relation \eqref{eq:classical_EOM} is proven to hold also at mean f
     \end{tikzpicture}
 \end{minipage}
 \label{fig:breaking_O1_symmetry}
-\caption{The introduction of the boson-fermion interaction, with a finite fermionic mass, causes the breaking of the O(1) symmetry. It shifts the equilibrium position in the symmetric phase (left) causing $\left\langle \phi \right\rangle = 0$, and tilts the potential in the broken phase (right), making the two minima not equivalent.}
+\caption{The introduction of the boson-fermion interaction, with a finite fermionic mass, causes the breaking of the O(1) symmetry. It shifts the equilibrium position in the symmetric phase (left) causing $\left\langle \phi \right\rangle \neq 0$, and tilts the potential in the broken phase (right), making the two minima not equivalent.}
 \end{figure}
 
 \newpage
-
-
-\section{Block spin RG}
-\label{sec:blockspin}
-Cite Kadanoff article \cite{PhysicsPhysiqueFizika.2.263}. Average spins and rescale stuff to keep correlation length fixed.
-
-\section{Wilson RG}
-\label{sec:wilson_rg}
-Extends block spin RG. \\
-One splits the fields as $\Phi = \phi + \varphi$ where $\phi$ are fields with momenta $p \leq b\Lambda$ and $\varphi$ are fields with momenta $b\Lambda < p < \Lambda$, then one writes the path integral in terms of the Wilsonian effective action
-\begin{equation*}
-    Z = \int D\Phi_\Lambda \, e^{-S_\Lambda[\Phi]} = \int D\phi_{b\Lambda} \, e^{-S_{b\Lambda}[\phi]} \int D\varphi_{b\Lambda, \Lambda}  \, e^{-S_{b\Lambda, \Lambda}[\phi, \varphi]} = \int D\phi_{b\Lambda} \, e^{-S_{b\Lambda}^\text{eff}[\phi]}
-\end{equation*}
-where 
-\begin{equation*}
-    S_{b\Lambda}^\text{eff}[\phi] = S_{b\Lambda}[\phi] - \log\left( \int D\varphi_{b\Lambda, \Lambda}  \, e^{-S_{b\Lambda, \Lambda}[\phi, \varphi]}\right) =  S_{b\Lambda}[\phi] + \Delta S_{b\Lambda, \Lambda}[\phi]
-\end{equation*}
-Note that all the steps above are exact identities. In particular, performing the integral over ultraviolet modes, is the continuum version of the block spinning procedure outlined in the previous section. \\
-Note also that $S_{b\Lambda}[\phi]$ is the same as the initial action, but it is non-zero only for fields with $p^2 \leq b\Lambda^2$. \\
-At this point one can expand $\Delta S_{b\Lambda, \Lambda}$ in powers of the field \textcolor{red}{(before, another step, see jan pawlowski's notes)}. Powers that are present also in $S_{b\Lambda}$ can be absorbed into the latter by redefining the coupling
-\begin{equation}
-\begin{aligned}
-& \phi^{\prime}\left(x^{\prime}\right)=\left[b^{2-d}(1+\Delta z)\right]^{\frac{1}{2}} \phi(x), \quad m^{\prime 2}=\left(m^2+\Delta m^2\right) \frac{1}{1+\Delta z} \frac{1}{b^2}, \quad \lambda^{\prime}=(\lambda+\Delta \lambda) \frac{1}{(1+\Delta z)^2} b^{d-4}, \\
-& \alpha^{\prime}=(\alpha+\Delta \alpha) \frac{1}{(1+\Delta z)^2} b^d, \quad \lambda_6^{\prime}=\left(\lambda_6+\Delta \lambda_6\right) \frac{1}{(1+\Delta z)^3} b^{2 d-6}, \quad \ldots \\
-&
-\end{aligned}
-\end{equation}
-higher powers are suppressed (non-renormalisable terms) are suppressed. By neglecting these higher order powers, one can bring the action in the same form as the initial one via redefinition of the parameters. The whole procedure is non-perturbative. The result can be compared to the initial action after redefinition of all the dimensionful quantities i.e. via $p'\equiv p/b$. 
-
-\section{Continuum limit}
-\label{sec:continuum_limit}
-Introduce renormalisation as a mapping as in page 40 of Montvay Munster. \\
-Continuum limits in lattice theories are intimately connected to the existence of critical points in the theories. In fact, to take a continuum limit, one want the dimensionless correlation length $\hat \xi$ to diverge: in this way one can represent an infinite number of points inside a finite volume (\textcolor{red}{explain better here}). For this to happen, the system must go under a second order phase transition, whose critical point is identified by a set of values for the bare parameters $g_0^{i*}$. \textcolor{red}{differentiate well between dimful and dimless}. \\
-Consider $O$ to be an observable which has to be matched to a physical measurable quantity, and compare it to the dimensionless quantity $\hat O$ given by a lattice simulation. In general the physical observable is assumed to be a function of the spacing and the bare couplings of the theory 
-\begin{equation*}
-    O = O(a, g^i_0)
-\end{equation*}
-while its lattice counterpart can only depend on the dimensionless coupling $hat g_0^i$, i.e.
-\begin{equation*}
-    \hat O = \hat O(g_0^i)
-\end{equation*}
-Let $d_O$ be the physical dimension of the observable $O$ in units of energy. Then one can relate the two quantities as 
-\begin{equation}
-    O(a, g^i_0) = \left(\frac{1}{a}\right)^{d_O} \hat O(\hat g_0^i)
-    \label{eq:physical_observable_lattice_observable}
-\end{equation}
-We now want to address the following question: given a (small enough) a, is it possible to find a value $\hat g_0^i(a)$ such that the value of $O$ given by \eqref{eq:physical_observable_lattice_observable} does not depend on $a$? \\
-We then impose such condition via 
-\begin{equation*}
-    \frac{d}{da} \, O(a, g^i_O) = \left(a\frac{\partial}{\partial a} - \beta(g_0^i) \frac{\partial}{\partial g_0^i}\right) \, O(a, g^i_O) = 0
-\end{equation*}
-with
-\begin{equation*}
-    \beta(g_0^i) = - a \frac{\partial g_0^i}{\partial a}
-\end{equation*}
-Integrating such $\beta$ functions tells one how to change bare couplings as a backreaction to a change in the spacing, in order to keep observables constant. We then say that the theory admits a continuum limit if there exists some set of values $(g_0^i)^*$ such that when $g_0^i \to (g_0^i)^*$ one has $\hat \xi \to +\infty$ and $O \to O_{phys}$. \textcolor{red}{Connection with fixed points and beta function. Comment also on beta functions for dimless couplings}. \\
-Of course one does not know a priori the full lattice beta functions, but they can be computed via approximate or continuum methods. For example, in continuum perturbation theory, one can compute $g_r^i(\Lambda) = g_r^i(\Lambda, g_0^j)$, where $\Lambda$ is a sharp momentum cutoff and then try to invert them to find $g_0^i = g_0^i(\Lambda, g_r^j)$. The connection is then given by making the identification $a \sim \Lambda^{-1}$. \\
-Generally speaking, we are interested in the set of theories in theories space that have constant renormalised couplings but different dimless couplings $g_r^i \, a$ (trajectories in Kadanoff-Wilson RG).

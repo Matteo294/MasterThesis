@@ -78,7 +78,7 @@ to describe the action only in terms of dimensionless quantities. \\
 In the remaining of this work, the dimensionless couplings and fields will be adopted, unless otherwise specified. Additionally, both the original action $S$ and the effective action $S_\text{eff}$ will be denoted by $S$ for simplicity. It will be clear from the context to which of the two we will be referring. \\
 
 
-\section{Langevin equation}
+\section{Stochastic quantisation and Langevin Monte Carlo}
 In order to compute expectation values from the discretised path integral \textcolor{red}{add ref.} we employ a Langevin Monte Carlo algorithm, which is based on stochastic quantisation \cite{ParisiWu, Damgaard1987StochasticQuantization}. \\
 The idea is that Euclidean Quantum Field theory can be thought as a system in thermal equilibrium with a heat reservoir and hence described as a stochastic process via the Langevin equation. \\
 Let us consider a scalar field $\phi$ with a Euclidean action $S[\phi]$ and the following Langevin equation
@@ -113,7 +113,7 @@ To evaluate the trace, which is due to the fermionic contribution, we use the bi
 
 
 
-\section{Coloured noise}
+\section{Langevin dynamics with coloured noise}
 \label{sec:coloured_noise}
 \note{Mention some possible uses of colored noise beside taking continuum limits.} \\
 Connection to stochastic regularisation \cite{}
@@ -134,14 +134,36 @@ This is just one example of regularisation and different ones can be chosen. See
 
 
 \section{Lattice QFT with regularised noise}
-After the general introduction on coloured noise given in the previous paragraph, let us now look more closely on the lattice formulation and at the various applications of such techniques.
-From a code perspective, the algorithm to regularise noise with a sharp cutoff is presented in Appendix WHICH ONE?. \\
-Let us consider a squared two-dimensional lattice with size $L \equiv L_x = L_y$ and spacing $a \equiv a_x = a_y$. This implies a maximum momentum $p_\text{max} = \pi / a$ in each space-time direction. We consider a regularised simulation with cutoff $\Lambda'$. Let us also define $\Lambda^2 \equiv (p^x_\text{max})^2 + (p^y_\text{max})^2$. At this point we introduce a parameter, called \emph{cutoff fraction}, defined as $s^2 \equiv \Lambda^2 / \Lambda'^{\,2}$. With this notation, $s=1$ is the full white noise case, while for any regularised noise one has $0 < s < 1$. \\
-We now want to address the following question: given the stationary probability distribution \ref{eq:probability_field_configuration_regularised}, is it possible to compensate the change in physical observables caused by the removal of the quantum modes via regularised noise, by a rescaling of the bare parameters that enter the lattice discretised action? Remembering from sections \ref{sec:lattice_discretisation} and \ref{sec:continuum_limit} that $\Lambda \sim a^{-1}$, this question would also address the problem of continuum limit of effective field theories. In fact the question we want to address is completely equivalent to the following: can one compensate a change in the spacing (controlled by the bare parameters), by a change of the noise in the simulation, in order to keep physical observables constant?\\
-To this end, let us consider a noise regularisation given by $s^2 = \Lambda^2 / \Lambda'^{\,2} < 1$ ($s = a' / a < 1$), which means a higher cutoff (a smaller spacing $a'$). We now introduce an approximate ansatz which is based on the analogy to standard block-spin transformations. Higher order corrections to this simple ansatz are discussed in WHICH SECTION? \\
-A change in the spacing $a \to ra$ will cause the following
-One then accomodates the change of the spacing (cutoff) by a change in the bare dimensionful couplings, as explained in chapter \ref{chap:theoretical_background}. At lowest order one can perform standard block spin step, which corresponds to a tree level analysis in the wilsonian perspective. This means that all the dimensionful quantities, couplings, momenta, fields, have to be rescaled according to their dimension, as detailed in the following lines. \\
-For what concerns the scalr part of the action, the rescaling at tree level is rather trivial 
+\textcolor{red}{mention that here we consider for simplicity a square lattice but one can read the general version either in appendix or in Jan's paper} \\
+After the general introduction on coloured noise given in the previous paragraph, let us now look more closely on the lattice formulation and at the various applications of such techniques. \\
+\textcolor{red}{first talk about sliding the cutoff and cite Jan Philipp, Jan Pawlowski. Mention (by only citing) also the control of temperature. Then cooling:}
+To this end, let us consider a squared two-dimensional lattice with side length $L \equiv L_x = L_t$ and spacing $a \equiv a_x = a_t$. This implies a maximum momentum $p_\text{max} = \pi / a$ in each space-time direction, which in turn implies $N=N_x=N_t$ points in each direction. Let us also define 
+\begin{equation}
+	\Lambda^2 \equiv (p^x_\text{max})^2 + (p^t_\text{max})^2
+\end{equation}
+which indicates the maximum squared momentum on the given lattice. \\
+We then consider a general regularised simulation with a cutoff $\Lambda_*$ and we define a dimensionless parameter
+\begin{equation}
+	s^2 = \frac{\Lambda_*^2}{\Lambda^2} \qquad 0 \leq s \leq 1
+\end{equation}
+We then set up a simulation with $s=1$ and a set of bare couplings $\{g^i_0\}$. As a short-hand notation for such a configuration, we introduce the following notation
+\begin{equation*}
+	\mathcal{C}_s = \left\{s, a, N, \Lambda, \{g^i_0\} \right\}
+\end{equation*}
+We now want to address the following question:  is it possible to compensate the change in physical observables caused by the removal of the quantum modes via regularised noise, by a rescaling of the bare parameters that enter the lattice discretised action? \\
+In a more formal way, we want to construct a map between parameters of the simulation
+\begin{equation}
+	f_{s,s'} \quad  : \quad  \mathcal{C}_s = \left\{s, a, N, \Lambda, \{g^i_0\} \right\} \quad \to \quad \mathcal{C}_{s'} = \left\{s', a', N', \Lambda', \{g^{i\prime}_0\} \right\}
+\end{equation}
+that leaves physical observables unaltered
+\begin{equation}
+\left\langle\mathcal{O}\right\rangle_{\mathcal{C}_s} = \left\langle\mathcal{O}\right\rangle_{\mathcal{C}_s'}
+\end{equation}
+The issue is of course related to the renormalisation transformation introduced in chapter \ref{chap:background}. \\
+Remembering from sections \ref{sec:lattice_discretisation} and \ref{sec:continuum_limit} that $\Lambda \sim a^{-1}$, this question would also address the problem of continuum limit of effective field theories. 
+One then accomodates the change of the spacing (cutoff) by a change in the bare dimensionful couplings, as explained in chapter \ref{chap:theoretical_background}. . This means that all the dimensionful quantities, couplings, momenta, fields, have to be rescaled according to their dimension, as detailed in the following lines. \\
+For what concerns the scalr part of the action, the rescaling at tree level is rather trivial \cite{Pawlowski2017CoolingNoise,attanasio2022low}
+
 \begin{equation*}
     (a^2m_\phi^2) \to s^2(a^2m_\phi^2), \quad (a^2\lambda) \to s^2 (a^2\lambda), \quad \phi \to \phi \quad
 \end{equation*}
@@ -159,17 +181,17 @@ This implies that under a lattice block-spin transformation, where $a \to sa$,
     \widehat{K}_{\psi} \to  (sag) \, \underset{s,f}{\tr}{(saD)^{-1}} = \widehat{K}_{\psi}
     \label{eq:fermionic_rescaling_naive}
 \end{equation}
-On the other side, when computing the fermionic contribution to the drift via the original action \eqref{eq:full_action_continuum}, one gets
-\begin{equation*}
+On the other side, when computing the drift via the original action \eqref{eq:full_action_continuum}, one gets
+\begin{equation}
     \begin{aligned}
         K(\tau, x) &= - \frac{\delta S}{\delta \phi(\tau, x)} = K_\phi(\tau, x) - g \, \bar\psi(\tau, x)\psi(\tau,x) = \\
         &= -\left(-\partial_x + m_\phi^2\right) \phi - \frac{\lambda}{6} \, \phi^3 - g \, \bar\psi\psi
     \end{aligned}
     \label{eq:drift_continuum_from_full_action}
-\end{equation*}
-where the fermionic contribution is 
+\end{equation}
+where the fermionic contribution is given by
 \begin{equation*}
-    g \, \bar\psi\psi
+    K_{\psi}' = - g \, \bar\psi\psi
 \end{equation*}
 Note that all the terms in the equation \eqref{eq:drift_continuum_from_full_action} have dimension 2, in units of energy, which means, in particular, that after a lattice block-spin transformation where $a \to sa$, one has
 \begin{equation}
@@ -180,7 +202,7 @@ in contrast with \eqref{eq:fermionic_rescaling_naive}. For this reason, in order
 \begin{equation*}
     \widehat{K}_\psi \to s^2 \widehat{K}_\psi
 \end{equation*}
-mathing the scaling of the other quantities in the drift. \\
+so that the scaling dimension of the other terms in \eqref{eq:drift_continuum_from_full_action} is matched. \\
 \textcolor{red}{Mention that this could mean that for a higher order rescaling one might have to look at how the quark bilinear renormalises.}
 
 \newpage 

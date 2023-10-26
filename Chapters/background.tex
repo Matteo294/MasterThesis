@@ -86,7 +86,7 @@ Let us consider the Yukawa theory defined by the action
 \begin{aligned}
     S[\phi,\psi,\bar\psi] &= S_\phi[\phi] + S_\psi[\psi, \bar\psi] + S_\text{int}[\phi, \psi, \bar\psi]\\
      S_\phi[\phi] &= \int_x \phi_x \left(-\frac{\partial^2_x}{2} + \frac{m_\phi^2}{2}\right) \phi_x + \frac{\lambda}{4!} \, \phi_x^4 \\
-     S_\psi[\phi, \psi, \bar\psi] &= \int_x \bar \psi_x \left(\slashed{\partial}_x + m_q \right) \psi_x \\
+     S_\psi[\psi, \bar\psi] &= \int_x \bar \psi_x \left(\slashed{\partial}_x + m_q \right) \psi_x \\
      S_\text{int}[\phi, \psi, \bar\psi] &= g \, \int_x \bar \psi_x \, \phi_x \, \psi_x
     \label{eq:full_action_continuum}
 \end{aligned}
@@ -112,18 +112,30 @@ This allows one to rewrite the action as
 \begin{equation*}
     S[\phi,\psi,\bar\psi] = \int_x \phi_x K \phi_x + \frac{\lambda}{4!}\phi_x^4 + \bar\psi_x D \psi_x
 \end{equation*}
-For vanishing quark mass the action is fully invariant under the chiral transformation
+We introduce the left-handed and right-handed spinors
+\begin{equation*}
+	\psi_L = (1-\gamma_5) \, \psi \qquad \psi_R = (1+\gamma_5) \, \psi
+\end{equation*}
+for which
+\begin{equation*}
+	\psi = \frac{(1-\gamma_5)}{2} \psi + \frac{(1+\gamma_5)}{2} \psi = \psi_L + \psi_R
+\end{equation*}
+The action written in terms of $\psi_L, \psi_R$ reads
 \begin{equation}
-    \begin{aligned}
-        \phi &\to -\phi \\
-        \psi &\to e^{i\alpha} \, \psi \\
-        \bar\psi &\to \bar\psi \, e^{-i\alpha} \\
-    \end{aligned}
-    \label{eq:yukawa_continuum_rewritten}
+	S = S_\phi +  \bar\psi _L D \psi_L + \bar\psi _R D \psi_R + (m_q + g\phi) \,  \left(\bar\psi_L\psi_R + \bar\psi_R\psi_L\right)
+	\label{eq:action_chirality_explicit}
 \end{equation}
+The last equation makes clear that that for $m=0,\left\langle\phi\right\rangle = 0$ the action is symmetric under the chiral group $SU(2) _L\times SU(2)_R$, namely
+\begin{equation*}
+	\begin{aligned}
+		\psi_L(x) \to U_L\psi_L(x) &\qquad \bar\psi_L(x) \to \bar\psi_L(x) U_L^{\dagger} \\
+		 \psi_R(x) \to U_R\psi_R(x) &\qquad \bar\psi_R(x) \to \bar\psi_R(x) U_R^{\dagger}
+	\end{aligned}
+\end{equation*}
+for $U_L, U_R \in SU(2)$.\\
 The main feature of the model is chiral symmetry breaking \cite{Nambu1961DynamicalI, Nambu1961DynamicalII}, which can happen explicitly at the level of the classical action for a non-zero quark mass, or spontaneously when the scalar field gains a non-zero expectation value. One can in fact notice already by looking at \eqref{eq:definition_kinetic_terms_continuum}, that $\left\langle\phi\right\rangle \neq 0$ has the same effect on the action as a finite bare quark mass. This observation will be made more quantitative in section (SECCCC) where it will be shown that  
 \begin{equation*}
-    \left\langle \phi \right\rangle \sim \left\langle \bar \psi \psi \right\rangle \sim D^{-1}
+    \left\langle \phi \right\rangle \sim \left\langle \bar \psi \psi \right\rangle \sim m_q
 \end{equation*}
 The fermionic part of the path integral \eqref{eq:path_integral_generic} can be performed explicitly
 \begin{equation*}

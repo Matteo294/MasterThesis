@@ -162,16 +162,16 @@ that leaves physical observables unaltered
 The issue is of course related to the renormalisation transformation introduced in chapter \ref{chap:background}. \\
 Remembering from sections \ref{sec:lattice_discretisation} and \ref{sec:continuum_limit} that $\Lambda \sim a^{-1}$, this question would also address the problem of continuum limit of effective field theories. 
 One then accomodates the change of the spacing (cutoff) by a change in the bare dimensionful couplings, as explained in chapter \ref{chap:theoretical_background}. . This means that all the dimensionful quantities, couplings, momenta, fields, have to be rescaled according to their dimension, as detailed in the following lines. \\
-For what concerns the scalr part of the action, the rescaling at tree level is rather trivial \cite{Pawlowski2017CoolingNoise,attanasio2022low}
-
+For what concerns the scalr part of the action, the rescaling at tree level is rather trivial \cite{Pawlowski2017CoolingNoise, attanasio2022low}
 \begin{equation*}
     (a^2m_\phi^2) \to s^2(a^2m_\phi^2), \quad (a^2\lambda) \to s^2 (a^2\lambda), \quad \phi \to \phi \quad
 \end{equation*}
 The fermionic part needs some more careful analysis. 
 In a lattice simulation one wants to perform the integral over the fermionic fields and works with the effective action \eqref{eq:effective_action_no_fermions}. In this case the drift is given by equation \eqref{eq:drift_continuum_full_theory}, with the fermionic contribution beeing
-\begin{equation*}
-    K_{\psi} = g \, \underset{s,f}{\tr}{D^{-1}}
-\end{equation*}
+\begin{equation}
+    	K_{\psi} = g \, \underset{s,f}{\tr}{D^{-1}}
+	\label{eq:fermionic_drift_contribution}
+\end{equation}
 or, in terms of dimensionless quantities
 \begin{equation*}
     \widehat{K}_{\psi} = (ag) \, \underset{s,f}{\tr}{(aD)^{-1}}
@@ -198,7 +198,7 @@ Note that all the terms in the equation \eqref{eq:drift_continuum_from_full_acti
     \widehat{K}'_\psi = (ag) (a\bar\psi \psi) \to s^2 (ag) (a\bar\psi \psi) = s^2 \widehat{K}'_\psi
     \label{eq:rescaling_blinear}
 \end{equation}
-in contrast with \eqref{eq:fermionic_rescaling_naive}. For this reason, in order to have the correct scaling, we compute the contribution to the drift using \eqref{eq:fermionic_rescaling_naive} without rescaling the Dirac operator (and hence the Yukawa coupling), and then rescale the whole drift via 
+in contrast with \eqref{eq:fermionic_rescaling_naive}. For this reason, in order to have the correct scaling, we compute the contribution to the drift using \eqref{eq:fermionic_drift_contribution} without rescaling the Dirac operator (and hence the Yukawa coupling), and then rescale the whole drift via 
 \begin{equation*}
     \widehat{K}_\psi \to s^2 \widehat{K}_\psi
 \end{equation*}

@@ -61,26 +61,6 @@ When does L.O. rescaling ansatz breaks down?
     \lambda = 1.0 \qquad m_\Phi^2 = 0.5 \qquad N_t \times N_x = 8 \times 32 \qquad m_q = 0.5 \qquad N_{conf} = 5 \cdot 10^3 \qquad \bar\epsilon = 0.01
 \end{equation*}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.7]{figures/phase_trans/phi.pdf}
-    \caption{Magnetization}
-    \label{fig:enter-label}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.7]{figures/phase_trans/chi2.pdf}
-    \caption{Magnetic susceptibility}
-    \label{fig:enter-label}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.7]{figures/phase_trans/condensate.pdf}
-    \caption{Condensate}
-    \label{fig:enter-label}
-\end{figure}
 
 \section{Classical to quantum interpolation}
 \label{sec:classical_to_quantum}
@@ -97,33 +77,40 @@ In figure \ref{fig:equation_motion_NJL} one can see that equation \eqref{eq:equa
 
 Figures \ref{fig:slide_broken_phi} - \ref{fig:slide_broken_mphir} report a few observables as a function of the cutoff fraction $s$. In this case all the coupling constants are kept fixed while changing the value of $s$, in order to provide a smooth interpolation between the fully classical and fully quantum picture. \\
 Each figure reports two plots corresponding to two different parameter configurations. The COLOR1 line corresponds to a system in the symmetric phase, while the COLOR2 line correspond to the broken phase. The exact parameters for the two configurations are reported under the figure.
-\begin{figure}
-    \centering
-    \begin{minipage}{0.45\textwidth}
-        \includegraphics[scale=0.52]{figures/slide_broken/phi.pdf}
-        \captionof{figure}{phi}
-        \label{fig:slide_broken_phi}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.45\textwidth}
-        \includegraphics[scale=0.52]{figures/slide_broken/cond.pdf}
-        \captionof{figure}{cond}
-        \label{fig:slide_broken_cond}
-    \end{minipage}
- \begin{minipage}{0.45\textwidth}
-    \includegraphics[scale=0.52]{figures/slide_broken/mqphys.pdf}
-    \captionof{figure}{mqphys}
-    \label{fig:slide_broken_mqphys}
+
+\newpage
+\section{Chiral fermions and a glimpse on the chiral phase transition}
+\label{sec:chiral}
+
+As explained in section \ref{sec:yukawa}, in the continuum theory chiral symmetry can be broken either explicitly via a finite bare quark mass, or spontaneously if the field gains a non-zero expectation value. Moreoveor, in the discrete formulation, the introduction of the Wilson term also contributes to the explicit breaking of chiral symmetry \textcolor{red}{add reference}, as explained in section \ref{sec:discrete}. This, in particular, means that chiral symmetry is explicitly broken also for $m_q \to 0$. Because of this, one needs a new definition for bare mass $M_q$, which takes into account the Wilson term contribution, such that chiral symmetry is restored in the limit $M_q \to 0$ for vanishing expectation value of the field $\phi$. A convenient way to define such $M_q$ is the following. SSB chiral symmetry $\to$ 3 goldstone massless bosons, the pions. If the bare quark mass is zero, the physical mass of the pions has to be zero. Hence one can extract this mass on the lattice and tune $m_q$ such that this is zero. While this is the correct way to proceed, it is very time takin since one must do mass scans and extrapolations close to singular Dirac operator. This is not the way we pursue here. Instead here we just consider naive fermions and take the limit $m_q \to 0$. This represents a physical theory with $2N_f = 4$ degenerate quarks. This is just done for the purpose of showing some interest properties of coloured noise and not (yet) to match any physical result. \\~\\
+In figure \ref{fig:chiral_symmetry_breaking} some observables are reported as a function of the noise fraction $s$ for different values of the bare quark mass. In the classical theory ($s=0$) the order parameters $\left\langle|\phi|\right\rangle, \left\langle\bar\psi \psi\right\rangle$ are, in absolute value, bigger than in the quantum case ($s=1$).  As the chiral limit is approached $m_q \to 0$, the figure shows that the classical system lies in the broken phase, while in the quantum settings the symmetry is restored. \textcolor{red}{Discuss general phase structure looking at both $\phi$ and $\bar\psi\psi$}. One can see that as $m_q$ is reduced, the systems shifts from a crossover to a second order phase transition, ahighligthed by the susceptibility $\chi^2$ and the binder parameter $U_L$.
+
+\textcolor{red}{This would be better discussed as a function of bare scalar mass:} \\
+The difference gets more sharped as the base mass decreases, since the theory is closer to the chiral limit discussed above, which corresponds to the case $m_q=0$. In this limit the systems goes under a second phase transition, highlighted by a peak in the susceptibility and and abrubt change in the Binder cumulant. In contrast, for finite mass,  there is smooth crossover where the order parameters change continuously.
+
+\begin{figure}[h]
+\centering
+\begin{minipage}{0.45\textwidth}	
+	\includegraphics[scale=0.48]{figures/chiral_PT/magnetisation.pdf}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textwidth}	
+	\includegraphics[scale=0.48]{figures/chiral_PT/condensate.pdf}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}	
+	\includegraphics[scale=0.48]{figures/chiral_PT/susceptibility.pdf}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textwidth}	
+	\includegraphics[scale=0.48]{figures/chiral_PT/mqphys.pdf}
 \end{minipage}
 \hfill
 \begin{minipage}{0.45\textwidth}
-    \includegraphics[scale=0.52]{figures/slide_broken/mphir.pdf}
-    \captionof{figure}{mphir}
-    \label{fig:slide_broken_mphir}
+	\includegraphics[scale=0.48]{figures/chiral_PT/binder.pdf}
 \end{minipage}
-\caption{slide broken}
-\label{fig:slide_broken}
+\hfill
+\caption{Chiral symmetry breaking}
+\label{fig:chiral:symmetry_breaking}
 \end{figure}
 
-\section{Chiral fermions and the chiral phase transition}
 

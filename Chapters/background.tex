@@ -88,8 +88,8 @@ Let us consider the Yukawa theory defined by the action
 \begin{aligned}
     S[\phi,\psi,\bar\psi] &= S_\phi[\phi] + S_\psi[\psi, \bar\psi] + S_\text{int}[\phi, \psi, \bar\psi]\\
      S_\phi[\phi] &= \int_x \phi_x \left(-\frac{\partial^2_x}{2} + \frac{m_\phi^2}{2}\right) \phi_x + \frac{\lambda}{4!} \, \phi_x^4 \\
-     S_\psi[\psi, \bar\psi] &= \int_x \bar \psi_x \left(\slashed{\partial}_x + m_q \right) \psi_x \\
-     S_\text{int}[\phi, \psi, \bar\psi] &= g \, \int_x \bar \psi_x \, \phi_x \, \psi_x
+     S_\psi[\psi, \bar\psi] &= \int_x \sum_{f=1}^{N_f} \bar \psi_x^{(f)} \left(\slashed{\partial}_x + m_q \right) \psi_x^{(f)} \\
+     S_\text{int}[\phi, \psi, \bar\psi] &= \int_x \sum_{f=1}^{N_f} g \, \bar \psi_x^{(f)} \, \phi_x \, \psi_x^{(f)}
     \label{eq:full_action_continuum}
 \end{aligned}
 \end{equation}
@@ -97,7 +97,7 @@ One can see that the action is made of a scalar part $S_\phi[\phi]$, a fermionic
 It is also convenient for later purposes to define the operators $K, D$ represented in position space as 
 \begin{equation}
     \begin{aligned}
-        K(x, y) &=  \left(-\frac{\partial^2_x}{2} + \frac{m_\phi^2}{2}\right) \ \delta(x,y) \\
+        K(x, y) &=  \left(-\partial^2_x + m_\phi^2\right) \ \delta(x,y) \\
         D(x, y) &= \left(\slashed{\partial}_x + m_q + g\phi \right) \ \delta(x,y)
     \end{aligned}
     \label{eq:definition_kinetic_terms_continuum_position}
@@ -105,14 +105,14 @@ It is also convenient for later purposes to define the operators $K, D$ represen
 and in momentum space as
 \begin{equation}
     \begin{aligned}
-        \widetilde{K}(p, q) &=  \int_{x,y} e^{-ipx} \left(-\frac{\partial^2_x}{2} + \frac{m_\phi^2}{2}\right) \ \delta(x,y) \ e^{iqy} = \left(\frac{p^2}{2} + \frac{m_\phi^2}{2}\right) \ \delta(p,q) \\
+        \widetilde{K}(p, q) &=  \int_{x,y} e^{-ipx} \left(\partial^2_x + m_\phi^2\right) \ \delta(x,y) \ e^{iqy} = \left(\frac{p^2}{2} + \frac{m_\phi^2}{2}\right) \ \delta(p,q) \\
         \widetilde{D}(p, q) &= \int_{x,y} e^{-ipx} \left(\slashed{\partial}_x + m_q + g\phi \right) \ \delta(x,y) \ e^{iqy} = \left(\slashed{p}_x + m_q + g\phi \right) \ \delta(p,q)
     \end{aligned}
     \label{eq:definition_kinetic_terms_continuum_momentum}
 \end{equation}
 This allows one to rewrite the action as
 \begin{equation*}
-    S[\phi,\psi,\bar\psi] = \int_x \phi_x K \phi_x + \frac{\lambda}{4!}\phi_x^4 + \bar\psi_x D \psi_x
+    S[\phi,\psi,\bar\psi] = \int_x \frac{1}{2} \, \phi_x \, K_{xx} \, \phi_x + \frac{\lambda}{4!} \, \phi_x^4 + \sum_{f=1}^{N_f} \bar\psi_x^{(f)} \, D_{xx} \, \psi_x^{(f)}
 \end{equation*}
 We introduce the left-handed and right-handed spinors
 \begin{equation*}
@@ -141,9 +141,9 @@ The main feature of the model is chiral symmetry breaking \cite{Nambu1961Dynamic
 \end{equation*}
 The fermionic part of the path integral \eqref{eq:path_integral_generic} can be performed explicitly
 \begin{equation*}
-    \int \mathcal{D} \bar\psi \mathcal{D} \psi \ \exp\left( - \int_x \bar\psi_x \,  D \, \psi_x \right) = \text{det} \, D[\phi] = e^{\tr \log (D[\phi])}
+    \int \mathcal{D} \bar\psi \mathcal{D} \psi \ \exp\left( - \int_x \sum_{f=1}^{N_f} \bar\psi_x^{(f)} \,  D \, \psi_x^{(f)} \right) = (\text{det} \, D[\phi])^{N_f} = e^{N_f\tr \log (D[\phi])}
 \end{equation*}
-where the trace is performed over space-time, flavour and spinor components. \\ 
+where the trace is performed over space-time and spinor components. \\ 
 The full path integral can now be expressed in terms of the resulting effective action for the scalar fields
 \begin{equation*}
     Z = \int \mathcal{D}\phi \ e^{-S_\text{eff}[phi]}

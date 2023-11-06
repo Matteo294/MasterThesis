@@ -3,7 +3,7 @@
 \label{chap:background}
 
 Da qualche parte cita \cite{carosso2020novel}. \\~\\
-In this chapter we want to provide with an overview on the general theoretical framework that supports this work, and introduce the main concepts for the successive parts. Each section in this chapter is, by no means, meant as an exhaustive treatment. The description will be quite conceptual, rather than technical, and aims at recalling the main ideas and fix notation. We ask the reader to consult appropriate references,  which will be given in the corresponding sections, for a more detailed treatment of the topics. \\~\\
+In this chapter we want to provide with an overview on the general theoretical framework that supports this work, and introduce the main concepts for the successive parts. Each section in this chapter is, by no means, meant as an exhaustive treatment. The description will be quite conceptual, rather than technical, and aims at recalling the main ideas and fix conventions. We ask the reader to consult appropriate references,  which will be given in the corresponding sections, for a more detailed treatment of the topics. \\~\\
 The starting set up is the euclidean formulation of quantum field theory, where one typically defines a path integral $Z$
 \begin{equation}
     Z = \int \mathcal{D}\phi\mathcal{D}\psi\mathcal{D}\psi \ e^{-S[\phi, \psi, \bar\psi]}
@@ -26,7 +26,22 @@ As mentioned before, lattice field theory consists in formulating QFT on a space
 
 \section{Block-spin renormalisation}
 \label{sec:blockspin}
-Cite Kadanoff article \cite{PhysicsPhysiqueFizika.2.263}. Average spins and rescale stuff to keep correlation length fixed.
+Kadanoff and Buckingham \cite{PhysicsPhysiqueFizika_2_263,Buckingham1961} improve mean field theory by Landau \cite{Landau:1937obd}. Poses the basis for the work of Wilson \cite{WilsonRG1,WilsonRG2,WilsonFisher}. Average spins and rescale stuff to keep correlation length fixed. Action changes a lot with new term \cite{cardy_1996}. \\
+Value of the spin at position $x$ is $\varphi(x)$. With block-spin transformation we want blocked spin $\bar\varphi(x)$ that leaves partition function invariant (but not the action). In fact, we want to find $S_b$ such that 
+\begin{equation}
+    Z=\sum_{\varphi} \mathrm{e}^{-S(\varphi)}= \sum_{\bar\varphi} \mathrm{e}^{-S_b\left(\bar\varphi\right)}
+\end{equation}
+We can always, in principle, cook up such an action, but it is complicated. From nearest neighbours to nearest-nearest, nearest-nearest-nearest, \dots. Fortunately, higher order terms are smaller and can be (initially) neglected.
+Note that in the blocking procedure $a \to ba \Rightarrow \hat\xi \to \hat\xi/b$.
+The philosophy of both Kadanoff
+and Wilson was that the blocking transformation therefore reduces the complexity of many-body
+systems by systematically reducing the number of degrees of freedom being taken into account,
+without changing the physics \cite{WILSON197475} (because the partition function is invariant), a philosophy which
+could be called the pragmatic view of RG. Because critical phenomena are characterized by large
+correlation lengths, block-spin RG proves to be a useful tool. \\
+s. From $a = \xi / \hat\xi$, we also see that the critical fixed points correspond to zero lattice
+spacing systems (if $\xi \neq 0$), i.e. the continuum limit, consistent with the analysis of perturbative
+RG in the previous section
 
 \section{Wilsonian renormalisation}
 \label{sec:wilson_rg}

@@ -197,11 +197,11 @@ An interesting thing to look at is the position-space noise correlation function
     \end{aligned}
     %\label{eq:colored_noise_correlation}
 \end{equation}
-where $J_0(x)$ is a Bessel function of the first order. The integral in the last line is computed numerically as a function of $d=|x-y|$ and reported in figure \ref{fig:bessel} for three different values of the cutoff $\Lambda_1 < \Lambda_2 < \Lambda_3$. This shows nicely that for $|x-y| \ll \Lambda$ the noise is now correlated, while for $|x-y| \gg \Lambda$ the correlation function vanishes, as in the white noise case. In other words, only the short-length behaviour of the system is affected by the introduction of such a regulating term, as one could expect.\\~\\
+where $J_0(x)$ is a Bessel function of the first order. The integral in the last line is computed numerically as a function of $d=|x-y|$ and reported in figure \ref{fig:bessel} for three different values of the cutoff $\Lambda_1 < \Lambda_2 < \Lambda_3$. This shows nicely that for $|x-y| \ll 1/\Lambda$ the noise is now correlated, while for $|x-y| \gg 1/\Lambda$ the correlation function vanishes, as in the white noise case. In other words, only the short-length behaviour of the system is affected by the introduction of such a regulating term, as one could expect.\\~\\
 \begin{figure}
     \centering
     \includegraphics[scale=0.6]{figures/bessel.pdf}
-    \caption[Correlated noise]{Correlation function \eqref{eq:colored_noise_correlation} as a function of $d=|x-y|$ for three different values of the cutoff $\Lambda_1 < \Lambda_2 < \Lambda_3$, in arbitrary units. The plot is qualitative, but shows clearly that with a regulated noise, small-distance ($d \ll \Lambda$) noise correlations are present, while the noise remains uncorrelated at large distances ($d \gg \Lambda$), as in the white noise case.}
+    \caption[Correlated noise]{Noise correlation function \eqref{eq:colored_noise_correlation} as a function of $d=|x-y|$ for three different values of the cutoff $\Lambda_1 < \Lambda_2 < \Lambda_3$, in arbitrary units. The plot is qualitative, but shows clearly that with a regulated noise, small-distance ($d \ll 1/\Lambda$) noise correlations are present, while the noise remains uncorrelated at large distances ($d \gg 1/\Lambda$), as in the white noise case.}
     \label{fig:bessel}
 \end{figure}
 \raggedright Another intuitive and interesting aspect of the dynamics in the presence of coloured noise can be deduce by looking at the field expression in terms of the retarded Langevin Green function \cite{Damgaard1987StochasticQuantization}, which is here not derived, but reported from \cite{Pawlowski2017CoolingNoise}
@@ -257,11 +257,11 @@ In a lattice simulation one wants to perform the integral over the fermionic fie
 \end{equation}
 or, in terms of dimensionless quantities
 \begin{equation*}
-    \widehat{K}_{\psi} = (ag) \, \underset{s,f}{\tr}{(aD)^{-1}}
+    \widehat{K}_{\psi} = (ag) \, \underset{s}{\tr}{(aD)^{-1}}
 \end{equation*}
 This implies that under a lattice block-spin transformation, where $a \to sa$,
 \begin{equation}
-    \widehat{K}_{\psi} \to  (sag) \, \underset{s,f}{\tr}{(saD)^{-1}} = \widehat{K}_{\psi}
+    \widehat{K}_{\psi} \to  (sag) \, \underset{s}{\tr}{(saD)^{-1}} = \widehat{K}_{\psi}
     \label{eq:fermionic_rescaling_naive}
 \end{equation}
 On the other side, when computing the drift via the original action \eqref{eq:full_action_continuum}, one gets (omitting $\tau$ and $x$ dependency)

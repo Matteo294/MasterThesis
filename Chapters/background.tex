@@ -26,45 +26,67 @@ As mentioned before, lattice field theory consists in formulating QFT on a space
 
 \section{Block-spin renormalisation}
 \label{sec:blockspin}
-Kadanoff and Buckingham \cite{PhysicsPhysiqueFizika_2_263,Buckingham1961} improve mean field theory by Landau \cite{Landau:1937obd}. Poses the basis for the work of Wilson \cite{WilsonRG1,WilsonRG2,WilsonFisher}. Average spins and rescale stuff to keep correlation length fixed. Action changes a lot with new term \cite{cardy_1996}. \\
-Value of the spin at position $x$ is $\varphi(x)$. With block-spin transformation we want blocked spin $\bar\varphi(x)$ that leaves partition function invariant (but not the action). In fact, we want to find $S_b$ such that 
+Landau's mean field approach to study phase transition \cite{Landau:1937obd}, soon proved to be inaccurate to predict some experimentally well proven properties of certain systems around the critical point \textcolor{red}{add some examples}. This is because, beeing a mean field theory, it did not take into account spatial fluctuations of the underlying quantities.
+The idea of block-spin transformation developed mainly by Kadanoff \cite{PhysicsPhysiqueFizika_2_263} made a big step towards a deeper understanding of the scaling behaviour, and posed the basis for the later work of Wilson \cite{WilsonRG1,WilsonRG2,WilsonFisher}, which still constitutes the basis for modern approaches to renormalisation in field theory and statistical physics.\\
+To illustrate the idea, let us consider a set of spins whose magnetisation is described by a function $\varphi(x)$. If the spins are on a discrete lattice $\mathcal{L}$, then the function assumes finite values only at such sites $\varphi(x_i) = \phi_i \neq 0 \Leftrightarrow x_i \in \mathcal{L}$. Suppose then that their interaction is described by a certain action $S[\varphi]$ such as 
+\begin{equation*}
+    S[\phi] =  \sum_{n} - J\sum_{\hat\mu} \left(\phi_n \, \phi_{n+\hat\mu}\right) + b \, \phi^2_n + \lambda \, \phi^4_n
+    \label{eq:example_action_blockspin}
+\end{equation*}
+which yield the partition function
+\begin{equation*}
+    Z=\sum_{\varphi} \mathrm{e}^{-S[\varphi]}
+\end{equation*}
+We now want to introduce a coarse-grained (or blocked) field $\bar\varphi$, which can be, for example, defined as
+\begin{equation*} 
+    \bar\varphi(x_i) = \Delta \, \sum_{\hat\mu} \varphi(x_i + \hat \mu)
+\end{equation*}
+and we now want to find a new action $S_b$ such that 
 \begin{equation}
     Z=\sum_{\varphi} \mathrm{e}^{-S(\varphi)}= \sum_{\bar\varphi} \mathrm{e}^{-S_b\left(\bar\varphi\right)}
 \end{equation}
-We can always, in principle, cook up such an action, but it is complicated. From nearest neighbours to nearest-nearest, nearest-nearest-nearest, \dots. Fortunately, higher order terms are smaller and can be (initially) neglected.
-Note that in the blocking procedure $a \to ba \Rightarrow \hat\xi \to \hat\xi/b$.
+We can always, in principle, cook up such an action, but it is complicated. In fact, after a block-spin transformation such as the above, it is in general not possible to recover the original partition function but simply redefining the parameters that enter the action. By looking at \eqref{eq:example_action_blockspin} it is easy to get convinced that, a description in terms of the field $\bar\phi$ will produce higher order interactions such as nearest-to-nearest neighbour, and the new action should, in principle, contatins newer terms (all the terms compatible with original symmetries). \textcolor{red}{mention that it should contain all the terms compatible with the symmetries and cite some papaers.}\\
+Fortunately, higher order terms are smaller and can be (initially) neglected \textcolor{red}{add citation}. \\
+Note that the coarse-graining procedure comes with a loss of resolution since the spacing is changed $a \to a/s$. This means that there is a loss of information and the system is not anymore capable of describing physics at scale below the new spacing. In particular, this means also that the dimensionless correlation length is reduced $\hat \xi \to \hat \xi' = \xi / a' = \hat\xi /2$. Hence, for a comparison with the original action, one has to rescale again all the dimensionfull quantities as pictured in figure \ref{fig:blockspin}. The procedure of rescaling can be thought as a "zooming out", for an inifinite volume system. \\
 The philosophy of both Kadanoff
 and Wilson was that the blocking transformation therefore reduces the complexity of many-body
 systems by systematically reducing the number of degrees of freedom being taken into account,
-without changing the physics \cite{WILSON197475} (because the partition function is invariant), a philosophy which
-could be called the pragmatic view of RG. Because critical phenomena are characterized by large
-correlation lengths, block-spin RG proves to be a useful tool. \\
+without changing the physics \cite{WILSON197475} (because the partition function is invariant). \textcolor{red}{Because critical phenomena are characterized by large
+correlation lengths, block-spin RG proves to be a useful tool\\
 s. From $a = \xi / \hat\xi$, we also see that the critical fixed points correspond to zero lattice
-spacing systems (if $\xi \neq 0$), i.e. the continuum limit, consistent with the analysis of perturbative
-RG in the previous section
+spacing systems (if $\xi \neq 0$), i.e. the continuum limit.}
 
 \section{Wilsonian renormalisation}
 \label{sec:wilson_rg}
-Extends block spin RG. \\
-One splits the fields as $\Phi = \phi + \varphi$ where $\phi$ are fields with momenta $p \leq b\Lambda$ and $\varphi$ are fields with momenta $b\Lambda < p < \Lambda$, then one writes the path integral in terms of the Wilsonian effective action
+The wilsonian picture of renormalisation \cite{WilsonRG1,WilsonRG2} is formulated in momentum space and in general more suitable for theories in the continuum.\\
+The idea is that a physical theory comes with an intrinsic cutoff which defines up to which scale the theory is valid. This theory, which is considered fundamental, might not be the one
+we observe directly in experiments at energy scales $\Lambda'$, which we call effective theory at scale $\Lambda'$. To see how can this happen, let us consider a fundamental theory defined by an action $S_\Lambda[\Phi]$, and let us split the field as $\Phi = \phi + \varphi$ where $\phi$ are fields with momenta $p \leq \Lambda'$ and $\varphi$ are fields with momenta $\Lambda' < p \leq \Lambda$. This allows one to rewrite the path integral as
 \begin{equation*}
-    Z = \int D\Phi_\Lambda \, e^{-S_\Lambda[\Phi]} = \int D\phi_{b\Lambda} \, e^{-S_{b\Lambda}[\phi]} \int D\varphi_{b\Lambda, \Lambda}  \, e^{-S_{b\Lambda, \Lambda}[\phi, \varphi]} = \int D\phi_{b\Lambda} \, e^{-S_{b\Lambda}^\text{eff}[\phi]}
+    Z = \int D\Phi_\Lambda \, e^{-S_\Lambda[\Phi]} = \int D\phi_{\Lambda'} \, e^{-S_{\Lambda'}[\phi]} \int D\varphi_{\Lambda', \Lambda}  \, e^{-S_{\Lambda', \Lambda}[\phi, \varphi]} = \int D\phi_{\Lambda'} \, e^{-S_{\Lambda'}^\text{eff}[\phi]}
 \end{equation*}
-where 
+where, in the last step, we formally performed the integral over the high-momentum field $\varphi$ and defined a new effective action $S^\text{eff}_{\Lambda'}$ as
 \begin{equation*}
-    S_{b\Lambda}^\text{eff}[\phi] = S_{b\Lambda}[\phi] - \log\left( \int D\varphi_{b\Lambda, \Lambda}  \, e^{-S_{b\Lambda, \Lambda}[\phi, \varphi]}\right) =  S_{b\Lambda}[\phi] + \Delta S_{b\Lambda, \Lambda}[\phi]
+    S_{\Lambda'}^\text{eff}[\phi] = S_{\Lambda'}[\phi] - \log\left( \int D\varphi_{\Lambda', \Lambda}  \, e^{-S_{\Lambda', \Lambda}[\phi, \varphi]}\right) =  S_{\Lambda'}[\phi] + \Delta S_{\Lambda', \Lambda}[\phi]
 \end{equation*}
-Note that all the steps above are exact identities. In particular, performing the integral over ultraviolet modes, is the continuum version of the block spinning procedure outlined in the previous section. \\
-Note also that $S_{b\Lambda}[\phi]$ is the same as the initial action, but it is non-zero only for fields with $p^2 \leq b\Lambda^2$. \\
-At this point one can expand $\Delta S_{b\Lambda, \Lambda}$ in powers of the field \textcolor{red}{(before, another step, see jan pawlowski's notes)}. Powers that are present also in $S_{b\Lambda}$ can be absorbed into the latter by redefining the coupling
-\begin{equation}
-\begin{aligned}
-& \phi^{\prime}\left(x^{\prime}\right)=\left[b^{2-d}(1+\Delta z)\right]^{\frac{1}{2}} \phi(x), \quad m^{\prime 2}=\left(m^2+\Delta m^2\right) \frac{1}{1+\Delta z} \frac{1}{b^2}, \quad \lambda^{\prime}=(\lambda+\Delta \lambda) \frac{1}{(1+\Delta z)^2} b^{d-4}, \\
-& \alpha^{\prime}=(\alpha+\Delta \alpha) \frac{1}{(1+\Delta z)^2} b^d, \quad \lambda_6^{\prime}=\left(\lambda_6+\Delta \lambda_6\right) \frac{1}{(1+\Delta z)^3} b^{2 d-6}, \quad \ldots \\
-&
-\end{aligned}
-\end{equation}
-higher powers are suppressed (non-renormalisable terms) are suppressed. By neglecting these higher order powers, one can bring the action in the same form as the initial one via redefinition of the parameters. The whole procedure is non-perturbative. The result can be compared to the initial action after redefinition of all the dimensionful quantities i.e. via $p'\equiv p/b$. 
+Note that all the steps above are exact identities. At this point, one typically tries to compute $\Delta S_{\Lambda', \Lambda}$ in some approximation and expand the result in terms of local operators $O_{m,n} = \frac{\partial^m}{\partial x^m}\phi^n(x)$ with respective coefficiends $g_{mn}$. This will generate many terms, some which were already present in the original action $S_\Lambda$ (and hence in $S_{\Lambda'}$), while some others will be new. The former can be readily absorbed in $S_{\Lambda'}[\phi]$ by a redefitinion of the couplings, while the latter are (at least initially) neglected, as they are UV-suppressed \cite{SOMEONE}. By neglecting these higher order powers, one can bring the action in the same form as the initial, upon redefinition of the parameters. Hence all the quantum fluctuations with momenta $p > \Lambda'$ are effectively encoded in the the new couplings. \\
+Note that the new action is not anymore capable of describing degrees of freedom above the scale $\Lambda'$, and we lost resolution. At this point, one can clearly see the analogy with the block-spin transformation introduced in the previous section. Performing the integral over high momenta modes can be thought as performing averages (coarse graining) over neighbours. This causes a loss of resolution which can be recovered by rescaling dimensionful quantities, which can be pictured as a zoom out. Let us now define a dimensionless parameter 
+\begin{equation*}
+    s = \frac{\Lambda'}{\Lambda} \qquad 0 \leq s \leq 1
+\end{equation*}\\
+Combining the coarse-graining effects due to the high-modes integral and dimensional rescaling, the Wilson step causes a change in each coupling which can be schematically written as
+\begin{equation*}
+    g'_{mn}(s) = s^{[g_{mn}]} \frac{(1 + \delta g_{mn})}{Z_\phi^{nd_\phi/2}} \ g_{mn}
+\end{equation*}
+where $s^{[g_{mn}]}$ appears because of the dimensional rescaling mentioned above, $\delta g$ is the correction term that comes from the expansion of the high-momentum integral, and $Z_\phi$ is due to the fact that the high-momentum integral can generate corrections to the kinetic term, which we want to keep always the same by re-defining the field, hence the appearence of such factor. \\
+Successive iterations of the above procedure gives rise to a flow of the couplings as functions of the scaling parameter $s$. Note that the assumption in which new terms in the action can be neglected is highly non-trivial, and in general higher order iterations must take into account these corrections. \\ 
+The rescaling defined above then motivates the following classification for any operators entering the action
+\begin{itemize}
+    \item relevant 
+    \item irrelevant
+    \item marginal
+\end{itemize}
+Flow of the couplings, flow of the dimensionless couplings. Fixed points and linear behaviour around gaussian fixed point. Dimensionfull couplings flow is dominated by canonical dimension. FRG to show the connection with regularised noise.
+
 
 \section{Continuum limit of lattice field theories}
 \label{sec:continuum_limit}

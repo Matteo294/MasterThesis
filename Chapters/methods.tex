@@ -9,23 +9,23 @@ In order to make the theory suitable for a numerical simulation on a computer, t
 For what concerns the bosonic part of the action, a discretisation can be done straightforwardly with the following replacements
 \begin{equation*}
     \begin{aligned}
-        \int_x \quad &\to \quad a^2 \sum_x \\
-        \partial^2_x = \frac{\partial^2}{\partial t^2} + \frac{\partial^2}{\partial x_1^2} \quad &\to \quad \sum_\mu \left[\frac{\delta_{m,n+\mu} + \delta_{m,n-\mu} - 2 \delta_{m,n}}{a^2}\right]
+        \int d^x \quad &\to \quad a^2 \sum_x, \\
+        \partial^2_t + \partial^2_x = \frac{\partial^2}{\partial t^2} + \frac{\partial^2}{\partial x_1^2} \quad &\to \quad \sum_\mu \left[\frac{\delta_{m,n+\mu} + \delta_{m,n-\mu} - 2 \delta_{m,n}}{a^2}\right],
     \end{aligned}
 \end{equation*}
 which yields to the lattice action
 \begin{equation*}
         \begin{aligned} 
         		S_\phi [\phi] 	&=  a^2 \left( \frac{1}{2} \, \sum_{m,n} \phi_m \, K_{mn} \, \phi_n + \frac{\lambda}{4!} \, \sum_n \phi_n^4 \right)\\
-        					&=  \frac{1}{2} \, \sum_{m,n} \hat{\phi}_m \, \widehat{K}_{mn} \, \hat{\phi}_n + \frac{\hat{\lambda}}{4!} \, \sum_n \hat{\phi}_n^4
+        					&=  \frac{1}{2} \, \sum_{m,n} \hat{\phi}_m \, \widehat{K}_{mn} \, \hat{\phi}_n + \frac{\hat{\lambda}}{4!} \, \sum_n \hat{\phi}_n^4,
 	\end{aligned}
 \end{equation*}
 where we expressed everything in dimensionless quantities
 \begin{equation}
     \begin{aligned}
-        \hat m_\phi^2 &= a^2 \, m_\phi^2 \\
+        \hat m_\phi^2 &= a^2 \, m_\phi^2, \\
         \hat \lambda &= a^{2} \, \lambda, \\
-        \widehat{K}_{mn} &= a^2 K_{mn}
+        \widehat{K}_{mn} &= a^2 K_{mn}.
     \end{aligned}
     \label{eq:couplings_redefitinion}
 \end{equation}
@@ -43,40 +43,40 @@ and its representation in momentum space is
 		& = \left[\hat{m}_\phi^2 + \sum_\mu 4 \sin ^2\left(\frac{p_\mu}{2}\right) \right] \, \delta(p-q) .
 	\end{aligned}
 \end{equation*}
-For what concerns the fermionic action, a naive discretisation is not sufficient, due to the well known doubling problem \cite{rothe_LGT,Montvay1994QuantumLattice} \textcolor{blue}{(is it fine if I cite the books? I couldn't really find a paper where the doubling problem was discussed in particular)}. In this work Wilson fermions \cite{wilson_lqcd} are employed as a way to fix such issue. Details of this formulation are explained in Appendix \ref{chap:AppendixB}. Here, only the final discretised action is reported, which reads
+For what concerns the fermionic action, a na\"ive discretisation is not sufficient, due to the well known doubling problem \cite{rothe_LGT,Montvay1994QuantumLattice}. In this work Wilson fermions \cite{wilson_lqcd} are employed as a way to fix such issue. Details of this formulation are explained in Appendix \ref{chap:AppendixB}. Here, only the final discretised action is reported, which reads
 \begin{equation}
-		S_\psi\left[\psihat, \psibarhat \right] + S_\text{int}\left[\phihat, \psihat, \psibarhat \right] = \sum_{f=1}^{N_f}\hat{\bar{\psi}}_m^{(f)} \, \widehat{D}_{mn} \, \hat{\psi}_n^{(f)}
+		S_\psi\left[\psihat, \psibarhat \right] + S_\text{int}\left[\phihat, \psihat, \psibarhat \right] = \sum_{f=1}^{N_f}\hat{\bar{\psi}}_m^{(f)} \, \widehat{D}_{mn} \, \hat{\psi}_n^{(f)},
 \end{equation}
-with $\psi_n$ beeing a two-component spinor, and $\widehat{D}_{m,n}$ beeing the Wilson-Dirac operator \textcolor{blue}{(can I include $g\phi $ in the definition of $D$?)} defined as 
+with $\psi_n$ beeing a two-component spinor, and $\widehat{D}_{m,n}$ the Wilson-Dirac operator \textcolor{blue}{(can I include $g\phi $ in the definition of $D$?)} defined as 
 \begin{equation}
     \begin{aligned}
     \widehat{D}_{m, n} = &- \left(\frac{\Gamma_{+\hat 0}}{2} \, \delta_{m, m+\hat 0} +\frac{\Gamma_{-\hat 0}}{2} \, \delta_{m, m-\hat 0} + \frac{\Gamma_{+\hat 1}}{2} \, \delta_{m, m+\hat 1} + \frac{\Gamma_{- \hat 1}}{2} \, \delta_{m, m-\hat 1}\right)  \\
-     &+ \left(2ar + \hat m + \hat g \phi\right) \, \delta_{s,s'} \, \delta_{m,n} \\
+     &+ \left(2ar + \hat m + \hat g \phi\right) \, \delta_{s,s'} \, \delta_{m,n}. \\
     \end{aligned}
     \label{eq:wilson-dirac_operator}
 \end{equation}
-\textcolor{blue}{Both the above and below, can I write $ar$ like that?} \\
+Note that the interaction term $g\, \bar\psi\phi\psi$ has been included in the definition of $D$. \\
 The Wilson projectors $\Gamma_{\pm \hat \mu}$ are defined as
 \begin{equation*}
-    \Gamma_{\pm \hat \mu} = ar \, \mathds{1}_s \mp \gamma_\mu 
+    \Gamma_{\pm \hat \mu} = ar \, \mathds{1}_s \mp \gamma_\mu.
 \end{equation*}
 Since $r \in [0,1]$ is a free parameter, in this work we set $r=1$, if not otherwise specified. \\
 In summary the discretised action for the Yukawa model is 
 \begin{equation*}
-    S\left[\phihat, \psihat, \psibarhat \right] = \sum_{m,n} \, \hat{\phi}_m \, \widehat{K}_{m,n} \, \hat{\phi}_n + \frac{\hat{\lambda}}{4!} \, \hat{\phi}_m^{\,4} \, \delta_{m,n} + \sum_{f=1}^{N_f}\psibarhat_m^{(f)} \, \widehat{D}_{mn} \psihat_n^{(f)}
+    S\left[\phihat, \psihat, \psibarhat \right] = \sum_{m,n} \, \hat{\phi}_m \, \widehat{K}_{m,n} \, \hat{\phi}_n + \frac{\hat{\lambda}}{4!} \, \hat{\phi}_m^{\,4} \, \delta_{m,n} + \sum_{f=1}^{N_f}\psibarhat_m^{(f)} \, \widehat{D}_{mn} \psihat_n^{(f)},
 \end{equation*}
 with $\widehat{K}_{mn}, \widehat{D}_{mn}$ given respectively by \eqref{eq:discretised_kinetic_op_bosons} and \eqref{eq:wilson-dirac_operator}. \\
 For later reference, we also report the discretised version of the effective action \eqref{eq:effective_action_no_fermions}
 \begin{equation}
 	\begin{aligned}
-		S_\text{eff}[\hat\phi] 	&= S_\phi[\hat\phi] - N_f \trover{n,s} \log \widehat{D}_{nn} \\
-							&= \sum_{m,n} \, \hat{\phi}_m \, \widehat{K}_{m,n} \, \hat{\phi}_n + \frac{\hat{\lambda}}{4!} \, \hat{\phi}_m^{\,4} \, \delta_{m,n} - N_f \trover{n,s} \log \widehat{D}_{nn} 
+		S_\text{eff}[\hat\phi] 	&= S_\phi[\hat\phi] - N_f \trover{n,s} \log \widehat{D} \\
+							&= \sum_{m,n} \, \hat{\phi}_m \, \widehat{K}_{m,n} \, \hat{\phi}_n + \frac{\hat{\lambda}}{4!} \, \hat{\phi}_m^{\,4} \, \delta_{m,n} - N_f \trover{n,s} \log \widehat{D}_{nn}.
 	\end{aligned}
 	\label{eq:discretised_effective_action}
 \end{equation}
 The full discrete path-integral reads \textcolor{red}{(measure over dimless or dimful?)}
 \begin{equation}
-    Z = \int \prod_n d\hat\phi_n \ e^{-S_\text{eff}[\hat\phi]}
+    Z = \int \prod_n d\hat\phi_n \ e^{-S_\text{eff}[\hat\phi]}.
     \label{eq:discretised_path_integral}
 \end{equation}
 In the remaining of this work, both the original action $S$ and the effective action $S_\text{eff}$ will be denoted by $S$ for simplicity. It will be clear from the context which of the two we will be referring to.
@@ -88,21 +88,21 @@ The idea is that Euclidean Quantum Field theory can be thought as a system in th
 during the evolution. \\
 Let us consider, for example, a scalar field $\phi$ with a Euclidean action $S[\phi]$ and the following Langevin equation
 \begin{equation}
-    \partial_\tau \phi(\tau, x) = - \frac{\delta S[\phi]}{\delta \phi (\tau, x)} + \eta (\tau, x)
+    \partial_\tau \phi(\tau, x) = - \frac{\delta S[\phi]}{\delta \phi (\tau, x)} + \eta (\tau, x),
     \label{eq:Langevin_scalar_full}
 \end{equation}
 where $K_{\phi}(\tau) \equiv -\delta S[\phi]/\delta \phi (\tau, x)$ is the drift term and $\eta (\tau, x)$ is a random white noise field assumed to be normally distributed
 \begin{equation*}
-    P(\eta) = \frac{\exp\left(-\frac{1}{4}\int_{\tau,x} \eta^2(\tau, x)\right)}{\int D\eta \exp\left(-\frac{1}{4}\int_{\tau,x} \eta^2(\tau,x)\right)}
+    P(\eta) = \frac{\exp\left(-\frac{1}{4}\int_{\tau,x} \eta^2(\tau, x)\right)}{\int D\eta \exp\left(-\frac{1}{4}\int_{\tau,x} \eta^2(\tau,x)\right)},
 \end{equation*} 
 which, in particular, implies
 \begin{equation}
-    \expect{\eta(x,\tau)} = 0 \qquad \expect{\eta(x,\tau) \, \eta(x',\tau')} = 2 \, \delta(x - x') \, \delta (\tau - \tau')
+    \expect{\eta(x,\tau)} = 0 \qquad \expect{\eta(x,\tau) \, \eta(x',\tau')} = 2 \, \delta(x - x') \, \delta (\tau - \tau').
     \label{eq:white_noise_definition}
 \end{equation}
-Stochastic average w.r.t. the measure $P(\eta)$ are computed via 
+Stochastic average with respect to the measure $P(\eta)$ are computed via 
 \begin{equation*}
-    \expect{A(\eta)} = \int D\eta \, P(\eta) \, A(\eta)
+    \expect{A(\eta)} = \int D\eta \, P(\eta) \, A(\eta).
 \end{equation*}
 In momentum space, \eqref{eq:white_noise_definition} becomes
 \begin{equation}
@@ -110,7 +110,7 @@ In momentum space, \eqref{eq:white_noise_definition} becomes
         \expect{\eta(p,\tau)} &= \expect{\int_x e^{ipx}\eta(x,\tau)} = \int_x \expect{e^{ipx}\eta(x,\tau)} = 0 \\
         \expect{\eta(p,\tau)\eta(q,\tau')} &= \expect{\int_{xy} e^{ipx + iqy} \eta(x,\tau)\eta(y,\tau')} \\
         &= \int_{xy} e^{ipx + iqy} \expect{\eta(x,\tau)\eta(y,\tau')} \\
-        &= 2 \, (2\pi)^2 \, \delta(p + q) \, \delta(\tau - \tau')
+        &= 2 \, (2\pi)^2 \, \delta(p + q) \, \delta(\tau - \tau').
     \end{aligned}
     \label{eq:white_noise_definition_momentum}
 \end{equation}
@@ -121,32 +121,32 @@ For any observable $O$, which is function of the field, one has, for fixed time 
 \end{equation*}
 From which it follows straightforwardly using the Langevin equation and $\expect{\eta} = 0$
 \begin{equation*}
-    \frac{d}{d\tau} \expect{O(\phi(\tau))} = \expect{\frac{\delta O}{\delta \phi(\tau, x)} \ \partial_\tau \phi(\tau, x)} = -\expect{\frac{\delta O}{\delta \phi}(\tau, x) \ \frac{\delta S}{\delta \phi(\tau, x)}}
+    \frac{d}{d\tau} \expect{O(\phi(\tau))} = \expect{\frac{\delta O}{\delta \phi(\tau, x)} \ \partial_\tau \phi(\tau, x)} = -\expect{\frac{\delta O}{\delta \phi}(\tau, x) \ \frac{\delta S}{\delta \phi(\tau, x)}}.
 \end{equation*}
 It follows trivially that for $O(\phi(\tau)) = \phi(\tau, x)$
 \begin{equation*}
-        \frac{d}{d\tau} \expect{\phi(\tau, x)} = -\expect{\frac{\delta S}{\delta \phi(\tau, x)}} \quad \underset{Equilibrium}{\Longrightarrow} \quad \expect{\frac{\delta S}{\delta \phi(\tau, x)}} = 0
+        \frac{d}{d\tau} \expect{\phi(\tau, x)} = -\expect{\frac{\delta S}{\delta \phi(\tau, x)}} \quad \underset{Equilibrium}{\Longrightarrow} \quad \expect{\frac{\delta S}{\delta \phi(\tau, x)}} = 0.
 \end{equation*}
 This also provides a consistency check for the correct implementation of the simulation, since the drift $K_\phi = -\delta S / \delta \phi$ is computed numerically during the evolution. \\
 More generally, one can derive a correspondent Fokker-Planck equation \cite{gardiner}, which can be proven to have a stationary distribution if the action is bounded from below, given by \cite{Damgaard1987StochasticQuantization}
 \begin{equation}
-    \mathcal{P}(\phi) = \frac{1}{Z} \, \exp\left(-S[\phi]\right)
+    \mathcal{P}(\phi) = \frac{1}{Z} \, \exp\left(-S[\phi]\right).
     \label{eq:probability_field_configuration_full}
 \end{equation}
 This allows one to compute correlation functions as moments of the  probability distribution \eqref{eq:probability_field_configuration_full}. In particular, one has 
 \begin{equation}
-    \expect{O}_{P(\eta)} = \expect{O}_{\mathcal{P}(\phi)} \equiv \expect{O}
+    \expect{O}_{P(\eta)} = \expect{O}_{\mathcal{P}(\phi)} \equiv \expect{O}.
     \label{eq:expectation_observables}
 \end{equation}
-From a more pratical point of view, this idea suggests that equation \eqref{eq:Langevin_scalar_full} can be integrated numerically for discrete time steps $\tau_n$ to generate field configurations distributed according to \eqref{eq:probability_field_configuration_full}. 
-The simplest first-order integration algorithm is \cite{ParisiWu}
+This idea suggests that equation \eqref{eq:Langevin_scalar_full} can be integrated numerically for discrete time steps $\tau_n$ to generate field configurations distributed according to \eqref{eq:probability_field_configuration_full}. 
+The simplest first-order integration algorithm is the Euler-Majorana scheme \cite{ParisiWu}
 \begin{equation*}
-    \phi(\tau_{n+1}, x) = \phi(\tau_{n}, x) - \epsilon \,  \frac{\delta S[\phi]}{\delta \phi (\tau_n, x)} + \sqrt{\epsilon} \, \eta(\tau_n, x) + O(\epsilon^2)
+    \phi(\tau_{n+1}, x) = \phi(\tau_{n}, x) - \epsilon \,  \frac{\delta S[\phi]}{\delta \phi (\tau_n, x)} + \sqrt{\epsilon} \, \eta(\tau_n, x) + O(\epsilon^2),
 \end{equation*}
-where $\epsilon = \tau_{n+1} - \tau_n$. Higher order integration schemes are possible (see e.g.\cite{bilinearnoise1,Kronfeld1993}), but not adopted in this work. Thus, an adaptive stepsize is employed as detailed in Appendix \ref{chap:AppendixC}.
-In this way, for any observable $O$, one can introduce a Monte-Carlo estimator $\expect{O}_*$ which is expected to converges to the expectiation value given by \eqref{eq:expectation_observables} in the limit of infinite samples
+where $\epsilon = \tau_{n+1} - \tau_n$. Higher order integration schemes are possible (see e.g.\cite{bilinearnoise1,Kronfeld1993}), but not adopted in this work, and an adaptive step size is employed as detailed in Appendix \ref{chap:AppendixC}.
+In this way, for any observable $O$, one can introduce a Monte-Carlo estimator $\expect{O}_*$ which converges to the expectiation value given by \eqref{eq:expectation_observables} in the limit of infinite samples
 \begin{equation}
-    \expect{O}_{*} = \frac{1}{N_\text{samp}} \sum^{N_\text{samp}}_{i=1} O_i \quad \underset{N_\text{samp} \to \infty}{\longrightarrow} \quad \expect{O} = \frac{1}{Z} \, \int D\phi \ O(\phi) \, \exp\left(-S[\phi]\right)
+    \expect{O}_{*} = \frac{1}{N_\text{samp}} \sum^{N_\text{samp}}_{i=1} O_i \quad \underset{N_\text{samp} \to \infty}{\longrightarrow} \quad \expect{O} = \frac{1}{Z} \, \int D\phi \ O(\phi) \, \exp\left(-S[\phi]\right),
     \label{eq:monte_carlo_estimator}
 \end{equation}
 where $O_i = O(\phi(\tau_i))$ is the sample of the observable $O$ done at time $\tau_i$. \\~\\
@@ -225,6 +225,8 @@ where the correction term $\Delta S_\Lambda[\phi]$, for the specific case of the
 \textcolor{red}{at this point mention that this is the stationary pdf that one gets with frg for sharp cutoff, and cite some papers.}
 
 \section{Applications of coloured noise in lattice QFT}
+\label{sec:lattice_with_coloured_noise}
+
 \subsection*{Cooling and the continuum limit}
 After the general introduction on coloured noise given in the previous paragraph, let us now look more closely on the lattice formulation and at some possible applications of the technique. \\~\\
 To this end, let us consider a two-dimensional lattice with side lengths $L_t, L_x$ and spacing $a = a_x = a_t$. This implies a maximum momentum $p_\text{max} = \pi / a$ in each space-time direction and $N_x=L_x/a, N_t=L_t/a$ points in each direction. Let us also define 
@@ -262,7 +264,7 @@ or, in terms of dimensionless quantities
 This implies that under a lattice block-spin transformation, where $a \to sa$,
 \begin{equation}
     \widehat{K}_{\psi} \to  (sag) \, \underset{s}{\tr}{(saD)^{-1}} = \widehat{K}_{\psi}
-    \label{eq:fermionic_rescaling_naive}
+    \label{eq:fermionic_rescaling_na\"ive}
 \end{equation}
 On the other side, when computing the drift via the original action \eqref{eq:full_action_continuum}, one gets (omitting $\tau$ and $x$ dependency)
 \begin{equation}
@@ -281,7 +283,7 @@ Note that all the terms in the equation \eqref{eq:drift_continuum_from_full_acti
     \widehat{K}'_\psi = (ag) (a\bar\psi \psi) \to s^2 (ag) (a\bar\psi \psi) = s^2 \widehat{K}'_\psi
     \label{eq:rescaling_blinear}
 \end{equation}
-in contrast with \eqref{eq:fermionic_rescaling_naive}. For this reason, in order to have the correct scaling, we compute the contribution to the drift without rescaling the Dirac operator (and hence the Yukawa coupling), and then rescale the whole drift via 
+in contrast with \eqref{eq:fermionic_rescaling_na\"ive}. For this reason, in order to have the correct scaling, we compute the contribution to the drift without rescaling the Dirac operator (and hence the Yukawa coupling), and then rescale the whole drift via 
 \begin{equation*}
     \widehat{K}_\psi \to s^2 \widehat{K}_\psi
 \end{equation*}

@@ -4,59 +4,30 @@
 
 Da qualche parte cita \cite{carosso2020novel}. \\~\\
 In this chapter we want to provide with an overview on the general theoretical framework that supports this work, and introduce the main concepts for the successive parts. Each section in this chapter is, by no means, meant as an exhaustive treatment. The description will be quite conceptual, rather than technical, and aims at recalling the main ideas and fix conventions. We ask the reader to consult appropriate references,  which will be given in the corresponding sections, for a more detailed treatment of the topics. \\~\\
-The starting set up is the euclidean formulation of quantum field theory, where one typically defines a path integral $Z$
-\begin{equation}
-    Z = \int \mathcal{D}\phi\mathcal{D}\psi\mathcal{D}\psi \ e^{-S[\phi, \psi, \bar\psi]}
-    \label{eq:path_integral_generic}
-\end{equation}
-and aims to compute correlation functions
-\begin{equation*}
-        \left\langle \xi_{x_1} \dots \xi_{x_n}  \right\rangle = \frac{1}{Z} \int \mathcal{D}\phi\mathcal{D}\psi\mathcal{D}\psi \ \xi_{x_1} \dots \xi_{x_n} \ e^{-S[\phi, \psi, \bar\psi]} \qquad \xi_{x_i} \in \{\phi_{x_i}, \psi_{x_i}, \bar\psi_{x_i}\} \\
-\end{equation*}
-Computing physical quantities from such a direct approach is not only hard to do, but results often impossible due to the appearence of divergences in the calculations. To fix this, one often relies on expansion techniques such as perturbation theory (\textcolor{red}{CITATION}), in which one tries to regularise the theory order by order in an expansion on the interaction coupling, yielding finite quantities that depend on the truncation order.  While this method produced incredibly precise results (\textcolor{red}{g-2, fine structure, ...}), it fails completely in treating non-perturbative phenomena, namely effects that cannot be captured by any order in the expansion or that rely on strongly interacting matter. Example of such systems range from \textcolor{red}{QCD, cold atoms, plasma, stuff}. 
-Moreover, such formulation is also not much suitable for numerical computations, since both the path integral and action measure are infinite dimensional objects. \\
-Lattice field theory \cite{Montvay1994QuantumLattice,rothe_LGT,gattringer_LQCD,creutz_2023} is meant at first as a powerful non-perturbative regularisation tool to prevent divergences to occur and render the computation of the correlation functions finite. Moreover, it also provides a framework to study quantum field theory numerically on a computer. In order to accomplish this, one typically defines the theory on a space-time lattice and makes use of statistical methods such as Monte Carlo algorithms to compute observables. One may wonder how can one reconstruct the results in the continuum theory, keeping the results finite, and matching the results on the discretised theory to physically measured ones. This task, far from beeing simple, will be the focus of the next sections, in which we will first introduce relevant theoretical tools, such as the renormalisation group, and then discuss the existence of a continuum limit of a lattice theory and, if it exists, how it can be extracted. This will motivate the introduction of coloured noise in the context of continuum limits of effective theories, a technique which will be shown to be powerful also for other various reasons, which will be the main focus of the analysis carried in the remaining chapters.
 
-\section{Lattice Field Theory}
-\label{sec:lattice_formulation}
-As mentioned before, lattice field theory consists in formulating QFT on a space-time lattice
-\begin{equation*}
-	S = \int d^dx \, \mathcal{L}(x) \ t
-\end{equation*}
-
-\section{Block-spin renormalisation}
+\section{The renormalisation group}
+Landau's mean field approach to study phase transition \cite{Landau:1937obd} gained wide popularity in the 1930's and 40's, since it was able to describe critical properties of many systems, but has soon proved to be inaccurate to predict some experimentally well proven properties of certain systems around the critical point \textcolor{red}{add some examples}. This is because, beeing a mean field theory, it did not take into account the role of spatial fluctuations.
+\subsection{Block-spin renormalisation}
 \label{sec:blockspin}
-Landau's mean field approach to study phase transition \cite{Landau:1937obd}, soon proved to be inaccurate to predict some experimentally well proven properties of certain systems around the critical point \textcolor{red}{add some examples}. This is because, beeing a mean field theory, it did not take into account spatial fluctuations of the underlying quantities.
 The idea of block-spin transformation developed mainly by Kadanoff \cite{PhysicsPhysiqueFizika_2_263} made a big step towards a deeper understanding of the scaling behaviour, and posed the basis for the later work of Wilson \cite{WilsonRG1,WilsonRG2,WilsonFisher}, which still constitutes the basis for modern approaches to renormalisation in field theory and statistical physics.\\
-To illustrate the idea, let us consider a set of spins whose magnetisation is described by a function $\varphi(x)$. If the spins are on a discrete lattice $\mathcal{L}$, then the function assumes finite values only at such sites $\varphi(x_i) = \phi_i \neq 0 \Leftrightarrow x_i \in \mathcal{L}$. Suppose then that their interaction is described by a certain action $S[\varphi]$ such as 
+To illustrate the idea, let us consider a set of spins whose magnetisation is described by a function $\varphi(x)$. The spins are located on a discrete lattice $\mathscr{L}$, so that he function assumes values only at such sites $\varphi(x_i) = \varphi_i \neq 0 \Leftrightarrow x_i \in \mathscr{L}$. Suppose then that their interaction is described by a certain action $S[\varphi]$ and a partition function
 \begin{equation*}
-    S[\phi] =  \sum_{n} - J\sum_{\hat\mu} \left(\phi_n \, \phi_{n+\hat\mu}\right) + b \, \phi^2_n + \lambda \, \phi^4_n
-    \label{eq:example_action_blockspin}
+    Z=\sum_{\varphi} \mathrm{e}^{-S[\varphi]}.
 \end{equation*}
-which yield the partition function
-\begin{equation*}
-    Z=\sum_{\varphi} \mathrm{e}^{-S[\varphi]}
-\end{equation*}
-We now want to introduce a coarse-grained (or blocked) field $\bar\varphi$, which can be, for example, defined as
-\begin{equation*} 
-    \bar\varphi(x_i) = \Delta \, \sum_{\hat\mu} \varphi(x_i + \hat \mu)
-\end{equation*}
-and we now want to find a new action $S_b$ such that 
+We now want to introduce a coarse-grained (or blocked) field $\bar\varphi$ within a space-time cell of volume $\mathcal{V}$. Such a coarse grained field can be defined, for example, as an average over the spins within the cell $\mathcal{V}$. If the spins can only be $0$ or $1$ like in a Ising model, then we might opt for a majority rule \cite{cardy_1996}.
+We now want to find a new action $S_b$ such that 
 \begin{equation}
-    Z=\sum_{\varphi} \mathrm{e}^{-S(\varphi)}= \sum_{\bar\varphi} \mathrm{e}^{-S_b\left(\bar\varphi\right)}
+    Z=\sum_{\varphi} \mathrm{e}^{-S(\varphi)}= \sum_{\bar\varphi} \mathrm{e}^{-S_b\left(\bar\varphi\right)}.
 \end{equation}
-We can always, in principle, cook up such an action, but it is complicated. In fact, after a block-spin transformation such as the above, it is in general not possible to recover the original partition function but simply redefining the parameters that enter the action. By looking at \eqref{eq:example_action_blockspin} it is easy to get convinced that, a description in terms of the field $\bar\phi$ will produce higher order interactions such as nearest-to-nearest neighbour, and the new action should, in principle, contatins newer terms (all the terms compatible with original symmetries). \textcolor{red}{mention that it should contain all the terms compatible with the symmetries and cite some papaers.}\\
-Fortunately, higher order terms are smaller and can be (initially) neglected \textcolor{red}{add citation}. \\
-Note that the coarse-graining procedure comes with a loss of resolution since the spacing is changed $a \to a/s$. This means that there is a loss of information and the system is not anymore capable of describing physics at scale below the new spacing. In particular, this means also that the dimensionless correlation length is reduced $\hat \xi \to \hat \xi' = \xi / a' = \hat\xi /2$. Hence, for a comparison with the original action, one has to rescale again all the dimensionfull quantities as pictured in figure \ref{fig:blockspin}. The procedure of rescaling can be thought as a "zooming out", for an inifinite volume system. \\
-The philosophy of both Kadanoff
-and Wilson was that the blocking transformation therefore reduces the complexity of many-body
-systems by systematically reducing the number of degrees of freedom being taken into account,
-without changing the physics \cite{WILSON197475} (because the partition function is invariant). \textcolor{red}{Because critical phenomena are characterized by large
-correlation lengths, block-spin RG proves to be a useful tool\\
-s. From $a = \xi / \hat\xi$, we also see that the critical fixed points correspond to zero lattice
-spacing systems (if $\xi \neq 0$), i.e. the continuum limit.}
+We can always, in principle, cook up such an action, but it is complicated. For example, if the action $S[\varphi]$ contains only nearest-neighbour interactions, the new actions $S'[\phi]$ can contain higher order interactions such as nearest-to-nearest neighbour. In principle, all the terms compatible with the original symmetries are allowed.\\
+Fortunately, higher order terms are smaller and can be (initially) neglected \textcolor{red}{add citation}, and one can assume that the new action can be obtained by properly adjusting the couplings. \\
+Note that the coarse-graining procedure comes with a loss of resolution since the spacing is changed $a \to 2a$. This means that there is a loss of information and the system is not anymore capable of describing physics at scale below the new spacing. For a comparison with the original action, one has to rescale again all the dimensionful quantities as pictured in figure \ref{fig:blockspin}. This can be thought as a zoom-out with a corresponding coarse graining,
+to describe the system in terms of the relevant scales. \\\
+Therefore the philosophy of Kadanoff (and subsequently Wilson) was that the blocking transformation reduces the complexity of many-body
+systems by systematically reducing the number of degrees of freedom being taken into account \cite{WILSON197475},
+without changing the physical content of the theory.
 
-\section{Wilsonian renormalisation}
+\subsection{Wilsonian renormalisation}
 \label{sec:wilson_rg}
 The wilsonian picture of renormalisation \cite{WilsonRG1,WilsonRG2} is formulated in momentum space and in general more suitable for theories in the continuum.\\
 The idea is that a physical theory comes with an intrinsic cutoff which defines up to which scale the theory is valid. This theory, which is considered fundamental, might not be the one
@@ -88,11 +59,58 @@ The rescaling defined above then motivates the following classification for any 
 Flow of the couplings, flow of the dimensionless couplings. Fixed points and linear behaviour around gaussian fixed point. Dimensionfull couplings flow is dominated by canonical dimension. FRG to show the connection with regularised noise.
 
 
-\section{Continuum limit of lattice field theories}
-\label{sec:continuum_limit}
-Introduce renormalisation as a mapping as in page 40 of Montvay Munster. \\
-Continuum limits in lattice theories are intimately connected to the existence of critical points in the theories. In fact, to take a continuum limit, one want the dimensionless correlation length $\hat \xi$ to diverge: in this way one can represent an infinite number of points inside a finite volume (\textcolor{red}{explain better here}). For this to happen, the system must go under a second order phase transition, whose critical point is identified by a set of values for the bare parameters $g_0^{i*}$. \textcolor{red}{differentiate well between dimful and dimless}. \\
-Consider $O$ to be an observable which has to be matched to a physical measurable quantity, and compare it to the dimensionless quantity $\hat O$ given by a lattice simulation. In general the physical observable is assumed to be a function of the spacing and the bare couplings of the theory 
+\section{Lattice QFT and the continuum limit}
+\label{sec:lattice_continuum_}
+\textcolor{red}{punteggiatura formule}. \\
+Lattice Quantum Field Thoery is formulated on a discrete set of space-time points. Let us then consider a lattice, with a space, with numer, with \dots 
+The action and the path integral measure are now sums over discrete quantities 
+\begin{equation*}
+    \begin{aligned}
+	    S = \int d^dx \, \mathcal{L}(\phi(x)) \qquad &\to \qquad S = a^d \sum_n \, \mathcal{L}(\phi(n)) \\
+        \prod_{x} d\phi(x) \qquad &\to  \qquad \prod_n d\phi(n)
+    \end{aligned}
+\end{equation*}
+where $\mathcal{L}(\phi)$ is the Lagrangian density function \textcolor{red}{add citation?}.  \\
+Note that for simplicity we restricted here to a scalar field $\phi$ and we will recall fermionic properties only when relevant, but the treatment is valid also for the latters. \\ 
+The path integral assumes the form 
+\begin{equation*}
+    Z = \int \prod_n d\phi(n) \, e^{-S[\phi]}
+\end{equation*}
+with the probability of a field configuration $\phi$ beeing 
+\begin{equation}
+    p(\phi) = \frac{1}{Z} \, e^{-S[\phi]}
+    \label{eq:probability_distribution_lattice}
+\end{equation}
+Expectation value of observables are computes as
+\begin{equation}
+    \expect{O(\phi)}  = \frac{1}{Z} \, \int \prod_n d\phi(n) \, O(\phi) \, e^{-S[\phi]}
+    \label{eq:expectation_value_lattice}
+\end{equation}
+In order to simulate a theory and perform the above sums one has to go to finite volumes with some boundary conditions. In the space directions, one typically takes periodic conditions 
+\begin{equation*}
+    \begin{aligned}
+        \phi(t, \vec x) &= \phi(t, \vec x + T) \\
+        \psi(t, \vec x) &= \psi(t, \vec x + T)
+    \end{aligned}
+\end{equation*}
+Instead, a finite time extent is related to the temperature of the system \cite{le_bellac_1996,rothe_LGT} via
+\begin{equation*}
+    \beta = 1/T = 1/L_t
+\end{equation*}
+and boundary conditions are chosen depending on the spin-statistic of the corresponding particles, namely periodic conditions for bosons, and anti-periodic for fermions
+\begin{equation*}
+    \begin{aligned}
+        \phi(t, \vec x) &= \phi(t + T, \vec x) \qquad \text{bosons}\\
+        \psi(t, \vec x) &= -\psi(t + T, \vec x) \quad \text{fermions}
+    \end{aligned}
+\end{equation*}
+Such a formulation naturally brings a momentum cutoff $\Lambda = \pi/a$ since now all the momenta are restricted to the first Brilloune zone $p_\mu \in [-\pi/a, \pi/a]$. \\
+To compute observables one relies on Monte-Carlo methods to generate field configurations sampling the distribution \eqref{eq:probability_distribution_lattice} and convergence to the statistical value given by \eqref{eq:expectation_value_lattice} is expected for $N_\text{samp} \to \infty$. To recover the continuum results, one has to take $V \to 0, a \to \infty$ (\textcolor{red}{this order is important, cite SOMEONE}), but this task cannot be done so straightforwardly \cite{rothe_LGT}.
+Instead, continuum limits of lattice theories are intimately connected to the existence of critical points in the theories. To see why this is the case, consider the dimensionless mass gap $\hat\xi = m \, a$ of a certain theory. The quantity $\xi$ is also called correlation length and it is related to \textcolor{red}{spigea cosa e di che è mostrato dopo}. 
+When taking the continuum limit we want $a \to 0$ while having a finite physical mass $m$. This implies that the correlation length $\hat \xi$ has to diverge. In the language of statistical physics, this is a second order phase transition. A divergent correlation length signifies that \textcolor{red}{dire cosa significa}. Of course to bring the system at its critical point, where such phase transition happens, one has to tune the bare parameters $\{g_0\}$ to their critical values $\{g_0*\}$. 
+This should be done by finding zeros of the beta functions on the lattice, but often one relies on approximate solution such as employing perturbative continuum beta functions. \\
+Note that in the limit $a \to 0$ one has $\Lambda \to \infty$. If one's scope is to simulate an effective theory which is expected to hold only up to a scale $\Lambda_\text{phys}$, one must have $\Lambda \leq \Lambda_\text{phys}$ with a consequent lower bound on the lattice spacing $a \geq a_\text{phys} = \pi / \Lambda_\text{phys}$. \\ ~
+\textcolor{green}{Consider $O$ to be an observable which has to be matched to a physical measurable quantity, and compare it to the dimensionless quantity $\hat O$ given by a lattice simulation. In general the physical observable is assumed to be a function of the spacing and the bare couplings of the theory 
 \begin{equation*}
     O = O(a, g^i_0)
 \end{equation*}
@@ -116,8 +134,7 @@ with
 \end{equation*}
 Integrating such $\beta$ functions tells one how to change bare couplings as a backreaction to a change in the spacing, in order to keep observables constant. We then say that the theory admits a continuum limit if there exists some set of values $(g_0^i)^*$ such that when $g_0^i \to (g_0^i)^*$ one has $\hat \xi \to +\infty$ and $O \to O_{phys}$. \textcolor{red}{Connection with fixed points and beta function. Comment also on beta functions for dimless couplings}. \\
 Of course one does not know a priori the full lattice beta functions, but they can be computed via approximate or continuum methods. For example, in continuum perturbation theory, one can compute $g_r^i(\Lambda) = g_r^i(\Lambda, g_0^j)$, where $\Lambda$ is a sharp momentum cutoff and then try to invert them to find $g_0^i = g_0^i(\Lambda, g_r^j)$. The connection is then given by making the identification $a \sim \Lambda^{-1}$. \\
-Generally speaking, we are interested in the set of theories in theories space that have constant renormalised couplings but different dimless couplings $g_r^i \, a$ (trajectories in Kadanoff-Wilson RG).
-
+Generally speaking, we are interested in the set of theories in theories space that have constant renormalised couplings but different dimless couplings $g_r^i \, a$ (trajectories in Kadanoff-Wilson RG).}
 \section{Yukawa theory}
 \label{sec:Yukawa_theory}
 Let us consider the Yukawa theory defined by the action
@@ -241,5 +258,6 @@ The classical relation \eqref{eq:classical_EOM} is proven to hold also at mean f
 \label{fig:breaking_O1_symmetry}
 \caption{The introduction of the boson-fermion interaction, with a finite fermionic mass, causes the breaking of the O(1) symmetry. It shifts the equilibrium position in the symmetric phase (left) causing $\left\langle \phi \right\rangle \neq 0$, and tilts the potential in the broken phase (right), making the two minima not equivalent.}
 \end{figure}
+
 
 \newpage

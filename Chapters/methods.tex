@@ -97,7 +97,7 @@ where $K_{\phi}(\tau) \equiv -\delta S[\phi]/\delta \phi (\tau, x)$ is the drift
 \end{equation*} 
 which, in particular, implies
 \begin{equation}
-    \expect{\eta(x,\tau)} = 0 \qquad \expect{\eta(x,\tau) \, \eta(x',\tau')} = 2 \, \delta(x - x') \, \delta (\tau - \tau').
+    \expect{\eta(x,\tau)} = 0, \qquad \expect{\eta(x,\tau) \, \eta(x',\tau')} = 2 \, \delta(x - x') \, \delta (\tau - \tau').
     \label{eq:white_noise_definition}
 \end{equation}
 Stochastic average with respect to the measure $P(\eta)$ are computed via 
@@ -107,7 +107,7 @@ Stochastic average with respect to the measure $P(\eta)$ are computed via
 In momentum space, \eqref{eq:white_noise_definition} becomes
 \begin{equation}
     \begin{aligned}
-        \expect{\eta(p,\tau)} &= \expect{\int_x e^{ipx}\eta(x,\tau)} = \int_x \expect{e^{ipx}\eta(x,\tau)} = 0 \\
+        \expect{\eta(p,\tau)} &= \expect{\int_x e^{ipx}\eta(x,\tau)} = \int_x \expect{e^{ipx}\eta(x,\tau)} = 0, \\
         \expect{\eta(p,\tau)\eta(q,\tau')} &= \expect{\int_{xy} e^{ipx + iqy} \eta(x,\tau)\eta(y,\tau')} \\
         &= \int_{xy} e^{ipx + iqy} \expect{\eta(x,\tau)\eta(y,\tau')} \\
         &= 2 \, (2\pi)^2 \, \delta(p + q) \, \delta(\tau - \tau').
@@ -117,9 +117,9 @@ In momentum space, \eqref{eq:white_noise_definition} becomes
 In absence of the noise term $\eta(\tau,x)$, equation \eqref{eq:Langevin_scalar_full} simply represents an evolution of the field towards the minimum of the action, and at equilibrium the field is constrained to $\partial_\tau \phi(x,\tau) = 0 = \delta S[\phi]/\delta \phi (\tau, x)$, namely to the classical equations of motion.\\
 For any observable $O$, which is function of the field, one has, for fixed time $\tau$,
 \begin{equation*}
-    \expect{O(\phi(\tau))} = \int D\eta \, P(\eta) \, O(\phi(\tau))
+    \expect{O(\phi(\tau))} = \int D\eta \, P(\eta) \, O(\phi(\tau)),
 \end{equation*}
-From which it follows straightforwardly using the Langevin equation and $\expect{\eta} = 0$
+from which it follows straightforwardly using the Langevin equation and $\expect{\eta} = 0$
 \begin{equation*}
     \frac{d}{d\tau} \expect{O(\phi(\tau))} = \expect{\frac{\delta O}{\delta \phi(\tau, x)} \ \partial_\tau \phi(\tau, x)} = -\expect{\frac{\delta O}{\delta \phi}(\tau, x) \ \frac{\delta S}{\delta \phi(\tau, x)}}.
 \end{equation*}
@@ -154,26 +154,26 @@ For the discretised action of the Yukawa theory \eqref{eq:discretised_effective_
 \begin{equation}
     \begin{aligned}
         \frac{\partial S}{\partial \phihat_m(\tau_n)} &= \frac{\partial S_{\phihat}}{\partial \phihat_m(\tau_n)} - N_f \, \underset{s}{\tr} \left[\sum_{j,k} \widehat{D}^{-1}_{jk}  \, \frac{\partial \widehat{D}_{kj}(\phihat)}{\partial \phihat_m(\tau_n)}\right] \\
-        &= \sum_l \widehat{K}_{ml} \, \hat\phi_l + \frac{\hat\lambda}{6} \, \hat\phi_m^3 - \hat g \, N_f \, \underset{s}{\tr} \left[\widehat{D}^{-1}_{mm}(\phihat(\tau_n))\right]
+        &= \sum_l \widehat{K}_{ml} \, \hat\phi_l + \frac{\hat\lambda}{6} \, \hat\phi_m^3 - \hat g \, N_f \, \underset{s}{\tr} \left[(\widehat{D}_{mm})^{-1}(\phihat(\tau_n))\right].
     \end{aligned}
     \label{eq:drift_continuum_full_theory}
 \end{equation}
 While the bosonic contribution can be computed in a straightforward manner, the computation of the fermionc contribution requires the inversion of the Dirac operator. This, in general, cannot be done straightforwardly, mainly due to computational reasons.
-In fact, the full Dirac operator would be a $(2 \cdot N_t \cdot N_x \cdot N_f)^2$ dimensional object and a full inversion would be very expensive. To circumvent this, we use the bilinear noise scheme \cite{bilinearnoise1,bilinearnoise2} \textcolor{blue}{should I cite here or in Appendix?} which is illustrated in Appendix \ref{chap:AppendixC}.
+In fact, the full Dirac operator would be a $(2 \cdot N_t \cdot N_x \cdot N_f)^2$ dimensional object and a full inversion would be very expensive. In fact, $D^{-1}$ has to be recomputed at every step and the best available algorithm as today for the matrix inversion has a computational complexity of $O(n^{2.371552})$ \cite{williams2023new}. To circumvent this, we use the bilinear noise scheme \cite{bilinearnoise1,bilinearnoise2} \textcolor{blue}{should I cite here or in Appendix?} which is illustrated in Appendix \ref{chap:AppendixC}.
 
 
 
 \section{Stochastic quantisation with coloured noise}
 \label{sec:coloured_noise}
-In the stochastic quantisation procedure the noise which accounts for the quantum fluctuations of the theory is assumed to be white noise, as defined in equations \eqref{eq:white_noise_definition}, \eqref{eq:white_noise_definition_momentum}. 
-We now want to examine the dynamics in presence of a colored noise, writing the Langevin equation as
+In the stochastic quantisation procedure the noise which accounts for the quantum fluctuations of the theory is assumed to be white, as defined in equations \eqref{eq:white_noise_definition}, \eqref{eq:white_noise_definition_momentum}. 
+We now want to examine the dynamics in presence of a coloured noise, writing the Langevin equation as
 \begin{equation*}
-    \partial_\tau \phi(x, \tau) = - \frac{\delta S[\phi]}{\delta \phi (\tau, x)} + \eta_\text{col}(x, \tau)
+    \partial_\tau \phi(x, \tau) = - \frac{\delta S[\phi]}{\delta \phi (\tau, x)} + \eta_\text{col}(x, \tau),
     \label{eq:Langevin_scalar_regularised}
 \end{equation*}
 with $\eta_\text{col}(x,\tau) = r_\Lambda(x) \, \eta(x,\tau)$. In particular, here we restrict to the regulating function defined as a sharp cutoff in momentum space
 \begin{equation}
-    r_\Lambda(p) = \theta(\Lambda^2 - p^2)
+    r_\Lambda(p) = \theta(\Lambda^2 - p^2),
     \label{eq:regulator}
 \end{equation}
 and we invite the reader to consult \cite{Pawlowski2017CoolingNoise} for a discussion of other regulating functions. \\
@@ -181,7 +181,7 @@ The noise field in momentum space is then
 \begin{equation*}
     \begin{aligned}
         \eta_\text{col}(p, \tau) &= \mathcal{F}[\eta_\text{col}(x,\tau)] = \mathcal{F}[r_\Lambda(x,\tau) \eta(x,\tau)] = \mathcal{F}[r_\Lambda(x,\tau)] \star \mathcal{F}[\eta(x,\tau)] \\
-        &= \theta(\Lambda^2 - p^2)  \, \eta(p, \tau)
+        &= \theta(\Lambda^2 - p^2)  \, \eta(p, \tau).
     \end{aligned}
 \end{equation*}
 where $\mathcal{F}$ indicates the Fourier transform and $\star$ the convolution product. \\
@@ -190,37 +190,37 @@ An interesting thing to look at is the position-space noise correlation function
     \begin{aligned}
         C_{\eta}(x,\tau,y,\tau') &= \left\langle\eta_\text{col}(x,\tau) \, \eta_\text{col}(y,\tau')\right\rangle \\
         &= \frac{1}{(2\pi)^{4}} \int D\eta \, P(\eta) \left[\int_{p,q} e^{-ipx-iqy }\eta_\text{col}(p,\tau) \, \eta_\text{col}(q,\tau')\right] \\
-        &= \frac{1}{(2\pi)^{4}} \int_{p,q} e^{-ipx-iqy } \int D\eta \left[ P(\eta) \, \eta(p,\tau) \, \eta(q,\tau') \right] \, \theta(\Lambda^2 - p^2) \, \theta(\Lambda^2 - q^2)  \\
+        &= \frac{1}{(2\pi)^{4}} \int_{p,q} e^{-ipx-iqy } \int D\eta \left[ P(\eta) \, \eta(p,\tau) \, \eta(q,\tau') \right] \\
+        &\qquad\times \theta(\Lambda^2 - p^2) \, \theta(\Lambda^2 - q^2)  \\
         &= \frac{2}{(2\pi)^{2}} \int_{p,q} e^{-ipx-iqy} \, \delta(p+q) \, \theta(\Lambda^2 - p^2) \, \theta(\Lambda^2 - q^2) \, \delta(\tau - \tau') \\
-        &= \frac{2}{(2\pi)^{2}} \int_{p} e^{-ip(x-y)} \, \theta(\Lambda^2 - p^2) \\
-        &= \frac{1}{\pi} \, \int_0^\Lambda \, d\omega \, \omega \, J_0(\omega |x-y|)
+        &= \frac{2}{(2\pi)^{2}} \int_{p} e^{-ip(x-y)} \, \theta(\Lambda^2 - p^2) = \frac{1}{\pi} \, \int_0^\Lambda \, d\omega \, \omega \, J_0(\omega |x-y|),
     \end{aligned}
-    %\label{eq:colored_noise_correlation}
+    %\label{eq:coloured_noise_correlation}
 \end{equation}
 where $J_0(x)$ is a Bessel function of the first order. The integral in the last line is computed numerically as a function of $d=|x-y|$ and reported in figure \ref{fig:bessel} for three different values of the cutoff $\Lambda_1 < \Lambda_2 < \Lambda_3$. This shows nicely that for $|x-y| \ll 1/\Lambda$ the noise is now correlated, while for $|x-y| \gg 1/\Lambda$ the correlation function vanishes, as in the white noise case. In other words, only the short-length behaviour of the system is affected by the introduction of such a regulating term, as one could expect.\\~\\
 \begin{figure}
     \centering
     \includegraphics[scale=0.6]{figures/bessel.pdf}
-    \caption[Correlated noise]{Noise correlation as a function of $d=|x-y|$ for three different values of the cutoff $\Lambda_1 < \Lambda_2 < \Lambda_3$, in arbitrary units. The plot is qualitative, but shows clearly that with a regulated noise, small-distance ($d \ll 1/\Lambda$) noise correlations are present, while the noise remains uncorrelated at large distances ($d \gg 1/\Lambda$), as in the white noise case.}
+    \caption[Correlated noise]{Noise correlation as a function of $d=|x-y|$ for three different values of the cutoff $\Lambda_1 < \Lambda_2 < \Lambda_3$, in arbitrary units. The plot is qualitative, but shows clearly that with a regulated noise, only the short-distance behaviour is affected.}
     \label{fig:bessel}
 \end{figure}
 \raggedright Another intuitive and interesting aspect of the dynamics in the presence of coloured noise can be deduce by looking at the field expression in terms of the retarded Langevin Green function \cite{Damgaard1987StochasticQuantization}, which is here not derived, but reported from \cite{Pawlowski2017CoolingNoise}
 \begin{equation*}
-        \phi(x, \tau) = \int_{x^{\prime}} \int_{-\infty}^\tau \mathrm{d} \tau^{\prime} G\left(x-x^{\prime}, \tau-\tau^{\prime}\right) \, \left[r_{\Lambda}\left(\Delta_x\right) \eta\left(x, \tau^{\prime}\right)-\frac{\delta S}{\delta \phi}|_{p=0} \, \phi\left(x^{\prime}, \tau\right)\right]
+        \phi(x, \tau) = \int_{x^{\prime}} \int_{-\infty}^\tau \mathrm{d} \tau^{\prime} G\left(x-x^{\prime}, \tau-\tau^{\prime}\right) \, \left[r_{\Lambda}\left(\Delta_x\right) \eta\left(x, \tau^{\prime}\right)-\frac{\delta S}{\delta \phi}|_{p=0} \, \phi\left(x^{\prime}, \tau\right)\right],
 \end{equation*}
 where
 \begin{equation*}
-    G\left(x-x^{\prime}, \tau-\tau^{\prime}\right) =\theta\left(\tau-\tau^{\prime}\right) \int_p \mathrm{e}^{-i p \cdot\left(x-x^{\prime}\right)} \mathrm{e}^{-\left(\tau-\tau^{\prime}\right)\left(p^2+m^2\right)}
+    G\left(x-x^{\prime}, \tau-\tau^{\prime}\right) =\theta\left(\tau-\tau^{\prime}\right) \int_p \mathrm{e}^{-i p \cdot\left(x-x^{\prime}\right)} \mathrm{e}^{-\left(\tau-\tau^{\prime}\right)\left(p^2+m^2\right)}.
 \end{equation*}
 By looking at the first term in the square bracket, one can conclude that there is no propagation of modes with momentum $p^2\geq \Lambda^2$ due to the noise term, but one can still have contribution from modes $p^2 > \Lambda^2$ from the second term, which corresponds to the deterministic part of the equations of motion. Stated differently, UV quantum fluctuations with $p^2 > \Lambda^2$ are removed from the dynamics of $\phi$, but still contribute classically. \\~\\
 Generally speaking, the stationary distribution probability of the regulated stochastic process is given by \cite{Pawlowski2017CoolingNoise}
 \begin{equation}
-    \mathcal{P}_\Lambda(\phi) = \frac{1}{Z} \, \exp\left(-S_\Lambda[\phi]\right) = \frac{1}{Z} \, \exp\left(-(S[\phi] + \Delta S_\Lambda[\phi])\right)
+    \mathcal{P}_\Lambda(\phi) = \frac{1}{Z} \, \exp\left(-S_\Lambda[\phi]\right) = \frac{1}{Z} \, \exp\left(-(S[\phi] + \Delta S_\Lambda[\phi])\right),
     \label{eq:probability_field_configuration_regularised}
 \end{equation}
 where the correction term $\Delta S_\Lambda[\phi]$, for the specific case of the regulator \eqref{eq:regulator} reads
 \begin{equation*}
-        \Delta S_{\Lambda}[\phi]=\frac{1}{2} \int_p \phi_p \, \Lambda^2\left(\frac{1}{r_{\Lambda}\left(p^2\right)}-1\right) \, \phi_{-p}
+        \Delta S_{\Lambda}[\phi]=\frac{1}{2} \int_p \phi_p \, \Lambda^2\left(\frac{1}{r_{\Lambda}\left(p^2\right)}-1\right) \, \phi_{-p}.
 \end{equation*}
 \textcolor{red}{at this point mention that this is the stationary pdf that one gets with frg for sharp cutoff, and cite some papers.}
 
@@ -229,14 +229,14 @@ where the correction term $\Delta S_\Lambda[\phi]$, for the specific case of the
 
 \subsection*{Cooling and the continuum limit}
 After the general introduction on coloured noise given in the previous paragraph, let us now look more closely on the lattice formulation and at some possible applications of the technique. \\~\\
-To this end, let us consider a two-dimensional lattice with side lengths $L_t, L_x$ and spacing $a = a_x = a_t$. This implies a maximum momentum $p_\text{max} = \pi / a$ in each space-time direction and $N_x=L_x/a, N_t=L_t/a$ points in each direction. Let us also define 
+To this end, let us consider a two-dimensional lattice with side lengths $L_t, L_x$ and spacing $a = a_x = a_t$. This implies a maximum momentum $p_\text{max} = \pi / a$ in each spacetime direction and $N_x=L_x/a, N_t=L_t/a$ points in each direction. Let us also define 
 \begin{equation}
-	\Lambda^2 \equiv (p^x_\text{max})^2 + (p^t_\text{max})^2
+	\Lambda^2 \equiv (p^x_\text{max})^2 + (p^t_\text{max})^2,
 \end{equation}
 which indicates the maximum squared momentum on the given lattice. \\
 We then consider a simulation with a regularised noise defined by a cutoff $\Lambda_\text{eff} \leq \Lambda$ and we define a dimensionless parameter
 \begin{equation}
-	s = \frac{\Lambda_\text{eff}}{\Lambda} \qquad 0 \leq s \leq 1
+	s = \frac{\Lambda_\text{eff}}{\Lambda}, \qquad 0 \leq s \leq 1.
 \end{equation}
 Note that $\Lambda_\text{eff}$ implicitly defines a length scale given by  $a_\text{eff} = \pi/\Lambda_\text{eff}$.\\
 Let us then consider a simulation with $s=1$ and a set of bare couplings $\{g^i_0\}$, and another simulation with $s'<1$ and new set of couplings $\{g^{i \, \prime}_0\}$. 
@@ -247,19 +247,19 @@ We are interested in cooling the simulation by removing only the short-length fl
 For what concerns the scalar part of the action, the rescaling at tree level is rather straightforward
 \begin{equation*}
     \begin{aligned}
-    \hat{m}_\phi^2 = (a^2m_\phi^2) \ \to \ s^2(a^2m_\phi^2) = s^2 \, \hat{m}_\phi^2, &\qquad \hat{\lambda} = (a^2\lambda) \ \to  \ s^2 (a^2\lambda) = s^2\hat{\lambda} \\
-    \hat\phi = \phi \ &\to \ \phi = \hat\phi
+    \hat{m}_\phi^2 = (a^2m_\phi^2) \ \to \ s^2(a^2m_\phi^2) = s^2 \, \hat{m}_\phi^2, &\qquad \hat{\lambda} = (a^2\lambda) \ \to  \ s^2 (a^2\lambda) = s^2\hat{\lambda}, \\
+    \hat\phi = \phi \ &\to \ \phi = \hat\phi.
     \end{aligned}
 \end{equation*}
 The fermionic part needs some more careful analysis. For simplicity, let us for the moment set $N_f = 1$. \\
-In a lattice simulation one wants to perform the integral over the fermionic fields and works with the effective action \eqref{eq:effective_action_no_fermions}. In this case the drift is given by equation \eqref{eq:drift_continuum_full_theory}, with the fermionic contribution beeing
+In a lattice simulation one wants to perform the integral over the fermionic fields and works with the effective action \eqref{eq:effective_action_no_fermions}. In this case the drift is given by equation \eqref{eq:drift_continuum_full_theory}, with the fermionic contribution
 \begin{equation}
-    	K_{\psi} = g \, \underset{s}{\tr}{D^{-1}}
+    	K_{\psi} = g \, \underset{s}{\tr}{D^{-1}},
 	\label{eq:fermionic_drift_contribution}
 \end{equation}
-or, in terms of dimensionless quantities
+or, in terms of dimensionless quantities,
 \begin{equation*}
-    \widehat{K}_{\psi} = (ag) \, \underset{s}{\tr}{(aD)^{-1}}
+    \widehat{K}_{\psi} = (ag) \, \underset{s}{\tr}{(aD)^{-1}}.
 \end{equation*}
 This implies that under a lattice block-spin transformation, where $a \to sa$,
 \begin{equation}
@@ -270,17 +270,17 @@ On the other side, when computing the drift via the original action \eqref{eq:fu
 \begin{equation}
     \begin{aligned}
         K(\tau, x) &= - \frac{\delta S}{\delta \phi(\tau, x)} = K_\phi - g \, \bar\psi\psi = \\
-        &= -\left(-\partial^2_x + m_\phi^2\right) \phi - \frac{\lambda}{6} \, \phi^3 - g \, \bar\psi\psi
+        &= -\left(-\partial^2_x + m_\phi^2\right) \phi - \frac{\lambda}{6} \, \phi^3 - g \, \bar\psi\psi.
     \end{aligned}
     \label{eq:drift_continuum_from_full_action}
 \end{equation}
 where the fermionic contribution is given by
 \begin{equation*}
-    K_{\psi}' = - g \, \bar\psi\psi
+    K_{\psi}' = - g \, \bar\psi\psi.
 \end{equation*}
 Note that all the terms in the equation \eqref{eq:drift_continuum_from_full_action} have dimension 2, in units of energy, which means, in particular, that after a lattice block-spin transformation where $a \to sa$, one has
 \begin{equation}
-    \widehat{K}'_\psi = (ag) (a\bar\psi \psi) \to s^2 (ag) (a\bar\psi \psi) = s^2 \widehat{K}'_\psi
+    \widehat{K}'_\psi = (ag) (a\bar\psi \psi) \to s^2 (ag) (a\bar\psi \psi) = s^2 \widehat{K}'_\psi,
     \label{eq:rescaling_blinear}
 \end{equation}
 in contrast with \eqref{eq:fermionic_rescaling_na\"ive}. For this reason, in order to have the correct scaling, we compute the contribution to the drift without rescaling the Dirac operator (and hence the Yukawa coupling), and then rescale the whole drift via 
@@ -288,7 +288,7 @@ in contrast with \eqref{eq:fermionic_rescaling_na\"ive}. For this reason, in ord
     \widehat{K}_\psi \to s^2 \widehat{K}_\psi
 \end{equation*}
 so that the scaling dimension of the other terms in \eqref{eq:drift_continuum_from_full_action} is matched. \\~\\
-We want to mention that this has important consequences on the issue of continuum limit of low-energy effective theories. In fact, in the standard lattice regularisation procedure, one always has $a \sim \Lambda^{-1}$, which means that the continuum limit $a \to 0$ is always connected to the limit $\Lambda \to \infty$, and this constitutes a problem for effective theories. The latters are in fact meant to be valid only up to a certain scale $\Lambda_\text{phys}$, hence one always needs $\Lambda \leq \Lambda_\text{phys}$. Cooling via coloured noise can provide a solution to this problem, since one can always keep the effective cutoff fixed at $\Lambda_\text{eff} = \Lambda_\text{phys}$, while taking the limits $a \to 0, \Lambda \to \infty$. 
+We want to mention that this has important consequences on the issue of continuum limit of low-energy effective theories. In fact, in the standard lattice regularisation procedure, one always has $a \sim \Lambda^{-1}$, which means that the continuum limit $a \to 0$ is always connected to the limit $\Lambda \to \infty$, and this constitutes a problem for effective theories. The latter are in fact meant to be valid only up to a certain scale $\Lambda_\text{phys}$, hence one always needs $\Lambda \leq \Lambda_\text{phys}$. Cooling via coloured noise can provide a solution to this problem, since one can always keep the effective cutoff fixed at $\Lambda_\text{eff} = \Lambda_\text{phys}$, while taking the limits $a \to 0, \Lambda \to \infty$. 
 
 \subsection*{Temperature control}
 I have to wait for some results to see whether to include this or not :D

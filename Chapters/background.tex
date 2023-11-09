@@ -10,22 +10,29 @@ Note that because this chapter is focused on introducing the conceptual framewor
     \label{eq:phi4_action}
 \end{equation}
 The framework is thus general and applies to other theories as detailed in the given references. \\~\\
+
 \section{Block-spin renormalisation}
-Landau's mean field approach to study phase transition \cite{Landau:1937obd} gained wide popularity in the 1930's and 40's, since it was able to describe critical properties of many systems, but has soon proved to be inaccurate to predict some experimentally well proven properties of certain systems around the critical point \textcolor{red}{add some examples}. This is because, beeing a mean field theory, it did not take into account the role of spatial fluctuations.
 \label{sec:blockspin}
+\begin{figure}
+    \centering 
+    \includegraphics[angle=90,scale=0.4]{figures/dd.pdf}
+    \caption{test, I was very bad at art}
+    \label{fig:blockin_first}
+\end{figure}
+Landau's mean field approach to study phase transition \cite{Landau:1937obd} gained wide popularity in the 1930's and 40's, since it was able to describe critical properties of many systems, but has soon proved to be inaccurate to predict some experimentally well proven properties of certain systems around the critical point \textcolor{red}{add some examples}. This is because, beeing a mean field theory, it did not take into account the role of spatial fluctuations.
 The idea of block-spin transformation developed mainly by Kadanoff \cite{PhysicsPhysiqueFizika_2_263} made a big step towards a deeper understanding of the scaling behaviour, and posed the basis for the later work of Wilson \cite{WilsonRG1,WilsonRG2,WilsonFisher}, which still constitutes the basis for modern approaches to renormalisation in field theory and statistical physics.\\
 To illustrate the idea, let us consider a set of spins whose magnetisation is described by a function $\varphi(x)$. The spins are located on a discrete lattice $\mathscr{L}$, so that he function assumes values only at such sites $\varphi(x_i) = \varphi_i \neq 0 \Leftrightarrow x_i \in \mathscr{L}$. Suppose then that their interaction is described by a certain action $S[\varphi]$ and a partition function
 \begin{equation*}
     Z=\sum_{\varphi} \mathrm{e}^{-S[\varphi]}.
 \end{equation*}
-We now want to introduce a coarse-grained (or blocked) field $\bar\varphi$ within a space-time cell of volume $\mathcal{V}$. Such a coarse grained field can be defined, for example, as an average over the spins within the cell $\mathcal{V}$. If the spins can only be $0$ or $1$ like in a Ising model, then we might opt for a majority rule \cite{cardy_1996}.
+We now want to introduce a coarse-grained (or blocked) field $\bar\varphi$ within a spacetime cell of volume $\mathcal{V}$. Such a coarse grained field can be defined, for example, as an average over the spins within the cell $\mathcal{V}$. If the spins can only be $0$ or $1$ like in a Ising model, then we might opt for a majority rule \cite{cardy_1996}.
 We now want to find a new action $S_b$ such that 
 \begin{equation}
     Z=\sum_{\varphi} \mathrm{e}^{-S(\varphi)}= \sum_{\bar\varphi} \mathrm{e}^{-S_b\left(\bar\varphi\right)}.
 \end{equation}
 We can always, in principle, cook up such an action, but it is complicated. For example, if the action $S[\varphi]$ contains only nearest-neighbour interactions, the new actions $S'[\phi]$ can contain higher order interactions such as nearest-to-nearest neighbour. In principle, all the terms compatible with the original symmetries are allowed.\\
 Fortunately, higher order terms are smaller and can be (initially) neglected \textcolor{red}{add citation}, and one can assume that the new action can be obtained by properly adjusting the couplings. \\
-Note that the coarse-graining procedure comes with a loss of resolution since the spacing is changed $a \to 2a$. This means that there is a loss of information and the system is not anymore capable of describing physics at scales below the new spacing. For a comparison with the original action, one has to rescale again all the dimensionful quantities as pictured in figure \ref{fig:blockspin}. This can be thought as a zoom-out with a corresponding coarse graining,
+The coarse-graining procedure comes with a loss of resolution since the spacing is changed $a \to 2a$. This means that the system is not anymore capable of describing physics at scales below the new spacing. For a comparison with the original action, one has to rescale again all the dimensionful quantities as pictured in figure \ref{fig:blockspin}. This can be thought as a zoom-out with a corresponding coarse graining,
 to describe the system in terms of the relevant scales. The procedure can be iterated further. \\
 Therefore the philosophy of Kadanoff (and subsequently Wilson) was that the blocking transformation reduces the complexity of many-body
 systems by systematically reducing the number of degrees of freedom being taken into account \cite{WILSON197475},
@@ -70,13 +77,13 @@ Note that, beeing $r$ a continuous parameter, the transformation can also be inf
     \beta_g = r \, \frac{dg(r)}{dr},
 \end{equation*}
 \textcolor{red}{mention renaming without prime}. \\
-Clearly, if $\delta g$, $\Delta \phi$ are small, equation \eqref{eq:couplings_redefinition} reduces, at lowest order, to a dimensional rescaling
+Clearly, if $\delta g / g \ll 1$, $\Delta \phi \ll 1$, equation \eqref{eq:couplings_redefinition} reduces, at lowest order, to a dimensional rescaling
 \begin{equation*}
-    \frac{g'}{g} = r^{-d_g} = \frac{\Lambda^\prime}{\Lambda}
+    \frac{g'}{g} \approx r^{-d_g} = \frac{\Lambda^\prime}{\Lambda}
 \end{equation*} 
 and the beta function assumes the form
 \begin{equation*}
-    \beta_g =  r \, \frac{dg(r)}{dr} = -d_g(r) \, g(r) + \text{higher order},
+    \beta_g =  r \, \frac{dg(r)}{dr} = -d_g \, g(r) + \text{higher order}.
 \end{equation*}
 \textcolor{red}{Flow of the couplings, flow of the dimensionless couplings. Fixed points and linear behaviour around gaussian fixed point. Dimensionfull couplings flow is dominated by canonical dimension. FRG to show the connection with regularised noise.}
 
@@ -84,7 +91,7 @@ and the beta function assumes the form
 \section{Lattice QFT and the continuum limit}
 \label{sec:lattice_continuum_}
 \textcolor{red}{punteggiatura formule}. \\
-Lattice Quantum Field Thoery is formulated on a discrete set of space-time points. Let us then consider a lattice, with a space, with numer, with \dots 
+Lattice Quantum Field Thoery is formulated on a discrete set of spacetime points. Let us then consider a lattice, with a space, with numer, with \dots 
 The action and the path integral measure are now sums over discrete quantities 
 \begin{equation*}
     \begin{aligned}
@@ -219,7 +226,7 @@ The fermionic part of the path integral \eqref{eq:path_integral_generic} can be 
 \begin{equation*}
     \int \mathcal{D} \bar\psi \mathcal{D} \psi \ \exp\left( - \int_x \sum_{f=1}^{N_f} \bar\psi_x^{(f)} \,  D \, \psi_x^{(f)} \right) = (\text{det} \, D[\phi])^{N_f} = e^{N_f\tr \log (D[\phi])}
 \end{equation*}
-where the trace is performed over space-time and spinor components. \\ 
+where the trace is performed over spacetime and spinor components. \\ 
 The full path integral can now be expressed in terms of the resulting effective action for the scalar fields
 \begin{equation*}
     Z = \int \mathcal{D}\phi \ e^{-S_\text{eff}[phi]}

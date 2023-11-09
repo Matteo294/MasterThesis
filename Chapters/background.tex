@@ -4,10 +4,14 @@
 
 Da qualche parte cita \cite{carosso2020novel}. \\~\\
 In this chapter we want to provide with an overview on the general theoretical framework that supports this work, and introduce the main concepts for the successive parts. Each section in this chapter is, by no means, meant as an exhaustive treatment. The description will be quite conceptual, rather than technical, and aims at recalling the main ideas and fix conventions. We ask the reader to consult appropriate references,  which will be given in the corresponding sections, for a more detailed treatment of the topics. \\~\\
-
-\section{The renormalisation group}
+Note that because this chapter is focused on introducing the conceptual framework, the guiding example will be, where not otherwised specified, a scalar field $\phi$ with the action 
+\begin{equation}
+    S[\phi] = \int_x \, \frac{1}{2} \, (\partial_\mu \phi_x)^2 + \frac{m_\phi^2}{2} \, \phi_x^2 + \frac{\lambda}{4!} \, \phi_x^4.
+    \label{eq:phi4_action}
+\end{equation}
+The framework is thus general and applies to other theories as detailed in the given references. \\~\\
+\section{Block-spin renormalisation}
 Landau's mean field approach to study phase transition \cite{Landau:1937obd} gained wide popularity in the 1930's and 40's, since it was able to describe critical properties of many systems, but has soon proved to be inaccurate to predict some experimentally well proven properties of certain systems around the critical point \textcolor{red}{add some examples}. This is because, beeing a mean field theory, it did not take into account the role of spatial fluctuations.
-\subsection{Block-spin renormalisation}
 \label{sec:blockspin}
 The idea of block-spin transformation developed mainly by Kadanoff \cite{PhysicsPhysiqueFizika_2_263} made a big step towards a deeper understanding of the scaling behaviour, and posed the basis for the later work of Wilson \cite{WilsonRG1,WilsonRG2,WilsonFisher}, which still constitutes the basis for modern approaches to renormalisation in field theory and statistical physics.\\
 To illustrate the idea, let us consider a set of spins whose magnetisation is described by a function $\varphi(x)$. The spins are located on a discrete lattice $\mathscr{L}$, so that he function assumes values only at such sites $\varphi(x_i) = \varphi_i \neq 0 \Leftrightarrow x_i \in \mathscr{L}$. Suppose then that their interaction is described by a certain action $S[\varphi]$ and a partition function
@@ -21,42 +25,60 @@ We now want to find a new action $S_b$ such that
 \end{equation}
 We can always, in principle, cook up such an action, but it is complicated. For example, if the action $S[\varphi]$ contains only nearest-neighbour interactions, the new actions $S'[\phi]$ can contain higher order interactions such as nearest-to-nearest neighbour. In principle, all the terms compatible with the original symmetries are allowed.\\
 Fortunately, higher order terms are smaller and can be (initially) neglected \textcolor{red}{add citation}, and one can assume that the new action can be obtained by properly adjusting the couplings. \\
-Note that the coarse-graining procedure comes with a loss of resolution since the spacing is changed $a \to 2a$. This means that there is a loss of information and the system is not anymore capable of describing physics at scale below the new spacing. For a comparison with the original action, one has to rescale again all the dimensionful quantities as pictured in figure \ref{fig:blockspin}. This can be thought as a zoom-out with a corresponding coarse graining,
-to describe the system in terms of the relevant scales. \\\
+Note that the coarse-graining procedure comes with a loss of resolution since the spacing is changed $a \to 2a$. This means that there is a loss of information and the system is not anymore capable of describing physics at scales below the new spacing. For a comparison with the original action, one has to rescale again all the dimensionful quantities as pictured in figure \ref{fig:blockspin}. This can be thought as a zoom-out with a corresponding coarse graining,
+to describe the system in terms of the relevant scales. The procedure can be iterated further. \\
 Therefore the philosophy of Kadanoff (and subsequently Wilson) was that the blocking transformation reduces the complexity of many-body
 systems by systematically reducing the number of degrees of freedom being taken into account \cite{WILSON197475},
 without changing the physical content of the theory.
 
-\subsection{Wilsonian renormalisation}
+\section{Wilsonian renormalisation}
 \label{sec:wilson_rg}
-The wilsonian picture of renormalisation \cite{WilsonRG1,WilsonRG2} is formulated in momentum space and in general more suitable for theories in the continuum.\\
-The idea is that a physical theory comes with an intrinsic cutoff which defines up to which scale the theory is valid. This theory, which is considered fundamental, might not be the one
-we observe directly in experiments at energy scales $\Lambda'$, which we call effective theory at scale $\Lambda'$. To see how can this happen, let us consider a fundamental theory defined by an action $S_\Lambda[\Phi]$, and let us split the field as $\Phi = \phi + \varphi$ where $\phi$ are fields with momenta $p \leq \Lambda'$ and $\varphi$ are fields with momenta $\Lambda' < p \leq \Lambda$. This allows one to rewrite the path integral as
+The wilsonian picture of renormalisation \cite{WilsonRG1,WilsonRG2} is formulated in momentum space and in general is more suitable for theories in the continuum.\\
+The idea is that a physical theory comes with an intrinsic cutoff which defines up to which scale the theory is valid. This theory might not be the one
+we observe directly in experiments at energy scales $\Lambda'$, which we call effective theory at scale $\Lambda'$. To see how can this happen, let us consider a theory defined by the action \eqref{eq:phi4_action} and a given cutoff $\Lambda$, and let us split the field as $\Phi = \phi + \varphi$ where $\phi$ are fields with momenta $p \leq \Lambda'$ and $\varphi$ are fields with momenta $\Lambda' < p \leq \Lambda$. This allows one to rewrite the path integral as
 \begin{equation*}
-    Z = \int D\Phi_\Lambda \, e^{-S_\Lambda[\Phi]} = \int D\phi_{\Lambda'} \, e^{-S_{\Lambda'}[\phi]} \int D\varphi_{\Lambda', \Lambda}  \, e^{-S_{\Lambda', \Lambda}[\phi, \varphi]} = \int D\phi_{\Lambda'} \, e^{-S_{\Lambda'}^\text{eff}[\phi]}
+    Z = \int D\Phi_\Lambda \, e^{-S_\Lambda[\Phi]} = \int D\phi_{\Lambda'} \, e^{-S_{\Lambda'}[\phi]} \int D\varphi_{\Lambda', \Lambda}  \, e^{-S_{\Lambda', \Lambda}[\phi, \varphi]} = \int D\phi_{\Lambda'} \, e^{-S_{\Lambda'}^\text{eff}[\phi]},
 \end{equation*}
 where, in the last step, we formally performed the integral over the high-momentum field $\varphi$ and defined a new effective action $S^\text{eff}_{\Lambda'}$ as
 \begin{equation*}
-    S_{\Lambda'}^\text{eff}[\phi] = S_{\Lambda'}[\phi] - \log\left( \int D\varphi_{\Lambda', \Lambda}  \, e^{-S_{\Lambda', \Lambda}[\phi, \varphi]}\right) =  S_{\Lambda'}[\phi] + \Delta S_{\Lambda', \Lambda}[\phi]
+    S_{\Lambda'}^\text{eff}[\phi] = S_{\Lambda'}[\phi] - \log\left( \int D\varphi_{\Lambda', \Lambda}  \, e^{-S_{\Lambda', \Lambda}[\phi, \varphi]}\right) =  S_{\Lambda'}[\phi] + \Delta S_{\Lambda', \Lambda}[\phi].
 \end{equation*}
-Note that all the steps above are exact identities. At this point, one typically tries to compute $\Delta S_{\Lambda', \Lambda}$ in some approximation and expand the result in terms of local operators $O_{m,n} = \frac{\partial^m}{\partial x^m}\phi^n(x)$ with respective coefficiends $g_{mn}$. This will generate many terms, some which were already present in the original action $S_\Lambda$ (and hence in $S_{\Lambda'}$), while some others will be new. The former can be readily absorbed in $S_{\Lambda'}[\phi]$ by a redefitinion of the couplings, while the latter are (at least initially) neglected, as they are UV-suppressed \cite{SOMEONE}. By neglecting these higher order powers, one can bring the action in the same form as the initial, upon redefinition of the parameters. Hence all the quantum fluctuations with momenta $p > \Lambda'$ are effectively encoded in the the new couplings. \\
-Note that the new action is not anymore capable of describing degrees of freedom above the scale $\Lambda'$, and we lost resolution. At this point, one can clearly see the analogy with the block-spin transformation introduced in the previous section. Performing the integral over high momenta modes can be thought as performing averages (coarse graining) over neighbours. This causes a loss of resolution which can be recovered by rescaling dimensionful quantities, which can be pictured as a zoom out. Let us now define a dimensionless parameter 
+Note that all the steps above are exact identities. At this point, one typically tries to compute $\Delta S_{\Lambda', \Lambda}$ via, e.g., Feynman diagrams \cite{Peskin:1995ev}, and then expands the result in terms of local operators of the type $O_{m,n} = \partial^m_x\phi^n_x$ with respective coefficients $g_{mn}$. In general, this will generate many terms, some of which were already present in the original action $S_\Lambda$, while some others will be new. The former can be readily absorbed in $S_{\Lambda'}[\phi]$ by a redefitinion of the couplings. 
+The new action is not anymore capable of describing degrees of freedom above the scale $\Lambda'$, and there is loss of resolution. As for the block-spin renormalisation, one has to operate a dimensional rescaling in order to set the theory back at its original scale. To do this, let us now define a dimensionless parameter 
 \begin{equation*}
-    s = \frac{\Lambda'}{\Lambda} \qquad 0 \leq s \leq 1
-\end{equation*}\\
-Combining the coarse-graining effects due to the high-modes integral and dimensional rescaling, the Wilson step causes a change in each coupling which can be schematically written as
-\begin{equation*}
-    g'_{mn}(s) = s^{[g_{mn}]} \frac{(1 + \delta g_{mn})}{Z_\phi^{nd_\phi/2}} \ g_{mn}
+    r^2 = \frac{\Lambda^{\prime \, 2}}{\Lambda^2}, \qquad 0 \leq r \leq 1,
 \end{equation*}
-where $s^{[g_{mn}]}$ appears because of the dimensional rescaling mentioned above, $\delta g$ is the correction term that comes from the expansion of the high-momentum integral, and $Z_\phi$ is due to the fact that the high-momentum integral can generate corrections to the kinetic term, which we want to keep always the same by re-defining the field, hence the appearence of such factor. \\
-Successive iterations of the above procedure gives rise to a flow of the couplings as functions of the scaling parameter $s$. Note that the assumption in which new terms in the action can be neglected is highly non-trivial, and in general higher order iterations must take into account these corrections. \\ 
-The rescaling defined above then motivates the following classification for any operators entering the action
-\begin{itemize}
-    \item relevant 
-    \item irrelevant
-    \item marginal
-\end{itemize}
-Flow of the couplings, flow of the dimensionless couplings. Fixed points and linear behaviour around gaussian fixed point. Dimensionfull couplings flow is dominated by canonical dimension. FRG to show the connection with regularised noise.
+and let us operating the rescaling according to
+\begin{equation*}
+    x \to x' = rx, \qquad p \to p' = p/r.
+\end{equation*}
+Combining the coarse-graining effects due to the high-modes integral and dimensional rescaling the new action $S^\text{eff}_\Lambda$ can be written as \cite{Peskin:1995ev}
+\begin{equation*} 
+    \begin{aligned} 
+        S^\text{eff}_\Lambda[\phi]=\int_x^\prime \frac{1}{2}\left(\partial_\mu^{\prime} \phi^{\prime}\right)^2 + \frac{m_\phi^{\prime \, 2}}{2} \phi^{\prime \, 2}  + \frac{\lambda^\prime}{4 !} \phi^{\prime \, 4}+C^{\prime}\left(\partial_\mu^{\prime} \phi^{\prime}\right)^4+D^{\prime} \phi^{\prime \, 6}+\cdots.
+    \end{aligned}
+\end{equation*}
+Each coefficient $g^\prime$ corresponding to the local operator $O_{mn}$ is given by
+\begin{equation}
+    g'(r) = r^{-d_g} \ \frac{(g + \delta g)}{(1 + \Delta\phi)^{n}}.
+    \label{eq:couplings_redefinition}
+\end{equation}
+The factor  $s^{-d_g}$ appears because of the dimensional rescaling mentioned above, $\delta g$ is the correction term that comes from the expansion of the high-momentum integral, and $Z_\phi = 1 + \Delta\phi$ is the wavefunction renormalisation. \textcolor{red}{comment a bit on this}. \\
+At this point, one can clearly see the analogy with the block-spin transformation introduced in the previous section. Performing the integral over high momenta modes can be thought as performing averages (coarse graining) over neighbours. This causes a loss of resolution which can be recovered by rescaling dimensionful quantities, which can be pictured as a zoom out.
+Note that, beeing $r$ a continuous parameter, the transformation can also be infinitesimal. In this case, the change in the couplings due to successive iterations, gives rise to a continuous flow in parameters space, which can be described by differential equations. This is captured by the beta functions 
+\begin{equation*}
+    \beta_g = r \, \frac{dg(r)}{dr},
+\end{equation*}
+\textcolor{red}{mention renaming without prime}. \\
+Clearly, if $\delta g$, $\Delta \phi$ are small, equation \eqref{eq:couplings_redefinition} reduces, at lowest order, to a dimensional rescaling
+\begin{equation*}
+    \frac{g'}{g} = r^{-d_g} = \frac{\Lambda^\prime}{\Lambda}
+\end{equation*} 
+and the beta function assumes the form
+\begin{equation*}
+    \beta_g =  r \, \frac{dg(r)}{dr} = -d_g(r) \, g(r) + \text{higher order},
+\end{equation*}
+\textcolor{red}{Flow of the couplings, flow of the dimensionless couplings. Fixed points and linear behaviour around gaussian fixed point. Dimensionfull couplings flow is dominated by canonical dimension. FRG to show the connection with regularised noise.}
 
 
 \section{Lattice QFT and the continuum limit}

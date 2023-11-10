@@ -2,10 +2,8 @@
 \chapter{Numerical investigation}
 \label{chapt:results}
 
-\section{GPU implementation of the Conjugate Gradient algorithm}
-Idk if I have time to do this because I want to compare with CPU and the CPU code is for Quark meson.
 
-\section{Exracting quark masses}
+\section{The fermionic correlator}
 
 The Dirac operator for Wilson fermions in the yukawa model is
 \begin{equation*}
@@ -79,7 +77,7 @@ Figures \ref{fig:slide_broken_phi} - \ref{fig:slide_broken_mphir} report a few o
 Each figure reports two plots corresponding to two different parameter configurations. The COLOR1 line corresponds to a system in the symmetric phase, while the COLOR2 line correspond to the broken phase. The exact parameters for the two configurations are reported under the figure.
 
 \newpage
-\section{Chiral fermions and a glimpse on the chiral phase transition}
+\section{Chiral fermions and noise induced transition}
 \label{sec:chiral}
 
 As explained in section \ref{sec:yukawa}, in the continuum theory chiral symmetry can be broken either explicitly via a finite bare quark mass, or spontaneously if the field gains a non-zero expectation value. Moreoveor, in the discrete formulation, the introduction of the Wilson term also contributes to the explicit breaking of chiral symmetry \textcolor{red}{add reference}, as explained in section \ref{sec:discrete}. This, in particular, means that chiral symmetry is explicitly broken also for $m_q \to 0$. Because of this, one needs a new definition for bare mass $M_q$, which takes into account the Wilson term contribution, such that chiral symmetry is restored in the limit $M_q \to 0$ for vanishing expectation value of the field $\phi$. A convenient way to define such $M_q$ is the following. SSB chiral symmetry $\to$ 3 goldstone massless bosons, the pions. If the bare quark mass is zero, the physical mass of the pions has to be zero. Hence one can extract this mass on the lattice and tune $m_q$ such that this is zero. While this is the correct way to proceed, it is very time takin since one must do mass scans and extrapolations close to singular Dirac operator. This is not the way we pursue here. Instead here we just consider naive fermions and take the limit $m_q \to 0$. This represents a physical theory with $2N_f = 4$ degenerate quarks. This is just done for the purpose of showing some interest properties of coloured noise and not (yet) to match any physical result. \\~\\

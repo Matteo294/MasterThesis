@@ -15,7 +15,7 @@ The framework is thus general and applies to other theories as detailed in the g
 \label{sec:blockspin}
 \begin{figure}
     \centering 
-    \includegraphics[angle=90,scale=0.4]{figures/dd.pdf}
+    \includegraphics[angle=90,scale=0.34]{figures/test.pdf}
     \caption{test, I was very bad at art}
     \label{fig:blockin_first}
 \end{figure}
@@ -33,9 +33,6 @@ We now want to find a new action $S_b$ such that
 We can always, in principle, build an ad-hoc action that fulfills the above condition, but it is complicated, since $S_b$ can be also be very different from $S$. For example, if the action $S[\varphi]$ contains only nearest-neighbour interactions, the new actions $S'[\phi]$ can contain higher order interactions such as nearest-to-nearest neighbour, or even more. In principle, all the terms compatible with the original symmetries are allowed. 
 Thus, if the behaviour of the system is dominated by long-range properties, and the volume $\mathcal{V}$ is small enough, one can expect the functional form of the microscopic action $S$ to remain approximately the same, and one has to (eventually) only adjust the couplings. \\
 The coarse-graining procedure comes with a loss of resolution since the spacing is changed $a \to 2a$. This means that the system is not anymore capable of describing physics at scales below the new spacing. Hence one can rescale distances and momenta in the new action via $a \to a/2, p \to 2p$ \textcolor{red}{connect spacing with volume}. This constitutes the second step of the block-spin transformation. The whole procedure can be thought as a zoom-out with a corresponding coarse graining, in order to describe the system in terms of the relevant scales as pictured in figure \ref{fig:blockin_first}. The procedure can be iterated multiple times, provided that the higher order interactions are either negligible or taken into account. \\
-Therefore the philosophy of Kadanoff (and subsequently Wilson) was that the blocking transformation reduces the complexity of many-body
-systems by systematically reducing the number of degrees of freedom being taken into account \cite{WILSON197475},
-without changing the physical content of the theory.
 
 \section{Wilsonian renormalisation}
 \label{sec:wilson_rg}
@@ -69,22 +66,26 @@ Each coefficient $g^\prime$ corresponding to the local operator $O_{mn}$ is give
     g'(r) = r^{-d_g} \ \frac{(g + \delta g)}{(1 + \Delta\phi)^{n}}.
     \label{eq:couplings_redefinition}
 \end{equation}
-where $d_g$ is the dimension of the coupling $g$, the factor  $s^{-d_g}$ appears because of the dimensional rescaling mentioned above, $\delta g$ is the correction term that comes from the expansion of the high-momentum integral, and $Z_\phi = 1 + \Delta\phi$ is the wavefunction renormalisation. \textcolor{red}{comment a bit on this}. \\
-At this point, one can clearly see the analogy with the block-spin transformation introduced in the previous section. Performing the integral over high momenta modes can be thought as performing averages (coarse graining) over neighbours. This causes a loss of resolution which can be recovered by rescaling dimensionful quantities, which can be pictured as a zoom out.
+where $d_g$ is the dimension of the coupling $g$, the factor  $r^{-d_g}$ appears because of the dimensional rescaling mentioned above, $\delta g$ is the correction term that comes from the expansion of the high-momentum integral, and $Z_\phi = 1 + \Delta\phi$ is the wavefunction renormalisation. \textcolor{red}{comment a bit on this}. \\
+At this point, one can clearly see the analogy with the block-spin transformation introduced in the previous section. Performing the integral over high momenta modes can be thought as performing averages (coarse graining) over neighbours. This causes a loss of resolution which can be recovered by rescaling distances and momenta, which can be pictured as a zoom out.
+Therefore the philosophy of Kadanoff and Wilson approaches, was that the blocking transformation reduces the complexity of many-body
+systems by systematically reducing the number of degrees of freedom being taken into account \cite{WILSON197475},
+without changing the physical content of the theory. \\~\\
 Note that, beeing $r$ a continuous parameter, the transformation can also be infinitesimal. In this case, the change in the couplings due to successive iterations, gives rise to a continuous flow in parameters space, which can be described by differential equations. This is captured by the beta functions 
 \begin{equation*}
     \beta_g = r \, \frac{dg'(r)}{dr}.
 \end{equation*}
 Fixed points are given by 
 \begin{equation*}
-    \beta_g = 0
+    \beta_g = 0.
 \end{equation*}
 Clearly, if $\delta g / g \ll 1$, $\Delta \phi \ll 1$, equation \eqref{eq:couplings_redefinition} reduces, at lowest order, to a dimensional rescaling
 \begin{equation*}
     \frac{g'}{g} \approx r^{-d_g} = \left(\frac{\Lambda^\prime}{\Lambda}\right)^{-d_g},
 \end{equation*}
 \textcolor{blue}{The next part might be a bit too much and I don't want to go off-topic, but I wanted to put it because it really shows that the coloured stochastic quantisation and the fRG gives the same stationary p.d.f. so it is a good motivation for the former. Maybe I can do this in Appendix? Or should I just put it aside? \\}
-The existence of fixed points determine whether the limit $r \to 0$ can be taken. In this case, the resulting theory is still scale-dependent and it is described by an effective action $S^\text{eff}_\Lambda$ where all the modes with $p^2 \geq \Lambda^2$ are encoded in the couplings of the effective action. One can write 
+The existence of fixed points determine whether the limit $r \to 0$ can be taken. In this case, the resulting theory is still scale-dependent and it is described by an effective action $S^\text{eff}_\Lambda$ where all the modes with $p^2 \geq \Lambda^2$ are encoded in the couplings. \\
+One can write 
 \begin{equation*}
     S^\text{eff}_\Lambda[\phi] = S[\phi] + \Delta S_{\Lambda}^{(\mathrm{IR})}[\hat{\phi}],
 \end{equation*}
@@ -96,41 +97,41 @@ and for a sharp momentum cutoff
 \begin{equation*}
     r_{\Lambda}(p^2) = \theta\left(p^2-\Lambda^2\right).
 \end{equation*}
-This result will be allow for a deep connection between fRG and coloured stochastic quantisation.
+This result will allow for a deep connection between fRG and coloured stochastic quantisation.
 
 
 \section{Lattice QFT and the continuum limit}
 \label{sec:lattice_continuum_}
 \textcolor{red}{punteggiatura formule}. \\
-Lattice Quantum Field Thoery is formulated on a discrete set of spacetime points. Let us then consider a lattice, with a space, with numer, with \dots 
-The action and the path integral measure are now sums over discrete quantities 
+Lattice Quantum Field Theory is formulated on a discrete set of spacetime points. Let us then consider a lattice $\mathscr{L}$, with spacing $a$, and $N_\mu$ points in each spacetime direction $\mu$, hence a physical length $L_\mu$.
+For simplicity we restricted here to a scalar field $\phi$ and we will recall fermionic properties only when relevant, but what follows is valid also for the latter. \\ 
+The action and the path integral measure are now taken over discrete quantities 
 \begin{equation*}
     \begin{aligned}
-	    S = \int d^dx \, \mathcal{L}(\phi(x)) \qquad &\to \qquad S = a^d \sum_n \, \mathcal{L}(\phi(n)) \\
-        \prod_{x} d\phi(x) \qquad &\to  \qquad \prod_n d\phi(n)
+	    S = \int d^dx \, \mathcal{L}(\phi(x)) \qquad &\to \qquad S = a^d \sum_{n \in \mathscr{L}} \, \mathcal{L}(\phi(n)), \\
+        \prod_{x} d\phi(x) \qquad &\to  \qquad \prod_{n \in \mathscr{L}} d\phi(n),
     \end{aligned}
 \end{equation*}
 where $\mathcal{L}(\phi)$ is the Lagrangian density function \textcolor{red}{add citation?}.  \\
-Note that for simplicity we restricted here to a scalar field $\phi$ and we will recall fermionic properties only when relevant, but the treatment is valid also for the latters. \\ 
-The path integral assumes the form 
+The path integral is hence
 \begin{equation*}
     Z = \int \prod_n d\phi(n) \, e^{-S[\phi]}
 \end{equation*}
-with the probability of a field configuration $\phi$ beeing 
+and the probability of a field configuration $\phi$
 \begin{equation}
-    p(\phi) = \frac{1}{Z} \, e^{-S[\phi]}
+    p(\phi) = \frac{1}{Z} \, e^{-S[\phi]}.
     \label{eq:probability_distribution_lattice}
 \end{equation}
 Expectation value of observables are computes as
 \begin{equation}
-    \expect{O(\phi)}  = \frac{1}{Z} \, \int \prod_n d\phi(n) \, O(\phi) \, e^{-S[\phi]}
+    \expect{O(\phi)}  = \frac{1}{Z} \, \int \prod_n d\phi(n) \, O(\phi) \, e^{-S[\phi]}.
     \label{eq:expectation_value_lattice}
 \end{equation}
-In order to simulate a theory and perform the above sums one has to go to finite volumes with some boundary conditions. In the space directions, one typically takes periodic conditions 
+In order to simulate a theory and perform the above sums one has to go to finite volumes and eventually impose boundary conditions. In the space directions, we take periodic conditions 
 \begin{equation*}
     \begin{aligned}
-        \phi(t, \vec x) &= \phi(t, \vec x + T) \\
-        \psi(t, \vec x) &= \psi(t, \vec x + T)
+        \phi(t, \vec x) &= \phi(t, \vec x + T), \\
+        \psi(t, \vec x) &= \psi(t, \vec x + T).
     \end{aligned}
 \end{equation*}
 Instead, a finite time extent is related to the temperature of the system \cite{le_bellac_1996,rothe_LGT} via
@@ -140,41 +141,22 @@ Instead, a finite time extent is related to the temperature of the system \cite{
 and boundary conditions are chosen depending on the spin-statistic of the corresponding particles, namely periodic conditions for bosons, and anti-periodic for fermions
 \begin{equation*}
     \begin{aligned}
-        \phi(t, \vec x) &= \phi(t + T, \vec x) \qquad \text{bosons}\\
-        \psi(t, \vec x) &= -\psi(t + T, \vec x) \quad \text{fermions}
+        \phi(t, \vec x) &= \phi(t + T, \vec x) \qquad \text{bosons}, \\
+        \psi(t, \vec x) &= -\psi(t + T, \vec x) \quad \text{fermions}.
     \end{aligned}
 \end{equation*}
 Such a formulation naturally brings a momentum cutoff $\Lambda = \pi/a$ since now all the momenta are restricted to the first Brilloune zone $p_\mu \in [-\pi/a, \pi/a]$. \\
-To compute observables one relies on Monte-Carlo methods to generate field configurations sampling the distribution \eqref{eq:probability_distribution_lattice} and convergence to the statistical value given by \eqref{eq:expectation_value_lattice} is expected for $N_\text{samp} \to \infty$. To recover the continuum results, one has to take $V \to 0, a \to \infty$ (\textcolor{red}{this order is important, cite SOMEONE}), but this task cannot be done so straightforwardly \cite{rothe_LGT}.
-Instead, continuum limits of lattice theories are intimately connected to the existence of critical points in the theories. To see why this is the case, consider the dimensionless mass gap $\hat\xi = m \, a$ of a certain theory. The quantity $\xi$ is also called correlation length and it is related to \textcolor{red}{spigea cosa e di che è mostrato dopo}. 
-When taking the continuum limit we want $a \to 0$ while having a finite physical mass $m$. This implies that the correlation length $\hat \xi$ has to diverge. In the language of statistical physics, this is a second order phase transition. A divergent correlation length signifies that \textcolor{red}{dire cosa significa}. Of course to bring the system at its critical point, where such phase transition happens, one has to tune the bare parameters $\{g_0\}$ to their critical values $\{g_0*\}$. 
-This should be done by finding zeros of the beta functions on the lattice, but often one relies on approximate solution such as employing perturbative continuum beta functions. \\
-Note that in the limit $a \to 0$ one has $\Lambda \to \infty$. If one's scope is to simulate an effective theory which is expected to hold only up to a scale $\Lambda_\text{phys}$, one must have $\Lambda \leq \Lambda_\text{phys}$ with a consequent lower bound on the lattice spacing $a \geq a_\text{phys} = \pi / \Lambda_\text{phys}$. \\ ~
-\textcolor{green}{Consider $O$ to be an observable which has to be matched to a physical measurable quantity, and compare it to the dimensionless quantity $\hat O$ given by a lattice simulation. In general the physical observable is assumed to be a function of the spacing and the bare couplings of the theory 
+To compute observables one relies on Monte-Carlo methods to generate field configurations, sampling the distribution \eqref{eq:probability_distribution_lattice} and convergence to the statistical value given by \eqref{eq:expectation_value_lattice} is expected for $N_\text{samp} \to \infty$. To recover the continuum results, one has to take $V \to 0, a \to \infty$ (the order matters, see for example \cite{seiler}), but this task cannot be done so straightforwardly (see for example \cite{rothe_LGT}).
+Instead, continuum limits of lattice theories are intimately connected to the existence of critical points. To see why this is the case, consider the dimensionless mass gap $\hat\xi = m \, a$ of a certain theory. The quantity $\xi$ is also called correlation length and it is related to the exponential decay of correlation functions between local observables measured
+at different points on the lattice as given by \textcolor{red}{add ref. eq.}\\
+When taking the continuum limit we want $a \to 0$, while having a finite physical mass $m$. This implies that the correlation length $\hat \xi$ has to diverge: in the language of statistical physics, this is a second order phase transition. Of course to bring the system at its critical point, where such phase transition happens, one has to tune the bare parameters $g_0^i$ to their critical values $g_0^{i \, *}$. 
+To do this, one should find the zeros of the beta functions
 \begin{equation*}
-    O = O(a, g^i_0)
+    \beta_g^\text{latt} = a \frac{d}{da} g(a) \overset{!}{=} 0, \qquad a = \pi/\Lambda.
 \end{equation*}
-while its lattice counterpart can only depend on the dimensionless coupling $hat g_0^i$, i.e.
-\begin{equation*}
-    \hat O = \hat O(g_0^i)
-\end{equation*}
-Let $d_O$ be the physical dimension of the observable $O$ in units of energy. Then one can relate the two quantities as 
-\begin{equation}
-    O(a, g^i_0) = \left(\frac{1}{a}\right)^{d_O} \hat O(\hat g_0^i)
-    \label{eq:physical_observable_lattice_observable}
-\end{equation}
-We now want to address the following question: given a (small enough) a, is it possible to find a value $\hat g_0^i(a)$ such that the value of $O$ given by \eqref{eq:physical_observable_lattice_observable} does not depend on $a$? \\
-We then impose such condition via 
-\begin{equation*}
-    \frac{d}{da} \, O(a, g^i_O) = \left(a\frac{\partial}{\partial a} - \beta(g_0^i) \frac{\partial}{\partial g_0^i}\right) \, O(a, g^i_O) = 0
-\end{equation*}
-with
-\begin{equation*}
-    \beta(g_0^i) = - a \frac{\partial g_0^i}{\partial a}
-\end{equation*}
-Integrating such $\beta$ functions tells one how to change bare couplings as a backreaction to a change in the spacing, in order to keep observables constant. We then say that the theory admits a continuum limit if there exists some set of values $(g_0^i)^*$ such that when $g_0^i \to (g_0^i)^*$ one has $\hat \xi \to +\infty$ and $O \to O_{phys}$. \textcolor{red}{Connection with fixed points and beta function. Comment also on beta functions for dimless couplings}. \\
-Of course one does not know a priori the full lattice beta functions, but they can be computed via approximate or continuum methods. For example, in continuum perturbation theory, one can compute $g_r^i(\Lambda) = g_r^i(\Lambda, g_0^j)$, where $\Lambda$ is a sharp momentum cutoff and then try to invert them to find $g_0^i = g_0^i(\Lambda, g_r^j)$. The connection is then given by making the identification $a \sim \Lambda^{-1}$. \\
-Generally speaking, we are interested in the set of theories in theories space that have constant renormalised couplings but different dimless couplings $g_r^i \, a$ (trajectories in Kadanoff-Wilson RG).}
+As this is quite hard task, one typically relies on some approximation schemes such as employing perturbative continuum beta functions. From this description it should be clear that the spacing $a$ should not be treated as a free parameter in the continuum limit, but rather a dynamically determined quantity that depends on the couplings of the theory. \\
+Note that in the limit $a \to 0$, one has $\Lambda \to \infty$. If one's scope is to simulate an effective theory which is expected to hold only up to a scale $\Lambda_\text{phys}$, one must have $\Lambda \leq \Lambda_\text{phys}$, with a consequent lower bound on the lattice spacing $a \geq a_\text{phys} = \pi / \Lambda_\text{phys}$. \\ ~
+
 \section{Yukawa theory}
 \label{sec:Yukawa_theory}
 Let us consider the Yukawa theory defined by the action

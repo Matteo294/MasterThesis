@@ -49,11 +49,11 @@ where, in the last step, we formally performed the integral over the high-moment
 Note that all the steps above are exact identities. At this point, one typically tries to compute $\delta S_{\Lambda', \Lambda}$ via, e.g., Feynman diagrams \cite{Peskin:1995ev}, and then expands the result in terms of local operators of the type $O_{m,n} = \partial^m_x\phi^n_x$ with respective coefficients $g_{mn}$. In general, this will generate many terms, some of which were already present in the original action $S_\Lambda$, while some others will be new. The former can be readily absorbed in $S_{\Lambda'}[\phi]$ by a redefitinion of the couplings. 
 Note that the new action is not anymore capable of describing degrees of freedom above the scale $\Lambda'$, and there is loss of resolution. As for the block-spin procedure, one can operate a dimensional rescaling in order to set the theory back at its original scale. To do this, let us now define a dimensionless parameter 
 \begin{equation*}
-    r^2 = \frac{\Lambda^{\prime \, 2}}{\Lambda^2}, \qquad 0 \leq r \leq 1,
+    s^2 = \frac{\Lambda^{\prime \, 2}}{\Lambda^2}, \qquad 0 \leq s \leq 1,
 \end{equation*}
 and let us operating the rescaling according to
 \begin{equation*}
-    x \to x' = rx, \qquad p \to p' = p/r.
+    x \to x' = sx, \qquad p \to p' = p/s.
 \end{equation*}
 Combining the coarse-graining effects due to the high-modes integral and dimensional rescaling, the new action $S^\text{eff}_\Lambda$ can be written as \cite{Peskin:1995ev}
 \begin{equation*} 
@@ -63,17 +63,18 @@ Combining the coarse-graining effects due to the high-modes integral and dimensi
 \end{equation*}
 Each coefficient $g^\prime$ corresponding to the local operator $O_{mn}$ is given by
 \begin{equation}
-    g'(r) = r^{-d_g} \ \frac{(g + \delta g)}{(1 + \Delta\phi)^{n}}.
+    g'(r) = s^{-d_g} \ \frac{(g + \delta g)}{(1 + \Delta\phi)^{n}}.
     \label{eq:couplings_redefinition}
 \end{equation}
-where $d_g$ is the dimension of the coupling $g$, the factor  $r^{-d_g}$ appears because of the dimensional rescaling mentioned above, $\delta g$ is the correction term that comes from the expansion of the high-momentum integral, and $Z_\phi = 1 + \Delta\phi$ is the wavefunction renormalisation. \textcolor{red}{comment a bit on this}. \\
+where $d_g$ is the dimension of the coupling $g$, the factor  $s^{-d_g}$ appears because of the dimensional rescaling mentioned above, $\delta g$ is the correction term that comes from the expansion of the high-momentum integral, and $Z_\phi = 1 + \Delta\phi$ is the wavefunction renormalisation. \textcolor{red}{comment a bit on this}. \\
 At this point, one can clearly see the analogy with the block-spin transformation introduced in the previous section. Performing the integral over high momenta modes can be thought as performing averages (coarse graining) over neighbours. This causes a loss of resolution which can be recovered by rescaling distances and momenta, which can be pictured as a zoom out.
 Therefore the philosophy of Kadanoff and Wilson approaches, was that the blocking transformation reduces the complexity of many-body
 systems by systematically reducing the number of degrees of freedom being taken into account \cite{WILSON197475},
 without changing the physical content of the theory. \\~\\
-Note that, beeing $r$ a continuous parameter, the transformation can also be infinitesimal. In this case, the change in the couplings due to successive iterations, gives rise to a continuous flow in parameters space, which can be described by differential equations. This is captured by the beta functions 
+\textcolor{blue}{The next part might be a bit too much and I don't want to go off-topic, but I wanted to put it because 1) it somewhat motivates more the dimensional rescaling, and shows how it can be (in principle) improved 2) gives some theoretical context at the whole rescaling stuff where we have two cutoffs and spacing, 3) it really shows that the coloured stochastic quantisation and the fRG gives the same stationary p.d.f. so it is a good motivation for the former. Maybe should I better put something in Appendix? \\}
+Note that, beeing $s$ a continuous parameter, the transformation can also be infinitesimal. In this case, the change in the couplings due to successive iterations, gives rise to a continuous flow in parameters space, which can be described by differential equations. This is captured by the beta functions 
 \begin{equation*}
-    \beta_g = r \, \frac{dg'(r)}{dr}.
+    \beta_g = s \, \frac{dg'(s)}{ds}.
 \end{equation*}
 Fixed points are given by 
 \begin{equation*}
@@ -81,9 +82,8 @@ Fixed points are given by
 \end{equation*}
 Clearly, if $\delta g / g \ll 1$, $\Delta \phi \ll 1$, equation \eqref{eq:couplings_redefinition} reduces, at lowest order, to a dimensional rescaling
 \begin{equation*}
-    \frac{g'}{g} \approx r^{-d_g} = \left(\frac{\Lambda^\prime}{\Lambda}\right)^{-d_g},
+    \frac{g'}{g} \approx s^{-d_g} = \left(\frac{\Lambda^\prime}{\Lambda}\right)^{-d_g},
 \end{equation*}
-\textcolor{blue}{The next part might be a bit too much and I don't want to go off-topic, but I wanted to put it because it really shows that the coloured stochastic quantisation and the fRG gives the same stationary p.d.f. so it is a good motivation for the former. Maybe I can do this in Appendix? Or should I just put it aside? \\}
 The existence of fixed points determine whether the limit $r \to 0$ can be taken. In this case, the resulting theory is still scale-dependent and it is described by an effective action $S^\text{eff}_\Lambda$ where all the modes with $p^2 \geq \Lambda^2$ are encoded in the couplings. \\
 One can write 
 \begin{equation*}

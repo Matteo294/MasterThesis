@@ -75,18 +75,29 @@ Note that, beeing $r$ a continuous parameter, the transformation can also be inf
 \begin{equation*}
     \beta_g = r \, \frac{dg'(r)}{dr}.
 \end{equation*}
-Clearly, if $\delta g / g \ll 1$, $\Delta \phi \ll 1$, equation \eqref{eq:couplings_redefinition} reduces, at lowest order, to a dimensional rescaling
-\begin{equation*}
-    \frac{g'}{g} \approx r^{-d_g} = \left(\frac{\Lambda^\prime}{\Lambda}\right)^{-d_g},
-\end{equation*} 
-and the beta function assumes the form
-\begin{equation*}
-    \beta_g =  r \, \frac{dg(r)}{dr} = -d_g \, g(r) + \dots.
-\end{equation*}
 Fixed points are given by 
 \begin{equation*}
     \beta_g = 0
 \end{equation*}
+Clearly, if $\delta g / g \ll 1$, $\Delta \phi \ll 1$, equation \eqref{eq:couplings_redefinition} reduces, at lowest order, to a dimensional rescaling
+\begin{equation*}
+    \frac{g'}{g} \approx r^{-d_g} = \left(\frac{\Lambda^\prime}{\Lambda}\right)^{-d_g},
+\end{equation*}
+\textcolor{blue}{The next part might be a bit too much and I don't want to go off-topic, but I wanted to put it because it really shows that the coloured stochastic quantisation and the fRG gives the same stationary p.d.f. so it is a good motivation for the former. Maybe I can do this in Appendix? Or should I just put it aside? \\}
+The existence of fixed points determine whether the limit $r \to 0$ can be taken. In this case, the resulting theory is still scale-dependent and it is described by an effective action $S^\text{eff}_\Lambda$ where all the modes with $p^2 \geq \Lambda^2$ are encoded in the couplings of the effective action. One can write 
+\begin{equation*}
+    S^\text{eff}_\Lambda[\phi] = S[\phi] + \Delta S_{\Lambda}^{(\mathrm{IR})}[\hat{\phi}],
+\end{equation*}
+where $\Delta S_{\Lambda}^{(\mathrm{IR})}[\hat{\phi}]$ is a regulating function which typically assumes the form
+\begin{equation} 
+    \Delta S_{\Lambda}^{(\mathrm{IR})}[\hat{\phi}] = \frac{1}{2} \int \frac{\mathrm{d}^d p}{(2 \pi)^d} \hat{\phi}(-p) \ \Lambda^2 \, \left(\frac{1}{r_{\Lambda}(p^2)}-1\right) \ \hat{\phi}(p),
+\end{equation}
+and for a sharp momentum cutoff 
+\begin{equation*}
+    r_{\Lambda}(p^2) = \theta\left(p^2-\Lambda^2\right).
+\end{equation*}
+This result will be allow for a deep connection between fRG and coloured stochastic quantisation.
+
 
 \section{Lattice QFT and the continuum limit}
 \label{sec:lattice_continuum_}

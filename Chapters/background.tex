@@ -15,7 +15,7 @@ The framework is thus general and applies to other theories as detailed in the g
 Landau's mean field approach to study phase transition \cite{Landau:1937obd} gained wide popularity in the 1930's and 40's, since it was able to describe critical properties of many systems and it provided inspiration for the later Landau-Ginzburg theory of superconductivity \cite{ginzburg}. Thus, it has soon proved to be inaccurate to predict some experimentally well proven properties of certain systems near their critical point \cite{Cao:1999pw}. This is because, beeing a mean field theory, it did not take into account the role of spatial fluctuations.
 The idea of block-spin transformation, systematically developed by Kadanoff \cite{PhysicsPhysiqueFizika_2_263}, made a big step towards a deeper understanding of the scaling behaviour, and posed the basis for the later work of Wilson \cite{WilsonRG1,WilsonRG2,WilsonFisher}, which still constitutes the basis for modern approaches to renormalisation in field theory and statistical physics.\\~\\
 
-\subsection*{Block-spin RG}
+\subsection{Block-spin RG}
 \label{sec:blockspin}
 \begin{figure}
     \centering 
@@ -36,7 +36,7 @@ We can always, in principle, build an ad-hoc action that fulfills the above cond
 Thus, if the behaviour of the system is dominated by long-range properties, and the volume $\mathcal{V}$ is small enough, one can expect the functional form of the microscopic action $S$ to remain approximately the same, and one has to (eventually) only adjust the couplings. \\
 The coarse-graining procedure comes with a loss of resolution since the spacing is changed $a \to 2a$. This means that the system is not anymore capable of describing physics at scales below the new spacing. Hence one can rescale distances and momenta in the new action via $a \to a/2, p \to 2p$ \textcolor{red}{connect spacing with volume}. This constitutes the second step of the block-spin transformation. The whole procedure can be thought as a zoom-out with a corresponding coarse graining, in order to describe the system in terms of the relevant scales as pictured in figure \ref{fig:blockin_first}. The procedure can be iterated multiple times, provided that the higher order interactions are either negligible or taken into account. \\
 
-\subsection*{Wilsonian RG}
+\subsection{Wilsonian RG}
 \label{sec:wilson_rg}
 The wilsonian picture of renormalisation \cite{WilsonRG1,WilsonRG2} is formulated in momentum space and in general is more suitable for theories in the continuum.\\
 The idea is that a physical theory comes with an intrinsic cutoff $\Lambda$, which defines up to which scale the theory is valid. This theory might not be the one
@@ -160,6 +160,9 @@ As this is quite hard task, one typically relies on some approximation schemes s
 Note that in the limit $a \to 0$, one has $\Lambda \to \infty$. If one's scope is to simulate an effective theory which is expected to hold only up to a scale $\Lambda_\text{phys}$, one must have $\Lambda \leq \Lambda_\text{phys}$, with a consequent lower bound on the lattice spacing $a \geq a_\text{phys} = \pi / \Lambda_\text{phys}$. \\ ~
 
 \section{Stochastic quantisation}
+\label{sec:stochastic_quantisation}
+
+\subsection{Standard stochastic quantisation}
 \textcolor{blue}{in this and next section I refer multiple times to Damgaard. Should I cite everytime or not?}\\ In order to compute expectation values from the discretised path integral \eqref{eq:discretised_path_integral}, we employ a Langevin Monte Carlo algorithm, which is based on stochastic quantisation \cite{ParisiWu, Damgaard1987StochasticQuantization}. \\
 The ideaof stochastic quantisation \cite{ParisiWu,Damgaard1987StochasticQuantization} is that Euclidean Quantum Field theory can be thought as a system in thermal equilibrium with a heat reservoir and hence described as a stochastic process via the Langevin equation. For this, one has to introduce a fictitious time variable $\tau$ that labels the state $\phi(\tau, x)$ of the system 
 during the evolution. \\
@@ -216,7 +219,7 @@ This allows one to compute correlation functions as moments of the  probability 
     \label{eq:expectation_observables}
 \end{equation}
 
-\section{Stochastic quantisation with coloured noise}
+\subsection{Stochastic quantisation with coloured noise}
 \label{sec:coloured_noise}
 In the stochastic quantisation procedure the noise which accounts for the quantum fluctuations of the theory is assumed to be white, as defined in equations \eqref{eq:white_noise_definition}, \eqref{eq:white_noise_definition_momentum}. 
 We now want to examine the dynamics in presence of a coloured noise, writing the Langevin equation as
@@ -280,6 +283,8 @@ where the correction term $\Delta S_\Lambda[\phi]$, reads, for a regulator $r_\L
 
 \section{Yukawa theory}
 \label{sec:Yukawa_theory}
+
+\subsection{Description of the model}
 Let us consider the Yukawa theory defined by the action
 \begin{equation}
 \begin{aligned}
@@ -291,6 +296,7 @@ Let us consider the Yukawa theory defined by the action
 \end{aligned}
 \end{equation}
 One can see that the action is made of a scalar part $S_\phi[\phi]$, a fermionic part $S_\psi[\psi, \bar\psi]$ and a Yukawa interaction term $S_\text{int}[\phi, \psi, \bar\psi]$. \\
+In pratice we will work with fixed number of flavours $N_f = 2$, but it is useful to keep track of it and set it to its value when needed. \\
 It is also convenient for later purposes to define the operators $K, D$ represented in position space as 
 \begin{equation}
     \begin{aligned}
@@ -311,7 +317,11 @@ This allows one to rewrite the action as
 \begin{equation*}
     S[\phi,\psi,\bar\psi] = \int_x \frac{1}{2} \, \phi_x \, K_{xx} \, \phi_x + \frac{\lambda}{4!} \, \phi_x^4 + \sum_{f=1}^{N_f} \bar\psi_x^{(f)} \, D_{xx} \, \psi_x^{(f)}
 \end{equation*}
-We introduce the left-handed and right-handed spinors
+It is now useful to adopt the notation 
+\begin{equation*}
+    \psi = (\psi^{(1)}, \dots, \psi^{(N_f)})
+\end{equation*} 
+We then introduce left-handed and right-handed spinors
 \begin{equation*}
 	\psi_L = (1-\gamma_5) \, \psi \qquad \psi_R = (1+\gamma_5) \, \psi
 \end{equation*}
@@ -321,51 +331,82 @@ for which
 \end{equation*}
 The action written in terms of $\psi_L, \psi_R$ reads
 \begin{equation}
-	S = S_\phi +  \bar\psi _L D \psi_L + \bar\psi _R D \psi_R + (m_q + g\phi) \,  \left(\bar\psi_L\psi_R + \bar\psi_R\psi_L\right)
+	S = S_\phi +  \sum_{f=1}^{N_f} \, \left[\bar\psi_L \, D \, \psi_L + \bar\psi_R \, D \, \psi_R + (m_q + g\phi) \,  \left(\bar\psi_L\psi_R + \bar\psi_R\psi_L\right)\right]
 	\label{eq:action_chirality_explicit}
 \end{equation}
-The last equation makes clear that that for $m=0,\left\langle\phi\right\rangle = 0$ the action is symmetric under the chiral group $SU(2) _L\times SU(2)_R$, namely
+The last equation makes clear that that for $m=0,\left\langle\phi\right\rangle = 0$ the action is symmetric under the chiral group $SU(N_f) _L\times SU(N_f)_R$, namely
 \begin{equation*}
 	\begin{aligned}
 		\psi_L(x) \to U_L\psi_L(x) &\qquad \bar\psi_L(x) \to \bar\psi_L(x) U_L^{\dagger} \\
-		 \psi_R(x) \to U_R\psi_R(x) &\qquad \bar\psi_R(x) \to \bar\psi_R(x) U_R^{\dagger}
+		\psi_R(x) \to U_R\psi_R(x) &\qquad \bar\psi_R(x) \to \bar\psi_R(x) U_R^{\dagger}
 	\end{aligned}
 \end{equation*}
-for $U_L, U_R \in SU(2)$.\\
-The main feature of the model is chiral symmetry breaking \cite{Nambu1961DynamicalI, Nambu1961DynamicalII}, which can happen explicitly at the level of the classical action for a non-zero quark mass, or spontaneously when the scalar field gains a non-zero expectation value. One can in fact notice already by looking at \eqref{eq:definition_kinetic_terms_continuum}, that $\left\langle\phi\right\rangle \neq 0$ has the same effect on the action as a finite bare quark mass. This observation will be made more quantitative in section (SECCCC) where it will be shown that  
+for $U_L, U_R \in SU(N_f)$. To be more precise, the full invariance group of the classical action is 
 \begin{equation*}
-    \left\langle \phi \right\rangle \sim \left\langle \bar \psi \psi \right\rangle \sim m_q
+    SU(N_f)_A \times SU(N_f)_V \times U(1)_A \times U(1)_V
 \end{equation*}
-The fermionic part of the path integral \eqref{eq:path_integral_generic} can be performed explicitly
+where the axial and vector symmetry transformations are
 \begin{equation*}
-    \int \mathcal{D} \bar\psi \mathcal{D} \psi \ \exp\left( - \int_x \sum_{f=1}^{N_f} \bar\psi_x^{(f)} \,  D \, \psi_x^{(f)} \right) = (\text{det} \, D[\phi])^{N_f} = e^{N_f\tr \log (D[\phi])}
+    \begin{aligned}
+        \psi \to \dots \bar\psi \to \dots \\
+        \psi \to \dots \bar\psi \to \dots
+    \end{aligned}
+\end{equation*} 
+One can thus prove that axial symmetry is broken by quantum anomalies (see for example \cite{schwartz}), so that the massless quantum theory has the symmetry 
+\begin{equation*}
+    SU(N_f)_L \times SU(N_f)_R \times U(1)_V
+\end{equation*}
+If equal masses are introduced and flavours are degenerate, then the symmetry group reduces to 
+\begin{equation*}
+    SU(N_f)_V \times U(1)_V
+\end{equation*} 
+where $SU(N_f)_v$ is defined by its action on the spinors 
+\begin{equation*}
+    \psi \to 
+\end{equation*}
+Finally, if the fermions have different masses, the symmetry group reduces to 
+\begin{equation*}
+    \left(\prod_{f=1}^{N_f} U(1)_f \right) \times U(1)_V
+\end{equation*}
+
+\subsection{Chiral symmetry breaking}
+We now want to discuss more in detail the phenomenom of chiral symmetry breaking, which can happen in our model either explicitly or spontaneously. To see this, let us perform the fermionic path integral explicitly
+\begin{equation*}
+    \int \mathcal{D} \bar\psi \mathcal{D} \psi \ \exp\left( - \int_x \sum_{f=1}^{N_f} \bar\psi_x^{(f)} \,  D \, \psi_x^{(f)} \right) = (\text{det} \, D[\phi])^{N_f} = e^{N_f\tr \log (D[\phi])},
 \end{equation*}
 where the trace is performed over spacetime and spinor components. \\ 
 The full path integral can now be expressed in terms of the resulting effective action for the scalar fields
 \begin{equation*}
-    Z = \int \mathcal{D}\phi \ e^{-S_\text{eff}[phi]}
+    Z = \int \mathcal{D}\phi \ e^{-S_\text{eff}[\phi]},
 \end{equation*}
 with
 \begin{equation}
-    S_\text{eff}[\phi] = S_{\phi}[\phi] - \underset{x,s,f}{\tr} \log D[\phi]
+    S_\text{eff}[\phi] = S_{\phi}[\phi] - N_f \, \underset{x,s}{\tr} \log D[\phi].
     \label{eq:effective_action_no_fermions}
 \end{equation}
 One can derive the classical equations of motion by imposing $\frac{\delta S}{\delta \phi} = 0$, here expressed in momentum space
-\begin{equation*}
-     (k^2 + m_\phi^2) \, \phi(x) + \frac{\lambda}{6} \, \phi^3(x) = g \ \underset{s,f}{\tr} \left[D^{-1}(\phi(x)\right] = - g \ \bar\psi(x) \psi(x)
-\end{equation*}
-where the trace is performed over spin and flavour components. For $\lambda = 0$, they highlight a simple proportionality relation between magnetisation and chiral condensate, which for zero momentum reads
 \begin{equation}
-    \phi(x) = - \frac{g}{m_\phi^2} \ \bar \psi(x) \psi(x)
+     (k^2 + m_\phi^2) \, \phi(x) + \frac{\lambda}{6} \, \phi^3(x) = N_f \, g \ \underset{s,f}{\tr} \left[D^{-1}(\phi(x))\right] = - N_f \, g \ \bar\psi(x) \psi(x)
+     \label{eq:classical_EOM_full}
+\end{equation}
+where the trace is performed over spin and flavour components. For $\lambda = 0$, they highlight a simple proportionality relation between magnetisation and chiral condensate, which reads
+\begin{equation}
+    \phi(x) = - \frac{N_f \, g}{k^2 + m_\phi^2} \ \bar \psi(x) \psi(x)
     \label{eq:classical_EOM}
 \end{equation}
-The classical relation \eqref{eq:classical_EOM} is proven to hold also at mean field on the quantum level \cite{Buballa2005NJL-modelMatter} and will be studied in the discretised theory in section \ref{sec:classical_to_quantum}. \\~\\
+The classical relation \eqref{eq:classical_EOM} is proven to hold also at mean field on the quantum level \cite{Ayala2021QCDDescriptions} and will be studied in the discretised theory in section \ref{sec:classical_to_quantum}. 
+In general, because of \eqref{eq:classical_EOM}, one expects, qualitatively,
+\begin{equation}
+    \expect{\phi} \sim \expect{\bar\psi\psi}.
+    \label{eq:qualitative_relation_condensate_magnetisation}
+\end{equation}
+A non-vanishing condensate is also related to a physical quark mass \cite{Ayala2021QCDDescriptions,MANOHAR1984189}, while the presence of magnetisation causes the breaking of $O(1)$ symmetry.\\~\\
 
 
 \begin{figure}[h]
 \centering
 \begin{minipage}{0.45\textwidth}
-    \begin{tikzpicture}
+    \begin{tikzpicture}[scale=0.8]
         \begin{axis} [axis lines=center, xtick=\empty, ytick=\empty, xlabel=$\phi$, ylabel=$V(\phi)$,
         every axis x label/.style={
             at={(ticklabel* cs:1.0)},
@@ -375,15 +416,15 @@ The classical relation \eqref{eq:classical_EOM} is proven to hold also at mean f
             at={(ticklabel* cs:1.0)},
             anchor=south,
         },]
-            \addplot [domain=-3:3, smooth, thick] { 6*x^2 + x^4 - 6*x };
+            \addplot [domain=-3:3, smooth, thick, color=blue] { 6*x^2 + x^4 - 10*x };
+            \addplot [domain=-3:3, smooth, thick, color=green] { 6*x^2 + x^4};
         \end{axis}
      
     \end{tikzpicture}
-    
 \end{minipage}
 \hfill
 \begin{minipage}{0.45\textwidth}
-    \begin{tikzpicture}
+    \begin{tikzpicture}[scale=0.8]
         \begin{axis} [axis lines=center, xtick=\empty, ytick=\empty, xlabel=$\phi$, ylabel=$V(\phi)$,
         every axis x label/.style={
             at={(ticklabel* cs:1.0)},
@@ -393,14 +434,16 @@ The classical relation \eqref{eq:classical_EOM} is proven to hold also at mean f
             at={(ticklabel* cs:1.0)},
             anchor=south,
         },]
-            \addplot [domain=-3:3, smooth, thick] { -6*x^2 + x^4 - 2*x };
+            \addplot [domain=-3:3, smooth, thick, color=blue] { -6*x^2 + x^4 - 5*x };
+            \addplot [domain=-3:3, smooth, thick, color=green] { -6*x^2 + x^4};
         \end{axis}
      
     \end{tikzpicture}
 \end{minipage}
 \label{fig:breaking_O1_symmetry}
-\caption{The introduction of the boson-fermion interaction, with a finite fermionic mass, causes the breaking of the O(1) symmetry. It shifts the equilibrium position in the symmetric phase (left) causing $\left\langle \phi \right\rangle \neq 0$, and tilts the potential in the broken phase (right), making the two minima not equivalent.}
+\caption[Classical potential and symmetry breaking]{The introduction of the boson-fermion interaction, with a finite fermionic mass, causes explicit breaking of chiral symmetry, with consequence spontaneous breaking of the O(1) symmetry according to \eqref{eq:qualitative_relation_condensate_magnetisation}. It shifts the equilibrium position in the symmetric phase (left) causing $\left\langle \phi \right\rangle \neq 0$, and tilts the potential in the broken phase (right), making the two minima not equivalent.}
 \end{figure}
-
+\subsection{Phase structure and order parameters}
+We want to conclude this section by commenting on the general phase strcture of the yukawa theory. This will guide the choice of parameters for the investigation carried in the remaining sectios
 
 \newpage

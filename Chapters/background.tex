@@ -11,7 +11,11 @@ Note that because this chapter is focused on introducing the conceptual framewor
 \end{equation}
 The framework is thus general and applies to other theories as detailed in the given references. \\~\\
 
-\section{Block-spin renormalisation}
+\section{The renormalisation group}
+Landau's mean field approach to study phase transition \cite{Landau:1937obd} gained wide popularity in the 1930's and 40's, since it was able to describe critical properties of many systems and it provided inspiration for the later Landau-Ginzburg theory of superconductivity \cite{ginzburg}. Thus, it has soon proved to be inaccurate to predict some experimentally well proven properties of certain systems near their critical point \cite{Cao:1999pw}. This is because, beeing a mean field theory, it did not take into account the role of spatial fluctuations.
+The idea of block-spin transformation, systematically developed by Kadanoff \cite{PhysicsPhysiqueFizika_2_263}, made a big step towards a deeper understanding of the scaling behaviour, and posed the basis for the later work of Wilson \cite{WilsonRG1,WilsonRG2,WilsonFisher}, which still constitutes the basis for modern approaches to renormalisation in field theory and statistical physics.\\~\\
+
+\subsection*{Block-spin RG}
 \label{sec:blockspin}
 \begin{figure}
     \centering 
@@ -19,8 +23,6 @@ The framework is thus general and applies to other theories as detailed in the g
     \caption{test, I was very bad at art}
     \label{fig:blockin_first}
 \end{figure}
-Landau's mean field approach to study phase transition \cite{Landau:1937obd} gained wide popularity in the 1930's and 40's, since it was able to describe critical properties of many systems and it provided inspiration for the later Landau-Ginzburg theory of superconductivity \cite{ginzburg}. Thus, it has soon proved to be inaccurate to predict some experimentally well proven properties of certain systems near their critical point \cite{Cao:1999pw}. This is because, beeing a mean field theory, it did not take into account the role of spatial fluctuations.
-The idea of block-spin transformation, systematically developed by Kadanoff \cite{PhysicsPhysiqueFizika_2_263}, made a big step towards a deeper understanding of the scaling behaviour, and posed the basis for the later work of Wilson \cite{WilsonRG1,WilsonRG2,WilsonFisher}, which still constitutes the basis for modern approaches to renormalisation in field theory and statistical physics.\\~\\
 To illustrate the idea, let us consider a set of spins whose magnetisation is described by a function $\varphi(x)$. The spins are located on a discrete lattice $\mathscr{L}$, so that the function assumes values only at such sites $\varphi(x_i) = \varphi_i \neq 0 \Leftrightarrow x_i \in \mathscr{L}$. Suppose then that their interaction is described by a certain action $S[\varphi]$ and a partition function
 \begin{equation*}
     Z=\sum_{\varphi} \mathrm{e}^{-S[\varphi]}.
@@ -34,7 +36,7 @@ We can always, in principle, build an ad-hoc action that fulfills the above cond
 Thus, if the behaviour of the system is dominated by long-range properties, and the volume $\mathcal{V}$ is small enough, one can expect the functional form of the microscopic action $S$ to remain approximately the same, and one has to (eventually) only adjust the couplings. \\
 The coarse-graining procedure comes with a loss of resolution since the spacing is changed $a \to 2a$. This means that the system is not anymore capable of describing physics at scales below the new spacing. Hence one can rescale distances and momenta in the new action via $a \to a/2, p \to 2p$ \textcolor{red}{connect spacing with volume}. This constitutes the second step of the block-spin transformation. The whole procedure can be thought as a zoom-out with a corresponding coarse graining, in order to describe the system in terms of the relevant scales as pictured in figure \ref{fig:blockin_first}. The procedure can be iterated multiple times, provided that the higher order interactions are either negligible or taken into account. \\
 
-\section{Wilsonian renormalisation}
+\subsection*{Wilsonian RG}
 \label{sec:wilson_rg}
 The wilsonian picture of renormalisation \cite{WilsonRG1,WilsonRG2} is formulated in momentum space and in general is more suitable for theories in the continuum.\\
 The idea is that a physical theory comes with an intrinsic cutoff $\Lambda$, which defines up to which scale the theory is valid. This theory might not be the one
@@ -156,6 +158,125 @@ To do this, one should find the zeros of the beta functions
 \end{equation*}
 As this is quite hard task, one typically relies on some approximation schemes such as employing perturbative continuum beta functions. From this description it should be clear that the spacing $a$ should not be treated as a free parameter in the continuum limit, but rather a dynamically determined quantity that depends on the couplings of the theory. \\
 Note that in the limit $a \to 0$, one has $\Lambda \to \infty$. If one's scope is to simulate an effective theory which is expected to hold only up to a scale $\Lambda_\text{phys}$, one must have $\Lambda \leq \Lambda_\text{phys}$, with a consequent lower bound on the lattice spacing $a \geq a_\text{phys} = \pi / \Lambda_\text{phys}$. \\ ~
+
+\section{Stochastic quantisation}
+\textcolor{blue}{in this and next section I refer multiple times to Damgaard. Should I cite everytime or not?}\\ In order to compute expectation values from the discretised path integral \eqref{eq:discretised_path_integral}, we employ a Langevin Monte Carlo algorithm, which is based on stochastic quantisation \cite{ParisiWu, Damgaard1987StochasticQuantization}. \\
+The ideaof stochastic quantisation \cite{ParisiWu,Damgaard1987StochasticQuantization} is that Euclidean Quantum Field theory can be thought as a system in thermal equilibrium with a heat reservoir and hence described as a stochastic process via the Langevin equation. For this, one has to introduce a fictitious time variable $\tau$ that labels the state $\phi(\tau, x)$ of the system 
+during the evolution. \\
+Let us consider, for example, a scalar field $\phi$ with a Euclidean action $S[\phi]$ and the following Langevin equation
+\begin{equation}
+    \partial_\tau \phi(\tau, x) = - \frac{\delta S[\phi]}{\delta \phi (\tau, x)} + \eta (\tau, x),
+    \label{eq:Langevin_scalar_full}
+\end{equation}
+where $K_{\phi}(\tau) \equiv -\delta S[\phi]/\delta \phi (\tau, x)$ is the drift term and $\eta (\tau, x)$ is a random white noise field assumed to be normally distributed
+\begin{equation*}
+    P(\eta) = \frac{\exp\left(-\frac{1}{4}\int_{\tau,x} \eta^2(\tau, x)\right)}{\int D\eta \exp\left(-\frac{1}{4}\int_{\tau,x} \eta^2(\tau,x)\right)},
+\end{equation*} 
+which, in particular, implies
+\begin{equation}
+    \expect{\eta(x,\tau)} = 0, \qquad \expect{\eta(x,\tau) \, \eta(x',\tau')} = 2 \, \delta(x - x') \, \delta (\tau - \tau').
+    \label{eq:white_noise_definition}
+\end{equation}
+Stochastic average with respect to the measure $P(\eta)$ are computed via 
+\begin{equation*}
+    \expect{A(\eta)} = \int D\eta \, P(\eta) \, A(\eta).
+\end{equation*}
+In momentum space, \eqref{eq:white_noise_definition} becomes
+\begin{equation}
+    \begin{aligned}
+        \expect{\eta(p,\tau)} &= \expect{\int_x e^{ipx}\eta(x,\tau)} = \int_x \expect{e^{ipx}\eta(x,\tau)} = 0, \\
+        \expect{\eta(p,\tau)\eta(q,\tau')} &= \expect{\int_{xy} e^{ipx + iqy} \eta(x,\tau)\eta(y,\tau')} \\
+        &= \int_{xy} e^{ipx + iqy} \expect{\eta(x,\tau)\eta(y,\tau')} \\
+        &= 2 \, (2\pi)^2 \, \delta(p + q) \, \delta(\tau - \tau').
+    \end{aligned}
+    \label{eq:white_noise_definition_momentum}
+\end{equation}
+In absence of the noise term $\eta(\tau,x)$, equation \eqref{eq:Langevin_scalar_full} simply represents an evolution of the field towards the minimum of the action, and at equilibrium the field is constrained to $\partial_\tau \phi(x,\tau) = 0 = \delta S[\phi]/\delta \phi (\tau, x)$, namely to the classical equations of motion.\\
+For any observable $O$, which is function of the field, one has, for fixed time $\tau$,
+\begin{equation*}
+    \expect{O(\phi(\tau))} = \int D\eta \, P(\eta) \, O(\phi(\tau)),
+\end{equation*}
+from which it follows straightforwardly using the Langevin equation and $\expect{\eta} = 0$
+\begin{equation*}
+    \frac{d}{d\tau} \expect{O(\phi(\tau))} = \expect{\frac{\delta O}{\delta \phi(\tau, x)} \ \partial_\tau \phi(\tau, x)} = -\expect{\frac{\delta O}{\delta \phi}(\tau, x) \ \frac{\delta S}{\delta \phi(\tau, x)}}.
+\end{equation*}
+It follows trivially that for $O(\phi(\tau)) = \phi(\tau, x)$
+\begin{equation*}
+        \frac{d}{d\tau} \expect{\phi(\tau, x)} = -\expect{\frac{\delta S}{\delta \phi(\tau, x)}} \quad \underset{Equilibrium}{\Longrightarrow} \quad \expect{\frac{\delta S}{\delta \phi(\tau, x)}} = 0.
+\end{equation*}
+This also provides a consistency check for the correct implementation of the simulation, since the drift $K_\phi = -\delta S / \delta \phi$ is computed numerically during the evolution. \\
+More generally, one can derive a correspondent Fokker-Planck equation \cite{gardiner}, which can be proven to have a stationary distribution if the action is bounded from below, given by \cite{Damgaard1987StochasticQuantization}
+\begin{equation}
+    \mathcal{P}(\phi) = \frac{1}{Z} \, \exp\left(-S[\phi]\right).
+    \label{eq:probability_field_configuration_full}
+\end{equation}
+This allows one to compute correlation functions as moments of the  probability distribution \eqref{eq:probability_field_configuration_full}. In particular, one has 
+\begin{equation}
+    \expect{O}_{P(\eta)} = \expect{O}_{\mathcal{P}(\phi)} \equiv \expect{O}.
+    \label{eq:expectation_observables}
+\end{equation}
+
+\section{Stochastic quantisation with coloured noise}
+\label{sec:coloured_noise}
+In the stochastic quantisation procedure the noise which accounts for the quantum fluctuations of the theory is assumed to be white, as defined in equations \eqref{eq:white_noise_definition}, \eqref{eq:white_noise_definition_momentum}. 
+We now want to examine the dynamics in presence of a coloured noise, writing the Langevin equation as
+\begin{equation*}
+    \partial_\tau \phi(x, \tau) = - \frac{\delta S[\phi]}{\delta \phi (\tau, x)} + \eta_\text{col}(x, \tau),
+    \label{eq:Langevin_scalar_regularised}
+\end{equation*}
+with $\eta_\text{col}(x,\tau) = r_\Lambda(x) \, \eta(x,\tau)$. In particular, here we restrict to the regulating function defined as a sharp cutoff in momentum space
+\begin{equation}
+    r_\Lambda(p) = \theta(\Lambda^2 - p^2),
+    \label{eq:regulator}
+\end{equation}
+and we invite the reader to consult \cite{Pawlowski2017CoolingNoise} for a discussion of other regulating functions. \\
+The noise field in momentum space is then
+\begin{equation*}
+    \begin{aligned}
+        \eta_\text{col}(p, \tau) &= \mathcal{F}[\eta_\text{col}(x,\tau)] = \mathcal{F}[r_\Lambda(x,\tau) \eta(x,\tau)] = \mathcal{F}[r_\Lambda(x,\tau)] \star \mathcal{F}[\eta(x,\tau)] \\
+        &= \theta(\Lambda^2 - p^2)  \, \eta(p, \tau).
+    \end{aligned}
+\end{equation*}
+where $\mathcal{F}$ indicates the Fourier transform and $\star$ the convolution product. \\
+An interesting quantity to look at is the position-space noise correlation function
+\begin{equation}
+    \begin{aligned}
+        C_{\eta}(x,\tau,y,\tau') &= \left\langle\eta_\text{col}(x,\tau) \, \eta_\text{col}(y,\tau')\right\rangle \\
+        &= \frac{1}{(2\pi)^{4}} \int D\eta \, P(\eta) \left[\int_{p,q} e^{-ipx-iqy }\eta_\text{col}(p,\tau) \, \eta_\text{col}(q,\tau')\right] \\
+        &= \frac{1}{(2\pi)^{4}} \int_{p,q} e^{-ipx-iqy } \int D\eta \left[ P(\eta) \, \eta(p,\tau) \, \eta(q,\tau') \right] \\
+        &\qquad\times \theta(\Lambda^2 - p^2) \, \theta(\Lambda^2 - q^2)  \\
+        &= \frac{2}{(2\pi)^{2}} \int_{p,q} e^{-ipx-iqy} \, \delta(p+q) \, \theta(\Lambda^2 - p^2) \, \theta(\Lambda^2 - q^2) \, \delta(\tau - \tau') \\
+        &= \frac{2}{(2\pi)^{2}} \int_{p} e^{-ip(x-y)} \, \theta(\Lambda^2 - p^2) = \frac{1}{\pi} \, \int_0^\Lambda \, d\omega \, \omega \, J_0(\omega |x-y|),
+    \end{aligned}
+    \label{eq:coloured_noise_correlation}
+\end{equation}
+where $J_0(x)$ is a Bessel function of the first order. The integral in the last line is computed numerically as a function of $d=|x-y|$ and reported in figure \ref{fig:bessel} for three different values of the cutoff $\Lambda_1 < \Lambda_2 < \Lambda_3$. This shows nicely that for $|x-y| \ll 1/\Lambda$ the noise is now correlated, while for $|x-y| \gg 1/\Lambda$ the correlation function vanishes, as in the white noise case. In other words, only the short-length behaviour of the system is affected by the introduction of such a regulating term, as one could expect.\\~\\
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.6]{figures/bessel.pdf}
+    \caption[Correlated noise]{Noise correlation as a function of $d=|x-y|$ for three different values of the cutoff $\Lambda_1 < \Lambda_2 < \Lambda_3$, in arbitrary units. The plot is qualitative, but shows clearly that with a regulated noise, only the short-distance behaviour is affected.}
+    \label{fig:bessel}
+\end{figure}
+Another intuitive and interesting aspect of the dynamics in the presence of coloured noise can be deduce by looking at the field expression in terms of the retarded Langevin Green function \cite{Damgaard1987StochasticQuantization}, which is here not derived, but reported from \cite{Pawlowski2017CoolingNoise}
+\begin{equation*}
+        \phi(x, \tau) = \int_{x^{\prime}} \int_{-\infty}^\tau \mathrm{d} \tau^{\prime} G\left(x-x^{\prime}, \tau-\tau^{\prime}\right) \, \left[r_{\Lambda}\left(\Delta_x\right) \eta\left(x, \tau^{\prime}\right)-\frac{\delta S}{\delta \phi}|_{p=0} \, \phi\left(x^{\prime}, \tau\right)\right],
+\end{equation*}
+where
+\begin{equation*}
+    G\left(x-x^{\prime}, \tau-\tau^{\prime}\right) =\theta\left(\tau-\tau^{\prime}\right) \int_p \mathrm{e}^{-i p \cdot\left(x-x^{\prime}\right)} \mathrm{e}^{-\left(\tau-\tau^{\prime}\right)\left(p^2+m^2\right)}.
+\end{equation*}
+By looking at the first term in the square bracket, one can conclude that there is no propagation of modes with momentum $p^2\geq \Lambda^2$ due to the noise term, but one can still have contribution from modes $p^2 > \Lambda^2$ from the second term, which corresponds to the deterministic part of the equations of motion. Stated differently, UV quantum fluctuations with $p^2 > \Lambda^2$ are removed from the dynamics of $\phi$, but still contribute classically. \\~\\
+Generally speaking, the stationary distribution probability of the regulated stochastic process is given by \cite{Pawlowski2017CoolingNoise}
+\begin{equation}
+    \mathcal{P}_\Lambda(\phi) = \frac{1}{Z} \, \exp\left(-S_\Lambda[\phi]\right) = \frac{1}{Z} \, \exp\left(-(S[\phi] + \Delta S_\Lambda[\phi])\right),
+    \label{eq:probability_field_configuration_regularised}
+\end{equation}
+where the correction term $\Delta S_\Lambda[\phi]$, reads, for a regulator $r_\Lambda(p^2)$,
+\begin{equation*}
+        \Delta S_{\Lambda}[\phi]=\frac{1}{2} \int_p \phi_p \, \Lambda^2\left(\frac{1}{r_{\Lambda}\left(p^2\right)}-1\right) \, \phi_{-p}.
+\end{equation*}
+\textcolor{red}{at this point mention that this is the stationary pdf that one gets with frg for sharp cutoff, and cite some papers.}
+
 
 \section{Yukawa theory}
 \label{sec:Yukawa_theory}

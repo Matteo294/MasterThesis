@@ -4,38 +4,7 @@
 \chapter{Useful relations and definitions} % Main appendix title
 \label{chap:AppendixA} % For referencing this appendix elsewhere, use \ref{AppendixA}
 In this appendix, useful relations and definitions are introduced.
-Fermionic wo-points function
-\begin{equation} 
-\begin{aligned}
-    \left\langle \psi_{s,f}(x) \, \bar\psi_{s',f'}(y) \right\rangle 
-    &= \frac{1}{Z} \, \int \mathcal{D}\phi \, \mathcal{D}\psi \, \mathcal{D}\bar\psi \ \psi(x) \, \bar\psi(y) \, \exp \left( - S_\phi - \psi D \psi + \bar\eta \psi + \bar \psi \eta \right) \\
-    &= \frac{1}{Z} \, \int \mathcal{D}\phi \, \mathcal{D}\psi \, \mathcal{D}\bar\psi \ \frac{\delta}{\delta \bar \eta(x)} \frac{\delta}{\delta \eta(y)} \, \exp \left( - S_\phi - \psi D \psi + \bar\eta \psi + \bar \psi \eta \right) \\
-    &= \frac{1}{Z} \, \int \mathcal{D}\phi \ \text{det}\left[D(\phi)\right] \ \exp \left( - S_\phi \right) \ \frac{\delta}{\delta \bar \eta(x)} \frac{\delta}{\delta \eta(y)} \, \exp\left( \bar\eta D^{-1} \eta \right) \\
-    &= \left\langle \left[D^{-1}(\phi)\right]_{s,s',f,f'}(x,y)\right\rangle
-\end{aligned}
-\label{eq:D_inv_condensate}
-\end{equation}
-The lattice version becomes
-\begin{equation*}
-     \left\langle \psi_m \, \bar\psi_n \right\rangle =     \left\langle \left[D^{-1}(\phi)\right]_{mn}\right\rangle
-\end{equation*}
-with $D$ beeing the Wilson Dirac operator. \\
-From this, it follows straightforwardly
-\begin{equation*}
-    \left\langle  \bar\psi \psi \right\rangle = \underset{x,s,f}{\tr} D^{-1}
-\end{equation*}
-where $\left\langle  \bar\psi \psi \right\rangle = \underset{x,s,f}\sum  \left\langle \bar\psi_{s,f}(x) \, \psi_{s,f}(x) \right\rangle$. \\~\\
-The correlator is defined as
-\begin{align*}
-    C(n_t,0) \equiv \frac{1}{N_x} \sum_{n_x} \left[\left\langle \psi(n_t, n_x) \, \bar\psi(0,0)\right\rangle + \left\langle \psi(N_t-n_t, n_x) \, \bar\psi(0,0) \right] \right\rangle
-\end{align*}
-Note that we sum up two waves because the source propagates both forward and backward in time due to the boundary conditions. \\
-Since for $t \to \infty$ one has that $C(t,p) \propto e^{-E_0(p) t}$, we expect 
-\begin{equation*}
-    C(t,p) \approx \sinh \left(E_0 \left(\frac{N_t}{2} - t\right)\right)
-\end{equation*}
 
-Pole mass, renormalized mass, effective mass, bare mass, physical mass
 
 
 

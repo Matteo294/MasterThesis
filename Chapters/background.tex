@@ -1,15 +1,7 @@
 % !TeX root = ../main.tex
 \chapter{Theoretical background}
 \label{chap:background}
-
-Da qualche parte cita \cite{carosso2020novel}. \\~\\
 In this chapter we want to provide with an overview on the general theoretical framework that supports this work, and introduce the main concepts for the successive parts. Each section in this chapter is, by no means, meant as an exhaustive treatment. The description will be quite conceptual, rather than technical, and aims at recalling the main ideas and fix conventions. We ask the reader to consult appropriate references,  which will be given in the corresponding sections, for a more detailed treatment of the topics. \\~\\
-Note that because this chapter is focused on introducing the conceptual framework, the guiding example will be, where not otherwised specified, a scalar field $\phi$ with the action 
-\begin{equation}
-    S[\phi] = \int_x \, \frac{1}{2} \, (\partial_\mu \phi_x)^2 + \frac{m_\phi^2}{2} \, \phi_x^2 + \frac{\lambda}{4!} \, \phi_x^4.
-    \label{eq:phi4_action}
-\end{equation}
-The framework is thus general and applies to other theories as detailed in the given references. \\~\\
 
 \section{The renormalisation group}
 Landau's mean field approach to study phase transition \cite{Landau:1937obd} gained wide popularity in the 1930's and 40's, since it was able to describe critical properties of many systems and it provided inspiration for the later Landau-Ginzburg theory of superconductivity \cite{ginzburg}. Thus, it has soon proved to be inaccurate to predict some experimentally well proven properties of certain systems near their critical point \cite{Cao:1999pw}. This is because, beeing a mean field theory, it did not take into account the role of spatial fluctuations.
@@ -19,11 +11,11 @@ The idea of block-spin transformation, systematically developed by Kadanoff \cit
 \label{sec:blockspin}
 \begin{figure}
     \centering 
-    \includegraphics[angle=90,scale=0.34]{figures/test.pdf}
-    \caption{test, I was very bad at art}
+    \includegraphics[angle=90,scale=0.34]{figures/blockspin.pdf}
+    \caption[Block-spin transformation]{The two steps of the block-spin transformation. The black dots indicate the original field $\phi$, while the blue dots indicate the coarse grained field $\bar \phi$.}
     \label{fig:blockin_first}
 \end{figure}
-To illustrate the idea, let us consider a set of spins whose magnetisation is described by a function $\varphi(x)$. The spins are located on a discrete lattice $\mathscr{L}$, so that the function assumes values only at such sites $\varphi(x_i) = \varphi_i \neq 0 \Leftrightarrow x_i \in \mathscr{L}$. Suppose then that their interaction is described by a certain action $S[\varphi]$ and a partition function
+To illustrate the idea, let us consider a set of spins whose magnetisation is described by a function $\varphi(x)$. The spins are located on a discrete lattice $\mathscr{L}$ with spacing $a$, so that the function assumes values only at such sites $\varphi(x_i) = \varphi_i \neq 0 \Leftrightarrow x_i \in \mathscr{L}$. Suppose then that their interaction is described by a certain action $S[\varphi]$ and a partition function
 \begin{equation*}
     Z=\sum_{\varphi} \mathrm{e}^{-S[\varphi]}.
 \end{equation*}
@@ -33,8 +25,9 @@ We now want to find a new action $S_b$ such that
     Z=\sum_{\varphi} \mathrm{e}^{-S(\varphi)}= \sum_{\bar\varphi} \mathrm{e}^{-S_b\left(\bar\varphi\right)}.
 \end{equation}
 We can always, in principle, build an ad-hoc action that fulfills the above condition, but it is complicated, since $S_b$ can be also be very different from $S$. For example, if the action $S[\varphi]$ contains only nearest-neighbour interactions, the new actions $S'[\phi]$ can contain higher order interactions such as nearest-to-nearest neighbour, or even more. In principle, all the terms compatible with the original symmetries are allowed. 
-Thus, if the behaviour of the system is dominated by long-range properties, and the volume $\mathcal{V}$ is small enough, one can expect the functional form of the microscopic action $S$ to remain approximately the same, and one has to (eventually) only adjust the couplings. \\
-The coarse-graining procedure comes with a loss of resolution since the spacing is changed $a \to 2a$. This means that the system is not anymore capable of describing physics at scales below the new spacing. Hence one can rescale distances and momenta in the new action via $a \to a/2, p \to 2p$ \textcolor{red}{connect spacing with volume}. This constitutes the second step of the block-spin transformation. The whole procedure can be thought as a zoom-out with a corresponding coarse graining, in order to describe the system in terms of the relevant scales as pictured in figure \ref{fig:blockin_first}. The procedure can be iterated multiple times, provided that the higher order interactions are either negligible or taken into account. \\
+Thus, if the behaviour of the system is dominated by long-range properties, such as a diverging correlatin length, and the volume $\mathcal{V}$ is small enough, one can expect the functional form of the microscopic action $S$ to remain approximately the same, also for the coarse-grained field $\bar\varphi$. \\
+The coarse-graining procedure comes with a loss of resolution since the spacing is changed $a \to 2a$, hence one can rescale distances and momenta in the new action via $a \to a/2, p \to 2p$. At this point, one canand compare compare the result with the initial action. This constitutes the second step of the block-spin transformation. The whole procedure can be thought as a zoom-out with a corresponding coarse graining, in order to describe the system in terms of the relevant scales as pictured in figure \ref{fig:blockin_first}. The procedure can be iterated multiple times, provided that the higher order interactions are either negligible or taken into account. 
+This last aspect is better discussed in the Wilsonian picture of renormalisation. \\
 
 \subsection{Wilsonian RG}
 \label{sec:wilson_rg}
@@ -104,9 +97,17 @@ This result will allow for a deep connection between fRG and coloured stochastic
 
 \section{Lattice QFT and the continuum limit}
 \label{sec:lattice_continuum_}
-\textcolor{red}{punteggiatura formule}. \\
-Lattice Quantum Field Theory is formulated on a discrete set of spacetime points. Let us then consider a lattice $\mathscr{L}$, with spacing $a$, and $N_\mu$ points in each spacetime direction $\mu$, hence a physical length $L_\mu$.
-For simplicity we restricted here to a scalar field $\phi$ and we will recall fermionic properties only when relevant, but what follows is valid also for the latter. \\ 
+The starting set up is the euclidean formulation of quantum field theory, where one typically defines a path integral $Z$, which, for a general scalar field $\phi(x)$ and a fermion field $\psi(x)$, assumes the form
+\begin{equation}
+    Z = \int \mathcal{D}\phi\mathcal{D}\psi\mathcal{D}\bar\psi \ e^{-S[\phi, \psi, \bar\psi]}, \qquad \mathcal{D}\xi = \prod_x d\xi_x, \quad \xi \in \{\phi, \psi, \bar\psi\},
+    \label{eq:path_integral_generic}
+\end{equation}
+and correlation functions are computed via
+\begin{equation*}
+        \left\langle \xi_{x_1} \dots \xi_{x_n}  \right\rangle = \frac{1}{Z} \int \mathcal{D}\phi\mathcal{D}\psi\mathcal{D}\psi \ \xi_{x_1} \dots \xi_{x_n} \ e^{-S[\phi, \psi, \bar\psi]}, \qquad \xi_{x_i} \in \{\phi_{x_i}, \psi_{x_i}, \bar\psi_{x_i}\}. \\
+\end{equation*}
+Let us then consider a lattice $\mathscr{L}$, with spacing $a$, and $N_\mu$ points in each spacetime direction $\mu$, hence a physical length $L_\mu$.
+For simplicity we restricted here to a scalar field $\phi$ and we will recall fermionic properties only when relevant, but what follows has general validity. 
 The action and the path integral measure are now taken over discrete quantities 
 \begin{equation*}
     \begin{aligned}
@@ -114,10 +115,10 @@ The action and the path integral measure are now taken over discrete quantities
         \prod_{x} d\phi(x) \qquad &\to  \qquad \prod_{n \in \mathscr{L}} d\phi(n),
     \end{aligned}
 \end{equation*}
-where $\mathcal{L}(\phi)$ is the Lagrangian density function \textcolor{red}{add citation?}.  \\
+where $\mathcal{L}(\phi)$ is the Lagrangian density function.  \\
 The path integral is hence
 \begin{equation*}
-    Z = \int \prod_n d\phi(n) \, e^{-S[\phi]}
+    Z = \int \prod_n d\phi(n) \, e^{-S[\phi]},
 \end{equation*}
 and the probability of a field configuration $\phi$
 \begin{equation}
@@ -129,7 +130,7 @@ Expectation value of observables are computes as
     \expect{O(\phi)}  = \frac{1}{Z} \, \int \prod_n d\phi(n) \, O(\phi) \, e^{-S[\phi]}.
     \label{eq:expectation_value_lattice}
 \end{equation}
-In order to simulate a theory and perform the above sums one has to go to finite volumes and eventually impose boundary conditions. In the space directions, we take periodic conditions 
+In order to simulate a theory and perform the above sums one has to go to finite volumes impose boundary conditions. In the space directions, we take periodic conditions 
 \begin{equation*}
     \begin{aligned}
         \phi(t, \vec x) &= \phi(t, \vec x + T), \\
@@ -138,7 +139,7 @@ In order to simulate a theory and perform the above sums one has to go to finite
 \end{equation*}
 Instead, a finite time extent is related to the temperature of the system \cite{le_bellac_1996,rothe_LGT} via
 \begin{equation*}
-    \beta = 1/T = 1/L_t
+    \beta = 1/T = 1/L_t,
 \end{equation*}
 and boundary conditions are chosen depending on the spin-statistic of the corresponding particles, namely periodic conditions for bosons, and anti-periodic for fermions
 \begin{equation*}
@@ -148,24 +149,27 @@ and boundary conditions are chosen depending on the spin-statistic of the corres
     \end{aligned}
 \end{equation*}
 Such a formulation naturally brings a momentum cutoff $\Lambda = \pi/a$ since now all the momenta are restricted to the first Brilloune zone $p_\mu \in [-\pi/a, \pi/a]$. \\
-To compute observables one relies on Monte-Carlo methods to generate field configurations, sampling the distribution \eqref{eq:probability_distribution_lattice} and convergence to the statistical value given by \eqref{eq:expectation_value_lattice} is expected for $N_\text{samp} \to \infty$. To recover the continuum results, one has to take $V \to 0, a \to \infty$ (the order matters, see for example \cite{seiler}), but this task cannot be done so straightforwardly (see for example \cite{rothe_LGT}).
-Instead, continuum limits of lattice theories are intimately connected to the existence of critical points. To see why this is the case, consider the dimensionless mass gap $\hat\xi = m \, a$ of a certain theory. The quantity $\xi$ is also called correlation length and it is related to the exponential decay of correlation functions between local observables measured
-at different points on the lattice as given by \textcolor{red}{add ref. eq.}\\
-When taking the continuum limit we want $a \to 0$, while having a finite physical mass $m$. This implies that the correlation length $\hat \xi$ has to diverge: in the language of statistical physics, this is a second order phase transition. Of course to bring the system at its critical point, where such phase transition happens, one has to tune the bare parameters $g_0^i$ to their critical values $g_0^{i \, *}$. 
+To compute observables one relies on Monte-Carlo methods to generate field configurations, sampling the distribution \eqref{eq:probability_distribution_lattice} and convergence to the statistical value given by \eqref{eq:expectation_value_lattice} is expected in the limit of infinite samples $N_\text{samp} \to \infty$. To recover the continuum results, one has to take $V \to \infty, a \to 0$ \footnote{the order here is important, see for example \cite{seiler}}, but this task cannot be done so straightforwardly.
+Continuum limits of lattice theories are intimately connected to the existence of critical points. To see why this is the case, consider the dimensionless mass gap 
+\begin{equation*}   
+    \hat\xi = m \, a
+\end{equation*} 
+of a certain theory. The quantity $\xi$ is also called correlation length and it is related to the exponential decay of correlation functions between local observables measured
+at different points on the lattice, as given by \textcolor{red}{add ref. eq.}\\
+When taking the continuum limit we want $a \to 0$, while having a finite physical mass $m$. This implies that the correlation length $\hat \xi$ has to diverge: in the language of statistical physics, this is a second order phase transition. Of course to bring the system at its critical point, where such phase transition happens, one has to tune the bare parameters $g_0^i$ of the theory to their critical values $g_0^{i \, *}$. 
 To do this, one should find the zeros of the beta functions
 \begin{equation*}
     \beta_g^\text{latt} = a \frac{d}{da} g(a) \overset{!}{=} 0, \qquad a = \pi/\Lambda.
 \end{equation*}
-As this is quite hard task, one typically relies on some approximation schemes such as employing perturbative continuum beta functions. From this description it should be clear that the spacing $a$ should not be treated as a free parameter in the continuum limit, but rather a dynamically determined quantity that depends on the couplings of the theory. \\
+As this is quite hard task to do on the lattice, one typically relies on some approximation schemes such as employing perturbative continuum beta functions. \\
+In any case, from this description it should be clear that the spacing $a$ should not be treated as a free parameter in the continuum limit, but rather a dynamically determined quantity that depends on the couplings of the theory.\\
 Note that in the limit $a \to 0$, one has $\Lambda \to \infty$. If one's scope is to simulate an effective theory which is expected to hold only up to a scale $\Lambda_\text{phys}$, one must have $\Lambda \leq \Lambda_\text{phys}$, with a consequent lower bound on the lattice spacing $a \geq a_\text{phys} = \pi / \Lambda_\text{phys}$. \\ ~
 
 \section{Stochastic quantisation}
 \label{sec:stochastic_quantisation}
-
-\subsection{Standard stochastic quantisation}
-\textcolor{blue}{in this and next section I refer multiple times to Damgaard. Should I cite everytime or not?}\\ In order to compute expectation values from the discretised path integral \eqref{eq:discretised_path_integral}, we employ a Langevin Monte Carlo algorithm, which is based on stochastic quantisation \cite{ParisiWu, Damgaard1987StochasticQuantization}. \\
-The ideaof stochastic quantisation \cite{ParisiWu,Damgaard1987StochasticQuantization} is that Euclidean Quantum Field theory can be thought as a system in thermal equilibrium with a heat reservoir and hence described as a stochastic process via the Langevin equation. For this, one has to introduce a fictitious time variable $\tau$ that labels the state $\phi(\tau, x)$ of the system 
+The idea of stochastic quantisation \cite{ParisiWu,Damgaard1987StochasticQuantization} is that Euclidean Quantum Field theory can be thought as a system in thermal equilibrium with a heat reservoir and hence described as a stochastic process via the Langevin equation. For this, one has to introduce a fictitious time variable $\tau$ that labels the state $\phi(\tau, x)$ of the system 
 during the evolution. \\
+\subsection{Standard stochastic quantisation}
 Let us consider, for example, a scalar field $\phi$ with a Euclidean action $S[\phi]$ and the following Langevin equation
 \begin{equation}
     \partial_\tau \phi(\tau, x) = - \frac{\delta S[\phi]}{\delta \phi (\tau, x)} + \eta (\tau, x),
@@ -296,7 +300,7 @@ Let us consider the Yukawa theory defined by the action
 \end{aligned}
 \end{equation}
 One can see that the action is made of a scalar part $S_\phi[\phi]$, a fermionic part $S_\psi[\psi, \bar\psi]$ and a Yukawa interaction term $S_\text{int}[\phi, \psi, \bar\psi]$. \\
-In pratice we will work with fixed number of flavours $N_f = 2$, but it is useful to keep track of it and set it to its value when needed. \\
+In pratice we will work with fixed number of flavours $N_f = 2$, but it is useful to keep track of $N_f$ and set it to its value when needed. \\
 It is also convenient for later purposes to define the operators $K, D$ represented in position space as 
 \begin{equation}
     \begin{aligned}
@@ -329,7 +333,7 @@ for which
 \begin{equation*}
 	\psi = \frac{(1-\gamma_5)}{2} \psi + \frac{(1+\gamma_5)}{2} \psi = \psi_L + \psi_R
 \end{equation*}
-The action written in terms of $\psi_L, \psi_R$ reads
+The action written in terms of $\psi_L, \psi_R$, reads
 \begin{equation}
 	S = S_\phi +  \sum_{f=1}^{N_f} \, \left[\bar\psi_L \, D \, \psi_L + \bar\psi_R \, D \, \psi_R + (m_q + g\phi) \,  \left(\bar\psi_L\psi_R + \bar\psi_R\psi_L\right)\right]
 	\label{eq:action_chirality_explicit}

@@ -5,6 +5,20 @@
 
 \section{The fermionic correlator}
 
+\begin{figure}
+    \centering 
+    \includegraphics[scale=0.6]{figures/correlator/correlator.pdf}
+    \caption{Correlator as a function of the bare mass}
+    \label{fig:correlator_mass}
+\end{figure}
+
+\begin{figure}
+    \centering 
+    \includegraphics[scale=0.6]{figures/correlator/CGiter.pdf}
+    \caption{CG iterations}
+    \label{fig:correlator_mass}
+\end{figure}
+
 The Dirac operator for Wilson fermions in the yukawa model is
 \begin{equation*}
 D_{n m}=\sum_\alpha\left[\frac{\gamma_\alpha \delta_{n+\alpha, m} - \gamma_\alpha \delta_{n-\alpha, m}}{2} + (m_q + g \phi) \, \delta_{n m}\right] .
@@ -21,6 +35,23 @@ One can now find the pole mass by imposing $D^{-1} = 0$ and gets
 \begin{equation*}
     m + \dots = 0
 \end{equation*}
+
+\section{Classical to quantum interpolation}
+\label{sec:classical_to_quantum}
+
+Let us start by analising the coloured noise field in the simulation and relevant properties that emerge from it. We consider the Yukawa model described by the continuum action \ref{eq:yukaw_continuum}.
+In figure \ref{fig:thermalisation_different_noise_fracs} the system is initialised in the same state for all the configurations, and then evolved with the Langevin equation with various noise fractions. The red line corresponds to the case $s=0$, namely a classical simulation. The blue line corresponds to the case $s=1$, namely the fully quantum case. As one can notice, the introduction of noise shifts the equilibrium expectation value of the field monotonically with the cutoff fraction: this is due to the fact that WHAT???. Note that a lower noise fraction is correlated to a faster convergence towards equilibrium. Moreover, low-distance fluctuations are suppressed due to the removal of the ultraviolet modes in the noise term.
+
+For $\lambda = 0$ one has
+\begin{equation}
+    \sigma = -\frac{g}{m_\phi^2 + k^2} \, \bar\psi \psi
+    \label{eq:equation_motion_NJL_no_self_interaction}
+\end{equation}
+In figure \ref{fig:equation_motion_NJL} one can see that equation \eqref{eq:equation_motion_NJL_no_self_interaction} is verified also on the fully quantum level.
+
+Figures \ref{fig:slide_broken_phi} - \ref{fig:slide_broken_mphir} report a few observables as a function of the cutoff fraction $s$. In this case all the coupling constants are kept fixed while changing the value of $s$, in order to provide a smooth interpolation between the fully classical and fully quantum picture. \\
+Each figure reports two plots corresponding to two different parameter configurations. The COLOR1 line corresponds to a system in the symmetric phase, while the COLOR2 line correspond to the broken phase. The exact parameters for the two configurations are reported under the figure.
+
 
 \section{Cooling with coloured noise}
 
@@ -71,24 +102,9 @@ When does L.O. rescaling ansatz breaks down?
 \end{equation*}
 
 
-\section{Classical to quantum interpolation}
-\label{sec:classical_to_quantum}
-
-Let us start by analising the coloured noise field in the simulation and relevant properties that emerge from it. We consider the Yukawa model described by the continuum action \ref{eq:yukaw_continuum}.
-In figure \ref{fig:thermalisation_different_noise_fracs} the system is initialised in the same state for all the configurations, and then evolved with the Langevin equation with various noise fractions. The red line corresponds to the case $s=0$, namely a classical simulation. The blue line corresponds to the case $s=1$, namely the fully quantum case. As one can notice, the introduction of noise shifts the equilibrium expectation value of the field monotonically with the cutoff fraction: this is due to the fact that WHAT???. Note that a lower noise fraction is correlated to a faster convergence towards equilibrium. Moreover, low-distance fluctuations are suppressed due to the removal of the ultraviolet modes in the noise term.
-
-For $\lambda = 0$ one has
-\begin{equation}
-    \sigma = -\frac{g}{m_\phi^2 + k^2} \, \bar\psi \psi
-    \label{eq:equation_motion_NJL_no_self_interaction}
-\end{equation}
-In figure \ref{fig:equation_motion_NJL} one can see that equation \eqref{eq:equation_motion_NJL_no_self_interaction} is verified also on the fully quantum level.
-
-Figures \ref{fig:slide_broken_phi} - \ref{fig:slide_broken_mphir} report a few observables as a function of the cutoff fraction $s$. In this case all the coupling constants are kept fixed while changing the value of $s$, in order to provide a smooth interpolation between the fully classical and fully quantum picture. \\
-Each figure reports two plots corresponding to two different parameter configurations. The COLOR1 line corresponds to a system in the symmetric phase, while the COLOR2 line correspond to the broken phase. The exact parameters for the two configurations are reported under the figure.
 
 \newpage
-\section{Chiral fermions and noise induced transition}
+\section{Chiral fermions and a glimpse on the chiral phase transition}
 \label{sec:chiral}
 
 As explained in section \ref{sec:yukawa}, in the continuum theory chiral symmetry can be broken either explicitly via a finite bare quark mass, or spontaneously if the field gains a non-zero expectation value. Moreoveor, in the discrete formulation, the introduction of the Wilson term also contributes to the explicit breaking of chiral symmetry \textcolor{red}{add reference}, as explained in section \ref{sec:discrete}. This, in particular, means that chiral symmetry is explicitly broken also for $m_q \to 0$. Because of this, one needs a new definition for bare mass $M_q$, which takes into account the Wilson term contribution, such that chiral symmetry is restored in the limit $M_q \to 0$ for vanishing expectation value of the field $\phi$. A convenient way to define such $M_q$ is the following. SSB chiral symmetry $\to$ 3 goldstone massless bosons, the pions. If the bare quark mass is zero, the physical mass of the pions has to be zero. Hence one can extract this mass on the lattice and tune $m_q$ such that this is zero. While this is the correct way to proceed, it is very time takin since one must do mass scans and extrapolations close to singular Dirac operator. This is not the way we pursue here. Instead here we just consider naive fermions and take the limit $m_q \to 0$. This represents a physical theory with $2N_f = 4$ degenerate quarks. This is just done for the purpose of showing some interest properties of coloured noise and not (yet) to match any physical result. \\~\\

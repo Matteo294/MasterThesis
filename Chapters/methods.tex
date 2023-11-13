@@ -105,19 +105,18 @@ For the discretised action of the Yukawa theory \eqref{eq:discretised_effective_
 While the bosonic contribution can be computed in a straightforward manner, the computation of the fermionc contribution requires the inversion of the Dirac operator. This, in general, cannot be done straightforwardly, mainly due to computational reasons.
 In fact, the full Dirac operator would be a $(2 \cdot N_t \cdot N_x \cdot N_f)^2$ dimensional object and a full inversion would be very expensive. In fact, $D^{-1}$ has to be recomputed at every step and the best available algorithm as today for the matrix inversion has a computational complexity of $O(n^{2.371552})$ \cite{williams2023new}. To circumvent this, we use the bilinear noise scheme \cite{bilinearnoise1,bilinearnoise2} \textcolor{blue}{should I cite here or in Appendix?} which is illustrated in Appendix \ref{chap:AppendixC}.
 
-
+\newpage
 
 
 \section{Applications of coloured noise in lattice QFT}
 \label{sec:lattice_with_coloured_noise}
-
-After the general introduction on coloured noise given in the previous paragraph, let us now look more closely on the lattice formulation and at some possible applications of the technique. \\~\\
+After the general introduction on coloured noise given in the previous paragraph, let us now look more closely on the lattice formulation and at some possible applications of the technique, some of which will be studied numerically in chapter \ref{chapt:results}. \\~\\
 To this end, let us consider a two-dimensional lattice with side lengths $L_t, L_x$ and spacing $a = a_x = a_t$. This implies a maximum momentum $p_\text{max} = \pi / a$ in each spacetime direction and $N_x=L_x/a, N_t=L_t/a$ points in each direction. Let us also define 
 \begin{equation}
 	\Lambda_0^2 \equiv (p^x_\text{max})^2 + (p^t_\text{max})^2,
 \end{equation}
 which indicates the maximum squared momentum on the given lattice. \\
-We then consider a simulation with a regularised noise defined by a cutoff $\Lambda \leq \Lambda$ and we define a dimensionless parameter
+We then consider a simulation with a regularised noise defined by a cutoff $\Lambda \leq \Lambda_0$ and we define a dimensionless parameter
 \begin{equation}
 	s^2 = \frac{\Lambda^2}{\Lambda_0^2}, \qquad 0 \leq s \leq 1.
 \end{equation}
@@ -125,19 +124,19 @@ Note that $\Lambda$ implicitly defines a length scale given by  $a_\text{eff} = 
 
 
 \subsection{Classical to quantum interpolation}
-The use of coloured noise, allows for a smooth interpolation between the fully classical and fully quantum picture. In fact, one can perform various simulations changing the value of the cutoff fraction $s$ and adding/removing quantum degrees of freedom, as pictured in figure \textcolor{red}{add figure}. This can be used either to investigate the role 
+The use of coloured noise, allows for a smooth interpolation between the fully classical and fully quantum picture. In fact, one can perform various simulations changing the value of the cutoff fraction $s$ and adding or removing quantum degrees of freedom, as pictured in figure \textcolor{red}{add figure}. This can be used either to investigate the role 
 of quantum fluctuations in the system, or to remove irrelevant degrees of freedom, resulting in a speed-up of the simulation.
 
 \subsection{Noise-induced transition}
-Noise-induced transition is a well known field of stochastic dynamics \textcolor{red}{citations} and consists in investigating
-whether noise can qualitatively affect the behaviour of a system. In our case, since noise is due to quantum fluctuations, we are interested in understanding if quantum fluctuations can trigger a phase transition with respect to the classical system, with the same parameters settings.
+Noise-induced transition is a well known field of stochastic dynamics \cite{gardiner,noiseinduced,noiseinduced_2} and consists in investigating
+whether noise can qualitatively affect the behaviour of a system. In our case, since noise is due to quantum fluctuations, we are interested in understanding if quantum fluctuations can trigger a phase transition with respect to the classical system, with the same parameters settings. \\
+This question will be addressed in section \ref{sec:chiral_PT} and it will be shown that for small negative bosonic mass, the classical system lies in a state of broken symmetry, while in the quantum case, the symmetry is restored.
 
 \subsection{Cooling and the continuum limit of effective theories}
 Following the paradigm of Kadanoff-Wilson of chapter \ref{chap:background}, we want to use RG properties to encode quantum fluctuations in a redefinition of the couplings of the bare action. This removes short-distance fluctuations from the simulation, without changing the physical content of the theory. Note that this would, in principle, require a detailed knowledge of 
 the $\beta$-functions of the theory. Thus, for sufficiently high cutoff, approximate Ansatz such as dimensional rescalings are generally enough. We will pursue this way, as follows. \\~\\
-Let us consider a simulation with $s=1$ and a set of bare couplings $\{g^i_0\}$, and another simulation with $s'<1$ and new set of couplings $\{g^{i \, \prime}_0\}$. 
-We now want to address the following question: is it possible to compensate the change in physical observables caused by the removal of the UV modes via regularised noise in the second simulation, by properly fine-tuning the bare parameters that enter the lattice discretised action? In other words, we want to encode the quantum fluctuations with $p^2 > \Lambda^2$ in a redefinition of the classical action so that the expectation value of the observables remains unchanged.\\
-For what concerns the scalar part of the action, the rescaling at tree level is rather straightforward
+Let us consider a simulation with $s=1$ and a set of bare couplings $\{g^i_0\}$, and another simulation with $s'<1$ and new set of couplings $\{g^{i \, \prime}_0\}$. \\
+For what concerns the scalar part of the action, a dimensional rescaling, which corresponds to a tree-level RG transformation, is rather straightforward
 \begin{equation*}
     \begin{aligned}
     \hat{m}_\phi^2 = (a^2m_\phi^2) \ \to \ s^2(a^2m_\phi^2) = s^2 \, \hat{m}_\phi^2, &\qquad \hat{\lambda} = (a^2\lambda) \ \to  \ s^2 (a^2\lambda) = s^2\hat{\lambda}, \\
@@ -159,15 +158,16 @@ This implies that under a lattice block-spin transformation, where $a \to sa$,
     \widehat{K}_{\psi} \to  (sag) \, \underset{s}{\tr}{(saD)^{-1}} = \widehat{K}_{\psi}
     \label{eq:fermionic_rescaling_na\"ive}
 \end{equation}
-On the other side, when computing the drift via the original action \eqref{eq:full_action_continuum}, one gets (omitting $\tau$ and $x$ dependency)
+On the other side, when computing the drift via the original action \eqref{eq:full_action_continuum}, one gets
 \begin{equation}
     \begin{aligned}
-        K(\tau, x) &= - \frac{\delta S}{\delta \phi(\tau, x)} = K_\phi - g \, \bar\psi\psi = \\
-        &= -\left(-\partial^2_x + m_\phi^2\right) \phi - \frac{\lambda}{6} \, \phi^3 - g \, \bar\psi\psi.
+        K &= - \frac{\delta S}{\delta \phi} = K_\phi - g \, \bar\psi\psi = \\
+        &= - \hat K_{mn} \, \phi_n - \frac{\lambda}{6} \, \phi^3 - g \, \bar\psi\psi.
     \end{aligned}
     \label{eq:drift_continuum_from_full_action}
 \end{equation}
-where the fermionic contribution is given by
+where, in the last row, $\widehat{K}_{mn}$ indicates the bosonic operator components \eqref{eq:discretised_kinetic_op_bosons}.\\
+The fermionic contribution is given by
 \begin{equation*}
     K_{\psi}' = - g \, \bar\psi\psi.
 \end{equation*}
@@ -181,7 +181,7 @@ in contrast with \eqref{eq:fermionic_rescaling_na\"ive}. For this reason, in ord
     \widehat{K}_\psi \to s^2 \widehat{K}_\psi
 \end{equation*}
 so that the scaling dimension of the other terms in \eqref{eq:drift_continuum_from_full_action} is matched. \\~\\
-We want to mention that this has important consequences on the issue of continuum limit of low-energy effective theories. In fact, in the standard lattice regularisation procedure, one always has $a \sim \Lambda^{-1}$, which means that the continuum limit $a \to 0$ is always connected to the limit $\Lambda \to \infty$, and this constitutes a problem for effective theories. The latter are in fact meant to be valid only up to a certain scale $\Lambda_\text{phys}$, hence one always needs $\Lambda \leq \Lambda_\text{phys}$. Cooling via coloured noise can provide a solution to this problem, since one can always keep the effective cutoff fixed at $\Lambda = \Lambda_\text{phys}$, while taking the limits $a \to 0, \Lambda \to \infty$. 
+We want to mention that the cooling procedure has important consequences on the issue of continuum limit of low-energy effective theories. In fact, in the standard lattice regularisation procedure, one always has $a \sim \Lambda_0^{-1}$, which means that the continuum limit $a \to 0$ is always connected to the limit $\Lambda_0 \to \infty$, and this constitutes a problem for effective theories. The latter are in fact meant to be valid only up to a certain scale $\Lambda_\text{phys}$, hence one always needs $\Lambda_0 \leq \Lambda_\text{phys}$. Cooling via coloured noise can provide a solution to this problem, since one can always keep the effective cutoff fixed at $\Lambda = \Lambda_\text{phys}$, while taking the limits $a \to 0, \Lambda_0 \to \infty$, hence seeing the system as described by an effective action at scale $\Lambda$, in accordance to what discussed in chapter \ref{chap:background}.
 
 \subsection{Control over temperature}
 \textcolor{blue}{there will be no simulations on this. should I include it anyway? I think it's quite important.}

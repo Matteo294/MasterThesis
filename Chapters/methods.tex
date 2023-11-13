@@ -27,7 +27,7 @@ where we expressed everything in dimensionless quantities
         \hat \lambda &= a^{2} \, \lambda, \\
         \widehat{K}_{mn} &= a^2 K_{mn}.
     \end{aligned}
-    \label{eq:couplings_redefitinion}
+    \label{eq:couplings_redefinition}
 \end{equation}
 The operator components $\widehat{K}_{mn}$ are the discretised version of \eqref{eq:definition_kinetic_terms_continuum_position}
 \begin{equation}
@@ -111,28 +111,32 @@ In fact, the full Dirac operator would be a $(2 \cdot N_t \cdot N_x \cdot N_f)^2
 \section{Applications of coloured noise in lattice QFT}
 \label{sec:lattice_with_coloured_noise}
 
-\subsection{Classical to quantum interpolation}
-
-\subsection{Noise induced transition}
-Quantum and classical system in two different phases
-
-\subsection{Cooling and the continuum limit of effective theories}
 After the general introduction on coloured noise given in the previous paragraph, let us now look more closely on the lattice formulation and at some possible applications of the technique. \\~\\
 To this end, let us consider a two-dimensional lattice with side lengths $L_t, L_x$ and spacing $a = a_x = a_t$. This implies a maximum momentum $p_\text{max} = \pi / a$ in each spacetime direction and $N_x=L_x/a, N_t=L_t/a$ points in each direction. Let us also define 
 \begin{equation}
-	\Lambda^2 \equiv (p^x_\text{max})^2 + (p^t_\text{max})^2,
+	\Lambda_0^2 \equiv (p^x_\text{max})^2 + (p^t_\text{max})^2,
 \end{equation}
 which indicates the maximum squared momentum on the given lattice. \\
-We then consider a simulation with a regularised noise defined by a cutoff $\Lambda_\text{eff} \leq \Lambda$ and we define a dimensionless parameter
+We then consider a simulation with a regularised noise defined by a cutoff $\Lambda \leq \Lambda$ and we define a dimensionless parameter
 \begin{equation}
-	s = \frac{\Lambda_\text{eff}}{\Lambda}, \qquad 0 \leq s \leq 1.
+	s^2 = \frac{\Lambda^2}{\Lambda_0^2}, \qquad 0 \leq s \leq 1.
 \end{equation}
-Note that $\Lambda_\text{eff}$ implicitly defines a length scale given by  $a_\text{eff} = \pi/\Lambda_\text{eff}$.\\
-Let us then consider a simulation with $s=1$ and a set of bare couplings $\{g^i_0\}$, and another simulation with $s'<1$ and new set of couplings $\{g^{i \, \prime}_0\}$. 
-We now want to address the following question: is it possible to compensate the change in physical observables caused by the removal of the UV modes via regularised noise in the second simulation, by properly fine-tuning the bare parameters that enter the lattice discretised action? In other words, we want to encode the quantum fluctuations with $p^2 > \Lambda_\text{eff}^2$ in a redefitinion of the classical action so that the expectation value of the observables remains unchanged.\\
-The issue is of course related to the renormalisation transformation introduced in chapter \ref{chap:background}. In particular we can exploit the connection between stochastic quantisation with coloured noise and the renormalisation group, as mentioned at the end of section \ref{sec:coloured_noise}, to accomplish the above mentioned goal. \\
-As stated at the end of section \ref{sec:wilson_rg}, the Wilson RG flow of the dimensionless couplings and fields is dominated by the canonical scaling dimension of the corresponding dimensionful quantities, for high enough cutoff. 
-We are interested in cooling the simulation by removing only the short-length fluctuations, hence we rely on this approximation as a lowest order Ansatz. This corresponds to a tree level RG rescaling. \\~\\
+Note that $\Lambda$ implicitly defines a length scale given by  $a_\text{eff} = \pi/\Lambda$.\\
+
+
+\subsection{Classical to quantum interpolation}
+The use of coloured noise, allows for a smooth interpolation between the fully classical and fully quantum picture. In fact, one can perform various simulations changing the value of the cutoff fraction $s$ and adding/removing quantum degrees of freedom, as pictured in figure \textcolor{red}{add figure}. This can be used either to investigate the role 
+of quantum fluctuations in the system, or to remove irrelevant degrees of freedom, resulting in a speed-up of the simulation.
+
+\subsection{Noise-induced transition}
+Noise-induced transition is a well known field of stochastic dynamics \textcolor{red}{citations} and consists in investigating
+whether noise can qualitatively affect the behaviour of a system. In our case, since noise is due to quantum fluctuations, we are interested in understanding if quantum fluctuations can trigger a phase transition with respect to the classical system, with the same parameters settings.
+
+\subsection{Cooling and the continuum limit of effective theories}
+Following the paradigm of Kadanoff-Wilson of chapter \ref{chap:background}, we want to use RG properties to encode quantum fluctuations in a redefinition of the couplings of the bare action. This removes short-distance fluctuations from the simulation, without changing the physical content of the theory. Note that this would, in principle, require a detailed knowledge of 
+the $\beta$-functions of the theory. Thus, for sufficiently high cutoff, approximate Ansatz such as dimensional rescalings are generally enough. We will pursue this way, as follows. \\~\\
+Let us consider a simulation with $s=1$ and a set of bare couplings $\{g^i_0\}$, and another simulation with $s'<1$ and new set of couplings $\{g^{i \, \prime}_0\}$. 
+We now want to address the following question: is it possible to compensate the change in physical observables caused by the removal of the UV modes via regularised noise in the second simulation, by properly fine-tuning the bare parameters that enter the lattice discretised action? In other words, we want to encode the quantum fluctuations with $p^2 > \Lambda^2$ in a redefinition of the classical action so that the expectation value of the observables remains unchanged.\\
 For what concerns the scalar part of the action, the rescaling at tree level is rather straightforward
 \begin{equation*}
     \begin{aligned}
@@ -177,10 +181,10 @@ in contrast with \eqref{eq:fermionic_rescaling_na\"ive}. For this reason, in ord
     \widehat{K}_\psi \to s^2 \widehat{K}_\psi
 \end{equation*}
 so that the scaling dimension of the other terms in \eqref{eq:drift_continuum_from_full_action} is matched. \\~\\
-We want to mention that this has important consequences on the issue of continuum limit of low-energy effective theories. In fact, in the standard lattice regularisation procedure, one always has $a \sim \Lambda^{-1}$, which means that the continuum limit $a \to 0$ is always connected to the limit $\Lambda \to \infty$, and this constitutes a problem for effective theories. The latter are in fact meant to be valid only up to a certain scale $\Lambda_\text{phys}$, hence one always needs $\Lambda \leq \Lambda_\text{phys}$. Cooling via coloured noise can provide a solution to this problem, since one can always keep the effective cutoff fixed at $\Lambda_\text{eff} = \Lambda_\text{phys}$, while taking the limits $a \to 0, \Lambda \to \infty$. 
+We want to mention that this has important consequences on the issue of continuum limit of low-energy effective theories. In fact, in the standard lattice regularisation procedure, one always has $a \sim \Lambda^{-1}$, which means that the continuum limit $a \to 0$ is always connected to the limit $\Lambda \to \infty$, and this constitutes a problem for effective theories. The latter are in fact meant to be valid only up to a certain scale $\Lambda_\text{phys}$, hence one always needs $\Lambda \leq \Lambda_\text{phys}$. Cooling via coloured noise can provide a solution to this problem, since one can always keep the effective cutoff fixed at $\Lambda = \Lambda_\text{phys}$, while taking the limits $a \to 0, \Lambda \to \infty$. 
 
 \subsection{Control over temperature}
-I have to wait for some results to see whether to include this or not :D
+\textcolor{blue}{there will be no simulations on this. should I include it anyway? I think it's quite important.}
 
 \section{Definition of relevant observables}
 \label{sec:observables}

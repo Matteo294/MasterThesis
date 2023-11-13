@@ -188,20 +188,21 @@ We want to mention that the cooling procedure has important consequences on the 
 
 \section{Definition of relevant observables}
 \label{sec:observables}
-
-magnetisation
+We define the magnetisation $M$ of the field $\phi$ as
 \begin{equation*}
-    M = \expect{\frac{1}{V}\sum_n \phi_n}
+    M = \expect{\frac{1}{V}\sum_n \phi_n}.
 \end{equation*}
-absolute magnetisation
+Thus, in a finite volume lattice system, the absolute magnetisation
 \begin{equation*}
     M = \expect{\frac{1}{V}\left|\sum_n \phi_n\right|}
 \end{equation*}
-Susceptibility of the field
+is better suited as an order parameter \cite{friedli_velenik_2017,gattringer_LQCD}. \\
+In the continumm, phase transition is characterised by a divergence in the susceptibility, or connected two-points function
 \begin{equation*}
-    \chi_2 = V \left(\expect{M^2} - \expect{M}^2\right) = V \expect{\left(M-\expect{M}\right)^2}
+    \chi_2 = V \left(\expect{M^2} - \expect{M}^2\right) = V \expect{\left(M-\expect{M}\right)^2}.
 \end{equation*}
-Fermionic two-points function
+On a finite volume lattice, one obseres a peak that becomes sharper as the volume is increase. \\
+We define the fermionic two-points function
 \begin{equation} 
 \begin{aligned}
     \left\langle \psi_m \, \bar\psi_n \right\rangle 
@@ -212,8 +213,8 @@ Fermionic two-points function
 \end{aligned}
 \label{eq:D_inv_condensate}
 \end{equation}
-with $D$ beeing the Wilson Dirac operator. \\
-From this, the condensate follows straightforwardly
+where $D$ is the the Wilson-Dirac operator. \\
+From this, the chiral condensate follows straightforwardly
 \begin{equation*}
     \left\langle  \bar\psi \psi \right\rangle = \underset{n,s}\sum  \left\langle \bar\psi_{n,s} \, \psi_{n,s} \right\rangle = -\underset{n,s}{\tr} \, (D^{-1})_{nn}
 \end{equation*}
@@ -224,9 +225,15 @@ The fermionic correlator is defined as
 Note that we sum up two waves because the source propagates both forward and backward in time due to the boundary conditions. \\
 Since for $t \to \infty$ one has that $C(t,p) \propto e^{-E_0(p) t}$, we expect 
 \begin{equation*}
-    C_\psi(t,p) \approx \sinh \left(E_0 \left(\frac{N_t}{2} - t\right)\right)
+    C_\psi(t,0) \approx \sinh \left(E_0^{\psi} \left(\frac{N_t}{2} - t\right)\right)
 \end{equation*}
-Bosonic correlator 
+where $E_0^{\psi}$ is the fermionic mass gap, which will be denoted as $m_{q,\text{phys}}$. \\
+Analogously, the bosonic correlator
 \begin{equation*}
-    C_\phi(t,0) \equiv \frac{1}{N_x} \sum_{n_x} \left[\left\langle \phi(t, n_x) \, \phi(0,0)\right\rangle + \left\langle \phi(N_t-t, n_x) \, \bar\phi(0,0) \right] \right\rangle \approx \cosh \left(E_0 \left(\frac{N_t}{2} - t\right)\right)
+    C_\phi(t,0) \equiv \frac{1}{N_x} \sum_{n_x} \left[\left\langle \phi(t, n_x) \, \phi(0,0)\right\rangle + \left\langle \phi(N_t-t, n_x) \, \bar\phi(0,0) \right] \right\rangle
 \end{equation*}
+and for $t \to \infty$ one has 
+\begin{equation*}
+    C_\phi(t,0) \approx \cosh \left(E_0^{\phi} \left(\frac{N_t}{2} - t\right)\right)
+\end{equation*}
+$E_0^{\phi} \equiv m_{\phi, \text{phys}}$ is the bosonic mass gap.

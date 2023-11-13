@@ -12,7 +12,7 @@ The idea of block-spin transformation, systematically developed by Kadanoff \cit
 \begin{figure}
     \centering 
     \includegraphics[angle=90,scale=0.34]{figures/blockspin.pdf}
-    \caption[Block-spin transformation]{The two steps of the block-spin transformation. The black dots indicate the original field $\phi$, while the blue dots indicate the coarse grained field $\bar \phi$.}
+    \caption[Block-spin transformation]{The two steps of the block-spin transformation. The black dots indicate the original field $\phi$, while the blue dots indicate the coarse-grained field $\bar \phi$.}
     \label{fig:blockin_first}
 \end{figure}
 To illustrate the idea, let us consider a set of spins whose magnetisation is described by a function $\phi(x)$. The spins are located on a discrete lattice $\mathscr{L}$ with spacing $a$, so that the function assumes values only at such sites $\phi(x_i) = \phi_i \neq 0 \Leftrightarrow x_i \in \mathscr{L}$. Suppose then that their interaction is described by a certain action $S[\phi]$ and a partition function
@@ -25,41 +25,58 @@ We now want to find a new action $S_b$ such that
     Z=\sum_{\phi} \mathrm{e}^{-S(\phi)}= \sum_{\bar\phi} \mathrm{e}^{-S_b\left(\bar\phi\right)}.
     \label{eq:blocked_action}
 \end{equation}
-Suppose for the moment that such $S_b$ has been found. The coarse-graining procedure comes with a loss of resolution since the spacing is changed $a \to 2a$. Hence one can rescale distances and momenta in the new action via $a \to a/2, p \to 2p$ and then compare the result with the initial action. This constitutes the second step of the block-spin transformation. The whole procedure can be iterated multiple times, and can be thought as a zoom-out with a corresponding coarse graining, in order to describe the system in terms of the relevant scales as pictured in figure \ref{fig:blockin_first}. As made clear in the picture, the physical correlation length is reduced by the block-spin step, since the description is now in terms of the coarse field $\bar\phi$. 
+Suppose for the moment that such $S_b$ has been found. The coarse-graining procedure comes with a loss of resolution since the spacing is changed $a \to 2a$. Hence one can rescale distances and momenta in the new action via $a \to a/2, p \to 2p$ and then compare the result with the initial action. This constitutes the second step of the block-spin transformation. \\
+The whole procedure can be iterated multiple times, and can be thought as a zoom-out with a corresponding coarse graining, in order to describe the system in terms of the relevant scales as pictured in figure \ref{fig:blockin_first}. As made clear in the picture, the physical correlation length is reduced by the block-spin step, since the description is now in terms of the coarse field $\bar\phi$. 
 There are only two exceptions for this, either the correlation length is zero, or infinite. The latter case represents a fixed-point of the RG, and the system exhibits scale invriance. \\
-Note that the condition \eqref{eq:blocked_action} is non-trivial. One can, in principle, build an ad-hoc action that fulfills the above condition, but it is complicated, since $S_b$ can be also be very different from $S$. For example, if the action $S[\phi]$ contains only nearest-neighbour interactions, the new action $S'[\bar\phi]$ can contain higher order interactions such as nearest-to-nearest neighbour, or even more.  In principle, all the terms compatible with the original symmetries are allowed, and one has often to rely on some approximations. \\
-For an example of the explicit construction of the RG for an Ising model, see \cite{cardy_1996}.
+Note that the condition \eqref{eq:blocked_action} is non-trivial. One can, in principle, build an ad-hoc action that fulfills the condition, but it is complicated, since $S_b$ can be also be very different from $S$. For example, if the action $S[\phi]$ contains only nearest-neighbour interactions, the new action $S'[\bar\phi]$ can contain higher order interactions such as nearest-to-nearest neighbour, or even more.  In principle, all the terms compatible with the original symmetries are allowed, and one has often to rely on some approximations. For example, if one is interested in long-range properties of the system, and the volume $V$ is sufficiently small, one can assume 
+the functional form of the action $S$ to remain approximately the same, with the the only change due to the dimensional rescaling of dimensionful quantities mentioned above. Thus, as the procedure is iterated and the correlation length is approached, one has to take account higher order interactions. For an example of the explicit construction of the RG for an Ising model, see \cite{cardy_1996}.
 
 \subsection{Wilsonian RG}
 \label{sec:wilson_rg}
-The wilsonian picture of renormalisation \cite{WilsonRG1,WilsonRG2} is formulated in momentum space and in general is more suitable for theories in the continuum.\\
-The idea is that a physical theory observed a energy scale $\Lambda$ can be seen as an effective theory of a more fundamental one, defined at scale $\Lambda_0 > \Lambda$. To see how can this happen, let us consider a theory defined by the action $S[\phi]$ defined at scale $\Lambda_0$, and let us split the field as $\phi = \bar\phi + \varphi$ where $\bar\phi$ are fields with momenta $p^2 \leq \Lambda^2$ and $\varphi$ are fields with momenta $\Lambda^2 < p^2 \leq \Lambda_0^{2}$. This allows 
-to split the action as $S[\bar\phi + \varphi] = S_{\Lambda}[\bar\phi] + \delta S[\bar\phi, \varphi]$, where all the dependence on $\varphi$ is in $\delta S[\bar\phi, \varphi]$. The path integral can be rewritten as
+The Wilsonian picture of renormalisation \cite{WilsonRG1,WilsonRG2} is formulated in momentum space and in general is more suitable for theories in the continuum.\\
+The idea is that a physical theory observed a energy scale $\Lambda$ can be seen as an effective theory of a more fundamental one, defined at scale $\Lambda_0 > \Lambda$. \\
+To see how this can happen, let us consider a theory defined by the action $S[\phi]$ scale $\Lambda_0$, and let us split the field as 
+\begin{equation*} 
+    \phi = \bar\phi + \varphi
+\end{equation*} 
+where $\bar\phi$ are fields with momenta $p^2 \leq \Lambda^2$ and $\varphi$ are fields with $\Lambda^2 < p^2 \leq \Lambda_0^{2}$. \\
+This allows to split the action as
+\begin{equation*} 
+    [\bar\phi + \varphi] = S_{\Lambda}[\bar\phi] + \delta S[\bar\phi, \varphi]
+\end{equation*}
+including all the dependence on $\varphi$ in $\delta S[\bar\phi, \varphi]$. \\
+The path integral can be rewritten as
 \begin{equation*}
     \begin{aligned}
         Z = \int D\phi \, e^{-S[\phi]} &= \int D\bar\phi_{\Lambda} \, e^{-S_{\Lambda}[\phi]} \int D\varphi  \, e^{-\delta S[\phi, \varphi]}  \\
-        &= \int D\bar\phi_{\Lambda} \, e^{-S_{\Lambda}[\bar\phi] + S_\text{UV}[\bar\phi]}\\
+        &= \int D\bar\phi_{\Lambda} \, e^{-S_{\Lambda}[\bar\phi] - S_\text{UV}[\bar\phi]}\\
         &= \int D\bar\phi_{\Lambda} \, e^{-S_{\Lambda}^\text{eff}[\bar\phi]},
     \end{aligned}
 \end{equation*}
 where 
 \begin{equation*}
-    S_\text{UV}[\bar\phi] = \log\left( \int D\varphi \, e^{-S_{\Lambda}[\phi, \varphi]}\right).
+    S_{\Lambda}^\text{eff} = S_{\Lambda}[\bar\phi] + S_\text{UV}[\bar\phi], \qquad  S_\text{UV}[\bar\phi] = -\log\left( \int D\varphi \, e^{-S_{\Lambda}[\phi, \varphi]}\right).
 \end{equation*}
-encodes all the information of UV modes with $\Lambda^2 < p^2 \leq \Lambda_0^2$. The action $S_{\Lambda}[\bar\phi]$ has the same functional form of the initial action $S[\phi]$, but it is now defined only for fields with momenta $p^2 \leq \Lambda^{2}$. Instead, $S^\text{eff}_\Lambda[\bar\phi]$ constitutes an effective action at scale $\Lambda$ and depends only on degrees of freedom with $p^2 \leq \Lambda^2$.
-In order to set momenta back at their original scales one can operate a rescaling of distances and momenta to complete the Wilson RG step, according to the parameter 
+$ S_\text{UV}[\bar\phi]$ encodes all the information of UV modes with $\Lambda^2 < p^2 \leq \Lambda_0^2$. \\
+The action $S_{\Lambda}[\bar\phi]$ has the same functional form of the initial action $S[\phi]$, but it is now defined only for fields with momenta $p^2 \leq \Lambda^{2}$. Instead, $S^\text{eff}_\Lambda[\bar\phi]$ constitutes an effective description of the original theory at scale $\Lambda$ and depends only on degrees of freedom with $p^2 \leq \Lambda^2$. \\
+One can then operate a rescaling of distances and momenta to complete the Wilson RG step, according to the parameter 
 \begin{equation*}
     s^2 = \Lambda^2 / \Lambda_0^2
 \end{equation*}
-If $d_g$ is the energy dimension of a coupling $g$ in the action, then, the rescaling transformation causes 
+If, for example, $d_g$ is the energy dimension of a coupling $g$ in the action, then the rescaling transformation causes 
 \begin{equation*} 
     g \to s^{d_g} \, g.
 \end{equation*}
-The same applies to the fields and other dimensionful quantities. If the corrections from $S_\text{UV}$ are negligible, such as for high cutoff $\Lambda \approx \Lambda_0$, then this is the only contribution to the change in the couplings and fields due to the Wilson step.  \\~\\
+The same applies to the fields and other dimensionful quantities. If the corrections from $S_\text{UV}$ are negligible, such as for high cutoff $\Lambda \approx \Lambda_0$, then this is the only contribution to the change in the couplings and fields due to the Wilson step. More in general, for higher order iterations of the procedure, the couplings' dependence on $s$ is caputered by the $\beta$-functions 
+\begin{equation*}
+    \beta_g = \frac{d}{ds} \, g(s)
+\end{equation*}
+A full treatment of RG is out of scope here and we ask the reader to consult more appropriate references fore more details \cite{Peskin:1995ev}. \\~\\
 At this point, one can clearly see the analogy with the block-spin transformation introduced in the previous section. Performing the integral over high momenta modes
-can be thought as performing averages (coarse graining) over neighbours. This causes a loss of resolution which can be recovered by rescaling distances and momenta. Therefore the philosophy of Kadanoff and Wilson approaches, was that the blocking transformation reduces the complexity of many-body systems by systematically reducing the number of degrees of freedom being taken into account, without changing the physical content of the
-theory \cite{WILSON197475}. \\~\\
-We want to conclude by mentioning that the splitting of the action can be done by writing
+can be thought as performing averages (coarse graining) over neighbours. This causes a loss of resolution which can be recovered by rescaling distances and momenta. The rescaling is essential if one searches for fixed points, since it can be pictured as a zoom-out. \\
+Therefore, the philosophy of Kadanoff and Wilson approaches, was that the blocking transformation reduces the complexity of many-body systems by systematically reducing the number of degrees of freedom being taken into account, without changing the physical content of the
+theory \cite{WILSON197475,carosso2020novel}. \\~\\
+We want to conclude this section by mentioning that the splitting of the action can be done by writing
 \begin{equation*}
     S^\text{eff}_\Lambda[\bar\phi] = S[\phi] + \Delta S_{\Lambda}^{(\mathrm{IR})}[\bar\phi],
 \end{equation*}
@@ -128,7 +145,7 @@ and boundary conditions are chosen depending on the spin-statistic of the corres
     \end{aligned}
 \end{equation*}
 Such a formulation naturally brings a momentum cutoff $\Lambda = \pi/a$ since now all the momenta are restricted to the first Brilloune zone $p_\mu \in [-\pi/a, \pi/a]$. \\
-To compute observables one relies on Monte-Carlo methods to generate field configurations, sampling the distribution \eqref{eq:probability_distribution_lattice} and convergence to the statistical value given by \eqref{eq:expectation_value_lattice} is expected in the limit of infinite samples $N_\text{samp} \to \infty$. To recover the continuum results, one has to take $V \to \infty, a \to 0$ \footnote{the order here is important, see for example \cite{seiler}}, but this task cannot be done so straightforwardly.
+To compute observables one relies on Monte-Carlo methods to generate field configurations, sampling the distribution \eqref{eq:probability_distribution_lattice} and convergence to the statistical value given by \eqref{eq:expectation_value_lattice} is expected in the limit of infinite samples $N_\text{samp} \to \infty$. To recover the continuum results, one has to take $V \to \infty, a \to 0$ \footnote{the order here is important, see for example \cite{seiler,friedli_velenik_2017}}, but this task cannot be done so straightforwardly.
 Continuum limits of lattice theories are intimately connected to the existence of critical points. To see why this is the case, consider the dimensionless mass gap 
 \begin{equation*}   
     \hat\xi = m \, a

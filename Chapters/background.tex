@@ -1,11 +1,11 @@
 % !TeX root = ../main.tex
 \chapter{Theoretical background}
 \label{chap:background}
-In this chapter we want to provide with an overview on the general theoretical framework that supports this work, and introduce the main concepts for the successive parts. Each section in this chapter is, by no means, meant as an exhaustive treatment. The description will be quite conceptual, rather than technical, and aims at recalling the main ideas and fix conventions. We ask the reader to consult appropriate references,  which will be given in the corresponding sections, for a more detailed treatment of the topics. \\~\\
+In this chapter we want to provide with an overview on the general theoretical framework that supports this work, and introduce the main concepts for the successive parts. Each section in this chapter is, by no means, meant as an exhaustive treatment. The description will be quite conceptual, rather than technical, and aims at recalling the main ideas and fix conventions. We ask the reader to consult appropriate references,  which will be given in the corresponding sections, for a more detailed treatment of the topics. \\
 
 \section{The renormalisation group}
 Landau's mean field approach to study phase transition \cite{Landau:1937obd} gained wide popularity in the 1930's and 40's, since it was able to describe critical properties of many systems and it provided inspiration for the later Landau-Ginzburg theory of superconductivity \cite{ginzburg}. Thus, it has soon proved to be inaccurate to predict some experimentally well proven properties of certain systems near their critical point \cite{Cao:1999pw}. This is because, beeing a mean field theory, it did not take into account the role of spatial fluctuations.
-The idea of block-spin transformation, systematically developed by Kadanoff \cite{PhysicsPhysiqueFizika_2_263}, made a big step towards a deeper understanding of the scaling behaviour, and posed the basis for the later work of Wilson \cite{WilsonRG1,WilsonRG2,WilsonFisher}, which still constitutes the basis for modern approaches to renormalisation in field theory and statistical physics.\\~\\
+The idea of block-spin transformation, systematically developed by Kadanoff \cite{PhysicsPhysiqueFizika_2_263}, made a big step towards a deeper understanding of the scaling behaviour, and posed the basis for the later work of Wilson \cite{WilsonRG1,WilsonRG2,WilsonFisher}, which still constitutes the basis for modern approaches to renormalisation in field theory and statistical physics.\\
 
 \subsection{Block-spin RG}
 \label{sec:blockspin}
@@ -15,83 +15,63 @@ The idea of block-spin transformation, systematically developed by Kadanoff \cit
     \caption[Block-spin transformation]{The two steps of the block-spin transformation. The black dots indicate the original field $\phi$, while the blue dots indicate the coarse grained field $\bar \phi$.}
     \label{fig:blockin_first}
 \end{figure}
-To illustrate the idea, let us consider a set of spins whose magnetisation is described by a function $\varphi(x)$. The spins are located on a discrete lattice $\mathscr{L}$ with spacing $a$, so that the function assumes values only at such sites $\varphi(x_i) = \varphi_i \neq 0 \Leftrightarrow x_i \in \mathscr{L}$. Suppose then that their interaction is described by a certain action $S[\varphi]$ and a partition function
+To illustrate the idea, let us consider a set of spins whose magnetisation is described by a function $\phi(x)$. The spins are located on a discrete lattice $\mathscr{L}$ with spacing $a$, so that the function assumes values only at such sites $\phi(x_i) = \phi_i \neq 0 \Leftrightarrow x_i \in \mathscr{L}$. Suppose then that their interaction is described by a certain action $S[\phi]$ and a partition function
 \begin{equation*}
-    Z=\sum_{\varphi} \mathrm{e}^{-S[\varphi]}.
+    Z=\sum_{\phi} \mathrm{e}^{-S[\phi]}.
 \end{equation*}
-We now want to introduce a coarse-grained (or blocked) field $\bar\varphi$ within a spacetime cell of volume $\mathcal{V}$. Such a coarse grained field can be defined, for example, as an average over the spins within the cell $\mathcal{V}$. If the spins can only be $0$ or $1$ like in a Ising model, then we might opt for a majority rule \cite{cardy_1996}.
+We now want to introduce a coarse-grained (or blocked) field $\bar\phi$ within a spacetime cell of volume $\mathcal{V}$. Such a coarse grained field can be defined, for example, as an average over the spins within the cell $\mathcal{V}$. If the spins can only be $0$ or $1$ like in a Ising model, then we might opt for a majority rule \cite{cardy_1996}.
 We now want to find a new action $S_b$ such that 
 \begin{equation}
-    Z=\sum_{\varphi} \mathrm{e}^{-S(\varphi)}= \sum_{\bar\varphi} \mathrm{e}^{-S_b\left(\bar\varphi\right)}.
+    Z=\sum_{\phi} \mathrm{e}^{-S(\phi)}= \sum_{\bar\phi} \mathrm{e}^{-S_b\left(\bar\phi\right)}.
     \label{eq:blocked_action}
 \end{equation}
-Suppose for the moment that such $S_b$ has been found. The coarse-graining procedure comes with a loss of resolution since the spacing is changed $a \to 2a$. Hence one can rescale distances and momenta in the new action via $a \to a/2, p \to 2p$ and then compare the result with the initial action. This constitutes the second step of the block-spin transformation. The whole procedure can be iterated multiple times, and can be thought as a zoom-out with a corresponding coarse graining, in order to describe the system in terms of the relevant scales as pictured in figure \ref{fig:blockin_first}. As made clear in the picture, the physical correlation length is reduced by the block-spin step, since the description is now in terms of the coarse field $\bar\varphi$. 
-There are only two exceptions for this, either the correlation length is zero, or infinite. The latter case is of our interest since it represents a fixed-point of the RG. \\
-Note that the condition \eqref{eq:blocked_action} is non-trivial. One can, in principle, build an ad-hoc action that fulfills the above condition, but it is complicated, since $S_b$ can be also be very different from $S$. For example, if the action $S[\varphi]$ contains only nearest-neighbour interactions, the new action $S'[\phi]$ can contain higher order interactions such as nearest-to-nearest neighbour, or even more.  In principle, all the terms compatible with the original symmetries are allowed, and one has often to rely on some approximations. \textcolor{red}{mention relevant/irrelevant operators?}. For an example of the explicit construction of the RG step for an Ising model, see \cite{cardy_1996}. \\
+Suppose for the moment that such $S_b$ has been found. The coarse-graining procedure comes with a loss of resolution since the spacing is changed $a \to 2a$. Hence one can rescale distances and momenta in the new action via $a \to a/2, p \to 2p$ and then compare the result with the initial action. This constitutes the second step of the block-spin transformation. The whole procedure can be iterated multiple times, and can be thought as a zoom-out with a corresponding coarse graining, in order to describe the system in terms of the relevant scales as pictured in figure \ref{fig:blockin_first}. As made clear in the picture, the physical correlation length is reduced by the block-spin step, since the description is now in terms of the coarse field $\bar\phi$. 
+There are only two exceptions for this, either the correlation length is zero, or infinite. The latter case represents a fixed-point of the RG, and the system exhibits scale invriance. \\
+Note that the condition \eqref{eq:blocked_action} is non-trivial. One can, in principle, build an ad-hoc action that fulfills the above condition, but it is complicated, since $S_b$ can be also be very different from $S$. For example, if the action $S[\phi]$ contains only nearest-neighbour interactions, the new action $S'[\bar\phi]$ can contain higher order interactions such as nearest-to-nearest neighbour, or even more.  In principle, all the terms compatible with the original symmetries are allowed, and one has often to rely on some approximations. \\
+For an example of the explicit construction of the RG for an Ising model, see \cite{cardy_1996}.
+
 \subsection{Wilsonian RG}
 \label{sec:wilson_rg}
 The wilsonian picture of renormalisation \cite{WilsonRG1,WilsonRG2} is formulated in momentum space and in general is more suitable for theories in the continuum.\\
-The idea is that a physical theory comes with an intrinsic cutoff $\Lambda$, which defines up to which scale the theory is valid. This theory might not be the one
-we observe directly in experiments at energy scales $\Lambda'$, which we call effective theory at scale $\Lambda'$. To see how can this happen, let us consider a theory defined by the action \eqref{eq:phi4_action} and a given cutoff $\Lambda$, and let us split the field as $\Phi = \phi + \varphi$ where $\phi$ are fields with momenta $p^2 \leq \Lambda^{\prime, \, 2}$ and $\varphi$ are fields with momenta $\Lambda^{\prime \, 2} < p^2 \leq \Lambda^2$. This allows one to rewrite the path integral as
+The idea is that a physical theory observed a energy scale $\Lambda$ can be seen as an effective theory of a more fundamental one, defined at scale $\Lambda_0 > \Lambda$. To see how can this happen, let us consider a theory defined by the action $S[\phi]$ defined at scale $\Lambda_0$, and let us split the field as $\phi = \bar\phi + \varphi$ where $\bar\phi$ are fields with momenta $p^2 \leq \Lambda^2$ and $\varphi$ are fields with momenta $\Lambda^2 < p^2 \leq \Lambda_0^{2}$. This allows 
+to split the action as $S[\bar\phi + \varphi] = S_{\Lambda}[\bar\phi] + \delta S[\bar\phi, \varphi]$, where all the dependence on $\varphi$ is in $\delta S[\bar\phi, \varphi]$. The path integral can be rewritten as
 \begin{equation*}
-    Z = \int D\Phi_\Lambda \, e^{-S_\Lambda[\Phi]} = \int D\phi_{\Lambda'} \, e^{-S_{\Lambda'}[\phi]} \int D\varphi_{\Lambda', \Lambda}  \, e^{-S_{\Lambda', \Lambda}[\phi, \varphi]} = \int D\phi_{\Lambda'} \, e^{-S_{\Lambda'}^\text{eff}[\phi]},
-\end{equation*}
-where, in the last step, we formally performed the integral over the high-momentum field $\varphi$ and defined a new effective action $S^\text{eff}_{\Lambda'}$ as
-\begin{equation*}
-    S_{\Lambda'}^\text{eff}[\phi] = S_{\Lambda'}[\phi] - \log\left( \int D\varphi_{\Lambda', \Lambda}  \, e^{-S_{\Lambda', \Lambda}[\phi, \varphi]}\right) =  S_{\Lambda'}[\phi] + \delta S_{\Lambda', \Lambda}[\phi].
-\end{equation*}
-Note that all the steps above are exact identities. At this point, one typically tries to compute $\delta S_{\Lambda', \Lambda}$ via, e.g., Feynman diagrams \cite{Peskin:1995ev}, and then expands the result in terms of local operators of the type $O_{m,n} = \partial^m_x\phi^n_x$ with respective coefficients $g_{mn}$. In general, this will generate many terms, some of which were already present in the original action $S_\Lambda$, while some others will be new. The former can be readily absorbed in $S_{\Lambda'}[\phi]$ by a redefitinion of the couplings. 
-Note that the new action is not anymore capable of describing degrees of freedom above the scale $\Lambda'$, and there is loss of resolution. As for the block-spin procedure, one can operate a dimensional rescaling in order to set the theory back at its original scale. To do this, let us now define a dimensionless parameter 
-\begin{equation*}
-    s^2 = \frac{\Lambda^{\prime \, 2}}{\Lambda^2}, \qquad 0 \leq s \leq 1,
-\end{equation*}
-and let us operating the rescaling according to
-\begin{equation*}
-    x \to x' = sx, \qquad p \to p' = p/s.
-\end{equation*}
-Combining the coarse-graining effects due to the high-modes integral and dimensional rescaling, the new action $S^\text{eff}_\Lambda$ can be written as \cite{Peskin:1995ev}
-\begin{equation*} 
-    \begin{aligned} 
-        S^\text{eff}_\Lambda[\phi]=\int_x^\prime \frac{1}{2}\left(\partial_\mu^{\prime} \phi^{\prime}\right)^2 + \frac{m_\phi^{\prime \, 2}}{2} \phi^{\prime \, 2}  + \frac{\lambda^\prime}{4 !} \phi^{\prime \, 4}+C^{\prime}\left(\partial_\mu^{\prime} \phi^{\prime}\right)^4+D^{\prime} \phi^{\prime \, 6}+\cdots.
+    \begin{aligned}
+        Z = \int D\phi \, e^{-S[\phi]} &= \int D\bar\phi_{\Lambda} \, e^{-S_{\Lambda}[\phi]} \int D\varphi  \, e^{-\delta S[\phi, \varphi]}  \\
+        &= \int D\bar\phi_{\Lambda} \, e^{-S_{\Lambda}[\bar\phi] + S_\text{UV}[\bar\phi]}\\
+        &= \int D\bar\phi_{\Lambda} \, e^{-S_{\Lambda}^\text{eff}[\bar\phi]},
     \end{aligned}
 \end{equation*}
-Each coefficient $g^\prime$ corresponding to the local operator $O_{mn}$ is given by
-\begin{equation}
-    g'(r) = s^{-d_g} \ \frac{(g + \delta g)}{(1 + \Delta\phi)^{n}}.
-    \label{eq:couplings_redefinition}
-\end{equation}
-where $d_g$ is the dimension of the coupling $g$, the factor  $s^{-d_g}$ appears because of the dimensional rescaling mentioned above, $\delta g$ is the correction term that comes from the expansion of the high-momentum integral, and $Z_\phi = 1 + \Delta\phi$ is the wavefunction renormalisation. \textcolor{red}{comment a bit on this}. \\
-At this point, one can clearly see the analogy with the block-spin transformation introduced in the previous section. Performing the integral over high momenta modes can be thought as performing averages (coarse graining) over neighbours. This causes a loss of resolution which can be recovered by rescaling distances and momenta, which can be pictured as a zoom out.
-Therefore the philosophy of Kadanoff and Wilson approaches, was that the blocking transformation reduces the complexity of many-body
-systems by systematically reducing the number of degrees of freedom being taken into account \cite{WILSON197475},
-without changing the physical content of the theory. \\~\\
-\textcolor{blue}{The next part might be a bit too much and I don't want to go off-topic, but I wanted to put it because 1) it somewhat motivates more the dimensional rescaling, and shows how it can be (in principle) improved 2) gives some theoretical context at the whole rescaling stuff where we have two cutoffs and spacing, 3) it really shows that the coloured stochastic quantisation and the fRG gives the same stationary p.d.f. so it is a good motivation for the former. Maybe should I better put something in Appendix? \\}
-Note that, beeing $s$ a continuous parameter, the transformation can also be infinitesimal. In this case, the change in the couplings due to successive iterations, gives rise to a continuous flow in parameters space, which can be described by differential equations. This is captured by the beta functions 
+where 
 \begin{equation*}
-    \beta_g = s \, \frac{dg'(s)}{ds}.
+    S_\text{UV}[\bar\phi] = \log\left( \int D\varphi \, e^{-S_{\Lambda}[\phi, \varphi]}\right).
 \end{equation*}
-Fixed points are given by 
+encodes all the information of UV modes with $\Lambda^2 < p^2 \leq \Lambda_0^2$. The action $S_{\Lambda}[\bar\phi]$ has the same functional form of the initial action $S[\phi]$, but it is now defined only for fields with momenta $p^2 \leq \Lambda^{2}$. Instead, $S^\text{eff}_\Lambda[\bar\phi]$ constitutes an effective action at scale $\Lambda$ and depends only on degrees of freedom with $p^2 \leq \Lambda^2$.
+In order to set momenta back at their original scales one can operate a rescaling of distances and momenta to complete the Wilson RG step, according to the parameter 
 \begin{equation*}
-    \beta_g = 0.
+    s^2 = \Lambda^2 / \Lambda_0^2
 \end{equation*}
-Clearly, if $\delta g / g \ll 1$, $\Delta \phi \ll 1$, equation \eqref{eq:couplings_redefinition} reduces, at lowest order, to a dimensional rescaling
-\begin{equation*}
-    \frac{g'}{g} \approx s^{-d_g} = \left(\frac{\Lambda^\prime}{\Lambda}\right)^{-d_g},
+If $d_g$ is the energy dimension of a coupling $g$ in the action, then, the rescaling transformation causes 
+\begin{equation*} 
+    g \to s^{d_g} \, g.
 \end{equation*}
-The existence of fixed points determine whether the limit $r \to 0$ can be taken. In this case, the resulting theory is still scale-dependent and it is described by an effective action $S^\text{eff}_\Lambda$ where all the modes with $p^2 \geq \Lambda^2$ are encoded in the couplings. \\
-One can write 
+The same applies to the fields and other dimensionful quantities. If the corrections from $S_\text{UV}$ are negligible, such as for high cutoff $\Lambda \approx \Lambda_0$, then this is the only contribution to the change in the couplings and fields due to the Wilson step.  \\~\\
+At this point, one can clearly see the analogy with the block-spin transformation introduced in the previous section. Performing the integral over high momenta modes
+can be thought as performing averages (coarse graining) over neighbours. This causes a loss of resolution which can be recovered by rescaling distances and momenta. Therefore the philosophy of Kadanoff and Wilson approaches, was that the blocking transformation reduces the complexity of many-body systems by systematically reducing the number of degrees of freedom being taken into account, without changing the physical content of the
+theory \cite{WILSON197475}. \\~\\
+We want to conclude by mentioning that the splitting of the action can be done by writing
 \begin{equation*}
-    S^\text{eff}_\Lambda[\phi] = S[\phi] + \Delta S_{\Lambda}^{(\mathrm{IR})}[\hat{\phi}],
+    S^\text{eff}_\Lambda[\bar\phi] = S[\phi] + \Delta S_{\Lambda}^{(\mathrm{IR})}[\bar\phi],
 \end{equation*}
 where $\Delta S_{\Lambda}^{(\mathrm{IR})}[\hat{\phi}]$ is a regulating function which typically assumes the form
 \begin{equation} 
-    \Delta S_{\Lambda}^{(\mathrm{IR})}[\hat{\phi}] = \frac{1}{2} \int \frac{\mathrm{d}^d p}{(2 \pi)^d} \hat{\phi}(-p) \ \Lambda^2 \, \left(\frac{1}{r_{\Lambda}(p^2)}-1\right) \ \hat{\phi}(p),
+    \Delta S_{\Lambda}^{(\mathrm{IR})}[\bar\phi] = \frac{1}{2} \int \frac{\mathrm{d}^d p}{(2 \pi)^d} \bar\phi(-p) \ \Lambda^2 \, \left(\frac{1}{r_{\Lambda}(p^2)}-1\right) \ \bar\phi(p),
 \end{equation}
 and for a sharp momentum cutoff 
 \begin{equation*}
     r_{\Lambda}(p^2) = \theta\left(p^2-\Lambda^2\right).
 \end{equation*}
-This result will allow for a deep connection between fRG and coloured stochastic quantisation.
+This result will allow for a deep connection between coloured stochastic quantisation and the functional renormalisation group, the latter describing the functional dependence of $S_\Lambda^\text{eff}[\bar\phi]$ on the cutoff scale $\Lambda$ \textcolor{red}{citationsssss}.
 
 
 \section{Lattice QFT and the continuum limit}
@@ -334,7 +314,7 @@ for which
 \end{equation*}
 The action written in terms of $\psi_L, \psi_R$, reads
 \begin{equation}
-	S = S_\phi +  \sum_{f=1}^{N_f} \, \left[\bar\psi_L \, D \, \psi_L + \bar\psi_R \, D \, \psi_R + (m_q + g\phi) \,  \left(\bar\psi_L\psi_R + \bar\psi_R\psi_L\right)\right]
+	S = S_\phi +  \int_x \left[\bar\psi_L \, D \, \psi_L + \bar\psi_R \, D \, \psi_R + (m_q + g\phi) \,  \left(\bar\psi_L\psi_R + \bar\psi_R\psi_L\right)\right]
 	\label{eq:action_chirality_explicit}
 \end{equation}
 The last equation makes clear that that for $m=0,\left\langle\phi\right\rangle = 0$ the action is symmetric under the chiral group $SU(N_f) _L\times SU(N_f)_R$, namely
@@ -373,7 +353,7 @@ Finally, if the fermions have different masses, the symmetry group reduces to
 \end{equation*}
 
 \subsection{Chiral symmetry breaking}
-We now want to discuss more in detail the phenomenom of chiral symmetry breaking, which can happen in our model either explicitly or spontaneously. To see this, let us perform the fermionic path integral explicitly
+We now want to discuss more in detail the phenomenom of chiral symmetry breaking and how it can happen in the model. To see this, let us perform the fermionic path integral explicitly
 \begin{equation*}
     \int \mathcal{D} \bar\psi \mathcal{D} \psi \ \exp\left( - \int_x \sum_{f=1}^{N_f} \bar\psi_x^{(f)} \,  D \, \psi_x^{(f)} \right) = (\text{det} \, D[\phi])^{N_f} = e^{N_f\tr \log (D[\phi])},
 \end{equation*}
@@ -389,24 +369,23 @@ with
 \end{equation}
 One can derive the classical equations of motion by imposing $\frac{\delta S}{\delta \phi} = 0$, here expressed in momentum space
 \begin{equation}
-     (k^2 + m_\phi^2) \, \phi(x) + \frac{\lambda}{6} \, \phi^3(x) = N_f \, g \ \underset{s,f}{\tr} \left[D^{-1}(\phi(x))\right] = - N_f \, g \ \bar\psi(x) \psi(x)
+     (k^2 + m_\phi^2) \, \phi(x) + \frac{\lambda}{6} \, \phi^3(x) = N_f \, g \ \underset{s}{\tr} \left[D^{-1}(\phi(x))\right] = - N_f \, g \ \bar\psi(x) \psi(x)
      \label{eq:classical_EOM_full}
 \end{equation}
-where the trace is performed over spin and flavour components. For $\lambda = 0$, they highlight a simple proportionality relation between magnetisation and chiral condensate, which reads
+For $\lambda = 0$, they highlight a simple proportionality relation between magnetisation and chiral condensate, which reads
 \begin{equation}
-    \phi(x) = - \frac{N_f \, g}{k^2 + m_\phi^2} \ \bar \psi(x) \psi(x)
+    \phi = - \frac{N_f \, g}{k^2 + m_\phi^2} \ \bar \psi\psi
     \label{eq:classical_EOM}
 \end{equation}
-The classical relation \eqref{eq:classical_EOM} is proven to hold also at mean field on the quantum level \cite{Ayala2021QCDDescriptions} and will be studied in the discretised theory in section \ref{sec:classical_to_quantum}. 
-In general, because of \eqref{eq:classical_EOM}, one expects, qualitatively,
+This relation, which was here derived at the classical level, is proven to hold also in mean field on the quantum level \cite{Ayala2021QCDDescriptions} and makes apparent the role of $\phi$ as a quark bilinear. 
+When boson self-interactions are added, $\lambda \neq 0$ and the full relation between $\phi$ and $\bar\psi$ is given by \eqref{eq:classical_EOM}, but still one expects, qualitatively,
 \begin{equation}
     \expect{\phi} \sim \expect{\bar\psi\psi}.
     \label{eq:qualitative_relation_condensate_magnetisation}
 \end{equation}
-A non-vanishing condensate is also related to a physical quark mass \cite{Ayala2021QCDDescriptions,MANOHAR1984189}, while the presence of magnetisation causes the breaking of $O(1)$ symmetry.\\~\\
-
-
-\begin{figure}[h]
+A non-vanishing condensate is also related to a physical quark mass \cite{Ayala2021QCDDescriptions,MANOHAR1984189}, while the presence of magnetisation causes the breaking of $O(1)$ symmetry.
+The breaking can happen either explicitly in the action if $m_q \neq 0$, or spontaneously if $\expect{\phi} \neq 0$, in accordance with \eqref{eq:qualitative_relation_condensate_magnetisation}.
+\begin{figure}
 \centering
 \begin{minipage}{0.45\textwidth}
     \begin{tikzpicture}[scale=0.8]
@@ -446,7 +425,24 @@ A non-vanishing condensate is also related to a physical quark mass \cite{Ayala2
 \label{fig:breaking_O1_symmetry}
 \caption[Classical potential and symmetry breaking]{The introduction of the boson-fermion interaction, with a finite fermionic mass, causes explicit breaking of chiral symmetry, with consequence spontaneous breaking of the O(1) symmetry according to \eqref{eq:qualitative_relation_condensate_magnetisation}. It shifts the equilibrium position in the symmetric phase (left) causing $\left\langle \phi \right\rangle \neq 0$, and tilts the potential in the broken phase (right), making the two minima not equivalent.}
 \end{figure}
-\subsection{Phase structure and order parameters}
-We want to conclude this section by commenting on the general phase strcture of the yukawa theory. This will guide the choice of parameters for the investigation carried in the remaining sectios
 
-\newpage
+\subsection{Phase structure and order parameters}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{figures/yukawa_phase_diagram.png}
+    \caption[Yukawa phase diagram]{General phase diagram of a Yukawa theory. \\ \textcolor{blue}{I know that I wouldn't be allowed to use this picture, I will see later what to do.}}
+    \label{fig:yukawa_phase_diagram}
+\end{figure}
+We want to conclude this chapter by commenting on the phase strcture of the Yukawa theory. This will guide the choice of parameters for the investigation carried in the remaining sections. A sketch of the different phases of the model is reported in figure \ref{fig:yukawa_phase_diagram}. 
+The order parameters are the magnetisation $M = \expect{\phi}$ and the staggered magnetisation $M_s = \expect{\Phi}$, where
+\begin{equation}
+    {\Phi}_x \equiv(-1)^{t+x} \phi_x=\mathrm{e}^{\mathrm{i} \pi\left(t+x\right)} \phi_x .
+\end{equation}
+The four different phases are characterised by the following combinations of the order parameters
+\begin{itemize}
+    \item paramagnetic phase: $M = 0, M_s = 0$,
+    \item ferromagnetic phase: $M \neq 0, M_s = 0$,
+    \item anti-ferromagnetic phase: $M = 0, M_s \neq 0$,
+    \item ferrimagnetic phase: $M \neq 0, M_s \neq 0$.
+\end{itemize}
+The lattice observables are introduced in section \ref{sec:observables}.

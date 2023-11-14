@@ -73,7 +73,7 @@ The same applies to the fields and other dimensionful quantities. If the correct
 \end{equation*}
 A full treatment of RG is out of scope here and we ask the reader to consult more appropriate references fore more details \cite{Peskin:1995ev}. \\~\\
 At this point, one can clearly see the analogy with the block-spin transformation introduced in the previous section. Performing the integral over high momenta modes
-can be thought as performing averages (coarse graining) over neighbours. This causes a loss of resolution which can be recovered by rescaling distances and momenta. The rescaling is essential if one searches for fixed points, since it can be pictured as a zoom-out. \\
+can be thought as performing averages (coarse graining) over neighbours. This causes a loss of resolution which can be recovered by rescaling distances and momenta. The rescaling is essential for a description of fixed points, since it can be pictured as a zoom-out. \\
 Therefore, the philosophy of Kadanoff and Wilson approaches, was that the blocking transformation reduces the complexity of many-body systems by systematically reducing the number of degrees of freedom being taken into account, without changing the physical content of the
 theory \cite{WILSON197475,carosso2020novel}. \\~\\
 We want to conclude this section by mentioning that the splitting of the action can be done by writing
@@ -280,6 +280,66 @@ where the correction term $\Delta S_\Lambda[\phi]$, reads, for a regulator $r_\L
 \end{equation*}
 \textcolor{red}{at this point mention that this is the stationary pdf that one gets with frg for sharp cutoff, and cite some papers.}
 
+\section{Chiral symmetry}
+\label{sec:chiral_symmetry}
+
+It is useful to adopt the notation 
+\begin{equation*}
+    \psi = (\psi^{(1)}, \dots, \psi^{(N_f)})
+\end{equation*} 
+We then introduce left-handed and right-handed spinors
+\begin{equation*}
+	\psi_L = (1-\gamma_5) \, \psi \qquad \psi_R = (1+\gamma_5) \, \psi
+\end{equation*}
+for which
+\begin{equation*}
+	\psi = \frac{(1-\gamma_5)}{2} \psi + \frac{(1+\gamma_5)}{2} \psi = \psi_L + \psi_R
+\end{equation*}
+
+
+\subsection{Chiral symmetry in the continuum}
+
+The free massless Dirac Lagrangian
+\begin{equation} 
+    \mathcal{L}_D = \bar\psi \slashed{\partial} \psi = \bar\psi_L \slashed{\partial} \psi_L + \bar\psi_R \slashed{\partial} \psi_R
+\end{equation} 
+is symmetric under the chiral group $SU(N_f) _L\times SU(N_f)_R$, namely
+\begin{equation*}
+	\begin{aligned}
+		\psi_L(x) \to U_L\psi_L(x) &\qquad \bar\psi_L(x) \to \bar\psi_L(x) U_L^{\dagger} \\
+		\psi_R(x) \to U_R\psi_R(x) &\qquad \bar\psi_R(x) \to \bar\psi_R(x) U_R^{\dagger}
+	\end{aligned}
+\end{equation*}
+for $U_L, U_R \in SU(N_f)$. In terms of the full spinor $\psi$, the chiral symmetry can be written as 
+\begin{equation*} 
+    \psi \to M \, \psi \qquad M = e^{i(\theta_a \tau^a + \gamma_5 \beta_a\tau^a)}, \quad \tau^a \in su(N_f)
+\end{equation*} 
+so that $SU(N_f) _L\times SU(N_f)_R \simeq SU(N_f)_V \times SU(N_f)_A$, where $SU(N_f)_V$ is the isospin subgroup ($\beta_a =0$) and $SU(N_f)_A$ is the axial rotation subgroup ($\beta_a = 0$). \\
+To be more precise, the full invariance group of the classical action is
+\begin{equation*}
+    SU(N_f)_L \times SU(N_f)_R \times U(1)_A \times U(1)_V
+\end{equation*}
+where the axial and vector symmetry transformations are, respectively,
+\begin{equation*}
+        \psi \to e^{i\theta \gamma_5} \, \psi, \qquad \psi \to e^{i\theta} \, \psi.
+\end{equation*} 
+One can thus prove that axial symmetry is broken by quantum anomalies (see for example \cite{schwartz}), so that the symmetry in the quantum case is
+\begin{equation*}
+    SU(N_f)_L \times SU(N_f)_R \times U(1)_V
+\end{equation*}
+If equal masses for each flavour are introduced, then the symmetry group reduces to the isospin subgroup, diagonal in flavour space
+\begin{equation*}
+    SU(N_f)_V \times U(1)_V
+\end{equation*}
+Finally, if the fermions have different masses, the symmetry group reduces to 
+\begin{equation*}
+    \underbrace{U(1) \times \dots \times U(1)}_{N_f} \times U(1)_V
+\end{equation*}
+
+\subsection{Chiral symmetry on the lattice}
+Implementing chiral symmetry on a finite-volume spacetime lattice, is a hard task. This is because, as proven by Nielsen and Ninomiya, one either has chiral symmetry on the lattice or solves the doubling problem \textcolor{red}{citationsssss}. \\
+In particular, the insertion of the Wilson term in the action, as it will be shown in the next chapter, causes explicit breaking of the symmetry. One cannot solve the problem but can alleviate it \textcolor{red}{cite Ginspar-Wilson, Staggered, \dots}. 
+Our approach to study chiral symmetry will be discussed and motivated in section \ref{sec:chiral_PT} and consists in removing the Wilson term, dealing with the doublers.
 
 \section{Yukawa theory}
 \label{sec:Yukawa_theory}
@@ -317,60 +377,26 @@ This allows one to rewrite the action as
 \begin{equation*}
     S[\phi,\psi,\bar\psi] = \int_x \frac{1}{2} \, \phi_x \, K_{xx} \, \phi_x + \frac{\lambda}{4!} \, \phi_x^4 + \sum_{f=1}^{N_f} \bar\psi_x^{(f)} \, D_{xx} \, \psi_x^{(f)}
 \end{equation*}
-It is now useful to adopt the notation 
-\begin{equation*}
-    \psi = (\psi^{(1)}, \dots, \psi^{(N_f)})
-\end{equation*} 
-We then introduce left-handed and right-handed spinors
-\begin{equation*}
-	\psi_L = (1-\gamma_5) \, \psi \qquad \psi_R = (1+\gamma_5) \, \psi
-\end{equation*}
-for which
-\begin{equation*}
-	\psi = \frac{(1-\gamma_5)}{2} \psi + \frac{(1+\gamma_5)}{2} \psi = \psi_L + \psi_R
-\end{equation*}
+
+\subsection{Chiral symmetry in the Yukawa model}
 The action written in terms of $\psi_L, \psi_R$, reads
 \begin{equation}
 	S = S_\phi +  \int_x \left[\bar\psi_L \, D \, \psi_L + \bar\psi_R \, D \, \psi_R + (m_q + g\phi) \,  \left(\bar\psi_L\psi_R + \bar\psi_R\psi_L\right)\right]
 	\label{eq:action_chirality_explicit}
 \end{equation}
-The last equation makes clear that that for $m=0,\left\langle\phi\right\rangle = 0$ the action is symmetric under the chiral group $SU(N_f) _L\times SU(N_f)_R$, namely
-\begin{equation*}
-	\begin{aligned}
-		\psi_L(x) \to U_L\psi_L(x) &\qquad \bar\psi_L(x) \to \bar\psi_L(x) U_L^{\dagger} \\
-		\psi_R(x) \to U_R\psi_R(x) &\qquad \bar\psi_R(x) \to \bar\psi_R(x) U_R^{\dagger}
-	\end{aligned}
-\end{equation*}
-for $U_L, U_R \in SU(N_f)$. To be more precise, the full invariance group of the classical action is 
-\begin{equation*}
-    SU(N_f)_A \times SU(N_f)_V \times U(1)_A \times U(1)_V
-\end{equation*}
-where the axial and vector symmetry transformations are
+The action is not invariant under the full chiral group, but if $m_q = 0$ it is symmetric under the discrete chiral group 
 \begin{equation*}
     \begin{aligned}
-        \psi \to \dots \bar\psi \to \dots \\
-        \psi \to \dots \bar\psi \to \dots
+        \phi &\to -\phi, \\
+        \psi_L \to \gamma_5 \psi_L, &\qquad \bar\psi_L \to \bar\psi_L\gamma_5, \\
+        \psi_R \to \gamma_5 \psi_R, &\qquad \bar\psi_R \to \bar\psi_R\gamma_5,
     \end{aligned}
-\end{equation*} 
-One can thus prove that axial symmetry is broken by quantum anomalies (see for example \cite{schwartz}), so that the massless quantum theory has the symmetry 
-\begin{equation*}
-    SU(N_f)_L \times SU(N_f)_R \times U(1)_V
 \end{equation*}
-If equal masses are introduced and flavours are degenerate, then the symmetry group reduces to 
-\begin{equation*}
-    SU(N_f)_V \times U(1)_V
-\end{equation*} 
-where $SU(N_f)_v$ is defined by its action on the spinors 
-\begin{equation*}
-    \psi \to 
-\end{equation*}
-Finally, if the fermions have different masses, the symmetry group reduces to 
-\begin{equation*}
-    \left(\prod_{f=1}^{N_f} U(1)_f \right) \times U(1)_V
-\end{equation*}
-
-\subsection{Chiral symmetry breaking}
-We now want to discuss more in detail the phenomenom of chiral symmetry breaking and how it can happen in the model. To see this, let us perform the fermionic path integral explicitly
+typical of theories such as the Gross-Neveu model \textcolor{red}{citationsssss}. In order to generalise the model to the full chiral group, one has to consider an $O(4)$ scalar sector and interactions, since $O(4) \sim SU(2) \times SU(2)$. Similar effective theories with such properties are, for example, 
+the Nambu-Jona-Lasinio model and the Quark-Meson model \textcolor{red}{citationssssss}. Thus, since we are in $1+1$ dimensions, spontaneous breaking of continuous symmetries is forbidden by the Mermin-Wagner theorem \textcolor{red}{citationsssss}. \\~\\
+We now want to discuss more in detail the phenomenom of (discrete) chiral symmetry breaking and how it can happen in the model. In fact, the latter can happen either
+explicitly in the classical action, if a finite quark mass is added, or spontaneously, if $\expect{\phi} \neq 0$. \\
+To better see this, let us perform the fermionic path integral explicitly
 \begin{equation*}
     \int \mathcal{D} \bar\psi \mathcal{D} \psi \ \exp\left( - \int_x \sum_{f=1}^{N_f} \bar\psi_x^{(f)} \,  D \, \psi_x^{(f)} \right) = (\text{det} \, D[\phi])^{N_f} = e^{N_f\tr \log (D[\phi])},
 \end{equation*}
@@ -401,7 +427,16 @@ When boson self-interactions are added, $\lambda \neq 0$ and the full relation b
     \label{eq:qualitative_relation_condensate_magnetisation}
 \end{equation}
 A non-vanishing condensate is also related to a physical quark mass \cite{Ayala2021QCDDescriptions,MANOHAR1984189}, while the presence of magnetisation causes the breaking of $O(1)$ symmetry.
-The breaking can happen either explicitly in the action if $m_q \neq 0$, or spontaneously if $\expect{\phi} \neq 0$, in accordance with \eqref{eq:qualitative_relation_condensate_magnetisation}.
+If $\expect{\phi} = v$, one can write $\phi(x) = v + \varphi(x)$ and the massless lagrangian assumes the form 
+\begin{equation*}
+	S = S_\phi +  \int_x \left[\bar\psi_L \, D \, \psi_L + \bar\psi_R \, D \, \psi_R + gv \, \left(\bar\psi_L\psi_R + \bar\psi_R\psi_L\right)\right] + g\varphi(x) \, \left(\bar\psi_L\psi_R + \bar\psi_R\psi_L\right)
+\end{equation*}
+hence showing that one can expect
+\begin{equation}
+    \expect{\phi} \sim \expect{\bar\psi\psi} \sim m_q.
+    \label{eq:qualitative_relation_condensate_magnetisation_mass}
+\end{equation}
+
 \begin{figure}
 \centering
 \begin{minipage}{0.45\textwidth}

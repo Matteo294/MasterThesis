@@ -74,7 +74,7 @@ For later reference, we also report the discretised version of the effective act
 	\end{aligned}
 	\label{eq:discretised_effective_action}
 \end{equation}
-The full discrete path-integral reads \textcolor{red}{(measure over dimless or dimful?)}
+The full discrete path-integral reads
 \begin{equation}
     Z = \int \prod_n d\hat\phi_n \ e^{-S_\text{eff}[\hat\phi]}.
     \label{eq:discretised_path_integral}
@@ -184,6 +184,7 @@ so that the scaling dimension of the other terms in \eqref{eq:drift_continuum_fr
 We want to mention that the cooling procedure has important consequences on the issue of continuum limit of low-energy effective theories. In fact, in the standard lattice regularisation procedure, one always has $a \sim \Lambda_0^{-1}$, which means that the continuum limit $a \to 0$ is always connected to the limit $\Lambda_0 \to \infty$, in accordance to what discussed in sections \ref{sec:RG} and \ref{sec:lattice_continuum_}.
 
 \subsection{Control over temperature}
+\textcolor{blue}{there will be no simulations regarding this. should I write it anyway? I think it is important.}
 
 \section{Definition of relevant observables}
 \label{sec:observables}
@@ -193,7 +194,7 @@ We define the magnetisation $M$ of the field $\phi$ as
 \end{equation*}
 Thus, in a finite volume lattice system, the absolute magnetisation
 \begin{equation*}
-    M = \expect{\frac{1}{V}\left|\sum_n \phi_n\right|}
+    M = \expect{\frac{1}{V}\left|\sum_n \phi_n\right|}.
 \end{equation*}
 is better suited as an order parameter \cite{friedli_velenik_2017,gattringer_LQCD}. \\
 In the continumm, phase transition is characterised by a divergence in the susceptibility, or connected two-points function
@@ -212,31 +213,31 @@ We define the fermionic two-points function
     &= \frac{1}{Z} \, \int \mathcal{D}\phi \, \mathcal{D}\psi \, \mathcal{D}\bar\psi \ \psi(x) \, \bar\psi(y) \, \exp \left( - S_\phi - \psi D \psi + \bar\eta \psi + \bar \psi \eta \right) \\
     &= \frac{1}{Z} \, \int \mathcal{D}\phi \, \mathcal{D}\psi \, \mathcal{D}\bar\psi \ \frac{\delta}{\delta \bar \eta_m} \frac{\delta}{\delta \eta_n} \, \exp \left( - S_\phi - \psi D \psi + \bar\eta \psi + \bar \psi \eta \right) \\
     &= \frac{1}{Z} \, \int \mathcal{D}\phi \ \text{det}\left[D(\phi)\right] \ \exp \left( - S_\phi \right) \ \frac{\delta}{\delta \bar \eta_m} \frac{\delta}{\delta \eta_n} \, \exp\left( \bar\eta D^{-1} \eta \right) \\
-    &= \left\langle \left[D^{-1}(\phi)\right]_{mn}\right\rangle
+    &= \left\langle \left[D^{-1}(\phi)\right]_{mn}\right\rangle.
 \end{aligned}
 \label{eq:D_inv_condensate}
 \end{equation}
 where $D$ is the the Wilson-Dirac operator. \\
 From this, the chiral condensate follows straightforwardly
 \begin{equation*}
-    \left\langle  \bar\psi \psi \right\rangle = \underset{n,s}\sum  \left\langle \bar\psi_{n,s} \, \psi_{n,s} \right\rangle = -\underset{n,s}{\tr} \, (D^{-1})_{nn}
+    \left\langle  \bar\psi \psi \right\rangle = \underset{n,s}\sum  \left\langle \bar\psi_{n,s} \, \psi_{n,s} \right\rangle = -\underset{n,s}{\tr} \, (D^{-1})_{nn}.
 \end{equation*}
 The fermionic correlator is defined as
 \begin{align*}
-    C_\psi(t,0) \equiv \frac{1}{N_x} \sum_{n_x} \left[\left\langle \psi(t, n_x) \, \bar\psi(0,0)\right\rangle - \left\langle \psi(N_t-t, n_x) \, \bar\psi(0,0) \right] \right\rangle
+    C_\psi(t,0) \equiv \frac{1}{N_x} \sum_{n_x} \left[\left\langle \psi(t, n_x) \, \bar\psi(0,0)\right\rangle - \left\langle \psi(N_t-t, n_x) \, \bar\psi(0,0) \right] \right\rangle.
 \end{align*}
 Note that we sum up two waves because the source propagates both forward and backward in time due to the boundary conditions. \\
-Since for $t \to \infty$ one has that $C(t,p) \propto e^{-E_0(p) t}$, we expect 
+As shown in Appendix \ref{chap:AppendixA} (\textcolor{blue}{not yet}), for $t \to \infty$ one has 
 \begin{equation*}
-    C_\psi(t,0) \approx \sinh \left(E_0^{\psi} \left(\frac{N_t}{2} - t\right)\right)
+    C_\psi(t,0) \approx \sinh \left(E_0^{\psi} \left(\frac{N_t}{2} - t\right)\right),
 \end{equation*}
 where $E_0^{\psi}$ is the fermionic mass gap, which will be denoted as $m_{q,\text{phys}}$. \\
-Analogously, the bosonic correlator
+Analogously, the bosonic correlator is
 \begin{equation*}
-    C_\phi(t,0) \equiv \frac{1}{N_x} \sum_{n_x} \left[\left\langle \phi(t, n_x) \, \phi(0,0)\right\rangle + \left\langle \phi(N_t-t, n_x) \, \bar\phi(0,0) \right] \right\rangle
+    C_\phi(t,0) \equiv \frac{1}{N_x} \sum_{n_x} \left[\left\langle \phi(t, n_x) \, \phi(0,0)\right\rangle + \left\langle \phi(N_t-t, n_x) \, \bar\phi(0,0) \right] \right\rangle.
 \end{equation*}
 and for $t \to \infty$ one has 
 \begin{equation*}
-    C_\phi(t,0) \approx \cosh \left(E_0^{\phi} \left(\frac{N_t}{2} - t\right)\right)
+    C_\phi(t,0) \approx \cosh \left(E_0^{\phi} \left(\frac{N_t}{2} - t\right)\right).
 \end{equation*}
 $E_0^{\phi} \equiv m_{\phi, \text{phys}}$ is the bosonic mass gap.

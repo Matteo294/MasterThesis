@@ -47,7 +47,7 @@ For what concerns the fermionic action, a na\"ive discretisation is not sufficie
 \begin{equation}
 		S_\psi\left[\psihat, \psibarhat \right] + S_\text{int}\left[\phihat, \psihat, \psibarhat \right] = \sum_{f=1}^{N_f}\hat{\bar{\psi}}_m^{(f)} \, \widehat{D}_{mn} \, \hat{\psi}_n^{(f)},
 \end{equation}
-with $\psi_n$ beeing a two-component spinor, and $\widehat{D}_{m,n}$ the Wilson-Dirac operator \textcolor{blue}{(can I include $g\phi $ in the definition of $D$?)} defined as 
+with $\psi_n$ beeing a two-component spinor, and $\widehat{D}_{m,n}$ the Wilson-Dirac operator defined as 
 \begin{equation}
     \begin{aligned}
     \widehat{D}_{m, n} = &- \left(\frac{\Gamma_{+\hat 0}}{2} \, \delta_{m, m+\hat 0} +\frac{\Gamma_{-\hat 0}}{2} \, \delta_{m, m-\hat 0} + \frac{\Gamma_{+\hat 1}}{2} \, \delta_{m, m+\hat 1} + \frac{\Gamma_{- \hat 1}}{2} \, \delta_{m, m-\hat 1}\right)  \\
@@ -103,7 +103,7 @@ For the discretised action of the Yukawa theory \eqref{eq:discretised_effective_
     \label{eq:drift_continuum_full_theory}
 \end{equation}
 While the bosonic contribution can be computed in a straightforward manner, the computation of the fermionc contribution requires the inversion of the Dirac operator. This, in general, cannot be done straightforwardly, mainly due to computational reasons.
-In fact, the full Dirac operator would be a $(2 \cdot N_t \cdot N_x \cdot N_f)^2$ dimensional object and a full inversion would be very expensive. In fact, $D^{-1}$ has to be recomputed at every step and the best available algorithm as today for the matrix inversion has a computational complexity of $O(n^{2.371552})$ \cite{williams2023new}. To circumvent this, we use the bilinear noise scheme \cite{bilinearnoise1,bilinearnoise2} \textcolor{blue}{should I cite here or in Appendix?} which is illustrated in Appendix \ref{chap:AppendixC}.
+In fact, the full Dirac operator would be a $(2 \cdot N_t \cdot N_x \cdot N_f)^2$ dimensional object and a full inversion would be very expensive. In fact, $D^{-1}$ has to be recomputed at every step and the best available algorithm as today for the matrix inversion has a computational complexity of $O(n^{2.371552})$ \cite{williams2023new}. To circumvent this, we use the bilinear noise scheme \cite{bilinearnoise1,bilinearnoise2} which is illustrated in Appendix \ref{chap:AppendixC}.
 
 \newpage
 
@@ -155,7 +155,7 @@ or, in terms of dimensionless quantities,
 \end{equation*}
 This implies that under a lattice block-spin transformation, where $a \to sa$,
 \begin{equation}
-    \widehat{K}_{\psi} \to  (sag) \, \underset{s}{\tr}{(saD)^{-1}} = \widehat{K}_{\psi}
+    \widehat{K}_{\psi} \to  (sag) \, \underset{s}{\tr}{(saD)^{-1}} = \widehat{K}_{\psi}.
     \label{eq:fermionic_rescaling_na\"ive}
 \end{equation}
 On the other side, when computing the drift via the original action \eqref{eq:full_action_continuum}, one gets
@@ -178,13 +178,12 @@ Note that all the terms in the equation \eqref{eq:drift_continuum_from_full_acti
 \end{equation}
 in contrast with \eqref{eq:fermionic_rescaling_na\"ive}. For this reason, in order to have the correct scaling, we compute the contribution to the drift without rescaling the Dirac operator (and hence the Yukawa coupling), and then rescale the whole drift via 
 \begin{equation*}
-    \widehat{K}_\psi \to s^2 \widehat{K}_\psi
+    \widehat{K}_\psi \to s^2 \widehat{K}_\psi,
 \end{equation*}
 so that the scaling dimension of the other terms in \eqref{eq:drift_continuum_from_full_action} is matched. \\~\\
-We want to mention that the cooling procedure has important consequences on the issue of continuum limit of low-energy effective theories. In fact, in the standard lattice regularisation procedure, one always has $a \sim \Lambda_0^{-1}$, which means that the continuum limit $a \to 0$ is always connected to the limit $\Lambda_0 \to \infty$, and this constitutes a problem for effective theories. The latter are in fact meant to be valid only up to a certain scale $\Lambda_\text{phys}$, hence one always needs $\Lambda_0 \leq \Lambda_\text{phys}$. Cooling via coloured noise can provide a solution to this problem, since one can always keep the effective cutoff fixed at $\Lambda = \Lambda_\text{phys}$, while taking the limits $a \to 0, \Lambda_0 \to \infty$, hence seeing the system as described by an effective action at scale $\Lambda$, in accordance to what discussed in chapter \ref{chap:background}.
+We want to mention that the cooling procedure has important consequences on the issue of continuum limit of low-energy effective theories. In fact, in the standard lattice regularisation procedure, one always has $a \sim \Lambda_0^{-1}$, which means that the continuum limit $a \to 0$ is always connected to the limit $\Lambda_0 \to \infty$, in accordance to what discussed in sections \ref{sec:RG} and \ref{sec:lattice_continuum_}.
 
 \subsection{Control over temperature}
-\textcolor{blue}{there will be no simulations on this. should I include it anyway? I think it's quite important.}
 
 \section{Definition of relevant observables}
 \label{sec:observables}
@@ -201,7 +200,11 @@ In the continumm, phase transition is characterised by a divergence in the susce
 \begin{equation*}
     \chi_2 = V \left(\expect{M^2} - \expect{M}^2\right) = V \expect{\left(M-\expect{M}\right)^2}.
 \end{equation*}
-On a finite volume lattice, one obseres a peak that becomes sharper as the volume is increase. \\
+On a finite volume lattice, one obseres a peak that becomes sharper as the volume is increased. In pratice, the susceptibility of the order parameter 
+\begin{equation*}
+    \chi_2 = V \expect{\left(M-\expect{|M|}\right)^2}
+\end{equation*}
+will be adopted. \\
 We define the fermionic two-points function
 \begin{equation} 
 \begin{aligned}

@@ -4,7 +4,8 @@
 In this chapter we want to provide with an overview on the general theoretical framework that supports this work, and introduce the main concepts for the successive parts. Each section in this chapter is, by no means, meant as an exhaustive treatment. The description will be quite conceptual, rather than technical, and aims at recalling the main ideas and fix conventions. We ask the reader to consult appropriate references,  which will be given in the corresponding sections, for a more detailed treatment of the topics. \\
 
 \section{The renormalisation group}
-Landau's mean field approach to study phase transition \cite{Landau:1937obd} gained wide popularity in the 1930's and 40's, since it was able to describe critical properties of many systems and it provided inspiration for the later Landau-Ginzburg theory of superconductivity \cite{ginzburg}. Thus, it has soon proved to be inaccurate to predict some experimentally well proven properties of certain systems near their critical point \cite{Cao:1999pw}. This is because, beeing a mean field theory, it did not take into account the role of spatial fluctuations.
+\label{sec:RG}
+Landau's mean field approach to study phase transition \cite{Landau:1937obd} gained wide popularity in the 1930's and 40's, since it was able to describe critical properties of many systems and it provided inspiration for the later Landau-Ginzburg theory of superconductivity \cite{ginzburg}. Thus, it was soon proved to be inaccurate to predict some experimentally well proven properties of certain systems near their critical point \cite{Cao:1999pw}. This is because, beeing a mean field theory, it did not take into account the role of spatial fluctuations.
 The idea of block-spin transformation, systematically developed by Kadanoff \cite{PhysicsPhysiqueFizika_2_263}, made a big step towards a deeper understanding of the scaling behaviour, and posed the basis for the later work of Wilson \cite{WilsonRG1,WilsonRG2,WilsonFisher}, which still constitutes the basis for modern approaches to renormalisation in field theory and statistical physics.\\
 
 \subsection{Block-spin RG}
@@ -28,8 +29,8 @@ We now want to find a new action $S_b$ such that
 Suppose for the moment that such $S_b$ has been found. The coarse-graining procedure comes with a loss of resolution since the spacing is changed $a \to 2a$. Hence one can rescale distances and momenta in the new action via $a \to a/2, p \to 2p$ and then compare the result with the initial action. This constitutes the second step of the block-spin transformation. \\
 The whole procedure can be iterated multiple times, and can be thought as a zoom-out with a corresponding coarse graining, in order to describe the system in terms of the relevant scales as pictured in figure \ref{fig:blockin_first}. As made clear in the picture, the physical correlation length is reduced by the block-spin step, since the description is now in terms of the coarse field $\bar\phi$. 
 There are only two exceptions for this, either the correlation length is zero, or infinite. The latter case represents a fixed-point of the RG, and the system exhibits scale invriance. \\
-Note that the condition \eqref{eq:blocked_action} is non-trivial. One can, in principle, build an ad-hoc action that fulfills the condition, but it is complicated, since $S_b$ can be also be very different from $S$. For example, if the action $S[\phi]$ contains only nearest-neighbour interactions, the new action $S'[\bar\phi]$ can contain higher order interactions such as nearest-to-nearest neighbour, or even more.  In principle, all the terms compatible with the original symmetries are allowed, and one has often to rely on some approximations. For example, if one is interested in long-range properties of the system, and the volume $V$ is sufficiently small, one can assume 
-the functional form of the action $S$ to remain approximately the same, with the the only change due to the dimensional rescaling of dimensionful quantities mentioned above. Thus, as the procedure is iterated and the correlation length is approached, one has to take account higher order interactions. For an example of the explicit construction of the RG for an Ising model, see \cite{cardy_1996}.
+Note that the condition \eqref{eq:blocked_action} is non-trivial. One can, in principle, build an ad-hoc action that fulfills the condition, but it is complicated, since $S_b$ can be also be very different from $S$. For example, if the action $S[\phi]$ contains only nearest-neighbour interactions, the new action $S'[\bar\phi]$ can contain higher order interactions such as nearest-to-nearest neighbour, or even more.  In principle, all the terms compatible with the original symmetries are allowed, and one has often to rely on some approximations. For example, if one is interested in long range properties of the system, and the volume $V$ is sufficiently small, one can assume 
+the functional form of the action $S$ to remain approximately the same, with the the only change due to the dimensional rescaling of dimensionful quantities mentioned above. Thus, as the procedure is iterated and the correlation length scale is approached, one has to take account higher order interactions. For an example of the explicit construction of the RG for an Ising model, see \cite{cardy_1996}.
 
 \subsection{Wilsonian RG}
 \label{sec:wilson_rg}
@@ -61,7 +62,7 @@ $ S_\text{UV}[\bar\phi]$ encodes all the information of UV modes with $\Lambda^2
 The action $S_{\Lambda}[\bar\phi]$ has the same functional form of the initial action $S[\phi]$, but it is now defined only for fields with momenta $p^2 \leq \Lambda^{2}$. Instead, $S^\text{eff}_\Lambda[\bar\phi]$ constitutes an effective description of the original theory at scale $\Lambda$ and depends only on degrees of freedom with $p^2 \leq \Lambda^2$. \\
 One can then operate a rescaling of distances and momenta to complete the Wilson RG step, according to the parameter 
 \begin{equation*}
-    s^2 = \Lambda^2 / \Lambda_0^2
+    s^2 = \Lambda^2 / \Lambda_0^2.
 \end{equation*}
 If, for example, $d_g$ is the energy dimension of a coupling $g$ in the action, then the rescaling transformation causes 
 \begin{equation*} 
@@ -69,12 +70,12 @@ If, for example, $d_g$ is the energy dimension of a coupling $g$ in the action, 
 \end{equation*}
 The same applies to the fields and other dimensionful quantities. If the corrections from $S_\text{UV}$ are negligible, such as for high cutoff $\Lambda \approx \Lambda_0$, then this is the only contribution to the change in the couplings and fields due to the Wilson step. More in general, for higher order iterations of the procedure, the couplings' dependence on $s$ is caputered by the $\beta$-functions 
 \begin{equation*}
-    \beta_g = \frac{d}{ds} \, g(s)
+    \beta_g = \frac{d}{ds} \, g(s).
 \end{equation*}
 A full treatment of RG is out of scope here and we ask the reader to consult more appropriate references fore more details \cite{Peskin:1995ev}. \\~\\
 At this point, one can clearly see the analogy with the block-spin transformation introduced in the previous section. Performing the integral over high momenta modes
 can be thought as performing averages (coarse graining) over neighbours. This causes a loss of resolution which can be recovered by rescaling distances and momenta. The rescaling is essential for a description of fixed points, since it can be pictured as a zoom-out. \\
-Therefore, the philosophy of Kadanoff and Wilson approaches, was that the blocking transformation reduces the complexity of many-body systems by systematically reducing the number of degrees of freedom being taken into account, without changing the physical content of the
+Therefore, the philosophy of Kadanoff and Wilson approaches was that the blocking transformation reduces the complexity of many-body systems by systematically reducing the number of degrees of freedom being taken into account, without changing the physical content of the
 theory \cite{WILSON197475,carosso2020novel}. \\~\\
 We want to conclude this section by mentioning that the splitting of the action can be done by writing
 \begin{equation*}
@@ -84,7 +85,7 @@ where $\Delta S_{\Lambda}^{(\mathrm{IR})}[\hat{\phi}]$ is a regulating function 
 \begin{equation} 
     \Delta S_{\Lambda}^{(\mathrm{IR})}[\bar\phi] = \frac{1}{2} \int \frac{\mathrm{d}^d p}{(2 \pi)^d} \bar\phi(-p) \ \Lambda^2 \, \left(\frac{1}{r_{\Lambda}(p^2)}-1\right) \ \bar\phi(p),
 \end{equation}
-and for a sharp momentum cutoff 
+For a sharp momentum cutoff one has
 \begin{equation*}
     r_{\Lambda}(p^2) = \theta\left(p^2-\Lambda^2\right).
 \end{equation*}
@@ -100,9 +101,9 @@ The starting set up is the euclidean formulation of quantum field theory, where 
 \end{equation}
 and correlation functions are computed via
 \begin{equation*}
-        \left\langle \xi_{x_1} \dots \xi_{x_n}  \right\rangle = \frac{1}{Z} \int \mathcal{D}\phi\mathcal{D}\psi\mathcal{D}\psi \ \xi_{x_1} \dots \xi_{x_n} \ e^{-S[\phi, \psi, \bar\psi]}, \qquad \xi_{x_i} \in \{\phi_{x_i}, \psi_{x_i}, \bar\psi_{x_i}\}. \\
+        \left\langle \xi_{x_1} \dots \xi_{x_n}  \right\rangle = \frac{1}{Z} \int \mathcal{D}\phi\mathcal{D}\psi\mathcal{D}\bar\psi \ \xi_{x_1} \dots \xi_{x_n} \ e^{-S[\phi, \psi, \bar\psi]}, \qquad \xi_{x_i} \in \{\phi_{x_i}, \psi_{x_i}, \bar\psi_{x_i}\}. \\
 \end{equation*}
-Let us then consider a lattice $\mathscr{L}$, with spacing $a$, and $N_\mu$ points in each spacetime direction $\mu$, hence a physical length $L_\mu$.
+Let us then consider a lattice $\mathscr{L}$, with spacing $a$, and $N_\mu$ points in each spacetime direction $\mu$, hence a physical length $L_\mu = N_\mu \, a$.
 For simplicity we restricted here to a scalar field $\phi$ and we will recall fermionic properties only when relevant, but what follows has general validity. 
 The action and the path integral measure are now taken over discrete quantities 
 \begin{equation*}
@@ -126,11 +127,11 @@ Expectation value of observables are computes as
     \expect{O(\phi)}  = \frac{1}{Z} \, \int \prod_n d\phi(n) \, O(\phi) \, e^{-S[\phi]}.
     \label{eq:expectation_value_lattice}
 \end{equation}
-In order to simulate a theory and perform the above sums one has to go to finite volumes impose boundary conditions. In the space directions, we take periodic conditions 
+In order to simulate a theory and perform the above sums one has to go to finite volumes and impose boundary conditions. In the space directions, we take periodic conditions 
 \begin{equation*}
     \begin{aligned}
-        \phi(t, \vec x) &= \phi(t, \vec x + T), \\
-        \psi(t, \vec x) &= \psi(t, \vec x + T).
+        \phi(t, \vec x) &= \phi(t, \vec x + \vec T), \\
+        \psi(t, \vec x) &= \psi(t, \vec x + \vec T).
     \end{aligned}
 \end{equation*}
 Instead, a finite time extent is related to the temperature of the system \cite{le_bellac_1996,rothe_LGT} via
@@ -144,8 +145,9 @@ and boundary conditions are chosen depending on the spin-statistic of the corres
         \psi(t, \vec x) &= -\psi(t + T, \vec x) \quad \text{fermions}.
     \end{aligned}
 \end{equation*}
-Such a formulation naturally brings a momentum cutoff $\Lambda = \pi/a$ since now all the momenta are restricted to the first Brilloune zone $p_\mu \in [-\pi/a, \pi/a]$. \\
-To compute observables one relies on Monte-Carlo methods to generate field configurations, sampling the distribution \eqref{eq:probability_distribution_lattice} and convergence to the statistical value given by \eqref{eq:expectation_value_lattice} is expected in the limit of infinite samples $N_\text{samp} \to \infty$. To recover the continuum results, one has to take $V \to \infty, a \to 0$ \footnote{the order here is important, see for example \cite{seiler,friedli_velenik_2017}}, but this task cannot be done so straightforwardly.
+Such a formulation naturally brings a momentum cutoff $\Lambda = \pi/a$ since now all the momenta are restricted to the first Brilloune zone $p_\mu \in [-\pi/a, \pi/a]$. \\~\\
+To compute observables one relies on Monte-Carlo methods to generate field configurations, sampling the distribution \eqref{eq:probability_distribution_lattice} and convergence to the statistical value given by \eqref{eq:expectation_value_lattice} is expected in the limit of infinite samples $N_\text{samp} \to \infty$. \\
+To recover the continuum results, one has to take $V \to \infty, a \to 0$ \footnote{the order here is important, see for example \cite{seiler,friedli_velenik_2017}}, but this task cannot be done so straightforwardly.
 Continuum limits of lattice theories are intimately connected to the existence of critical points. To see why this is the case, consider the dimensionless mass gap 
 \begin{equation*}   
     \hat\xi = m \, a
@@ -153,12 +155,12 @@ Continuum limits of lattice theories are intimately connected to the existence o
 of a certain theory. The quantity $\xi$ is also called correlation length and it is related to the exponential decay of correlation functions between local observables measured
 at different points on the lattice, as given by \textcolor{red}{add ref. eq.}\\
 When taking the continuum limit we want $a \to 0$, while having a finite physical mass $m$. This implies that the correlation length $\hat \xi$ has to diverge: in the language of statistical physics, this is a second order phase transition. Of course to bring the system at its critical point, where such phase transition happens, one has to tune the bare parameters $g_0^i$ of the theory to their critical values $g_0^{i \, *}$. 
-To do this, one should find the zeros of the beta functions
+To do this, one should find the zeros of the lattice beta functions
 \begin{equation*}
     \beta_g^\text{latt} = a \frac{d}{da} g(a) \overset{!}{=} 0, \qquad a = \pi/\Lambda.
 \end{equation*}
 As this is quite hard task to do on the lattice, one typically relies on some approximation schemes such as employing perturbative continuum beta functions. \\
-In any case, from this description it should be clear that the spacing $a$ should not be treated as a free parameter in the continuum limit, but rather a dynamically determined quantity that depends on the couplings of the theory.\\
+In any case, from this description it should be clear that the spacing $a$ should not be treated as a free parameter in the continuum limit, but rather a dynamically determined quantity that depends on the couplings of the theory.\\~\\
 Note that in the limit $a \to 0$, one has $\Lambda \to \infty$. If one's scope is to simulate an effective theory which is expected to hold only up to a scale $\Lambda_\text{phys}$, one must have $\Lambda \leq \Lambda_\text{phys}$, with a consequent lower bound on the lattice spacing $a \geq a_\text{phys} = \pi / \Lambda_\text{phys}$. \\ ~
 
 \section{Stochastic quantisation}
@@ -282,18 +284,18 @@ where the correction term $\Delta S_\Lambda[\phi]$, reads, for a regulator $r_\L
 
 \section{Chiral symmetry}
 \label{sec:chiral_symmetry}
-
+In this section we want to introduce chiral symmetry and its breaking, both in the continuum and on the lattice. \\
 It is useful to adopt the notation 
 \begin{equation*}
-    \psi = (\psi^{(1)}, \dots, \psi^{(N_f)})
+    \psi = (\psi^{(1)}, \dots, \psi^{(N_f)}).
 \end{equation*} 
 We then introduce left-handed and right-handed spinors
 \begin{equation*}
-	\psi_L = (1-\gamma_5) \, \psi \qquad \psi_R = (1+\gamma_5) \, \psi
+	\psi_L = (1-\gamma_5) \, \psi, \qquad \psi_R = (1+\gamma_5) \, \psi,
 \end{equation*}
 for which
 \begin{equation*}
-	\psi = \frac{(1-\gamma_5)}{2} \psi + \frac{(1+\gamma_5)}{2} \psi = \psi_L + \psi_R
+	\psi = \frac{(1-\gamma_5)}{2} \psi + \frac{(1+\gamma_5)}{2} \psi = \psi_L + \psi_R.
 \end{equation*}
 
 
@@ -306,18 +308,27 @@ The free massless Dirac Lagrangian
 is symmetric under the chiral group $SU(N_f) _L\times SU(N_f)_R$, namely
 \begin{equation*}
 	\begin{aligned}
-		\psi_L(x) \to U_L\psi_L(x) &\qquad \bar\psi_L(x) \to \bar\psi_L(x) U_L^{\dagger} \\
-		\psi_R(x) \to U_R\psi_R(x) &\qquad \bar\psi_R(x) \to \bar\psi_R(x) U_R^{\dagger}
+		\psi_L(x) \to U_L\psi_L(x), &\qquad \bar\psi_L(x) \to \bar\psi_L(x) U_L^{\dagger}, \\
+		\psi_R(x) \to U_R\psi_R(x), &\qquad \bar\psi_R(x) \to \bar\psi_R(x) U_R^{\dagger},
 	\end{aligned}
 \end{equation*}
-for $U_L, U_R \in SU(N_f)$. In terms of the full spinor $\psi$, the chiral symmetry can be written as 
+for $U_L, U_R \in SU(N_f)$. \\
+In terms of the full spinor $\psi$, the chiral symmetry can be written as 
 \begin{equation*} 
-    \psi \to M \, \psi \qquad M = e^{i(\theta_a \tau^a + \gamma_5 \beta_a\tau^a)}, \quad \tau^a \in su(N_f)
+    \psi \to M \, \psi, \qquad \bar\psi \to \bar\psi,
 \end{equation*} 
-so that $SU(N_f) _L\times SU(N_f)_R \simeq SU(N_f)_V \times SU(N_f)_A$, where $SU(N_f)_V$ is the isospin subgroup ($\beta_a =0$) and $SU(N_f)_A$ is the axial rotation subgroup ($\beta_a = 0$). \\
+where
+\begin{equation*}
+    M = e^{i(\theta_a \tau^a + \gamma_5 \beta_a\tau^a)}, \quad \tau^a \in su(N_f)
+\end{equation*}
+so that 
+\begin{equation*} 
+    SU(N_f) _L\times SU(N_f)_R \simeq SU(N_f)_V \times SU(N_f)_A.
+\end{equation*}
+$SU(N_f)_V$ is the isospin subgroup, characterised by $\beta_a =0$, and $SU(N_f)_A$ is the axial rotation subgroup, characterised by $\theta_a = 0$. \\
 To be more precise, the full invariance group of the classical action is
 \begin{equation*}
-    SU(N_f)_L \times SU(N_f)_R \times U(1)_A \times U(1)_V
+    SU(N_f)_L \times SU(N_f)_R \times U(1)_A \times U(1)_V,
 \end{equation*}
 where the axial and vector symmetry transformations are, respectively,
 \begin{equation*}
@@ -325,20 +336,31 @@ where the axial and vector symmetry transformations are, respectively,
 \end{equation*} 
 One can thus prove that axial symmetry is broken by quantum anomalies (see for example \cite{schwartz}), so that the symmetry in the quantum case is
 \begin{equation*}
-    SU(N_f)_L \times SU(N_f)_R \times U(1)_V
+    SU(N_f)_L \times SU(N_f)_R \times U(1)_V.
 \end{equation*}
 If equal masses for each flavour are introduced, then the symmetry group reduces to the isospin subgroup, diagonal in flavour space
 \begin{equation*}
-    SU(N_f)_V \times U(1)_V
+    SU(N_f)_V \times U(1)_V.
 \end{equation*}
 Finally, if the fermions have different masses, the symmetry group reduces to 
 \begin{equation*}
-    \underbrace{U(1) \times \dots \times U(1)}_{N_f} \times U(1)_V
+    \underbrace{U(1) \times \dots \times U(1)}_{N_f} \times U(1)_V.
 \end{equation*}
 
 \subsection{Chiral symmetry on the lattice}
+The essence of chiral symmetry for fermions can be expressed as \cite{gattringer_LQCD}
+\begin{equation}
+    \left\{\gamma_5, D \right\} = 0
+    \label{eq:chiral_symmetry}
+\end{equation}
 Implementing chiral symmetry on a finite-volume spacetime lattice, is a hard task. This is because, as proven by Nielsen and Ninomiya, one either has chiral symmetry on the lattice or solves the doubling problem \textcolor{red}{citationsssss}. \\
-In particular, the insertion of the Wilson term in the action, as it will be shown in the next chapter, causes explicit breaking of the symmetry. One cannot solve the problem but can alleviate it \textcolor{red}{cite Ginspar-Wilson, Staggered, \dots}. 
+In particular, the insertion of the Wilson term in the action, as it will be shown in the next chapter, causes explicit breaking of the symmetry. If one's goal is to study spontaneous symmetry breaking, this constitues a problem. 
+Thus, many options have been proposed to circumvent the issue. As an example we mention the approach by Ginsparg and Wilson \textcolor{red}{citationsssss}, who proposed to modify the chiral symmetry condition \eqref{sec:chiral_symmetry} to 
+\begin{equation*}
+    \left\{\gamma_5, D \right\} = a \, D \gamma_5 D
+\end{equation*}
+The right hand-side of the equation vanishes in the continuum limit $a \to 0$. In this way, one can define chiral symmetry on the lattice remaining consistent in the continuum limit. This approach will not be pursued further and we ask the reader to consult 
+appropriate references \cite{rothe_LGT,gattringer_LQCD} for a detailed treatment. \\
 Our approach to study chiral symmetry will be discussed and motivated in section \ref{sec:chiral_PT} and consists in removing the Wilson term, dealing with the doublers.
 
 \section{Yukawa theory}
@@ -348,10 +370,10 @@ Our approach to study chiral symmetry will be discussed and motivated in section
 Let us consider the Yukawa theory defined by the action
 \begin{equation}
 \begin{aligned}
-    S[\phi,\psi,\bar\psi] &= S_\phi[\phi] + S_\psi[\psi, \bar\psi] + S_\text{int}[\phi, \psi, \bar\psi]\\
-     S_\phi[\phi] &= \int_x \phi_x \left(-\frac{\partial^2_x}{2} + \frac{m_\phi^2}{2}\right) \phi_x + \frac{\lambda}{4!} \, \phi_x^4 \\
-     S_\psi[\psi, \bar\psi] &= \int_x \sum_{f=1}^{N_f} \bar \psi_x^{(f)} \left(\slashed{\partial}_x + m_q \right) \psi_x^{(f)} \\
-     S_\text{int}[\phi, \psi, \bar\psi] &= \int_x \sum_{f=1}^{N_f} g \, \bar \psi_x^{(f)} \, \phi_x \, \psi_x^{(f)}
+    S[\phi,\psi,\bar\psi] &= S_\phi[\phi] + S_\psi[\psi, \bar\psi] + S_\text{int}[\phi, \psi, \bar\psi], \\
+     S_\phi[\phi] &= \int_x \phi_x \left(-\frac{\partial^2_x}{2} + \frac{m_\phi^2}{2}\right) \phi_x + \frac{\lambda}{4!} \, \phi_x^4, \\
+     S_\psi[\psi, \bar\psi] &= \int_x \sum_{f=1}^{N_f} \bar \psi_x^{(f)} \left(\slashed{\partial}_x + m_q \right) \psi_x^{(f)}, \\
+     S_\text{int}[\phi, \psi, \bar\psi] &= \int_x \sum_{f=1}^{N_f} g \, \bar \psi_x^{(f)} \, \phi_x \, \psi_x^{(f)}.
     \label{eq:full_action_continuum}
 \end{aligned}
 \end{equation}
@@ -360,31 +382,31 @@ In pratice we will work with fixed number of flavours $N_f = 2$, but it is usefu
 It is also convenient for later purposes to define the operators $K, D$ represented in position space as 
 \begin{equation}
     \begin{aligned}
-        K(x, y) &=  \left(-\partial^2_x + m_\phi^2\right) \ \delta(x,y) \\
-        D(x, y) &= \left(\slashed{\partial}_x + m_q + g\phi \right) \ \delta(x,y)
+        K(x, y) &=  \left(-\partial^2_x + m_\phi^2\right) \ \delta(x,y), \\
+        D(x, y) &= \left(\slashed{\partial}_x + m_q + g\phi \right) \ \delta(x,y),
     \end{aligned}
     \label{eq:definition_kinetic_terms_continuum_position}
 \end{equation}
 and in momentum space as
 \begin{equation}
     \begin{aligned}
-        \widetilde{K}(p, q) &=  \int_{x,y} e^{-ipx} \left(\partial^2_x + m_\phi^2\right) \ \delta(x,y) \ e^{iqy} = \left(\frac{p^2}{2} + \frac{m_\phi^2}{2}\right) \ \delta(p,q) \\
-        \widetilde{D}(p, q) &= \int_{x,y} e^{-ipx} \left(\slashed{\partial}_x + m_q + g\phi \right) \ \delta(x,y) \ e^{iqy} = \left(\slashed{p}_x + m_q + g\phi \right) \ \delta(p,q)
+        \widetilde{K}(p, q) &=  \int_{x,y} e^{-ipx} \left(\partial^2_x + m_\phi^2\right) \ \delta(x,y) \ e^{iqy} = \left(\frac{p^2}{2} + \frac{m_\phi^2}{2}\right) \ \delta(p,q), \\
+        \widetilde{D}(p, q) &= \int_{x,y} e^{-ipx} \left(\slashed{\partial}_x + m_q + g\phi \right) \ \delta(x,y) \ e^{iqy} = \left(\slashed{p}_x + m_q + g\phi \right) \ \delta(p,q).
     \end{aligned}
     \label{eq:definition_kinetic_terms_continuum_momentum}
 \end{equation}
 This allows one to rewrite the action as
 \begin{equation*}
-    S[\phi,\psi,\bar\psi] = \int_x \frac{1}{2} \, \phi_x \, K_{xx} \, \phi_x + \frac{\lambda}{4!} \, \phi_x^4 + \sum_{f=1}^{N_f} \bar\psi_x^{(f)} \, D_{xx} \, \psi_x^{(f)}
+    S[\phi,\psi,\bar\psi] = \int_x \frac{1}{2} \, \phi_x \, K_{xx} \, \phi_x + \frac{\lambda}{4!} \, \phi_x^4 + \sum_{f=1}^{N_f} \bar\psi_x^{(f)} \, D_{xx} \, \psi_x^{(f)}.
 \end{equation*}
 
 \subsection{Chiral symmetry in the Yukawa model}
 The action written in terms of $\psi_L, \psi_R$, reads
 \begin{equation}
-	S = S_\phi +  \int_x \left[\bar\psi_L \, D \, \psi_L + \bar\psi_R \, D \, \psi_R + (m_q + g\phi) \,  \left(\bar\psi_L\psi_R + \bar\psi_R\psi_L\right)\right]
+	S = S_\phi +  \int_x \left[\bar\psi_L \, D \, \psi_L + \bar\psi_R \, D \, \psi_R + (m_q + g\phi) \,  \left(\bar\psi_L\psi_R + \bar\psi_R\psi_L\right)\right].
 	\label{eq:action_chirality_explicit}
 \end{equation}
-The action is not invariant under the full chiral group, but if $m_q = 0$ it is symmetric under the discrete chiral group 
+The action is not invariant under the full chiral group, but if $m_q = 0$ it is symmetric under the discrete chiral transformation
 \begin{equation*}
     \begin{aligned}
         \phi &\to -\phi, \\
@@ -392,8 +414,8 @@ The action is not invariant under the full chiral group, but if $m_q = 0$ it is 
         \psi_R \to \gamma_5 \psi_R, &\qquad \bar\psi_R \to \bar\psi_R\gamma_5,
     \end{aligned}
 \end{equation*}
-typical of theories such as the Gross-Neveu model \textcolor{red}{citationsssss}. In order to generalise the model to the full chiral group, one has to consider an $O(4)$ scalar sector and interactions, since $O(4) \sim SU(2) \times SU(2)$. Similar effective theories with such properties are, for example, 
-the Nambu-Jona-Lasinio model and the Quark-Meson model \textcolor{red}{citationssssss}. Thus, since we are in $1+1$ dimensions, spontaneous breaking of continuous symmetries is forbidden by the Mermin-Wagner theorem \textcolor{red}{citationsssss}. \\~\\
+typical of theories such as the Gross-Neveu model \textcolor{red}{citationsssss}. In order to generalise the model to the full chiral group, one has to consider an $O(4)$ scalar sector and interactions, since $O(4) \simeq SU(2) \times SU(2)$. Similar effective theories with such properties are, for example, 
+the Nambu-Jona-Lasinio model and the Quark-Meson model \textcolor{red}{citationssssss}. Thus, since we are in $1+1$ dimensions, spontaneous breaking of continuous symmetries is forbidden by the Mermin-Wagner theorem \textcolor{red}{citationsssss}, and we decided to opt for a simple Yukawa theory. \\~\\
 We now want to discuss more in detail the phenomenom of (discrete) chiral symmetry breaking and how it can happen in the model. In fact, the latter can happen either
 explicitly in the classical action, if a finite quark mass is added, or spontaneously, if $\expect{\phi} \neq 0$. \\
 To better see this, let us perform the fermionic path integral explicitly
@@ -417,11 +439,11 @@ One can derive the classical equations of motion by imposing $\frac{\delta S}{\d
 \end{equation}
 For $\lambda = 0$, they highlight a simple proportionality relation between magnetisation and chiral condensate, which reads
 \begin{equation}
-    \phi = - \frac{N_f \, g}{k^2 + m_\phi^2} \ \bar \psi\psi
+    \phi = - \frac{N_f \, g}{k^2 + m_\phi^2} \ \bar \psi\psi.
     \label{eq:classical_EOM}
 \end{equation}
-This relation, which was here derived at the classical level, is proven to hold also in mean field on the quantum level \cite{Ayala2021QCDDescriptions} and makes apparent the role of $\phi$ as a quark bilinear. 
-When boson self-interactions are added, $\lambda \neq 0$ and the full relation between $\phi$ and $\bar\psi$ is given by \eqref{eq:classical_EOM}, but still one expects, qualitatively,
+This relation, which was here derived at the classical level, is proven to hold also in mean field on the quantum level \cite{Ayala2021QCDDescriptions} and makes apparent the role of $\phi$ as a quark bilinear. \\
+When bosons self-interactions are added, namely when $\lambda \neq 0$, the full relation between $\phi$ and the chiral condensate $\bar\psi\psi$ is given by \eqref{eq:classical_EOM}, but still one expects, qualitatively,
 \begin{equation}
     \expect{\phi} \sim \expect{\bar\psi\psi}.
     \label{eq:qualitative_relation_condensate_magnetisation}
@@ -497,4 +519,4 @@ The four different phases are characterised by the following combinations of the
     \item anti-ferromagnetic phase: $M = 0, M_s \neq 0$,
     \item ferrimagnetic phase: $M \neq 0, M_s \neq 0$.
 \end{itemize}
-The lattice observables are introduced in section \ref{sec:observables}.
+The lattice observables used for the investigation are introduced in section \ref{sec:observables}.

@@ -4,7 +4,41 @@
 
 
 \section{The fermionic correlator}
-
+Correlator for large time
+\begin{equation*}
+    C_\psi(t,0) \approx \sinh \left(m_{q,\text{phys}} \left(\frac{N_t}{2} - t\right)\right)
+\end{equation*}
+Let us initially restrict to $g = 0$, so that
+\begin{equation*}
+    D_{n m}=\sum_{\hat\mu}\left[\frac{\gamma_{\hat\mu}\delta_{n+\hat\mu, m} - \gamma_{\hat\mu} \delta_{n-\hat\mu, m}}{2} + m_q \, \delta_{n m}\right] .
+    \end{equation*}
+Figure \ref{fig:correlator_mass} reports the fermionic correlator as a function of $m_q$. A big bare quark mass results in a quick decay of the correlator. The mass extraction in this case is made more difficult by the fact that one has a very narrow window to make the fit.
+Our approach was to fit an exponential for the initial decay, as pictured in figure \ref{fig:small_mass_fit}. On the other side, a big mass results in a slow decay of the correlator and an exmaple of fit is shown in figure \ref{fig:big_mass_fit}. 
+We can compare with analytical result for background scalar field setting $g=0$. The result is reported in table \ref{tab:mass_extraction_free}.
+\begin{table}
+    \centering
+    \begin{tabular}[pos]{cccc}
+        \toprule 
+        $m_q$ & teo & fit & err \\
+        \midrule 
+        1.0 & 0 & 0.6931537171644739 & 4e-20 \\
+        0.1 & 0 & 0.09531020915059212 & 0.004 \\
+        0.01 & 0 & 0.009950277657505842 & 0.8 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+As $m_\text{phys} \to 0$, the condition number increases, hence more iterations of the conjugate gradient algorithm are needed to invert the Dirac operator, as shown in figure \ref{fig:correlator_CGiter}. 
+The presence of a background field has the same effects on the correlator as a bare quark mass. In fact, if $\phi(x) = v$, one can simply redefine the bare mass as $M_q = m_q + g \, v$ and the properties of the fermionic correlator remain unchanged as shown in table \ref{tab:mass_extraction_background}.
+\begin{table}
+    \centering
+    \begin{tabular}[pos]{cccc}
+        \toprule 
+        $M_q$ & teo & fit & err \\
+        \midrule 
+        0 & 0 & 0 & 0 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
 \begin{figure}
     \centering 
     \includegraphics[scale=0.6]{figures/correlator/correlator.pdf}
@@ -16,7 +50,7 @@
     \centering 
     \includegraphics[scale=0.6]{figures/correlator/CGiter.pdf}
     \caption{CG iterations}
-    \label{fig:correlator_mass}
+    \label{fig:correlator_CGiter}
 \end{figure}
 
 The Dirac operator for Wilson fermions in the yukawa model is
@@ -117,11 +151,14 @@ When does L.O. rescaling ansatz breaks down?
 \begin{figure}
     \centering
     \begin{minipage}{0.45\textwidth}
-        \includegraphics[scale=0.5]{figures/noiseinduced/mag.pdf}
+        \includegraphics[scale=0.5]{figures/chiral_PT/mass_scan/magnetisation.pdf}
     \end{minipage}
     \hfill
     \begin{minipage}{0.45\textwidth}
-        \includegraphics[scale=0.5]{figures/noiseinduced/chi2.pdf}
+        \includegraphics[scale=0.5]{figures/chiral_PT/mass_scan/condensate.pdf}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[scale=0.5]{figures/chiral_PT/mass_scan/susceptibility.pdf}
     \end{minipage}
 \end{figure}
 

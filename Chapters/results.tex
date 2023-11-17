@@ -4,17 +4,48 @@
 
 
 \section{The fermionic correlator}
-Correlator for large time
-\begin{equation*}
-    C_\psi(t,0) \approx \sinh \left(m_{q,\text{phys}} \left(\frac{N_t}{2} - t\right)\right)
-\end{equation*}
-Let us initially restrict to $g = 0$, so that
+To start with the study of the model, we want to analyse the behaviour of the fermionic correlator and illustrate the fermionic masses extraction procedure. \\
+Let us initially restrict to $g = 0$, so that \textcolor{red}{add wilson}
 \begin{equation*}
     D_{n m}=\sum_{\hat\mu}\left[\frac{\gamma_{\hat\mu}\delta_{n+\hat\mu, m} - \gamma_{\hat\mu} \delta_{n-\hat\mu, m}}{2} + m_q \, \delta_{n m}\right] .
-    \end{equation*}
-Figure \ref{fig:correlator_mass} reports the fermionic correlator as a function of $m_q$. A big bare quark mass results in a quick decay of the correlator. The mass extraction in this case is made more difficult by the fact that one has a very narrow window to make the fit.
-Our approach was to fit an exponential for the initial decay, as pictured in figure \ref{fig:small_mass_fit}. On the other side, a big mass results in a slow decay of the correlator and an exmaple of fit is shown in figure \ref{fig:big_mass_fit}. 
-We can compare with analytical result for background scalar field setting $g=0$. The result is reported in table \ref{tab:mass_extraction_free}.
+\end{equation*}
+In this case, an analytical expression of the fermionic mass can be derived as follows. \\
+The Dirac operator in momentum space reads
+\begin{equation*}
+\bar{D}(p)= m_q + \sum_\mu 2 \sin ^2\left(\frac{p_\mu}{2}\right)+i \sum_\mu \gamma_\mu \sin \left(p_\mu\right)
+\end{equation*}
+The inverse can be checked to be 
+\begin{equation*}
+    \bar{D}^{-1}(p) = \frac{m_q + \sum_\mu 2 \sin ^2\left(\frac{p_\mu}{2}\right) - i \sum_\mu \gamma_\mu \sin \left(p_\mu\right)}{\left[m_q + \sum_\mu 2 \sin ^2\left(\frac{p_\mu}{2}\right)\right]^2 + \left[\sum_\mu \gamma_\mu \sin \left(p_\mu\right)\right]^2}
+\end{equation*}
+One can now find the pole mass by imposing 
+\begin{equation*}
+    \left[m_q + \sum_\mu 2 \sin ^2\left(\frac{p_\mu}{2}\right)\right]^2_{p_\mu = (im_\text{phys}, 0)} + \left[\sum_\mu \gamma_\mu \sin \left(p_\mu\right)\right]^2_{p_\mu = (im_\text{phys}, 0)} = 0
+\end{equation*}
+This results in a trascendental equation 
+\begin{equation*}
+    \left[m_q - 2 \sinh^2\left(\frac{m_\text{phys}}{2}\right)\right]^2 - \sinh^2\left(m_\text{phys}\right) = 0
+\end{equation*}
+This equation has the solution 
+\begin{equation*}
+    m_\text{phys} = \log\left(1+m_q\right)
+\end{equation*}
+We then compute the correlator numerically via a single inversion of the Dirac operator as detailed in Appendix \ref{chap:AppendixC}. The lattice volume is chosen to be $128 \times 128$. 
+\begin{figure}
+    \centering 
+    \includegraphics[scale=0.6]{figures/correlator/correlator.pdf}
+    \caption{Correlator as a function of the bare mass}
+    \label{fig:correlator_mass}
+\end{figure}
+\begin{figure}
+    \centering 
+    \includegraphics[scale=0.6]{figures/correlator/CGiter.pdf}
+    \caption{CG iterations}
+    \label{fig:correlator_CGiter}
+\end{figure}
+Figure \ref{fig:correlator_mass} reports the fermionic correlator as a function of $m_q$. One can see that a big bare quark mass results in a quick decay, while a small mass tends to deform the characteristic shape of the correlator. \\
+Figure \ref{fig:correlator_CGiter} shows the number of iterations needed for convergence. While the exact number depends on the desired tolerance, one can clearly see that the number of iterations grows as $m_q \to 0$ due to an increase in the condition number \cite{cond_num_ref}. \textcolor{red}{does the condition number increase even more for naive fermions?} \\
+We then choose three values of the bare quark mass and perform a fit according to \eqref{eq:correlator_mass_extraction}, in order to extract the physical mass and we compare it to the theoretical value given by \textcolor{red}{add ref. eq.}. The results are reported in figures \ref{fig:corr_small,fig:corr_medium,fig_corr_big} and table \ref{tab:mass_extraction_free}. \\~\\
 \begin{table}
     \centering
     \begin{tabular}[pos]{cccc}
@@ -27,51 +58,29 @@ We can compare with analytical result for background scalar field setting $g=0$.
         \bottomrule
     \end{tabular}
 \end{table}
-As $m_\text{phys} \to 0$, the condition number increases, hence more iterations of the conjugate gradient algorithm are needed to invert the Dirac operator, as shown in figure \ref{fig:correlator_CGiter}. 
-The presence of a background field has the same effects on the correlator as a bare quark mass. In fact, if $\phi(x) = v$, one can simply redefine the bare mass as $M_q = m_q + g \, v$ and the properties of the fermionic correlator remain unchanged as shown in table \ref{tab:mass_extraction_background}.
-\begin{table}
+\begin{figure}
     \centering
-    \begin{tabular}[pos]{cccc}
-        \toprule 
-        $M_q$ & teo & fit & err \\
-        \midrule 
-        0 & 0 & 0 & 0 \\
-        \bottomrule
-    \end{tabular}
-\end{table}
-\begin{figure}
-    \centering 
-    \includegraphics[scale=0.6]{figures/correlator/correlator.pdf}
-    \caption{Correlator as a function of the bare mass}
-    \label{fig:correlator_mass}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/correlator/corrs_free/corr_small.pdf}
+        \caption{Caption for Image 1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/correlator/corrs_free/corr_medium.pdf}
+        \caption{Caption for Image 2}
+    \end{subfigure}
+    \\
+    \vspace{20pt}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/correlator/corrs_free/corr_big.pdf}
+        \caption{Caption for Image 3}
+    \end{subfigure}
+    \caption{Overall Caption for the Figure}
 \end{figure}
-
-\begin{figure}
-    \centering 
-    \includegraphics[scale=0.6]{figures/correlator/CGiter.pdf}
-    \caption{CG iterations}
-    \label{fig:correlator_CGiter}
-\end{figure}
-
-The Dirac operator for Wilson fermions in the yukawa model is
-\begin{equation*}
-D_{n m}=\sum_\alpha\left[\frac{\gamma_\alpha \delta_{n+\alpha, m} - \gamma_\alpha \delta_{n-\alpha, m}}{2} + (m_q + g \phi) \, \delta_{n m}\right] .
-\end{equation*}
-In momentum space it reads
-\begin{equation*}
-\bar{D}_{f f^{\prime}}(p)=\left(m+ g \sigma \sum_\mu 2 \sin ^2\left(\frac{p_\mu}{2}\right)+i \sum_\mu \gamma_\mu \sin \left(p_\mu\right)\right) \delta_{f f^{\prime}}
-\end{equation*}
-The inverse can be checked to be 
-\begin{equation*}
-    \bar D_{f,f'} ^{-1} = \left[m + \dots\right] \ \left(m+ g \sigma \sum_\mu 2 \sin ^2\left(\frac{p_\mu}{2}\right) - i \sum_\mu \gamma_\mu \sin \left(p_\mu\right)\right) \delta_{f f^{\prime}}
-\end{equation*}
-One can now find the pole mass by imposing $D^{-1} = 0$ and gets 
-\begin{equation*}
-    m + \dots = 0
-\end{equation*}
+The presence of a background field has the same effects on the correlator as a bare quark mass. In fact, if $\phi(x) = v$, one can simply redefine the bare mass as $M_q = m_q + g \, v$ and the properties of the fermionic correlator remain unchanged.
 
 \newpage
-\section{Classical to quantum interpolation}
+\section{Classical-to-quantum interpolation}
 \label{sec:classical_to_quantum}
 
 \begin{figure}
@@ -79,42 +88,49 @@ One can now find the pole mass by imposing $D^{-1} = 0$ and gets
     \includegraphics[scale=0.7]{figures/slide_broken/mag_cond.pdf}
 \end{figure}
 
-Let us start by analising the coloured noise field in the simulation and relevant properties that emerge from it. We consider the Yukawa model described by the continuum action \ref{eq:yukaw_continuum}.
-In figure \ref{fig:thermalisation_different_noise_fracs} the system is initialised in the same state for all the configurations, and then evolved with the Langevin equation with various noise fractions. The red line corresponds to the case $s=0$, namely a classical simulation. The blue line corresponds to the case $s=1$, namely the fully quantum case. As one can notice, the introduction of noise shifts the equilibrium expectation value of the field monotonically with the cutoff fraction: this is due to the fact that WHAT???. Note that a lower noise fraction is correlated to a faster convergence towards equilibrium. Moreover, low-distance fluctuations are suppressed due to the removal of the ultraviolet modes in the noise term.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/thermalisation_broken.pdf}
+    \caption{}
+    \label{fig:thermalisation_different_noise_fracs}
+\end{figure}
 
-For $\lambda = 0$ one has
-\begin{equation}
-    \sigma = -\frac{g}{m_\phi^2 + k^2} \, \bar\psi \psi
-    \label{eq:equation_motion_NJL_no_self_interaction}
-\end{equation}
-In figure \ref{fig:equation_motion_NJL} one can see that equation \eqref{eq:equation_motion_NJL_no_self_interaction} is verified also on the fully quantum level.
-
-Figures \ref{fig:slide_broken_phi} - \ref{fig:slide_broken_mphir} report a few observables as a function of the cutoff fraction $s$. In this case all the coupling constants are kept fixed while changing the value of $s$, in order to provide a smooth interpolation between the fully classical and fully quantum picture. \\
+Let us start by analising the coloured noise field in the simulation and relevant properties that emerge from it. We consider the Yukawa model described by the continuum action \eqref{eq:full_action_continuum} and its discrete vesion \eqref{eq:discretised_action}, \eqref{eq:discretised_effective_action}. \\~\\
+Figure \ref{fig:thermalisation_different_noise_fracs} reports the Langevin evolution of the system for different noise fractions. The red line corresponds to the case $s=0$, namely a classical simulation, while the blue line corresponds to the case $s=1$, namely the fully quantum case. 
+Note that a lower noise fraction is correlated to a faster convergence towards equilibrium. Moreover, low-distance fluctuations are suppressed due to the removal of the ultraviolet modes in the noise term. \\~\\
+We now move on to analyse equilibrium properties. Coloured noise allows for a smooth interpolation between the fully quantum and fully classical picture, with a consequent shift of the expectation values of the observables. Figures \ref{fig:cheneso},\ref{fig:cheneso2} report, respectively, the magnetisation and the chiral condensate as a function of the noise fraction $s$. All the quntities in the classical action, including the coupling constants, are kept fixed while changing $s$.
 Each figure reports two plots corresponding to two different parameter configurations. The COLOR1 line corresponds to a system in the symmetric phase, while the COLOR2 line correspond to the broken phase. The exact parameters for the two configurations are reported under the figure.
+\textcolor{red}{non si puo parlare di fase rotta e simmetrica. inoltre commenta sulla relazione phi, psibarpsi con lambda=0}.
 
 \newpage
 
 \section{Cooling with coloured noise}
 
+
 \begin{figure}
     \centering
-    \begin{minipage}{0.45\textwidth}
-        \includegraphics[scale=0.45]{figures/cooling/mass_scan/magnetisation.pdf}
-    \end{minipage}
-    \hfill 
-    \begin{minipage}{0.45\textwidth}
-        \includegraphics[scale=0.45]{figures/cooling/mass_scan/deviation.pdf}
-    \end{minipage}
-    \label{fig:cooling}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/cooling/mass_scan/magnetisation.pdf}
+        \caption{Caption for Image 1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/cooling/mass_scan/susceptibility.pdf}
+        \caption{Caption for Image 2}
+    \end{subfigure}
+    \\
+    \vspace{10pt}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/cooling/mass_scan/condensate.pdf}
+        \caption{Caption for Image 3}
+    \end{subfigure}
+    \caption{Overall Caption for the Figure}
 \end{figure}
+
 \begin{figure}
-    \begin{minipage}{0.45\textwidth}
-        \includegraphics[scale=0.45]{figures/cooling/mass_scan/susceptibility.pdf}
-    \end{minipage}
-    \hfill 
-    \begin{minipage}{0.45\textwidth}
-        \includegraphics[scale=0.45]{figures/cooling/mass_scan/condensate.pdf}
-    \end{minipage}
+    \centering
+    \includegraphics[scale=0.45]{figures/cooling/mass_scan/deviation.pdf}
+    \label{fig:cooling}
 \end{figure}
 
 \begin{figure}
@@ -127,20 +143,8 @@ Each figure reports two plots corresponding to two different parameter configura
     \end{minipage}
 \end{figure}
 
-Look at various things such as magnetization, mass, etc. \\
-Even though is O(1) we do not observe SSB because of fermion bare quark mass, wilson term. \\
-When does L.O. rescaling ansatz breaks down?
-
 
 \newpage
-
-\begin{equation*}
-    S[\phi, \bar\psi, \psi] = \int_x \phi \left(\frac{\partial^2}{2} + \frac{m_\phi^2}{2}\right) \phi + \frac{\lambda}{4!} \phi^4 + \bar \psi \left(\slashed{\partial} + m_q + g\phi\right) \psi
-\end{equation*}
-
-\begin{equation*} 
-    \lambda = 1.0 \qquad m_\Phi^2 = 0.5 \qquad N_t \times N_x = 8 \times 32 \qquad m_q = 0.5 \qquad N_{conf} = 5 \cdot 10^3 \qquad \bar\epsilon = 0.01
-\end{equation*}
 
 
 
@@ -179,10 +183,6 @@ The difference gets more sharped as the base mass decreases, since the theory is
 \end{minipage}
 \begin{minipage}{0.45\textwidth}	
 	\includegraphics[scale=0.48]{figures/chiral_PT/susceptibility.pdf}
-\end{minipage}
-\hfill
-\begin{minipage}{0.45\textwidth}	
-	\includegraphics[scale=0.48]{figures/chiral_PT/mqphys.pdf}
 \end{minipage}
 \hfill
 \begin{minipage}{0.45\textwidth}

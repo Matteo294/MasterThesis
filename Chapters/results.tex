@@ -78,19 +78,25 @@ We then choose three values of the bare quark mass and perform a fit according t
     \caption{Overall Caption for the Figure}
 \end{figure}
 The presence of a background field has the same effects on the correlator as a bare quark mass. In fact, if $\phi(x) = v$, one can simply redefine the bare mass as $M_q = m_q + g \, v$ and the properties of the fermionic correlator remain unchanged.
-
 \newpage
+
+\section{Phase diagram}
+
+We want to start the analysis of the Yukawa theory by doing a parameters scan, in order to have a global picture of the phase diagram in the presence of Wilson fermions.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/phase_diagram/phi.pdf}
+    \caption{Phase diagram - magnetisation}
+    \label{fig:phase_diagram_phi}
+\end{figure}
+
 \section{Classical-to-quantum interpolation}
+
 \label{sec:classical_to_quantum}
 
 \begin{figure}
     \centering
-    \includegraphics[scale=0.7]{figures/slide_broken/mag_cond.pdf}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{figures/thermalisation_broken.pdf}
+    \includegraphics[width=0.5\textwidth]{figures/slide_broken/thermalisation.pdf}
     \caption{}
     \label{fig:thermalisation_different_noise_fracs}
 \end{figure}
@@ -98,13 +104,34 @@ The presence of a background field has the same effects on the correlator as a b
 Let us start by analising the coloured noise field in the simulation and relevant properties that emerge from it. We consider the Yukawa model described by the continuum action \eqref{eq:full_action_continuum} and its discrete vesion \eqref{eq:discretised_action}, \eqref{eq:discretised_effective_action}. \\~\\
 Figure \ref{fig:thermalisation_different_noise_fracs} reports the Langevin evolution of the system for different noise fractions. The red line corresponds to the case $s=0$, namely a classical simulation, while the blue line corresponds to the case $s=1$, namely the fully quantum case. 
 Note that a lower noise fraction is correlated to a faster convergence towards equilibrium. Moreover, low-distance fluctuations are suppressed due to the removal of the ultraviolet modes in the noise term. \\~\\
-We now move on to analyse equilibrium properties. Coloured noise allows for a smooth interpolation between the fully quantum and fully classical picture, with a consequent shift of the expectation values of the observables. Figures \ref{fig:cheneso},\ref{fig:cheneso2} report, respectively, the magnetisation and the chiral condensate as a function of the noise fraction $s$. All the quntities in the classical action, including the coupling constants, are kept fixed while changing $s$.
-Each figure reports two plots corresponding to two different parameter configurations. The COLOR1 line corresponds to a system in the symmetric phase, while the COLOR2 line correspond to the broken phase. The exact parameters for the two configurations are reported under the figure.
-\textcolor{red}{non si puo parlare di fase rotta e simmetrica. inoltre commenta sulla relazione phi, psibarpsi con lambda=0}.
-
+We now move on to analyse equilibrium properties. Coloured noise allows for a smooth interpolation between the fully quantum and fully classical picture, with a consequent shift of the expectation values of the observables. Figures \ref{fig:cheneso},\ref{fig:cheneso2} report, respectively, the magnetisation and the chiral condensate as a function of the noise fraction $s$. All the quantities in the classical action, including the coupling constants, are kept fixed while changing $s$.
+\textcolor{blue}{Each figure reports two plots corresponding to two different parameter configurations. The COLOR1 line corresponds to a system in the symmetric phase, while the COLOR2 line correspond to the broken phase. The exact parameters for the two configurations are reported under the figure.}
+\textcolor{red}{non si puo parlare di fase rotta e simmetrica. inoltre commenta sulla relazione phi, psibarpsi con lambda=0. sarebbe bello misurare phi3 in funzione di s e verificare la relation full col condensato}.
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.7]{figures/slide_broken/mag_cond.pdf}
+    \caption[Relation between magnetisation, condensate and mass]{Qualitative relation between magnetisation, chiral condensate and mass, which was motivated in section \ref{sec:Yukawa_theory}. The relation holds at all levels in the quantum theory.}
+    \label{fig:interpolation_relation_phi_cond_mass}
+\end{figure}
 \newpage
 
 \section{Cooling with coloured noise}
+
+\begin{table}
+    \centering
+    \begin{tabular}{cccccc}
+        \toprule
+        $s$ & $m_\phi^2$ & $\lambda$ & $g$ & $m_q$& $K_\psi$ \\
+        \midrule 
+        1 & $m_\phi^2$ & 0.4 & 0.3 & $0.5$ & $K_\psi$ \\
+        1/2 & $m_\phi^2/4$ & 0.1 & 0.3 & $0.5$ & $K_\psi/4$ \\
+        1/4 & $m_\phi^2/16$ & 0.025 & 0.3 & $0.5$ & $K_\psi/16$ \\
+        1/8 & $m_\phi^2/64$ & 0.00625 & 0.3 & $0.5$ & $K_\psi/64$ \\
+        \bottomrule
+    \end{tabular}
+    \caption[Parameters cooling]{Parameters setting in the cooling procedure. Each coupling in the bosonic action is rescaled according to its canonical dimension, while the fermionic sector rescaling is implemented directly at the drift level, as detailed in section \ref{sec:lattice_with_coloured_noise}}.
+    \label{tab:params_cooling}
+\end{table}
 
 
 \begin{figure}

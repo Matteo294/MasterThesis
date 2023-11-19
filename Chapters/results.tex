@@ -205,32 +205,31 @@ Finally, we want to study some more complex observables such as the fermionic ph
 
 
 \newpage
-\section{Chiral fermions and a glimpse on the chiral phase transition}
+\section{Chiral fermions and noise-induced chiral phase transition}
 \label{sec:chiral_PT}
-\textcolor{red}{ricordati di commentare la differenza di scale}
-\begin{figure}
+\textcolor{red}{ricordati di commentare la differenza di scale, giustificazione sfanculata}
+
+\cite{Iwasaki:1994gq}
+As explained in section \ref{sec:Yukawa_theory}, chiral symmetry can be broken, in the continumm theory, either explicitly via the introduction of a finite bare quark mass, or spontaneously if the field gains a non-zero expectation value.\\
+Moreoveor, in the discrete formulation, the introduction of the Wilson term contributes to the explicit breaking of chiral symmetry, as shown in appendix \ref{chap:AppendixB}. This, in particular, means that chiral symmetry is explicitly broken also for $m_q \to 0$. Because of this, one needs a new definition of the bare mass $M_q$, which takes into account the Wilson term contribution, such that chiral symmetry is restored in the limit $M_q \to 0$. \\
+In a lattice study of a theory suchs as  two-flavours QCD, what one typically does is \cite{rothe_LGT,gattringer_LQCD} the following: the spontaneous breaking of chiral symmetry generates three goldstone massless bosons, the pions. If the bare quark mass is zero, the physical mass of the pions has to be zero, as a consequence of \textcolor{red}{cite theorem}. Hence one can measure the pions mass on the lattice and tune $m_q$ such that it is  always zero. \\
+This approach is not feasible in our theory, since it is described by a discrete chiral symmetry. While there are proposals for the definition of a bare quark mass for similar theories in the literature \cite{Iwasaki:1994gq,MAIANI1986265}, such approaches are not followed here, because they are very time taking \textcolor{red}{mention CG?}.  Instead here we just consider na\"ive fermions and take the limit $m_q \to 0$. Due to the doubling problem, this represents a theory with $2N_f = 4$ physical degenerate quarks. \\~\\
+In figure \ref{fig:scans_classsical_quantum}, the (absolute) magnetisation and the chiral condensate are studied as a function of the bosonic mass squared, both in the fully quantum and fully classical theory. In the classical theory ($s=0$) the order parameters $\left\langle|\phi|\right\rangle, \left\langle\bar\psi \psi\right\rangle$ are, in absolute value, bigger than in the quantum case ($s=1$).  \textcolor{red}{comment on plots: transition point, values of the couplings, susceptibility}. One can see that as $m_q$ is reduced, the systems shifts from a crossover to a second order phase transition, ahighligthed by the susceptibility $\chi^2$ and the binder parameter $U_L$.
+\begin{figure}[h]
     \centering
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[scale=0.5]{figures/chiral_PT/mass_scan/magnetisation.pdf}
-        \caption{Magnetisation}
+    \captionsetup[subfigure]{justification=centering}
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.45]{figures/chiral_PT/mass_scan/magnetisation.pdf}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[scale=0.5]{figures/chiral_PT/mass_scan/condensate.pdf}
-        \caption{Chiral condensate}
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.45]{figures/chiral_PT/mass_scan/condensate.pdf}
     \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[scale=0.5]{figures/chiral_PT/mass_scan/susceptibility.pdf}
-        \caption{Magnetic susceptibility}
-    \end{subfigure}
-    \caption[Mass scan of the quantum and classical theories]{Mass scan of the quantum and classical theories. The dashed gray line indicates a value $m_\phi^*$, where the classical and quantum systems seem to lie in two different phases.}
-\end{figure}
-
-As explained in section \ref{sec:yukawa}, in the continuum theory chiral symmetry can be broken either explicitly via a finite bare quark mass, or spontaneously if the field gains a non-zero expectation value. Moreoveor, in the discrete formulation, the introduction of the Wilson term also contributes to the explicit breaking of chiral symmetry \textcolor{red}{add reference}, as explained in section \ref{sec:discrete}. This, in particular, means that chiral symmetry is explicitly broken also for $m_q \to 0$. Because of this, one needs a new definition for bare mass $M_q$, which takes into account the Wilson term contribution, such that chiral symmetry is restored in the limit $M_q \to 0$ for vanishing expectation value of the field $\phi$. A convenient way to define such $M_q$ is the following. SSB chiral symmetry $\to$ 3 goldstone massless bosons, the pions. If the bare quark mass is zero, the physical mass of the pions has to be zero. Hence one can extract this mass on the lattice and tune $m_q$ such that this is zero. While this is the correct way to proceed, it is very time takin since one must do mass scans and extrapolations close to singular Dirac operator. This is not the way we pursue here. Instead here we just consider naive fermions and take the limit $m_q \to 0$. This represents a physical theory with $2N_f = 4$ degenerate quarks. This is just done for the purpose of showing some interest properties of coloured noise and not (yet) to match any physical result. \\~\\
-In figure \ref{fig:chiral_symmetry_breaking} some observables are reported as a function of the noise fraction $s$ for different values of the bare quark mass. In the classical theory ($s=0$) the order parameters $\left\langle|\phi|\right\rangle, \left\langle\bar\psi \psi\right\rangle$ are, in absolute value, bigger than in the quantum case ($s=1$).  As the chiral limit is approached $m_q \to 0$, the figure shows that the classical system lies in the broken phase, while in the quantum settings the symmetry is restored. \textcolor{red}{Discuss general phase structure looking at both $\phi$ and $\bar\psi\psi$}. One can see that as $m_q$ is reduced, the systems shifts from a crossover to a second order phase transition, ahighligthed by the susceptibility $\chi^2$ and the binder parameter $U_L$.
-
-\textcolor{red}{This would be better discussed as a function of bare scalar mass:} \\
-The difference gets more sharped as the base mass decreases, since the theory is closer to the chiral limit discussed above, which corresponds to the case $m_q=0$. In this limit the systems goes under a second phase transition, highlighted by a peak in the susceptibility and and abrubt change in the Binder cumulant. In contrast, for finite mass,  there is smooth crossover where the order parameters change continuously.
+    \caption[Mass scan of the quantum and classical theories]{Mass scan of the quantum and classical theories. The dashed gray line indicates a value $m_\phi^{2, \,*}$, where the classical and quantum systems lie in two different phases.}
+    \label{fig:scans_classical_quantum}
+\end{figure} 
 
 \begin{figure}[h]
 \centering
@@ -249,7 +248,7 @@ The difference gets more sharped as the base mass decreases, since the theory is
 	\includegraphics[scale=0.48]{figures/chiral_PT/binder.pdf}
 \end{minipage}
 \hfill
-\caption{Chiral symmetry breaking}
+\caption{Noise-induced phase transition}
 \label{fig:chiral:symmetry_breaking}
 \end{figure}
 

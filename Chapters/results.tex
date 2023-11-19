@@ -10,13 +10,13 @@ Let us initially restrict to $g = 0$, so that \textcolor{red}{add wilson}
     D_{n m}=\sum_{\hat\mu}\left[\frac{\gamma_{\hat\mu}\delta_{n+\hat\mu, m} - \gamma_{\hat\mu} \delta_{n-\hat\mu, m}}{2} + m_q \, \delta_{n m}\right] .
 \end{equation*}
 In this case, an analytical expression of the fermionic mass can be derived as follows. \\
-The Dirac operator in momentum space reads
+The Dirac operator in momentum space reads \textcolor{red}{non lo hai mai introdotto}
 \begin{equation*}
 \bar{D}(p)= m_q + \sum_\mu 2 \sin ^2\left(\frac{p_\mu}{2}\right)+i \sum_\mu \gamma_\mu \sin \left(p_\mu\right)
 \end{equation*}
 The inverse can be checked to be 
 \begin{equation*}
-    \bar{D}^{-1}(p) = \frac{m_q + \sum_\mu 2 \sin ^2\left(\frac{p_\mu}{2}\right) - i \sum_\mu \gamma_\mu \sin \left(p_\mu\right)}{\left[m_q + \sum_\mu 2 \sin ^2\left(\frac{p_\mu}{2}\right)\right]^2 + \left[\sum_\mu \gamma_\mu \sin \left(p_\mu\right)\right]^2}
+    \bar{D}^{-1}(p) = \frac{m_q + \sum_\mu 2 \sin ^2\left(\frac{p_\mu}{2}\right) - i \sum_\mu \gamma_\mu \sin \left(p_\mu\right)}{m_q + \sum_\mu 2 \sin^2\left(\frac{p_\mu}{2}\right) + \sum_\mu \sin^2 \left(p_\mu\right)}
 \end{equation*}
 One can now find the pole mass by imposing 
 \begin{equation*}
@@ -96,7 +96,7 @@ We want to start the analysis of the Yukawa theory by doing a parameters scan, i
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/slide_broken/thermalisation.pdf}
+    \includegraphics[width=0.7\textwidth]{figures/slide_broken/thermalisation.pdf}
     \caption{}
     \label{fig:thermalisation_different_noise_fracs}
 \end{figure}
@@ -109,58 +109,85 @@ We now move on to analyse equilibrium properties. Coloured noise allows for a sm
 \textcolor{red}{non si puo parlare di fase rotta e simmetrica. inoltre commenta sulla relazione phi, psibarpsi con lambda=0. sarebbe bello misurare phi3 in funzione di s e verificare la relation full col condensato}.
 \begin{figure}
     \centering
-    \includegraphics[scale=0.7]{figures/slide_broken/mag_cond.pdf}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/slide_broken/magnetisation.pdf}
+        \caption{Magnetisatoin}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/slide_broken/condensate.pdf}
+        \caption{Chiral condensate}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/slide_broken/mass.pdf}
+        \caption{Quark mass}
+    \end{subfigure}
     \caption[Relation between magnetisation, condensate and mass]{Qualitative relation between magnetisation, chiral condensate and mass, which was motivated in section \ref{sec:Yukawa_theory}. The relation holds at all levels in the quantum theory.}
     \label{fig:interpolation_relation_phi_cond_mass}
 \end{figure}
 \newpage
 
 \section{Cooling with coloured noise}
-
-\begin{table}
+Let us now consider one of the main applications of coloured noise, namely the cooling technique. \\
+We first set up a white noise simulation $s=1$, and then progressively lower $s$, accomodating the lowering of the cutoff by a change in the couplings, as explained in section  which was described in section \ref{sec:lattice_with_coloured_noise}, and summarised in table \ref{tab:params_cooling}.
+\begin{table}[htp]
     \centering
-    \begin{tabular}{cccccc}
+    \begin{tabular}{cccccccc}
         \toprule
-        $s$ & $m_\phi^2$ & $\lambda$ & $g$ & $m_q$& $K_\psi$ \\
+        $s$ & $N_t$ & $N_x$ & $m_\phi^2$ & $\lambda$ & $g$ & $m_q$& $K_\psi$ \\
         \midrule 
-        1 & $m_\phi^2$ & 0.4 & 0.3 & $0.5$ & $K_\psi$ \\
-        1/2 & $m_\phi^2/4$ & 0.1 & 0.3 & $0.5$ & $K_\psi/4$ \\
-        1/4 & $m_\phi^2/16$ & 0.025 & 0.3 & $0.5$ & $K_\psi/16$ \\
-        1/8 & $m_\phi^2/64$ & 0.00625 & 0.3 & $0.5$ & $K_\psi/64$ \\
+        1 & 16 & 16 & $m_\phi^2$ & 0.4 & 0.3 & $0.5$ & $K_\psi$ \\
+        1/2 & 32 & 32 & $m_\phi^2/4$ & 0.1 & 0.3 & $0.5$ & $K_\psi/4$ \\
+        1/4 & 64 & 64 & $m_\phi^2/16$ & 0.025 & 0.3 & $0.5$ & $K_\psi/16$ \\
+        1/8 & 128 & 128 & $m_\phi^2/64$ & 0.00625 & 0.3 & $0.5$ & $K_\psi/64$ \\
         \bottomrule
     \end{tabular}
     \caption[Parameters cooling]{Parameters setting in the cooling procedure. Each coupling in the bosonic action is rescaled according to its canonical dimension, while the fermionic sector rescaling is implemented directly at the drift level, as detailed in section \ref{sec:lattice_with_coloured_noise}}.
     \label{tab:params_cooling}
 \end{table}
-
-
-\begin{figure}
+Figure \ref{fig:cooling_M_psibarpsi_chi2} reports the magnetisation, its susceptibility and the chiral condensate as a function of the bare scalar mass $m_\phi^2$. As one can see, there is a general good agreement among the various curves, even with a simple tree-level rescaling.
+\begin{figure}[hbp]
     \centering
     \begin{subfigure}[b]{0.45\textwidth}
         \includegraphics[width=\textwidth]{figures/cooling/mass_scan/magnetisation.pdf}
-        \caption{Caption for Image 1}
+        \caption{Magnetisation}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.45\textwidth}
         \includegraphics[width=\textwidth]{figures/cooling/mass_scan/susceptibility.pdf}
-        \caption{Caption for Image 2}
+        \caption{Magnetic susceptibility}
     \end{subfigure}
     \\
     \vspace{10pt}
     \begin{subfigure}[b]{0.45\textwidth}
         \includegraphics[width=\textwidth]{figures/cooling/mass_scan/condensate.pdf}
-        \caption{Caption for Image 3}
+        \caption{Chiral condensate}
     \end{subfigure}
-    \caption{Overall Caption for the Figure}
-\end{figure}
-
-\begin{figure}
+    \caption{Overall Caption for the Figure line1 \\ line 2}
+    \label{fig:cooling_M_psibarpsi_chi2}
+\end{figure}\\
+A quantitative comparison for the magnetisation is reported in figure \ref{fig:cooling_deviation}, where we report the relative errors
+\begin{equation}
+    \begin{aligned}
+        \epsilon_\phi(s) &= \frac{\expect{|M|}_{s} - \expect{|M|}}{\expect{|M|}}, \\
+        \epsilon_\psi(s) &= \frac{\expect{|\bar\psi \, \psi|}_{s} - \expect{|\bar\psi \, \psi||}}{\expect{|\bar\psi \, \psi||}}.
+    \end{aligned}
+    \label{eq:cooling_relative_deviation}
+\end{equation}
+\begin{figure}[htp]
     \centering
-    \includegraphics[scale=0.45]{figures/cooling/mass_scan/deviation.pdf}
-    \label{fig:cooling}
-\end{figure}
-
-\begin{figure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/cooling/mass_scan/deviation.pdf}
+        \caption{Absolute magnetisation}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/cooling/mass_scan/deviation_cond.pdf}
+        \caption{Chiral condensate}
+    \end{subfigure}
+    \caption[Relative error in the cooling procedure at tree level.]{Relative error of the absolute magnetisation and chiral condensate in the cooling procedure for various values of the noise fraction $s$.}
+    \label{fig:cooling_deviation}
+\end{figure}\\
+Finally, we want to study some more complex observables such as the fermionic physical mass and the bosonic renormalised mass. They are reported in figure \ref{fig:cooling_masses}. As one can see, there is a clear deviation for $m_{\phi, r}$ at the third block-spin iteration. This is a systematic deviation because \textcolor{red}{i would say tree level, but I don't think it's the case.}
+\begin{figure}[hbp]
     \begin{minipage}{0.45\textwidth}
         \includegraphics[scale=0.45]{figures/cooling/mass_scan/mphir.pdf}
     \end{minipage}
@@ -168,6 +195,8 @@ We now move on to analyse equilibrium properties. Coloured noise allows for a sm
     \begin{minipage}{0.45\textwidth}
         \includegraphics[scale=0.45]{figures/cooling/mass_scan/mqphys.pdf}
     \end{minipage}
+    \caption[Masses in the cooling procedure]{Renormalised bosonic mass $m_{\phi, r}$ and pole fermionic mass $m_{q,\text{phys}}$ for various values of the noise fraction $s$.}
+    \label{fig:cooling_masses}
 \end{figure}
 
 
@@ -178,19 +207,23 @@ We now move on to analyse equilibrium properties. Coloured noise allows for a sm
 \newpage
 \section{Chiral fermions and a glimpse on the chiral phase transition}
 \label{sec:chiral_PT}
-
+\textcolor{red}{ricordati di commentare la differenza di scale}
 \begin{figure}
     \centering
-    \begin{minipage}{0.45\textwidth}
+    \begin{subfigure}[b]{0.45\textwidth}
         \includegraphics[scale=0.5]{figures/chiral_PT/mass_scan/magnetisation.pdf}
-    \end{minipage}
+        \caption{Magnetisation}
+    \end{subfigure}
     \hfill
-    \begin{minipage}{0.45\textwidth}
+    \begin{subfigure}[b]{0.45\textwidth}
         \includegraphics[scale=0.5]{figures/chiral_PT/mass_scan/condensate.pdf}
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
+        \caption{Chiral condensate}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
         \includegraphics[scale=0.5]{figures/chiral_PT/mass_scan/susceptibility.pdf}
-    \end{minipage}
+        \caption{Magnetic susceptibility}
+    \end{subfigure}
+    \caption[Mass scan of the quantum and classical theories]{Mass scan of the quantum and classical theories. The dashed gray line indicates a value $m_\phi^*$, where the classical and quantum systems seem to lie in two different phases.}
 \end{figure}
 
 As explained in section \ref{sec:yukawa}, in the continuum theory chiral symmetry can be broken either explicitly via a finite bare quark mass, or spontaneously if the field gains a non-zero expectation value. Moreoveor, in the discrete formulation, the introduction of the Wilson term also contributes to the explicit breaking of chiral symmetry \textcolor{red}{add reference}, as explained in section \ref{sec:discrete}. This, in particular, means that chiral symmetry is explicitly broken also for $m_q \to 0$. Because of this, one needs a new definition for bare mass $M_q$, which takes into account the Wilson term contribution, such that chiral symmetry is restored in the limit $M_q \to 0$ for vanishing expectation value of the field $\phi$. A convenient way to define such $M_q$ is the following. SSB chiral symmetry $\to$ 3 goldstone massless bosons, the pions. If the bare quark mass is zero, the physical mass of the pions has to be zero. Hence one can extract this mass on the lattice and tune $m_q$ such that this is zero. While this is the correct way to proceed, it is very time takin since one must do mass scans and extrapolations close to singular Dirac operator. This is not the way we pursue here. Instead here we just consider naive fermions and take the limit $m_q \to 0$. This represents a physical theory with $2N_f = 4$ degenerate quarks. This is just done for the purpose of showing some interest properties of coloured noise and not (yet) to match any physical result. \\~\\
@@ -209,7 +242,7 @@ The difference gets more sharped as the base mass decreases, since the theory is
 	\includegraphics[scale=0.48]{figures/chiral_PT/condensate.pdf}
 \end{minipage}
 \begin{minipage}{0.45\textwidth}	
-	\includegraphics[scale=0.48]{figures/chiral_PT/susceptibility.pdf}
+	\includegraphics[scale=0.48]{figures/chiral_PT/chi2.pdf}
 \end{minipage}
 \hfill
 \begin{minipage}{0.45\textwidth}

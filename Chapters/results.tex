@@ -5,47 +5,45 @@
 
 \section{The fermionic correlator}
 To start with the study of the model, we want to analyse the behaviour of the fermionic correlator and illustrate the fermionic masses extraction procedure. \\
-Let us initially restrict to $g = 0$, so that \textcolor{red}{add wilson}
-\begin{equation*}
-    D_{n m}=\sum_{\hat\mu}\left[\frac{\gamma_{\hat\mu}\delta_{n+\hat\mu, m} - \gamma_{\hat\mu} \delta_{n-\hat\mu, m}}{2} + m_q \, \delta_{n m}\right] .
-\end{equation*}
-In this case, an analytical expression of the fermionic mass can be derived as follows. \\
-The Dirac operator in momentum space reads \textcolor{red}{non lo hai mai introdotto}
-\begin{equation*}
-\bar{D}(p)= m_q + \sum_\mu 2 \sin ^2\left(\frac{p_\mu}{2}\right)+i \sum_\mu \gamma_\mu \sin \left(p_\mu\right)
-\end{equation*}
-The inverse can be checked to be 
-\begin{equation*}
-    \bar{D}^{-1}(p) = \frac{m_q + \sum_\mu 2 \sin ^2\left(\frac{p_\mu}{2}\right) - i \sum_\mu \gamma_\mu \sin \left(p_\mu\right)}{m_q + \sum_\mu 2 \sin^2\left(\frac{p_\mu}{2}\right) + \sum_\mu \sin^2 \left(p_\mu\right)}
-\end{equation*}
-One can now find the pole mass by imposing 
-\begin{equation*}
-    \left[m_q + \sum_\mu 2 \sin ^2\left(\frac{p_\mu}{2}\right)\right]^2_{p_\mu = (im_\text{phys}, 0)} + \left[\sum_\mu \gamma_\mu \sin \left(p_\mu\right)\right]^2_{p_\mu = (im_\text{phys}, 0)} = 0
-\end{equation*}
-This results in a trascendental equation 
-\begin{equation*}
-    \left[m_q - 2 \sinh^2\left(\frac{m_\text{phys}}{2}\right)\right]^2 - \sinh^2\left(m_\text{phys}\right) = 0
-\end{equation*}
-This equation has the solution 
-\begin{equation*}
-    m_\text{phys} = \log\left(1+m_q\right)
-\end{equation*}
-We then compute the correlator numerically via a single inversion of the Dirac operator as detailed in Appendix \ref{chap:AppendixC}. The lattice volume is chosen to be $128 \times 128$. 
-\begin{figure}
+Let us initially restrict to $g = 0$, so that the Dirac operator reduces to the one of free Wilson fermions \textcolor{red}{ref eq.}
+\raggedright We then compute the correlator numerically via a single inversion of the Dirac operator as detailed in Appendix \ref{chap:AppendixC}. The lattice volume is chosen to be $128 \times 128$. \\
+Figure \ref{fig:correlator_mass} reports the fermionic correlator as a function of $m_q$. One can see that a bigger bare quark mass results in a quicker decay, in accordance with the decay law \textcolor{red}{ref. eq.}. On the other side, a smaller mass results in a slower decay and tends to deform the characteristic shape of the correlator. \\~\\
+\begin{figure}[h]
     \centering 
     \includegraphics[scale=0.6]{figures/correlator/correlator.pdf}
-    \caption{Correlator as a function of the bare mass}
+    \caption[Fermionic correlator]{Normalised fermionic correlator for different values of the bare quark mass. A bigger mass results in a quicker decay, according to \textcolor{red}{eq. ref.}}
     \label{fig:correlator_mass}
 \end{figure}
-\begin{figure}
+Figure \ref{fig:correlator_CGiter} shows the number of iterations needed for convergence of the Conjugate Gradient algorithm. While the exact number depends on the desired tolerance, one can clearly see that the number of iterations grows as $m_q \to 0$, due to an increase in the condition number \cite{cond_num_ref}. \\
+\begin{figure}[h]
     \centering 
     \includegraphics[scale=0.6]{figures/correlator/CGiter.pdf}
     \caption{CG iterations}
     \label{fig:correlator_CGiter}
-\end{figure}
-Figure \ref{fig:correlator_mass} reports the fermionic correlator as a function of $m_q$. One can see that a big bare quark mass results in a quick decay, while a small mass tends to deform the characteristic shape of the correlator. \\
-Figure \ref{fig:correlator_CGiter} shows the number of iterations needed for convergence. While the exact number depends on the desired tolerance, one can clearly see that the number of iterations grows as $m_q \to 0$ due to an increase in the condition number \cite{cond_num_ref}. \textcolor{red}{does the condition number increase even more for naive fermions?} \\
-We then choose three values of the bare quark mass and perform a fit according to \eqref{eq:correlator_mass_extraction}, in order to extract the physical mass and we compare it to the theoretical value given by \textcolor{red}{add ref. eq.}. The results are reported in figures \ref{fig:corr_small,fig:corr_medium,fig_corr_big} and table \ref{tab:mass_extraction_free}. \\~\\
+\end{figure} 
+\newpage
+For the Dirac operator \textcolor{red}{ref eq.}, one can derive an analytical expression for the fermionic mass. The Dirac operator in momentum space reads \textcolor{red}{non lo hai mai introdotto}
+\begin{equation*}
+\bar{D}(p)= m_q + \sum_\mu 2 \sin ^2\left(\frac{p_\mu}{2}\right)+i \sum_\mu \gamma_\mu \sin \left(p_\mu\right)
+\end{equation*}
+and its inverse is
+\begin{equation*}
+    \bar{D}^{-1}(p) = \frac{m_q + \sum_\mu 2 \sin ^2\left(\frac{p_\mu}{2}\right) - i \sum_\mu \gamma_\mu \sin \left(p_\mu\right)}{m_q + \sum_\mu 2 \sin^2\left(\frac{p_\mu}{2}\right) + \sum_\mu \sin^2 \left(p_\mu\right)}.
+\end{equation*}
+One can now find the pole by imposing the numerator evaluated at $p^\mu =(im_\text{phys}, 0)$ to zero:
+\begin{equation*}
+    \left[m_q + \sum_\mu 2 \sin ^2\left(\frac{p_\mu}{2}\right)\right]^2_{p_\mu = (im_\text{phys}, 0)} + \left[\sum_\mu \gamma_\mu \sin \left(p_\mu\right)\right]^2_{p_\mu = (im_\text{phys}, 0)} = 0.
+\end{equation*}
+This results in a trascendental equation 
+\begin{equation*}
+    \left[m_q - 2 \sinh^2\left(\frac{m_\text{phys}}{2}\right)\right]^2 - \sinh^2\left(m_\text{phys}\right) = 0,
+\end{equation*}
+which has the solution 
+\begin{equation}
+    m_\text{phys} = \log\left(1+m_q\right).
+    \label{eq:analytical_wilson}
+\end{equation}
+We then choose three values of the bare quark mass, compute the correlator numerically and perform a fit according to \eqref{eq:correlator_mass_extraction}, in order to extract the physical mass. We then compare it to the theoretical value given by \textcolor{red}{add ref. eq.}. The results are reported in figures \ref{fig:corr_small,fig:corr_medium,fig_corr_big} and table \ref{tab:mass_extraction_free}. \\~\\
 \begin{table}
     \centering
     \begin{tabular}[pos]{cccc}
@@ -57,27 +55,29 @@ We then choose three values of the bare quark mass and perform a fit according t
         0.01 & 0 & 0.009950277657505842 & 0.8 \\
         \bottomrule
     \end{tabular}
+    \caption[Fit of the correlator for free Wilson fermions.]{The correlator for free Wilson fermions is fitted to \textcolor{red}{(eqref)} and compared to its analytical value given by \eqref{eq:analytical_wilson}. The precision for the Conjugate Gradient algorithm has been set to $r^2 \leq 10^{-10}$.}
+    \label{tab:free_wilson_fit}
 \end{table}
 \begin{figure}
     \centering
     \begin{subfigure}[b]{0.45\textwidth}
         \includegraphics[width=\textwidth]{figures/correlator/corrs_free/corr_small.pdf}
-        \caption{Caption for Image 1}
+        \caption{$m_q = 0.01$}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.45\textwidth}
         \includegraphics[width=\textwidth]{figures/correlator/corrs_free/corr_medium.pdf}
-        \caption{Caption for Image 2}
+        \caption{$m_q = 0.1$}        
     \end{subfigure}
     \\
-    \vspace{20pt}
+    \vspace{10pt}
     \begin{subfigure}[b]{0.45\textwidth}
         \includegraphics[width=\textwidth]{figures/correlator/corrs_free/corr_big.pdf}
-        \caption{Caption for Image 3}
+        \caption{$m_q = 1.0$}
     \end{subfigure}
-    \caption{Overall Caption for the Figure}
+    \caption[Fit of the correlator for free Wilson fermions.]{Fit of the fermionic correlator to \textcolor{red}{(eqref)}, for three different values of the bare quark mass.}
 \end{figure}
-The presence of a background field has the same effects on the correlator as a bare quark mass. In fact, if $\phi(x) = v$, one can simply redefine the bare mass as $M_q = m_q + g \, v$ and the properties of the fermionic correlator remain unchanged.
+\textcolor{green}{The presence of a background field has the same effects on the correlator as a bare quark mass. In fact, if $\phi(x) = v$, one can simply redefine the bare mass as $M_q = m_q + g \, v$ and the properties of the fermionic correlator remain unchanged.}
 \newpage
 
 \section{Phase diagram}

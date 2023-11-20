@@ -3,6 +3,85 @@
 \label{chap:AppendixC}
 \textcolor{red}{cite also felipe for bilinear}
 
+In this basis 
+\begin{equation*}
+    \begin{aligned}
+        \frac{1}{2}\Gamma_{+ \hat 0} = \frac{1 + \gamma_0}{2} &= 
+        \begin{pmatrix}
+            1 & 0 \\
+            0 & 0    
+        \end{pmatrix}
+        \qquad 
+        \frac{1}{2}\Gamma_{- \hat 0} = \frac{1 - \gamma_0}{2} &=
+        \begin{pmatrix}
+            0 & 1 \\
+            0 & 0    
+        \end{pmatrix} \\
+        \frac{1}{2}\Gamma_{+ \hat 1} = \frac{1 + \gamma_1}{2} &=
+        \begin{pmatrix}
+            1 & 1 \\
+            1 & 1    
+        \end{pmatrix} 
+        \qquad 
+        \frac{1}{2}\Gamma_{- \hat 1} = \frac{1 - \gamma_1}{2} &=
+        \begin{pmatrix}
+            1 & -\vphantom{1}1 \\
+            -\vphantom{1}1 & 1    
+        \end{pmatrix}
+    \end{aligned}
+\end{equation*}
+\begin{equation*}
+    \begin{aligned}
+        & \left(1-\gamma_0\right) \psi=\left[\begin{array}{ll}
+        0 & 0 \\
+        0 & 2
+        \end{array}\right]\left[\begin{array}{l}
+        \psi_1 \\
+        \psi_2
+        \end{array}\right]=\left[\begin{array}{c}
+        0 \\
+        2 \psi_2
+        \end{array}\right], \\
+        & \left(1+\gamma_0\right) \psi=\left[\begin{array}{ll}
+        2 & 0 \\
+        0 & 0
+        \end{array}\right]\left[\begin{array}{l}
+        \psi_1 \\
+        \psi_2
+        \end{array}\right]=\left[\begin{array}{c}
+        2 \psi_1 \\
+        0
+        \end{array}\right], \\
+        & \left(1-\gamma_1\right) \psi=\left[\begin{array}{cc}
+        1 & -1 \\
+        -1 & 1
+        \end{array}\right]\left[\begin{array}{l}
+        \psi_1 \\
+        \psi_2
+        \end{array}\right]=\left[\begin{array}{c}
+        \psi_1-\psi_2 \\
+        -\psi_1+\psi_2
+        \end{array}\right] \equiv\left[\begin{array}{c}
+        \eta_{+1} \\
+        -\eta_{+1}
+        \end{array}\right], \\
+        & \left(1+\gamma_1\right) \psi=\left[\begin{array}{ll}
+        1 & 1 \\
+        1 & 1
+        \end{array}\right]\left[\begin{array}{l}
+        \psi_1 \\
+        \psi_2
+        \end{array}\right]=\left[\begin{array}{l}
+        \psi_1+\psi_2 \\
+        \psi_1+\psi_2
+        \end{array}\right] \equiv\left[\begin{array}{l}
+        \eta_{-1} \\
+        \eta_{-1}
+        \end{array}\right] .
+        \end{aligned}
+\end{equation*}
+
+
 \section{Conjugate Gradient algorithm and the Dirac operator}
 The full inversion of the Dirac operator is a very expensive computation, given that the Dirac operator has dimension $(2 \, N_t \, N_x \, N_f)^2$, even though it is very sparse and has only few non-zero entries. One can note that for the purpose of computing the fermionic contribution to the drift force and the extraction of the physical quark mass from the correlator (details in section x and section y), only the inverse operator applied to a vector is needed. Hence it is sufficient to compute 
 \begin{equation}

@@ -1,24 +1,53 @@
 % !TeX root = ../main.tex
 % Appendix A
 
-\chapter{Useful relations and definitions} % Main appendix title
+\chapter{Conventions} % Main appendix title
 \label{chap:AppendixA} % For referencing this appendix elsewhere, use \ref{AppendixA}
-In this appendix, useful relations and definitions are introduced.
-
-
-
-
-
-
-
-
-
-
-Effective action
+\subsection*{Spinor representation}
+We choose the following representation of the two-dimensional $\gamma$ matrices
 \begin{equation*}
-    S_{\text{eff}} = S_\phi + \text{Tr} \log D(\phi)
+        \gamma_0 = \sigma_3 = 
+        \begin{pmatrix}
+            1 & 0 \\
+            0 & -1    
+        \end{pmatrix}
+        \qquad 
+        \gamma_1 = \sigma_1 = 
+        \begin{pmatrix}
+            0 & 1 \\
+            1 & 0    
+        \end{pmatrix}
 \end{equation*}
-Drift force
+They satisfy the Euclidean Clifford algebra
 \begin{equation*}
-    K_{\phi^j} = - \frac{\delta S}{\delta \phi^j} = - \frac{\delta S_\phi}{\delta \phi^j} - \text{Tr} \left[ D^{-1} \, \frac{\delta D}{\delta \phi^j} \right]
+    \{\gamma_\mu, \gamma_\nu\} = 2\delta_{\mu, \nu}
 \end{equation*}
+and they have the following properties
+\begin{equation*}
+    \gamma_\mu^{\dagger}=\gamma_\mu, \quad  \quad \gamma_\mu^2=\mathbb{1}.
+\end{equation*}
+We then introduce $\gamma_5$ as
+\begin{equation*}
+    \gamma_5 = i \gamma_0 \gamma_1 =
+    \begin{pmatrix}
+        0 & i \\
+        -i & 0. 
+    \end{pmatrix}
+\end{equation*}
+with the following properties
+\begin{equation*} 
+    \gamma_5^{\dagger}=\gamma_5, \qquad \gamma_5^2=\mathbb{1} \quad
+    (\gamma^5)^2 = \mathbb{1}, \qquad \{\gamma_5, \gamma_\mu\} = 0 \qquad 
+\end{equation*}
+
+
+
+\subsection*{Fourier transform}
+The Fourier transformation of a function $f: \mathbb{R}^d \rightarrow \mathbb{R}$ is given by
+$$
+\hat{f}(p)=\mathcal{F}[f](p)=\int_x e^{-x \cdot p} f(x)
+$$
+and its inverse is
+$$
+f(x)=\mathcal{F}^{-1}[\hat{f}](x)=\frac{1}{(2 \pi)^d} \int_p e^{x \cdot p} \hat{f}(p)
+$$

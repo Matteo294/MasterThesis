@@ -46,13 +46,13 @@ which has the solution
 We then choose three values of the bare quark mass, compute the correlator numerically and perform a fit according to \eqref{eq:correlator_mass_extraction}, in order to extract the physical mass. We then compare it to the theoretical value given by \eqref{eq:analytical_wilson}. The results are reported in figures \ref{fig:fit_wilson} and table \ref{tab:free_wilson_fit}. \\~\\
 \begin{table}
     \centering
-    \begin{tabular}[pos]{cccc}
-        \toprule has been se
-        $m_q$ & teo & fit & err \\
+    \begin{tabular}[pos]{ccc}
+        \toprule
+        $m_q$ & teo & fit \\
         \midrule 
-        1.0 & 0.6931471805599453 & 0.6931537171644739 & 4e-20 \\
-        0.1 & 0.09531017980432493 & 0.09531020915059212 & 0.004 \\
-        0.01 & 0.009950330853168092 & 0.009950277657505842 & 0.8 \\
+        1.0 & 0.6931471805599453 & 0.6931537171644739 \\
+        0.1 & 0.09531017980432493 & 0.09531020915059212 \\
+        0.01 & 0.009950330853168092 & 0.009950277657505842 \\
         \bottomrule
     \end{tabular}
     \caption[Fit of the correlator for free Wilson fermions.]{The correlator for free Wilson fermions is fitted to \textcolor{red}{(eqref)} and compared to its analytical value given by \eqref{eq:analytical_wilson}. The precision for the Conjugate Gradient algorithm was set to $r^2 \leq 10^{-10}$.}
@@ -86,7 +86,18 @@ We then choose three values of the bare quark mass, compute the correlator numer
 We want to start the analysis of the Yukawa theory by doing a parameters scan, in order to have a global picture of the phase diagram in the presence of Wilson fermions.
 \begin{figure}
     \centering
-    \includegraphics[width=0.7\textwidth]{figures/phase_diagram/phi.pdf}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{figures/phase_diagram/m_g_phi.pdf}
+        \caption{$m_q = 1.0$}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{figures/phase_diagram/m_g_cond.pdf}
+        \caption{$m_q = 1.0$}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{figures/phase_diagram/m_g_mq.pdf}
+        \caption{$m_q = 1.0$}
+    \end{subfigure}
     \caption{Phase diagram - magnetisation}
     \label{fig:phase_diagram_phi}
 \end{figure}
@@ -107,7 +118,7 @@ We want to start the analysis of the Yukawa theory by doing a parameters scan, i
 
 Let us start by analising the coloured noise field in the simulation and relevant properties that emerge from it. We consider the Yukawa model described by the continuum action \eqref{eq:full_action_continuum} and its discrete version \eqref{eq:discretised_action}, \eqref{eq:discretised_effective_action}.\\
 The system is initialised in the same state for all the configurations on a $64 \times 64$ lattice. We consider a simulation with $s=1$ and then progressively lower the cutoff fraction $s$, keeping fixed all the quantities in the classical action. \\
-Figure \ref{fig:thermalisation_different_noise_fracs} shows the system thermalisation for different values of $s$, namely the Langevin evolution from the initial state to equilibrium. The \textcolor{red}{change colors} red line corresponds to the case $s=0$, namely a classical simulation, while the blue line corresponds to the case $s=1$, namely the fully quantum case.  All the parameters settings are reported under the figure. \\
+Figure \ref{fig:thermalisation_different_noise_fracs} shows the system thermalisation for different values of $s$, namely the Langevin evolution from the initial state to equilibrium. The blue line corresponds to the case $s=0$, a classical simulation, while the brown line corresponds to the case $s=1$, the fully quantum case.  All the parameters settings are reported under the figure. \\
 One can notice that as quantum modes are removed via coloured noise, the systems shifts its equilibrium point. \\~\\ 
 We now want to study observable values at equilibrium, as a function of the noise fraction $s$. In particular it is of our interest to investigate the interplay relation among the field $\phi$, the chiral condensate $\bar\psi\psi$ and the quark mass $m_\text{phys}$, which was discussed in section \ref{sec:Yukawa_theory}.
 \begin{equation*}
@@ -120,11 +131,13 @@ For $s=0$, the fields are restricted to the classical equations of motion \eqref
 The comparison is reported in table \ref{tab:background_field}
 \begin{table}[htp]
     \centering
-    \begin{tabular}{ccccccc}
+    \begin{tabular}{cccccc}
         \toprule
-        $m_q$ & $g$ & $\expect{\phi}$ & $M_q$ & $\log(1+M_q)$ & $m_\text{phys}$ & err \\
+        $m_q$ & $g$ & $\expect{\phi}$ & $M_q$ & $\log(1+M_q)$ & $m_\text{phys}$ \\
         \midrule
-	$1.0$ & $0.2$ & & & 0.958 & \\
+	$1.0$ & $0.2$ & 3.032082758 & 1.606416551
+    & 0.957976309
+    & 0.957976383 \\
         \bottomrule
     \end{tabular}
     \caption[Background field and quark mass]{The physical quark mass of the classical system is compared with the theoretical result for Wilson fermions, using the shifted bare mass $M_q = m_q + g \left\langle\phi\right\rangle$. This shows that a background scalar field can be interpreted as a bare quark mass.}
@@ -132,127 +145,21 @@ The comparison is reported in table \ref{tab:background_field}
 \end{table}
 \begin{figure}
     \centering
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{figures/slide_broken/magnetisation.pdf}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=1.0\textwidth]{figures/slide_broken/magnetisation.pdf}
     \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{figures/slide_broken/condensate.pdf}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=1.0\textwidth]{figures/slide_broken/condensate.pdf}
     \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{figures/slide_broken/mass.pdf}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=1.0\textwidth]{figures/slide_broken/mass.pdf}
     \end{subfigure}
     \caption[Relation between magnetisation, condensate and mass]{Qualitative relation between magnetisation, chiral condensate and mass, which was motivated in section \ref{sec:Yukawa_theory}. The parameters settings for the configuration are $m_\phi^2=, \lambda=, m_q=, g=$}
     \label{fig:interpolation_relation_phi_cond_mass}
 \end{figure}
 \newpage
 
-\section{Cooling with coloured noise}
-Let us now consider one of the main applications of coloured noise, namely the cooling technique. \\
-We first set up a white noise simulation $s=1$, and then progressively lower $s$, accomodating the lowering of the cutoff by a change in the couplings, as explained in section  which was described in section \ref{sec:lattice_with_coloured_noise}, and summarised in table \ref{tab:params_cooling}.
-\begin{table}[htp]
-    \centering
-    \begin{tabular}{cccccccc}
-        \toprule
-        $s$ & $N_t$ & $N_x$ & $m_\phi^2$ & $\lambda$ & $g$ & $m_q$& $K_\psi$ \\
-        \midrule 
-        1 & 16 & 16 & $m_\phi^2$ & 0.4 & 0.3 & $0.5$ & $K_\psi$ \\
-        1/2 & 32 & 32 & $m_\phi^2/4$ & 0.1 & 0.3 & $0.5$ & $K_\psi/4$ \\
-        1/4 & 64 & 64 & $m_\phi^2/16$ & 0.025 & 0.3 & $0.5$ & $K_\psi/16$ \\
-        1/8 & 128 & 128 & $m_\phi^2/64$ & 0.00625 & 0.3 & $0.5$ & $K_\psi/64$ \\
-        \bottomrule
-    \end{tabular}
-    \caption[Parameters cooling]{Parameters setting in the cooling procedure. Each coupling in the bosonic action is rescaled according to its canonical dimension, while the fermionic sector rescaling is implemented directly at the drift level, as detailed in section \ref{sec:lattice_with_coloured_noise}}.
-    \label{tab:params_cooling}
-\end{table}
-Figure \ref{fig:cooling_M_psibarpsi_chi2} reports the magnetisation, its susceptibility and the chiral condensate as a function of the bare scalar mass $m_\phi^2$. As one can see, there is a general good agreement among the various curves, even with a simple tree-level rescaling.
-\begin{figure}[hbp]
-    \centering
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{figures/cooling/mass_scan/magnetisation.pdf}
-        \caption{Magnetisation}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{figures/cooling/mass_scan/susceptibility.pdf}
-        \caption{Magnetic susceptibility}
-    \end{subfigure}
-    \\
-    \vspace{10pt}
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{figures/cooling/mass_scan/condensate.pdf}
-        \caption{Chiral condensate}
-    \end{subfigure}
-    \caption{Overall Caption for the Figure line1 \\ line 2}
-    \label{fig:cooling_M_psibarpsi_chi2}
-\end{figure}\\
-A quantitative comparison for the magnetisation is reported in figure \ref{fig:cooling_deviation}, where we report the relative errors
-\begin{equation}
-    \begin{aligned}
-        \epsilon_\phi(s) &= \frac{\expect{|M|}_{s} - \expect{|M|}}{\expect{|M|}}, \\
-        \epsilon_\psi(s) &= \frac{\expect{|\bar\psi \, \psi|}_{s} - \expect{|\bar\psi \, \psi||}}{\expect{|\bar\psi \, \psi||}}.
-    \end{aligned}
-    \label{eq:cooling_relative_deviation}
-\end{equation}
-\begin{figure}[htp]
-    \centering
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{figures/cooling/mass_scan/deviation.pdf}
-        \caption{Absolute magnetisation}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{figures/cooling/mass_scan/deviation_cond.pdf}
-        \caption{Chiral condensate}
-    \end{subfigure}
-    \caption[Relative error in the cooling procedure at tree level.]{Relative error of the absolute magnetisation and chiral condensate in the cooling procedure for various values of the noise fraction $s$.}
-    \label{fig:cooling_deviation}
-\end{figure}\\
-Finally, we want to study some more complex observables such as the fermionic physical mass and the bosonic renormalised mass. They are reported in figure \ref{fig:cooling_masses}. As one can see, there is a clear deviation for $m_{\phi, r}$ at the third block-spin iteration. This is a systematic deviation because \textcolor{red}{i would say tree level, but I don't think it's the case.}
-\begin{figure}[hbp]
-    \begin{minipage}{0.45\textwidth}
-        \includegraphics[scale=0.45]{figures/cooling/mass_scan/mphir.pdf}
-    \end{minipage}
-    \hfill 
-    \begin{minipage}{0.45\textwidth}
-        \includegraphics[scale=0.45]{figures/cooling/mass_scan/mqphys.pdf}
-    \end{minipage}
-    \caption[Masses in the cooling procedure]{Renormalised bosonic mass $m_{\phi, r}$ and pole fermionic mass $m_{q,\text{phys}}$ for various values of the noise fraction $s$.}
-    \label{fig:cooling_masses}
-\end{figure}
 
-\begin{figure}[hbp]
-    \centering
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{figures/cooling/yukawa_scan/magnetisation.pdf}
-        \caption{Magnetisation}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{figures/cooling/yukawa_scan/condensate.pdf}
-        \caption{Chiral condensate}
-    \end{subfigure}
-    \caption{Overall Caption for the Figure line1 \\ line 2}
-    \label{fig:cooling_M_psibarpsi_chi2}
-\end{figure}
-\begin{figure}[htp]
-    \centering
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{figures/cooling/yukawa_scan/deviation.pdf}
-        \caption{Absolute magnetisation}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{figures/cooling/yukawa_scan/deviation_cond.pdf}
-        \caption{Chiral condensate}
-    \end{subfigure}
-    \caption[Relative error in the cooling procedure at tree level.]{Relative error of the absolute magnetisation and chiral condensate in the cooling procedure for various values of the noise fraction $s$.}
-    \label{fig:cooling_deviation}
-\end{figure}
-
-
-\newpage
-
-
-
-\newpage
 \section{Chiral fermions and noise-induced chiral phase transition}
 \label{sec:chiral_PT}
 \textcolor{red}{ricordati di commentare la differenza di scale, giustificazione sfanculata}
@@ -299,5 +206,108 @@ In figure \ref{fig:scans_classsical_quantum}, the (absolute) magnetisation and t
 \caption{Noise-induced phase transition}
 \label{fig:chiral:symmetry_breaking}
 \end{figure}
+
+\newpage
+
+\section{Cooling with coloured noise}
+Let us now consider one of the main applications of coloured noise, namely the cooling technique. \\
+We first set up a white noise simulation $s=1$, and then progressively lower $s$. The lowering of the cutoff is compensated by a change in the couplings, as explained in section  \ref{sec:lattice_with_coloured_noise}. A symmary of the parameters choice is reported in figure  \ref{tab:params_cooling}. \\
+\begin{table}[htp]
+    \centering
+    \begin{tabular}{cccccccc}
+        \toprule
+        $s$ & $N_t$ & $N_x$ & $m_\phi^2$ & $\lambda$ & $g$ & $m_q$& $K_\psi$ \\
+        \midrule 
+        1 & 16 & 16 & $m_\phi^2$ & 0.4 & 0.3 & $0.5$ & $K_\psi$ \\
+        1/2 & 32 & 32 & $m_\phi^2/4$ & 0.1 & 0.3 & $0.5$ & $K_\psi/4$ \\
+        1/4 & 64 & 64 & $m_\phi^2/16$ & 0.025 & 0.3 & $0.5$ & $K_\psi/16$ \\
+        1/8 & 128 & 128 & $m_\phi^2/64$ & 0.00625 & 0.3 & $0.5$ & $K_\psi/64$ \\
+        \bottomrule
+    \end{tabular}
+    \caption[Parameters cooling]{Parameters setting in the cooling procedure. Each coupling in the bosonic action is rescaled according to its canonical dimension, while the fermionic sector rescaling is implemented directly at the drift level, as detailed in section \ref{sec:lattice_with_coloured_noise}}.
+    \label{tab:params_cooling}
+\end{table}
+Figure \ref{fig:cooling_M_psibarpsi_chi2} reports the magnetisation, its susceptibility and the chiral condensate as a function of the bare scalar mass squared $m_\phi^2$.
+\begin{figure}[hbp]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=1.05\textwidth]{figures/cooling/mass_scan/magnetisation.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=1.05\textwidth]{figures/cooling/mass_scan/susceptibility.pdf}
+    \end{subfigure}
+    \\
+    \vspace{10pt}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=1.05\textwidth]{figures/cooling/mass_scan/condensate.pdf}
+    \end{subfigure}
+    \caption[Cooling stochastic quantisation: fields as a function of the bosonic mass squared.]{Cooling via coloured noise. The absolute magnetisation, its susceptibility and the chiral condensate are compared after performing block-spins transformations. \\ $g = \dots$}
+\end{figure}\\
+A quantitative comparison for the magnetisation is reported in figure \ref{fig:cooling_deviation}, where we show the relative errors
+\begin{equation}
+    \begin{aligned}
+        \epsilon_\phi(s) &= \frac{\expect{|M|}_{s} - \expect{|M|}}{\expect{|M|}}, \\
+        \epsilon_\psi(s) &= \frac{\expect{|\bar\psi \, \psi|}_{s} - \expect{|\bar\psi \, \psi||}}{\expect{|\bar\psi \, \psi||}}.
+    \end{aligned}
+    \label{eq:cooling_relative_deviation}
+\end{equation}
+\begin{figure}[htp]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=1.0\textwidth]{figures/cooling/mass_scan/deviation.pdf}
+        \caption{Absolute magnetisation}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=1.0\textwidth]{figures/cooling/mass_scan/deviation_cond.pdf}
+        \caption{Chiral condensate}
+    \end{subfigure}
+    \caption[Relative error in the cooling procedure at tree level.]{Relative error of the absolute magnetisation and chiral condensate in the cooling procedure for various values of the noise fraction $s$.}
+    \label{fig:cooling_deviation}
+\end{figure}\\
+We also want to give a look at more complex observables such as the fermionic physical mass and the bosonic renormalised mass. They are reported in figure \ref{fig:cooling_masses}. As one can see, there is a clear deviation for $m_{\phi, r}$ at the third block-spin iteration. This is a systematic deviation because \textcolor{red}{i would say tree level, but I don't think it's the case.}
+\begin{figure}[hbp]
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[scale=0.45]{figures/cooling/mass_scan/mphir.pdf}
+    \end{minipage}
+    \hfill 
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[scale=0.45]{figures/cooling/mass_scan/mqphys.pdf}
+    \end{minipage}
+    \caption[Masses in the cooling procedure]{Renormalised bosonic mass $m_{\phi, r}$ and pole fermionic mass $m_{q,\text{phys}}$ for various values of the noise fraction $s$.}
+    \label{fig:cooling_masses}
+\end{figure} \\
+Finally, we report also the results for the magnetisation and the chiral condensate as a function of the Yukawa coupling.
+\begin{figure}[hbp]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=1.05\textwidth]{figures/cooling/yukawa_scan/magnetisation.pdf}
+        \caption{Magnetisation}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=1.05\textwidth]{figures/cooling/yukawa_scan/condensate.pdf}
+        \caption{Chiral condensate}
+    \end{subfigure}
+    \caption[Cooling stochastic quantisation: fields as a function of the Yukawa coupling.]{Cooling via coloured noise. The absolute magnetisation and the chiral condensate are compared after performing block-spins transformations. \\ $g = \dots$}
+    \label{fig:cooling_M_psibarpsi}
+\end{figure}
+\begin{figure}[htp]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/cooling/yukawa_scan/deviation.pdf}
+        \caption{Absolute magnetisation}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/cooling/yukawa_scan/deviation_cond.pdf}
+        \caption{Chiral condensate}
+    \end{subfigure}
+    \caption[Relative error in the cooling procedure at tree level.]{Relative error of the absolute magnetisation and chiral condensate in the cooling procedure for various values of the noise fraction $s$.}
+    \label{fig:cooling_deviation}
+\end{figure}
+
+
+\newpage
+
 
 

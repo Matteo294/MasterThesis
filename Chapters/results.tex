@@ -1,6 +1,6 @@
 % !TeX root = ../main.tex
-\chapter{Numerical investigation}
-\label{chapt:results}
+\chapter{Numerical results: preliminary investigation}
+\label{chapt:results_preliminary}
 
 
 \section{The fermionic correlator}
@@ -91,36 +91,55 @@ We want to start the analysis of the Yukawa theory by doing a parameters scan, i
     \label{fig:phase_diagram_phi}
 \end{figure}
 
+\chapter{Numerical results: coloured noise}
+\label{chapt:results_coloured}
+
 \section{Classical-to-quantum interpolation}
 
 \label{sec:classical_to_quantum}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\textwidth]{figures/slide_broken/thermalisation.pdf}
-    \caption[Thermalisation of the system for different values of the noise fraction $s$.]{Thermalisation of the system for different values of the noise fraction $s$. As noise is added, the equilibrium state of the system shifts accordingly. Coloured noise allows for a smooth interpolation between the fully classical and fully quantum picture.}
+    \includegraphics[width=0.8\textwidth]{figures/slide_broken/thermalisation.pdf}
+    \caption[Thermalisation of the system for different values of the noise fraction $s$.]{Thermalisation of the system for different values of the noise fraction $s$. As noise is added, the equilibrium state of the system shifts accordingly. Coloured noise allows for a smooth interpolation between the fully classical and fully quantum picture.\\ $g=, \lambda=$, \dots}
     \label{fig:thermalisation_different_noise_fracs}
 \end{figure}
 
-Let us start by analising the coloured noise field in the simulation and relevant properties that emerge from it. We consider the Yukawa model described by the continuum action \eqref{eq:full_action_continuum} and its discrete version \eqref{eq:discretised_action}, \eqref{eq:discretised_effective_action}. \\~\\
-Figure \ref{fig:thermalisation_different_noise_fracs} reports the Langevin evolution of the system for different noise fractions. The system was initialised in the same state for all the configurations on a $32 \times 32$ lattice. The red line corresponds to the case $s=0$, namely a classical simulation, while the blue line corresponds to the case $s=1$, namely the fully quantum case. 
-One can notice that as quantum modes are added via coloured noise, the systems shifts its equilibrium point. \\~\\ 
-We now want to study observables values at equilibrium, as a function of the noise fraction $s$. We start with a simulation with $s=1$ and we progressively lower the cutoff, keeping fixed all the quantities in the classical action. 
-\textcolor{blue}{Each figure reports two plots corresponding to two different parameter configurations.
-\textcolor{red}{non si puo parlare di fase rotta e simmetrica. inoltre commenta sulla relazione phi, psibarpsi con lambda=0. sarebbe bello misurare phi3 in funzione di s e verificare la relation full col condensato}.
+Let us start by analising the coloured noise field in the simulation and relevant properties that emerge from it. We consider the Yukawa model described by the continuum action \eqref{eq:full_action_continuum} and its discrete version \eqref{eq:discretised_action}, \eqref{eq:discretised_effective_action}.\\
+The system is initialised in the same state for all the configurations on a $64 \times 64$ lattice. We consider a simulation with $s=1$ and then progressively lower the cutoff fraction $s$, keeping fixed all the quantities in the classical action. \\
+Figure \ref{fig:thermalisation_different_noise_fracs} shows the system thermalisation for different values of $s$, namely the Langevin evolution from the initial state to equilibrium. The \textcolor{red}{change colors} red line corresponds to the case $s=0$, namely a classical simulation, while the blue line corresponds to the case $s=1$, namely the fully quantum case.  All the parameters settings are reported under the figure. \\
+One can notice that as quantum modes are removed via coloured noise, the systems shifts its equilibrium point. \\~\\ 
+We now want to study observable values at equilibrium, as a function of the noise fraction $s$. In particular it is of our interest to investigate the interplay relation among the field $\phi$, the chiral condensate $\bar\psi\psi$ and the quark mass $m_\text{phys}$, which was discussed in section \ref{sec:Yukawa_theory}.
+\begin{equation*}
+	\expect{\phi} \sim \expect{\bar\psi\psi} \sim m_q.
+\end{equation*}
+For $s=0$, the fields are restricted to the classical equations of motion \eqref{eq:classical_EOM_full}. As pointed out in section \ref{sec:Yukawa_theory}, in particular in equation \eqref{eq:background_field}, a background field $\phi(x) = v$ has the same behaviour on the system as a bare quark mass. We then compare the physical quark mass with the theoretical expression for free Wilson fermions \eqref{eq:analytical_wilson} using a shifted bare mass 
+\begin{equation*}
+	M_q = m_q + g \expect{\phi}
+\end{equation*}
+The comparison is reported in table \ref{tab:background_field}
+\begin{table}[htp]
+    \centering
+    \begin{tabular}{ccccccc}
+        \toprule
+        $m_q$ & $g$ & $\expect{\phi}$ & $M_q$ & $\log(1+M_q)$ & $m_\text{phys}$ & err \\
+        \midrule
+	$1.0$ & $0.2$ & & & 0.958 & \\
+        \bottomrule
+    \end{tabular}
+    \caption[Background field and quark mass]{The physical quark mass of the classical system is compared with the theoretical result for Wilson fermions, using the shifted bare mass $M_q = m_q + g \left\langle\phi\right\rangle$. This shows that a background scalar field can be interpreted as a bare quark mass.}
+    \label{tab:background_field}
+\end{table}
 \begin{figure}
     \centering
     \begin{subfigure}[b]{0.45\textwidth}
         \includegraphics[width=\textwidth]{figures/slide_broken/magnetisation.pdf}
-        \caption{Magnetisatoin}
     \end{subfigure}
     \begin{subfigure}[b]{0.45\textwidth}
         \includegraphics[width=\textwidth]{figures/slide_broken/condensate.pdf}
-        \caption{Chiral condensate}
     \end{subfigure}
     \begin{subfigure}[b]{0.45\textwidth}
         \includegraphics[width=\textwidth]{figures/slide_broken/mass.pdf}
-        \caption{Quark mass}
     \end{subfigure}
     \caption[Relation between magnetisation, condensate and mass]{Qualitative relation between magnetisation, chiral condensate and mass, which was motivated in section \ref{sec:Yukawa_theory}. The parameters settings for the configuration are $m_\phi^2=, \lambda=, m_q=, g=$}
     \label{fig:interpolation_relation_phi_cond_mass}

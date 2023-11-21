@@ -81,31 +81,33 @@ We then choose three values of the bare quark mass, compute the correlator numer
 \textcolor{green}{The presence of a background field has the same effects on the correlator as a bare quark mass. In fact, if $\phi(x) = v$, one can simply redefine the bare mass as $M_q = m_q + g \, v$ and the properties of the fermionic correlator remain unchanged.}
 \newpage
 
-\section{Phase diagram}
-
-We want to start the analysis of the Yukawa theory by doing a parameters scan, in order to have a global picture of the phase diagram in the presence of Wilson fermions.
-\begin{figure}
+\section{Phase structure}
+We want to start the analysis of the Yukawa theory by doing a parameters scan, in order to have a global picture of the phase diagram in the presence of Wilson fermions. For the remaining of this section, we set the value of the fermionic bare mass to $m_q = 1.0$.\\~\\
+Figure \ref{fig:phase_diagram_g_m} reports a slice of the phase diagram in the $g-m_\phi^2$ plane. \\
+For $g=0$, one reduces to the case of a O(1) scalar theory: for $m_\phi^2>0$ the systems lies in a symmetric state identified by $\expect{\phi} = 0$. 
+As the mass goes to negative values, the scalar field gains a non-zero expectation value, signaling the spontaneous breaking of the O(1) symmetry. \\
+When a finite Yukawa coupling is added, the finite bare quark mass and the Wilson term break chiral symmetry explicitly, resulting in a non-zero expectation value of the scalar field. \\
+This is in good agreement with the qualitative description of the phase structure given in section \ref{sec:Yukawa_theory}.
+\begin{figure}[htp]
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=\textwidth]{figures/phase_diagram/m_g_phi.pdf}
-        \caption{$m_q = 1.0$}
     \end{subfigure}
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=\textwidth]{figures/phase_diagram/m_g_cond.pdf}
-        \caption{$m_q = 1.0$}
     \end{subfigure}
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=\textwidth]{figures/phase_diagram/m_g_mq.pdf}
-        \caption{$m_q = 1.0$}
     \end{subfigure}
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=\textwidth]{figures/phase_diagram/m_g_chi2.pdf}
-        \caption{$m_q = 1.0$}
     \end{subfigure}
-    \caption{Phase diagram - magnetisation}
-    \label{fig:phase_diagram_phi}
-\end{figure}
-
+    \caption{Slice of the phase diagram at fixed $\lambda = 2.0$. \\ Lattice size $32 \times 32$, $N_\text{conf} \approx \mathcal{O}(5 \cdot 10^4)$.}
+    \label{fig:phase_diagram_g_m}
+\end{figure}\\
+For finite $m_q$ and $g$ one cannot speak of a proper phase transition, as the symmetry is explicitly broken at the classical level. Thus, one still have a smooth crossover between the two phases. This fact is reflected in the plot of the magnetic susceptibility, which peaks around $m_\phi^2 = 0$ only for small values of $g$. \\
+As explained in section \ref{sec:Yukawa_theory}, and shown in \textcolor{red}{where?}, the presence of a background scalar field can be interpreted as a bare quark mass. This is reflected in the plot of of $m_{q, \text{phys}}$ which resembles the one of $\expect{\phi}$, except for $g=0$, where the two theories are disconnected. \\
+Finally, the chiral condensate, \dots \textcolor{red}{why the hell is is bigger for smaller g? I thought the bigger the condensate, the bigger the breaking.}
 \chapter{Numerical results: coloured noise}
 \label{chapt:results_coloured}
 
@@ -116,7 +118,7 @@ We want to start the analysis of the Yukawa theory by doing a parameters scan, i
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/slide_broken/thermalisation.pdf}
-    \caption[Thermalisation of the system for different values of the noise fraction $s$.]{Thermalisation of the system for different values of the noise fraction $s$. As noise is added, the equilibrium state of the system shifts accordingly. Coloured noise allows for a smooth interpolation between the fully classical and fully quantum picture.\\ $g=, \lambda=$, \dots}
+    \caption[Thermalisation of the system for different values of the noise fraction $s$.]{Thermalisation of the system for different values of the noise fraction $s$. As noise is added, the equilibrium state of the system shifts accordingly. Coloured noise allows for a smooth interpolation between the fully classical and fully quantum picture.\\ Lattice size $32 \times 32, \ m_\phi^2=-1.0, \ \lambda=0.5, \ g=0.08, \ m_q = 0.5$.}
     \label{fig:thermalisation_different_noise_fracs}
 \end{figure}
 
@@ -158,7 +160,7 @@ The comparison is reported in table \ref{tab:background_field}
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=1.0\textwidth]{figures/slide_broken/mass.pdf}
     \end{subfigure}
-    \caption[Relation between magnetisation, condensate and mass]{Qualitative relation between magnetisation, chiral condensate and mass, which was motivated in section \ref{sec:Yukawa_theory}. The parameters settings for the configuration are $m_\phi^2=, \lambda=, m_q=, g=$}
+    \caption[Relation between magnetisation, condensate and mass]{Relation between magnetisation, chiral condensate and mass, which was motivated in section \ref{sec:Yukawa_theory}. \\ $m_\phi^2=-1.0, \ \lambda=0.7, g=0.2, \ m_q = 1.0$ \\ Lattice size $64 \times 64, \ N_\text{conf} \approx \mathcal{O}(5 \cdot 10^4)$.}
     \label{fig:interpolation_relation_phi_cond_mass}
 \end{figure}
 \newpage

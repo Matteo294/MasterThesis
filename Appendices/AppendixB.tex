@@ -1,31 +1,42 @@
 % !TeX root = ../main.tex
 \chapter{Wilson fermions}
 \label{chap:AppendixB}
-Fermion Dirac 
+The na\"ive discretisation of the fermionic action for free fermions yields the Dirac operator components
 \begin{equation*}
-    \widehat D = \hat m_q - i \sum_\mu \gamma_\mu \sin \left(p_\mu \, a\right)
+    \widehat{D}_{nm} = \sum_\mu \gamma_\mu \, \frac{\delta_{n,n+\mu} - \delta_{n,n-\mu}}{2} + m_q \delta_{n,m},
 \end{equation*}
-which can be easily inverted
+which have the momentum representation
 \begin{equation*}
-    \widehat{D}^{-1}(p) = \frac{\hat m_q - i \sum_\mu \gamma_\mu \sin \left(p_\mu \, a\right)}{\hat m_q^2 + \sum_\mu \sin^2 \left(p_\mu \, a \right)}
+    \widehat D = \hat m_q - i \sum_\mu \gamma_\mu \sin \left(p_\mu \, a\right).
 \end{equation*}
-Doublers at the edges of the Brillouin zone $\hat p_\mu \in \{\pm \pi/a, \pm \pi/a\}$ \\
-Wilson's idea:
+The last expression can be easily inverted
 \begin{equation*}
-    S_{W} = S - \frac{r}{2} \, \sum_{m,n} \hat{\bar\psi}(m) \ \hat\Box \ \hat{\psi}(n)
+    \widehat{D}^{-1}(p) = \frac{\hat m_q - i \sum_\mu \gamma_\mu \sin \left(p_\mu \, a\right)}{\hat m_q^2 + \sum_\mu \sin^2 \left(p_\mu \, a \right)}.
+\end{equation*}
+For $m_q = 0$, one can easily see that, in addition to $\hat{p}_\mu = 0$, all the edges of the Brillouin zone $\hat p_\mu \in \{\pm \pi/a, \pm \pi/a\}$ are poles.
+They indeed represent additional fermions, which come from the discretisation of the action. These additional degrees of freedom are called doublers and represent unphysical particles, at least if one's goal is to recover the original continuum theory. 
+If $m_q$ is finite,\\
+The idea proposed by Wilson to remove the doublers is to redefine the action as
+\begin{equation*}
+    S_{W} = S - \frac{r}{2} \, \sum_{m,n} \hat{\bar\psi}(m) \ \hat\Box \ \hat{\psi}(n),
 \end{equation*}
 where 
 \begin{equation*}
-    \left(\hat\Box\right)_{mn} = \sum_{\hat\mu} \ \frac{\delta_{m, n+\hat\mu} + \delta_{m, n-\hat\mu} - 2 \, \delta_{mn}}{2}
+    \left(\hat\Box\right)_{mn} = \sum_{\hat\mu} \ \frac{\delta_{m, n+\hat\mu} + \delta_{m, n-\hat\mu} - 2 \, \delta_{mn}}{2}.
 \end{equation*}
-
+The Wilson-Dirac operator assumes the form
+\begin{equation*}
+    \widehat D = \hat m_q + \sum_\mu \sin^2\left(\frac{p_\mu \, a}{2}\right) - i \sum_\mu \gamma_\mu \sin \left(p_\mu \, a\right).
+\end{equation*}
+It can be inverted straightforwardly
 \begin{equation*}
     \begin{aligned}
-        \bar{D}^{-1}(p) = \frac{m_q + \frac{2r}{a} \, \sum_\mu \sin ^2\left(\frac{p_\mu a}{2}\right) - i \sum_\mu \gamma_\mu \sin \left(p_\mu a\right)}{\left[m_q + \frac{2r}{a} \, \sum_\mu \sin^2\left(\frac{p_\mu a}{2}\right)\right]^2 + \sum_\mu \sin^2 \left(p_\mu a\right)} = \frac{M(p) - i \sum_\mu \gamma_\mu \sin \left(p_\mu a\right)}{M^2(p) + \sum_\mu \sin^2 \left(p_\mu a\right)}
+        \bar{D}^{-1}(p) &= \frac{\hat{m}_q + \frac{2r}{a} \, \sum_\mu \sin ^2\left(\frac{p_\mu a}{2}\right) - i \sum_\mu \gamma_\mu \sin \left(p_\mu a\right)}{\left[\hat{m}_q + \frac{2r}{a} \, \sum_\mu \sin^2\left(\frac{p_\mu a}{2}\right)\right]^2 + \sum_\mu \sin^2 \left(p_\mu a\right)} \\
+        &= \frac{\hat{M}(p) - i \sum_\mu \gamma_\mu \sin \left(p_\mu a\right)}{\hat{M}^2(p) + \sum_\mu \sin^2 \left(p_\mu a\right)}.
     \end{aligned}
 \end{equation*}
-For every $\hat p_\mu \not\in \{\pm \pi/a, \pm \pi/a\}$, one has that $a \to 0$ implies $M(p) \to m_q$. Instead, for every momentum vector that lies at the edge of the Brillouin zone $M(p) \to \infty$ as $a \to 0$. This removes the fermion doublers in the continuum limit. \\
-Thus, one loses chiral symmetry since the Wilson term is clearly not invariant under neither the continuous transformation
+For every $\hat p_\mu \not\in \{\pm \pi/a, \pm \pi/a\}$, one has that $a \to 0$ implies $M(p) \to m_q$. Instead, for every momentum vector that lies at the edge of the Brillouin zone $M(p) \to \infty$ as $a \to 0$. This removes the fermion doublers in the continuum limit. \\~\\
+A notable problem is that one then loses chiral symmetry since the Wilson term is clearly not invariant under neither the continuous transformation
 \begin{equation*}
     \psi \to e^{i \theta \gamma_5} \, \psi \qquad \bar\psi \to - \bar\psi \, e^{i \theta \gamma_5},
 \end{equation*}
@@ -33,3 +44,4 @@ nor the discrete
 \begin{equation*}
     \psi \to \gamma_5 \, \psi \qquad \bar\psi \to - \bar\psi \, \gamma_5.
 \end{equation*}
+It is in fact proven that one either has the doublers \cite{NIELSEN198120}

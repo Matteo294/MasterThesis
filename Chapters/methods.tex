@@ -185,11 +185,27 @@ so that the scaling dimension of the other terms in \eqref{eq:drift_continuum_fr
 We want to mention that the cooling procedure has important consequences on the issue of continuum limit of low-energy effective theories. In fact, in the standard lattice regularisation procedure, one always has $a \sim \Lambda_0^{-1}$, which means that the continuum limit $a \to 0$ is always connected to the limit $\Lambda_0 \to \infty$, in accordance to what discussed in sections \ref{sec:RG} and \ref{sec:lattice_continuum_}.
 
 \subsection{Control over temperature}
-\textcolor{blue}{there will be no simulations regarding this. should I write it anyway? I think it is important.}
-
+The use of coloured noise allows one to access a wider and finer range of temperatures. In fact, as already mentioned in section \ref{sec:lattice_continuum_}, the temperature on the lattice is given by 
+\begin{equation}
+    T = \frac{1}{a \, N_t}.
+    \label{eq:temperature_lattice}
+\end{equation}
+Hence one can change temperature either by changing the spacing $a$, or by changing the number points in the time direction $N_t$. 
+Both approaches pose serious constraints on the range of accessible temperatures. The spacing $a$ is often determined by the energy scale at which one wants to simulate theory. 
+For example in an effective theory, as explained in section \ref{sec:lattice_continuum_}, one has to keep $\Lambda \leq \Lambda_\text{phys}$, and since $a = \pi/\Lambda$, one ends with a constraint on the spacing $a \geq \pi/\Lambda_\text{phys}$. \\
+The highest temperature reachable is then limited by mathematical arguments as one cannot have $N_t < 1$, even though in a simulation one often needs $N_t \geq 2$. On the other side the minimum temperature reachable is limited by computational resources as one cannot afford $N_t \to \infty$.
+Moreoveor, the resolution of high temperatures is very coarse due to the relation \eqref{eq:temperature_lattice}, in the sense that for small $N_t$, a change in the number of time points causes a significant variation in the temperature. \\~\\
+By means of coloured noise one can change the temperature by changing the effective spacing. In fact, if one follows the cooling procedure by keeping $N_t$ fixed, one sets a new temperature which is given by 
+\begin{equation*}
+    T_\text{eff} = \frac{1}{a_\text{eff} \, N_t} = \frac{1}{sa \, N_t} = \frac{1}{s} \, T,
+\end{equation*}
+where $s = \Lambda_\text{eff} / \Lambda \leq 1$. Note that not only the temperature has been raised, but one has also gained resolution around $T_\text{eff}$. In fact, to reach this temperature by changing $N_t$, one should change the number of time points to $N_t \to s N_t$, and for what explained before a lower $N_t$ comes with a loss of resolution. \\
+The control over temperature by both approaches will be investigated in section \ref{sec:temperature_control}. \
+For a more detailed explanation of the procedure and its relevance in the context of the quark-meson model, we refer to \cite{attanasio2022low}.
+\newpage
 \section{Definition of relevant observables}
 \label{sec:observables}
-We define the magnetisation $M$ of the field $\phi$ as
+We define the magnetisation $M$ of the field $\phi$ as,
 \begin{equation*}
     M = \expect{\frac{1}{V}\sum_n \phi_n}.
 \end{equation*}

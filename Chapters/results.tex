@@ -98,16 +98,16 @@ This is in good agreement with the qualitative description of the phase structur
 \begin{figure}[htp]
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
-        \includegraphics[width=\textwidth]{figures/phase_diagram/g-m/m_g_phi.pdf}
+        \includegraphics[width=\textwidth]{figures/phase_diagram/g-m/phase_diagram_phi.pdf}
     \end{subfigure}
     \begin{subfigure}[b]{0.48\textwidth}
-        \includegraphics[width=\textwidth]{figures/phase_diagram/g-m/m_g_cond.pdf}
+        \includegraphics[width=\textwidth]{figures/phase_diagram/g-m/phase_diagram_cond.pdf}
     \end{subfigure}
     \begin{subfigure}[b]{0.48\textwidth}
-        \includegraphics[width=\textwidth]{figures/phase_diagram/g-m/m_g_mq.pdf}
+        \includegraphics[width=\textwidth]{figures/phase_diagram/g-m/phase_diagram_mqphys.pdf}
     \end{subfigure}
     \begin{subfigure}[b]{0.48\textwidth}
-        \includegraphics[width=\textwidth]{figures/phase_diagram/g-m/m_g_chi2.pdf}
+        \includegraphics[width=\textwidth]{figures/phase_diagram/g-m/phase_diagram_chi2.pdf}
     \end{subfigure}
     \caption{Slice of the phase diagram at fixed $\lambda = 2.0$. \\ Lattice size $32 \times 32$, $N_\text{conf} \approx \mathcal{O}(5 \cdot 10^4)$.}
     \label{fig:phase_diagram_g_m}
@@ -138,6 +138,23 @@ If $g \neq 0$, the fermion masses contributions increase the expectation value o
     \end{subfigure}
     \caption{Slice of the phase diagram at fixed $m_\phi^2 = -1.0$. \\ Lattice size $32 \times 32$, $N_\text{conf} \approx \mathcal{O}(10^4)$.}
     \label{fig:phase_diagram_g_lam}
+\end{figure}
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{figures/phase_diagram/m-lam/phase_diagram_phi.pdf}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{figures/phase_diagram/m-lam/phase_diagram_cond.pdf}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{figures/phase_diagram/m-lam/phase_diagram_mqphys.pdf}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{figures/phase_diagram/m-lam/phase_diagram_chi2.pdf}
+    \end{subfigure}
+    \caption{Slice of the phase diagram at fixed $g = 1.5$. \\ Lattice size $32 \times 32$, $N_\text{conf} \approx \mathcal{O}(10^4)$.}
+    \label{fig:phase_diagram_m_lam}
 \end{figure}\\
 
 \chapter{Numerical results: coloured noise}
@@ -371,4 +388,40 @@ Finally, we also want to look at more complex observables such as the fermionic 
 \newpage
 
 \section{Control over temperature}
-
+\begin{table}
+    \centering 
+    \begin{tabular}{cccccccccccc}
+        \toprule
+        $N_t$ & $N_x$ & & s & $a_\text{eff}$ & $T/T_0$ & & $m_\phi^2$ & $\lambda$ & $g$ & $m_q$& $K_\psi$\\
+        \midrule
+        8 & 8 & & 1 & a & 1 & & 0.6 & 2.0 & g & 1.0 & $K_\psi$\\
+        \midrule 
+        4 & 8 & & 1 & a & 2 & & 0.6 & 2.0 & 0.3 & 1.0 & $K_\psi$\\
+        2 & 8 & & 1 & a & 4 & & 0.6 & 2.0 & 0.3 & 1.0 & $K_\psi$\\
+        \midrule
+        8 & 16 & & 1/2 & 2a & 2 & & 0.15 & 0.05 & 0.3 & 1.0 & $K_\psi/2$\\
+        8 & 32 & & 1/2 & 4a & 4 & & 0.0375 & 0.0125 & 0.3 & 1.0 & $K_\psi/4$\\
+        \bottomrule
+    \end{tabular}
+    \caption{}
+    \label{tab:temperature_control_yukawa}
+\end{table}
+\label{sec:temperature_control}
+\begin{figure}
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{figures/temperature/temp_mag.pdf}
+    \end{subfigure}
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{figures/temperature/temp_mag_coloured.pdf}
+    \end{subfigure}
+\end{figure}
+\begin{figure}
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{figures/temperature/temp_chi2.pdf}
+    \end{subfigure}
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{figures/temperature/temp_chi2_coloured.pdf}
+    \end{subfigure}
+\end{figure}

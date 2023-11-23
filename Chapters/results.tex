@@ -29,12 +29,12 @@ We find
 \begin{equation*}
     \log a = -3.1 \pm 0.1 \qquad b = 1.02 \, \pm 0.02.
 \end{equation*}
-Note that for a standard Gaussian elimination procedure we would have found $b \approx 3.0$. This is of particular relevance in the case of this work, since the cooling technique via coloured noise requires doubling the number of lattice points in each direction at each block spin step; hence the volume of the lattice increases by a factor $2^d$ at each iteration, where $d$ is the spacetime dimension. \\
+Note that for a standard Gaussian elimination procedure we would have found $b \approx 3.0$. This is of particular relevance in the case of this work, since the cooling technique via coloured noise requires doubling the number of lattice points in each direction at each block spin step; hence the volume of the lattice is increased by a factor $2^d$ at each iteration, where $d$ is the spacetime dimension. \\
 Typical lattices sizes in this work are up to $128 \times 128 \times N_f \times N_s \approx 10^5$, where $N_f$ is the number of flavours and $N_s$ is the number of spinor components. Therefore, a good volume scaling of the algorithm is strictly necessary.
 \begin{figure}[t]
     \centering
     \includegraphics[scale=0.65]{figures/complexity.pdf}
-    \caption[Computational complexity of the Conjugate Gradient algorithm.]{Computational complexity of the Conjugate Gradient algorithm in our model. The results show the operation time scales as $t \sim \mathcal{O}(V^{1.03})$ for large verctor sizes, while for a standard Gaussian elimination one would have found $t \sim \mathcal{O}(V^3)$.}
+    \caption[Computational complexity of the Conjugate Gradient algorithm.]{Computational complexity of the Conjugate Gradient algorithm in our model. The results show the operation time scales as $t \sim \mathcal{O}(V^{1.03})$ for large verctor sizes, while for a standard inversion via Gaussian elimination one would have $t \sim \mathcal{O}(V^3)$.}
     \label{fig:complexity}
 \end{figure}
 
@@ -224,11 +224,10 @@ Figure \ref{fig:thermalisation_different_noise_fracs} shows the system thermalis
 One can notice that as quantum modes are removed via coloured noise, the systems shifts its equilibrium point. \\~\\ 
 We now want to make use of coloured noise to understand the relation between scalar field, quark condensate and fermionic mass, which was qualitatively discussed in section \ref{sec:Yukawa_theory} by means of classical arguments. \\
 Keeping all the parameters fixed, we perform simulations changing the value of the cutoff fraction $s$, and we measure the three quantities above mentioned: the results are reported in figure \ref{fig:interpolation_relation_phi_cond_mass}. 
-One can clearly see that as quantum modes are added, the relation between the three quantities
+One can clearly see that as quantum modes are added, one has
 \begin{equation*}
 	\expect{\phi} \sim \expect{\bar\psi\psi} \sim m_q.
 \end{equation*}
-change proportionally.
 \begin{figure}[h]
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
@@ -243,28 +242,21 @@ change proportionally.
     \caption[Relation between magnetisation, condensate and mass]{\textcolor{red}{x label} Relation between magnetisation, chiral condensate and mass, which was motivated in section \ref{sec:Yukawa_theory}. \\ $m_\phi^2=-1.0, \ \lambda=0.7, g=0.2, \ m_q = 1.0$ \\ Lattice size $64 \times 64, \ N_\text{conf} \approx \mathcal{O}(5 \cdot 10^4)$.}
     \label{fig:interpolation_relation_phi_cond_mass}
 \end{figure} \\
-This makes clear at first that the scalar field $\phi$ effectively plays the role of quark bilinear in the dynamics. Moreoveor, the presence of a background field generates a quark, which breaks chiral symmetry. \\
+This makes clear at first that the scalar field $\phi$ effectively plays the role of quark bilinear in the dynamics. Moreoveor, the presence of a background field contributes to the formation of a quark mass, which breaks chiral symmetry. \\
 The interconnection of these phenomena is an important result if one interprets it in the context of effective theories. In fact, often in QCD, the dynamical chiral symmetry breaking mechanism is described by low energy Yukawa-type effective models such as Gross-Neveu, Nambu - Jona-Lasinio or Quark Meson, to name some examples, where a scalar field can emerge after bosonisation via a Hubbard-Stratonovich transformation, as mentioned in chapter \ref{chap:introduction}. \\
-Beeing low-energy effective theories, one expects them to hold only up to a certain eenrgy scale, typically \textcolor{red}{menziona}. Since via coloured noise the cutoff can be controlled, as discussed in \textcolor{red}{where}, knowint that the relation holds at all level is of high relevance. \\
-For $s=0$, the fields are restricted to the classical equations of motion \eqref{eq:classical_EOM_full}. As pointed out in section \ref{sec:Yukawa_theory}, in particular in equation \eqref{eq:background_field}, a background field $\phi(x) = v$ has the same behaviour on the system as a bare quark mass. We then compare the physical quark mass with the theoretical expression for free Wilson fermions \eqref{eq:analytical_wilson} using a shifted bare mass 
+Beeing low-energy effective theories, one expects them to hold only up to a certain energy scale, typically \textcolor{red}{menziona}. Since via coloured noise the cutoff can be controlled, as discussed in \textcolor{red}{where}, knowint that the relation holds at all level is of high relevance. \\
+For $s=0$, the fields are restricted to the classical equations of motion \eqref{eq:classical_EOM_full}. As pointed out in section \ref{sec:Yukawa_theory}, in particular in equation \eqref{eq:background_field}, a background field $\phi(x) = v$ has the same behaviour on the system as a bare quark mass. As a check for this statement, we then compare the physical quark mass with the theoretical expression for free Wilson fermions \eqref{eq:analytical_wilson} using a shifted bare mass 
 \begin{equation*}
-	M_q = m_q + g \expect{\phi}
+	M_q = m_q + g \expect{\phi} = 1.0 + 0.2 \cdot 3.032082758 = 1.606416551
 \end{equation*}
-The comparison is reported in table \ref{tab:background_field}
-\begin{table}[htp]
-    \centering
-    \begin{tabular}{cccccc}
-        \toprule
-        $m_q$ & $g$ & $\expect{\phi}$ & $M_q$ & $\log(1+M_q)$ & $m_\text{phys}$ \\
-        \midrule
-	$1.0$ & $0.2$ & 3.032082758 & 1.606416551
-    & 0.957976309
-    & 0.957976383 \\
-        \bottomrule
-    \end{tabular}
-    \caption[Background field and quark mass]{The physical quark mass of the classical system is compared with the theoretical result for Wilson fermions, using the shifted bare mass $M_q = m_q + g \left\langle\phi\right\rangle$. This shows that a background scalar field can be interpreted as a bare quark mass.}
-    \label{tab:background_field}
-\end{table}
+The measured value is
+\begin{equation*}
+    M_{q, \text{phys}}^\text{theo} = \log\left(1 + M_q\right) \approx 0.957976309,
+\end{equation*}
+while the measured value is 
+\begin{equation*}
+    M_{q, \text{phys}}^\text{meas} = 0.957976383 \pm 10^{-10}.
+\end{equation*}
 
 \newpage
 
@@ -273,7 +265,7 @@ The comparison is reported in table \ref{tab:background_field}
 \label{sec:chiral_PT}
 As explained in section \ref{sec:Yukawa_theory}, chiral symmetry can be broken, in the continumm theory, either explicitly via the introduction of a finite bare quark mass, or spontaneously if the field gains a non-zero expectation value.\\
 Moreoveor, in the discrete formulation, the introduction of the Wilson term contributes to the explicit breaking of chiral symmetry, as shown in appendix \ref{chap:AppendixB}. This, in particular, means that chiral symmetry is explicitly broken also for $m_q \to 0$. Because of this, one needs a new definition of the bare mass $M_q$, which takes into account the Wilson term contribution, such that chiral symmetry is restored in the limit $M_q \to 0$. \\
-In a lattice study of a theory suchs as  two-flavours QCD, what one typically does \cite{rothe_LGT,gattringer_LQCD} is the following: the spontaneous breaking of chiral symmetry generates three goldstone massless bosons, the pions. If the bare quark mass is zero, the physical mass of the pions has to be zero, as a consequence of Goldstone's theorem \cite{goldstone}. Hence one can measure the pions mass and find a value $m_q^*$ such that when $m_q \to m_q^*$ one has $M_\pi \to 0$. \\
+In a lattice study of a theory suchs as  two-flavours QCD, what one typically does \cite{rothe_LGT,gattringer_LQCD} is the following: the spontaneous breaking of chiral symmetry generates three goldstone massless bosons, the pions. If the bare quark mass is zero, the physical mass of the pions has to be zero, as a consequence of Goldstone's theorem \cite{goldstone}. Hence one can measure the pions mass and find a value $m_q^*$ such that when $m_q \to m_q^*$ one has $m_\pi \to 0$. \\
 This approach is not feasible in our theory, since it is described by a discrete chiral symmetry. \\
 In the literature, one can find proposals for the definition of a bare quark mass for similar theories \cite{Iwasaki:1994gq,MAIANI1986265}. Thus such approaches are not followed here, both because of time reasons, but also because it is not our purpose to match any precise model, but rather investigate properties of the coloured noise technique. Hence, here we just consider na\"ive fermions and the chiral limit is reached for $m_q \to 0$. Thus, one has to keep in mind that due to the fermion doubling this represents a theory with $2N_f = 4$ degenerate quarks. \\~\\
 \begin{figure}[h]
@@ -288,7 +280,8 @@ In the literature, one can find proposals for the definition of a bare quark mas
         \centering
         \includegraphics[width=1.05\textwidth]{figures/chiral_PT/mass_scan/condensate.pdf}
     \end{subfigure}
-    \caption[Mass scan of the quantum and classical theories]{Mass scan of the quantum and classical theories. The dashed gray line indicates a value $m_\phi^{2, \,*}$, where the classical and quantum systems lie in two different phases.}
+    \caption[Mass scan of the quantum and classical theories]{Mass scan of the quantum and classical theories. The dashed gray line indicates a value $m_\phi^{2, \,*}$, where the classical and quantum systems lie in two different phases. \\
+    $\lambda=1.951, g=0.08,$ \\ Lattice size $32 \times 32, \ N_\text{conf} \approx \mathcal{O}(10^4)$}
     \label{fig:scans_classical_quantum}
 \end{figure} 
 In figure \ref{fig:scans_classical_quantum}, the (absolute) magnetisation and the chiral condensate are studied as a function of the bosonic mass squared, both in the fully quantum and fully classical theory. One can notice that the classical system undergoes a phase transition at values of $m_\phi^2$ bigger than the quantum counterpart. Note that as the bare quark mass is small but finite, this is not a proper phase transition and the latter will be, eventually, reached in the limit $m_q \to 0$. We then pick a value $m_\phi^{2 \, *} = -0.123$ which is represented by a gray line in figure \ref{fig:scans_classical_quantum}. \\
@@ -362,13 +355,16 @@ One can clearly see that there is a general good agreement for the first three b
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=1.05\textwidth]{figures/cooling/mass_scan/magnetisation.pdf}
+        \caption{Magnetisation}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=1.05\textwidth]{figures/cooling/mass_scan/susceptibility.pdf}
+        \caption{Susceptibility}
     \end{subfigure}
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=1.05\textwidth]{figures/cooling/mass_scan/condensate.pdf}
+        \caption{Chiral condensate}
     \end{subfigure}
     \caption[Cooling stochastic quantisation: fields as a function of the bosonic mass squared.]{Cooling via coloured noise. The absolute magnetisation, its susceptibility and the chiral condensate are compared after performing block-spins transformations as a function of the bosonic mass squared. \\ $N_\text{conf} \approx \mathcal{O}(5 \cdot 10^4)$. The other parameters are reported in table \ref{tab:params_cooling}}
     \label{fig:cooling_M_psibarpsi_chi2}
@@ -377,10 +373,12 @@ One can clearly see that there is a general good agreement for the first three b
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=1.05\textwidth]{figures/cooling/yukawa_scan/magnetisation.pdf}
+        \caption{Magnetisation}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=1.05\textwidth]{figures/cooling/yukawa_scan/condensate.pdf}
+        \caption{Chiral condensate}
     \end{subfigure}
     \caption[Cooling stochastic quantisation: fields as a function of the Yukawa coupling.]{Cooling via coloured noise. The absolute magnetisation and the chiral condensate are compared after performing block-spins transformations as a function of the Yukawa coupling. \\ $N_\text{conf} \approx \mathcal{O}(5 \cdot 10^4)$. The other parameters are reported in table \ref{tab:params_cooling_yukawa}.}
     \label{fig:cooling_M_psibarpsi}
@@ -399,11 +397,11 @@ The deviation quantified by such parameters is reported in figures \ref{fig:cool
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=1.0\textwidth]{figures/cooling/mass_scan/deviation.pdf}
-        \caption{Absolute magnetisation}
+        \caption{Absolute magnetisation error}
     \end{subfigure}
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=1.0\textwidth]{figures/cooling/mass_scan/deviation_cond.pdf}
-        \caption{Chiral condensate}
+        \caption{Chiral condensate error}
     \end{subfigure}
     \caption[Relative error in the cooling procedure at tree level.]{Relative error of the absolute magnetisation and chiral condensate in the cooling procedure for various values of the noise fraction $s$.}
     \label{fig:cooling_deviation}
@@ -412,11 +410,11 @@ The deviation quantified by such parameters is reported in figures \ref{fig:cool
     \centering
     \begin{subfigure}[b]{0.45\textwidth}
         \includegraphics[width=\textwidth]{figures/cooling/yukawa_scan/deviation.pdf}
-        \caption{Absolute magnetisation}
+        \caption{Absolute magnetisation error}
     \end{subfigure}
     \begin{subfigure}[b]{0.45\textwidth}
         \includegraphics[width=\textwidth]{figures/cooling/yukawa_scan/deviation_cond.pdf}
-        \caption{Chiral condensate}
+        \caption{Chiral condensate error}
     \end{subfigure}
     \caption[Relative error in the cooling procedure at tree level.]{Relative error of the absolute magnetisation and chiral condensate in the cooling procedure for various values of the noise fraction $s$.}
     \label{fig:cooling_deviation_yukawa}
@@ -424,13 +422,15 @@ The deviation quantified by such parameters is reported in figures \ref{fig:cool
 \newpage
 Finally, we also want to look at more complex observables such as the fermionic physical mass and the bosonic renormalised mass. They are reported in figure \ref{fig:cooling_masses}. As one can see, there is a clear deviation for $m_{\phi, r}$ at the third block-spin iteration.
 \begin{figure}[h!]
-    \begin{minipage}{0.45\textwidth}
+    \begin{subfigure}{0.45\textwidth}
         \includegraphics[scale=0.45]{figures/cooling/mass_scan/mphir.pdf}
-    \end{minipage}
+        \caption{Renormalised boson mass}
+    \end{subfigure}
     \hfill 
-    \begin{minipage}{0.45\textwidth}
+    \begin{subfigure}{0.45\textwidth}
         \includegraphics[scale=0.45]{figures/cooling/mass_scan/mqphys.pdf}
-    \end{minipage}
+        \caption{Physical quark mass}
+    \end{subfigure}
     \caption[Masses in the cooling procedure]{Renormalised bosonic mass $m_{\phi, r}$ and pole fermionic mass $m_{q,\text{phys}}$ for various values of the noise fraction $s$.}
     \label{fig:cooling_masses}
 \end{figure} 

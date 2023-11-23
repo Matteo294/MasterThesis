@@ -7,7 +7,7 @@ The na\"ive discretisation of the fermionic action for free fermions yields the 
 \end{equation*}
 which have the momentum representation
 \begin{equation*}
-    \widehat D = \hat m_q - i \sum_\mu \gamma_\mu \sin \left(p_\mu \, a\right).
+    \widehat D = \hat m_q + i \sum_\mu \gamma_\mu \sin \left(p_\mu \, a\right).
 \end{equation*}
 The last expression can be easily inverted
 \begin{equation*}
@@ -22,20 +22,31 @@ The idea proposed by Wilson to remove the doublers is to redefine the action as
 \end{equation*}
 where 
 \begin{equation*}
-    \left(\hat\Box\right)_{mn} = \sum_{\hat\mu} \ \frac{\delta_{m, n+\hat\mu} + \delta_{m, n-\hat\mu} - 2 \, \delta_{mn}}{2}.
+    \left(\hat\Box\right)_{mn} = \sum_\mu \ \frac{\delta_{m, n+\hat\mu} + \delta_{m, n-\hat\mu} - 2 \, \delta_{mn}}{2},
 \end{equation*}
+and $r \in [0,1]$ is a free parameter. In this project we always consider $r=1$.\\
 The Wilson-Dirac operator assumes the form
 \begin{equation*}
-    \widehat D = \hat m_q + \sum_\mu \sin^2\left(\frac{p_\mu \, a}{2}\right) - i \sum_\mu \gamma_\mu \sin \left(p_\mu \, a\right).
+    \widehat D = \hat m_q + \sum_\mu \gamma_\mu \frac{\delta_{m,m+\hat\mu} - \delta_{m,m-\hat\mu}}{2} + \frac{r}{2} \, \sum_\mu \ \frac{\delta_{m, n+\hat\mu} + \delta_{m, n-\hat\mu} - 2 \, \delta_{mn}}{2}.
 \end{equation*}
-It can be inverted straightforwardly
+and its momentum space representation is
 \begin{equation*}
     \begin{aligned}
-        \bar{D}^{-1}(p) &= \frac{\hat{m}_q + \frac{2r}{a} \, \sum_\mu \sin ^2\left(\frac{p_\mu a}{2}\right) - i \sum_\mu \gamma_\mu \sin \left(p_\mu a\right)}{\left[\hat{m}_q + \frac{2r}{a} \, \sum_\mu \sin^2\left(\frac{p_\mu a}{2}\right)\right]^2 + \sum_\mu \sin^2 \left(p_\mu a\right)} \\
-        &= \frac{\hat{M}(p) - i \sum_\mu \gamma_\mu \sin \left(p_\mu a\right)}{\hat{M}^2(p) + \sum_\mu \sin^2 \left(p_\mu a\right)}.
+        \widehat{D}(p) &= \hat{m}_q + i \, \sum_\mu \gamma_\mu \, \sin\left( p_\mu \, a\right) + \frac{r}{2} \sum_\mu \left[\cos\left(p_\mu \, a\right) - 1\right] \\
+        &= \hat{m}_q + i \, \sum_\mu \gamma_\mu \, \sin\left( p_\mu \, a\right) + r \sum_\mu \frac{\cos\left(p_\mu \, a\right) - 1}{2} \\
+        &= \hat{m}_q + i \, \sum_\mu \gamma_\mu \, \sin\left( p_\mu \, a\right) + r \sum_\mu \sin^2\left(\frac{p_\mu \, a}{2}\right).
     \end{aligned}
 \end{equation*}
-For every $\hat p_\mu \not\in \{\pm \pi/a, \pm \pi/a\}$, one has that $a \to 0$ implies $M(p) \to m_q$. Instead, for every momentum vector that lies at the edge of the Brillouin zone $M(p) \to \infty$ as $a \to 0$. This removes the fermion doublers in the continuum limit. \\~\\
+The last expression can be inverted straightforwardly
+\begin{equation*}
+    \begin{aligned}
+        \widehat{D}^{-1}(p) &= \frac{\hat{m}_q + \frac{2r}{a} \, \sum_\mu \sin ^2\left(\frac{p_\mu a}{2}\right) - i \sum_\mu \gamma_\mu \sin \left(p_\mu a\right)}{\left[\hat{m}_q + \frac{2r}{a} \, \sum_\mu \sin^2\left(\frac{p_\mu a}{2}\right)\right]^2 + \sum_\mu \sin^2 \left(p_\mu a\right)} \\
+        &= \frac{\hat{M}(p) - i \sum_\mu \gamma_\mu \sin \left(p_\mu a\right)}{\hat{M}^2(p) + \sum_\mu \sin^2 \left(p_\mu a\right)},
+    \end{aligned}
+\end{equation*}
+where we defined $\hat{M}(p) \equiv \hat{m}_q + \frac{2r}{a} \, \sum_\mu \sin ^2\left(\frac{p_\mu a}{2}\right)$. \\
+For every $\hat p_\mu \neq (\pm \pi/a, \pm \pi/a)$, one has that $a \to 0$ implies $\hat{M}(p) \to \hat{m}_q$.\\
+Instead, for every momentum vector that lies at the edge of the Brillouin zone $M(p) \to \infty$ as $a \to 0$. This removes the fermion doublers in the continuum limit. \\~\\
 A notable problem is that one then loses chiral symmetry since the Wilson term is clearly not invariant under neither the continuous transformation
 \begin{equation*}
     \psi \to e^{i \theta \gamma_5} \, \psi \qquad \bar\psi \to - \bar\psi \, e^{i \theta \gamma_5},
@@ -44,4 +55,4 @@ nor the discrete
 \begin{equation*}
     \psi \to \gamma_5 \, \psi \qquad \bar\psi \to - \bar\psi \, \gamma_5.
 \end{equation*}
-It is in fact proven that one either has the doublers \cite{NIELSEN198120}
+It is in fact proven that one either comepletely removes the doublers or breaks chiral symmetry \cite{NIELSEN198120}.

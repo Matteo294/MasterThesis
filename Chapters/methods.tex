@@ -83,6 +83,7 @@ The full discrete path-integral reads
 In the remaining of this work, both the original action $S$ and the effective action $S_\text{eff}$ will be denoted by $S$ for simplicity. It will be clear from the context which of the two we will be referring to.
 
 \section{Langevin Monte Carlo}
+\label{sec:langevin_monte_carlo}
 The relations \eqref{eq:probability_field_configuration_full,eq:expectation_observables} suggest that equation \eqref{eq:Langevin_scalar_full} can be integrated numerically for discrete time steps $\tau_n$ to generate field configurations distributed according to \eqref{eq:probability_field_configuration_full}. 
 The simplest first-order integration algorithm is the Euler-Majorana scheme \cite{ParisiWu}
 \begin{equation*}
@@ -226,10 +227,10 @@ will be adopted. \\
 We define the fermionic two-points function
 \begin{equation} 
 \begin{aligned}
-    \left\langle \psi_m \, \bar\psi_n \right\rangle 
+    \left\langle \psi(x) \, \bar\psi(y) \right\rangle 
     &= \frac{1}{Z} \, \int \mathcal{D}\phi \, \mathcal{D}\psi \, \mathcal{D}\bar\psi \ \psi(x) \, \bar\psi(y) \, \exp \left( - S_\phi - \psi D \psi + \bar\eta \psi + \bar \psi \eta \right) \\
-    &= \frac{1}{Z} \, \int \mathcal{D}\phi \, \mathcal{D}\psi \, \mathcal{D}\bar\psi \ \frac{\delta}{\delta \bar \eta_m} \frac{\delta}{\delta \eta_n} \, \exp \left( - S_\phi - \psi D \psi + \bar\eta \psi + \bar \psi \eta \right) \\
-    &= \frac{1}{Z} \, \int \mathcal{D}\phi \ \text{det}\left[D(\phi)\right] \ \exp \left( - S_\phi \right) \ \frac{\delta}{\delta \bar \eta_m} \frac{\delta}{\delta \eta_n} \, \exp\left( \bar\eta D^{-1} \eta \right) \\
+    &= \frac{1}{Z} \, \int \mathcal{D}\phi \, \mathcal{D}\psi \, \mathcal{D}\bar\psi \ \frac{\delta}{\delta \bar \eta(x)} \frac{\delta}{\delta \eta(y)} \, \exp \left( - S_\phi - \psi D \psi + \bar\eta \psi + \bar \psi \eta \right) \\
+    &= \frac{1}{Z} \, \int \mathcal{D}\phi \ \text{det}\left[D(\phi)\right] \ \exp \left( - S_\phi \right) \ \frac{\delta}{\delta \bar \eta(x)} \frac{\delta}{\delta \eta(y)} \, \exp\left( \bar\eta D^{-1} \eta \right) \\
     &= \left\langle \left[D^{-1}(\phi)\right]_{mn}\right\rangle.
 \end{aligned}
 \label{eq:D_inv_condensate}
@@ -239,22 +240,24 @@ From this, the chiral condensate follows straightforwardly
 \begin{equation*}
     \left\langle  \bar\psi \psi \right\rangle = \underset{n,s}\sum  \left\langle \bar\psi_{n,s} \, \psi_{n,s} \right\rangle = -\underset{n,s}{\tr} \, (D^{-1})_{nn}.
 \end{equation*}
-The fermionic correlator is defined as
-\begin{align*}
-    C_\psi(t,0) \equiv \frac{1}{N_x} \sum_{n_x} \left[\left\langle \psi(t, n_x) \, \bar\psi(0,0)\right\rangle - \left\langle \psi(N_t-t, n_x) \, \bar\psi(0,0) \right] \right\rangle.
-\end{align*}
-Note that we sum up two waves because the source propagates both forward and backward in time due to the boundary conditions. \\
-As shown in Appendix \ref{chap:AppendixA} (\textcolor{blue}{not yet}), for $t \to \infty$ one has 
-\begin{equation*}
+On a finite volume lattice, the correlation of a field at two spacetime points is quantified by the correlator
+\begin{equation}
+    C_\psi(t,0) \equiv \frac{1}{N_x} \sum_{n_x} \left[\left\langle \psi(t, n_x) \, \bar\psi(0,0)\right\rangle - \left\langle \psi(N_t-t, n_x) \, \bar\psi(0,0)\right\rangle \right] .
+    \label{eq:correlator_definition}
+\end{equation}
+Note that we sum up two waves because of the boundary conditions. \\
+In momentum space, one has
+\begin{equation*} 
+    \begin{aligned}
+        C(t, \vec{p}) & =\frac{1}{V} \sum_{\vec{x}} e^{-i \vec{p} \vec{x}}\left(\langle\Psi(t, \vec{x}) \bar{\Psi}(0, \vec{0})\rangle-\left\langle\Psi\left(N_t-t, \vec{x}\right) \bar{\Psi}(0, \vec{0})\right\rangle\right) \\
+        & \propto \sum_n e^{-E_n(\vec{p}) t}-e^{-E_n(\vec{p})\left(N_t-t\right)}=\sum_n 2 e^{-E_n(\vec{p}) \frac{N_t}{2}} \sinh \left[E_n(\vec{p})\left(\frac{N_t}{2}-t\right)\right] .
+    \end{aligned}
+\end{equation*}
+For large times all the contributions but the ground state are suppressed, so that 
+the fermionic correlator assumes the form 
+\begin{equation}
     C_\psi(t,0) \approx \sinh \left(E_0^{\psi} \left(\frac{N_t}{2} - t\right)\right),
-\end{equation*}
+    \label{eq:correlator_func}
+\end{equation}
 where $E_0^{\psi}$ is the fermionic mass gap, which will be denoted as $m_{q,\text{phys}}$. \\
-Analogously, the bosonic correlator is
-\begin{equation*}
-    C_\phi(t,0) \equiv \frac{1}{N_x} \sum_{n_x} \left[\left\langle \phi(t, n_x) \, \phi(0,0)\right\rangle + \left\langle \phi(N_t-t, n_x) \, \bar\phi(0,0) \right] \right\rangle.
-\end{equation*}
-and for $t \to \infty$ one has 
-\begin{equation*}
-    C_\phi(t,0) \approx \cosh \left(E_0^{\phi} \left(\frac{N_t}{2} - t\right)\right).
-\end{equation*}
-$E_0^{\phi} \equiv m_{\phi, \text{phys}}$ is the bosonic mass gap.
+Hence by computing the correlator on the lattice by means of \eqref{eq:D_inv_condensate}, one can measure fermionic masses in the simulation by making a fit to expression \eqref{eq:correlator_func}. \\

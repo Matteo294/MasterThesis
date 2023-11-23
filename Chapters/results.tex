@@ -1,57 +1,99 @@
 % !TeX root = ../main.tex
-\chapter{Numerical results: preliminary investigation}
+\chapter{Numerical results: preliminaries}
 \label{chapt:results_preliminary}
 
 \section{Inversion of the Dirac operator}
-\begin{figure}[h]
+\label{sec:inversion_dirac}
+As mentioned in section \ref{sec:langevin_monte_carlo}, the inversion of the Dirac operator is a computationally expensive operation. In fact, simple algorithms to invert a matrix such as Gaussian elimination have computational complexity of $O(n^3)$ \cite{cond_num_ref}, while the best algorithm available nowadays has been proved to scale as $O(n^{2.371552})$ \cite{williams2023new}. \\
+To circumvent this, since we are often only interested in applying the inverse matrix to a vector, we make use of the Conjugate Gradient algorithm, as detailed in appendix \ref{chap:AppendixC}. \\
+We now want to give an idea of the speed-up that one can gain by following such approach, keeping in mind that this is an operation which has to be performed at each evolution step.  \\
+To do this, we construct a Dirac operator described by equation \eqref{eq:wilson-dirac_operator} with bare quark mass $m_q = 0.5$ and Yukawa coupling $g=0.5$. We then add a fluctuating scalar field 
+\begin{equation*} 
+    \phi(x) = v + \eta(x),
+\end{equation*} 
+where $v = 1.0$ and $\eta$ is a normally distributed number with mean $0$ and unitary variance. \\
+We then measure the time needed to compute 
+\begin{equation*}
+    \xi = D^{-1}\psi,
+\end{equation*}
+where $\psi$ is a vector of random numbers uniformly ditributed between $-1$ and $1$. We study the time dependence as a function of the vector size $V$ by averaging over 20 measures per each value of $V$. \\
+Figure \ref{fig:complexity} reports the results of the experiment. Assuming that our algorithm has complexity $O(V^b)$, namely that when $V \to \infty$
+\begin{equation*}
+    t \approx a \, V^b,
+\end{equation*}
+we fit our data according to the model 
+\begin{equation*}
+    \log t = \log a + b \log V.
+\end{equation*}
+We find 
+\begin{equation*}
+    \log a = -3.1 \pm 0.1 \qquad b = 1.02 \, \pm 0.02.
+\end{equation*}
+Note that for a standard Gaussian elimination procedure we would have found $b \approx 3.0$. This is of particular relevance in the case of this work, since the cooling technique via coloured noise requires doubling the number of lattice points in each direction at each block spin step; hence the volume of the lattice increases by a factor $2^d$ at each iteration, where $d$ is the spacetime dimension. \\
+Typical lattices sizes in this work are up to $128 \times 128 \times N_f \times N_s \approx 10^5$, where $N_f$ is the number of flavours and $N_s$ is the number of spinor components. Therefore, a good volume scaling of the algorithm is strictly necessary.
+\begin{figure}[t]
     \centering
     \includegraphics[scale=0.65]{figures/complexity.pdf}
-    \caption{}
+    \caption[Computational complexity of the Conjugate Gradient algorithm.]{Computational complexity of the Conjugate Gradient algorithm in our model. The results show the operation time scales as $t \sim \mathcal{O}(V^{1.03})$ for large verctor sizes, while for a standard Gaussian elimination one would have found $t \sim \mathcal{O}(V^3)$.}
     \label{fig:complexity}
 \end{figure}
 
 \section{The fermionic correlator}
-To start with the study of the model, we want to analyse the behaviour of the fermionic correlator and illustrate the fermionic masses extraction procedure. \\
-Let us initially restrict to $g = 0$, so that the Dirac operator reduces to the one of free Wilson fermions \textcolor{red}{ref eq.}
-\raggedright We then compute the correlator numerically via a single inversion of the Dirac operator as detailed in Appendix \ref{chap:AppendixC}. The lattice volume is chosen to be $128 \times 128$. \\
-Figure \ref{fig:correlator_mass} reports the fermionic correlator as a function of $m_q$. One can see that a bigger bare quark mass results in a quicker decay, in accordance with the decay law \textcolor{red}{ref. eq.}. On the other side, a smaller mass results in a slower decay and tends to deform the characteristic shape of the correlator. \\~\\
+We now want to analyse the behaviour of the fermionic correlator and illustrate the fermionic masses extraction procedure. \\
+Let us for the moment restrict to $g = 0$, so that the Dirac operator reduces to the one of free Wilson fermions 
+\begin{equation}
+    \begin{aligned}
+    \widehat{D}_{m, n} = &- \left(\frac{\Gamma_{+\hat 0}}{2} \, \delta_{m, m+\hat 0} +\frac{\Gamma_{-\hat 0}}{2} \, \delta_{m, m-\hat 0} + \frac{\Gamma_{+\hat 1}}{2} \, \delta_{m, m+\hat 1} + \frac{\Gamma_{- \hat 1}}{2} \, \delta_{m, m-\hat 1}\right)  \\
+     &+ \left(2ar + \hat m \right) \, \delta_{s,s'} \, \delta_{m,n}. \\
+    \end{aligned}
+    \label{eq:wilson-dirac_operator_free}
+\end{equation}
+\raggedright We then compute the correlator \eqref{eq:correlator_definition} numerically via a single inversion of the Dirac operator using the Conjugate Gradient algorithm as detailed in Appendix \ref{chap:AppendixC}. The lattice volume is chosen to be $128 \times 128$. \\~\\
+Figure \ref{fig:correlator_mass} reports the fermionic correlator as a function of $m_q$. One can see that a bigger bare quark mass results in a quicker decay, according to the decay law 
+\begin{equation*}
+    \lim_{t \to \infty} \expect{\psi(t)\bar\psi(t)}_{s,s'} \propto e^{-m_\text{phys} \, t}.
+\end{equation*}
+On the other side, a smaller mass results in a slower decay and tends to deform the characteristic shape of the correlator. \\~\\
 \begin{figure}[h]
     \centering 
     \includegraphics[scale=0.6]{figures/correlator/correlator.pdf}
-    \caption[Fermionic correlator]{Normalised fermionic correlator for different values of the bare quark mass. A bigger mass results in a quicker decay, according to \textcolor{red}{eq. ref.}}
+    \caption[Fermionic correlator]{Normalised fermionic correlator for different values of the bare quark mass.}
     \label{fig:correlator_mass}
 \end{figure}
 Figure \ref{fig:correlator_CGiter} shows the number of iterations needed for convergence of the Conjugate Gradient algorithm. While the exact number depends on the desired tolerance, one can clearly see that the number of iterations grows as $m_q \to 0$, due to an increase in the condition number \cite{cond_num_ref}. \\
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering 
     \includegraphics[scale=0.6]{figures/correlator/CGiter.pdf}
-    \caption{CG iterations}
+    \caption[Conjugate Gradient algorithm iterations as a function of the bare quark mass.]{Conjugate Gradient algorithm iterations as a function of the bare quark mass.}
     \label{fig:correlator_CGiter}
 \end{figure} 
 \newpage
-For the Dirac operator \textcolor{red}{ref eq.}, one can derive an analytical expression for the fermionic mass. The Dirac operator in momentum space reads \textcolor{red}{non lo hai mai introdotto}
+For the Dirac operator \ref{eq:wilson-dirac_operator_free}, one can derive an analytical expression for the physical mass, the pole of the propagator. \\
+To do this, let us consider the momentum space expression of the Dirac operator, which is derived in appendix \ref{chap:AppendixB}
 \begin{equation*}
-\bar{D}(p)= m_q + \sum_\mu 2 \sin ^2\left(\frac{p_\mu}{2}\right)+i \sum_\mu \gamma_\mu \sin \left(p_\mu\right)
+\bar{D}(p)= \hat{m}_q + \sum_\mu 2 \sin ^2\left(\frac{p_\mu \, a}{2}\right)+i \sum_\mu \gamma_\mu \sin \left(p_\mu \, a\right).
 \end{equation*}
-and its inverse is
+This can be straightforwardly inverted to
 \begin{equation*}
-    \bar{D}^{-1}(p) = \frac{m_q + \sum_\mu 2 \sin ^2\left(\frac{p_\mu}{2}\right) - i \sum_\mu \gamma_\mu \sin \left(p_\mu\right)}{m_q + \sum_\mu 2 \sin^2\left(\frac{p_\mu}{2}\right) + \sum_\mu \sin^2 \left(p_\mu\right)}.
+    \bar{D}^{-1}(p) = \frac{\hat{m}_q + \sum_\mu 2 \sin ^2\left(\frac{p_\mu \, a}{2}\right) - i \sum_\mu \gamma_\mu \sin \left(p_\mu \, a\right)}{\hat{m}_q + \sum_\mu 2 \sin^2\left(\frac{p_\mu \, a}{2}\right) + \sum_\mu \sin^2 \left(p_\mu \, a\right)}.
 \end{equation*}
 One can now find the pole by imposing the numerator evaluated at $p^\mu =(im_\text{phys}, 0)$ to zero:
 \begin{equation*}
-    \left[m_q + \sum_\mu 2 \sin ^2\left(\frac{p_\mu}{2}\right)\right]^2_{p_\mu = (im_\text{phys}, 0)} + \left[\sum_\mu \gamma_\mu \sin \left(p_\mu\right)\right]^2_{p_\mu = (im_\text{phys}, 0)} = 0.
+    \left[\hat{m}_q + \sum_\mu 2 \sin ^2\left(\frac{p_\mu \, a}{2}\right)\right]^2_{p_\mu = (im_\text{phys}, 0)} + \left[\sum_\mu \gamma_\mu \sin \left(p_\mu \, a\right)\right]^2_{p_\mu = (im_\text{phys}, 0)} = 0.
 \end{equation*}
 This results in a trascendental equation 
 \begin{equation*}
-    \left[m_q - 2 \sinh^2\left(\frac{m_\text{phys}}{2}\right)\right]^2 - \sinh^2\left(m_\text{phys}\right) = 0,
+    \left[\hat{m}_q - 2 \sinh^2\left(\frac{\hat{m}_\text{phys}}{2}\right)\right]^2 - \sinh^2\left(\hat{m}_\text{phys}\right) = 0,
 \end{equation*}
 which has the solution 
 \begin{equation}
-    m_\text{phys} = \log\left(1+m_q\right).
+    \hat{m}_\text{phys} = \log\left(1+\hat{m}_q\right).
     \label{eq:analytical_wilson}
 \end{equation}
-We then choose three values of the bare quark mass, compute the correlator numerically and perform a fit according to \eqref{eq:correlator_mass_extraction}, in order to extract the physical mass. We then compare it to the theoretical value given by \eqref{eq:analytical_wilson}. The results are reported in figures \ref{fig:fit_wilson} and table \ref{tab:free_wilson_fit}. \\~\\
-\begin{table}
+We then choose three values of the bare quark mass, compute the correlator numerically and perform a fit according to \eqref{eq:correlator_func}, in order to extract the physical mass. We then compare it to the theoretical value given by \eqref{eq:analytical_wilson}. The results are reported in figures \ref{fig:fit_wilson} and table \ref{tab:free_wilson_fit}. \\~\\
+Note that in an interacting theory, excited states are, strictly speaking, negligible only for $t \to \infty$. This means that they may affect the characteristic shape of the correlator, and one has to either consider only a smaller window centered around $t=N/2$, or to fit the two exponential decays separately, in order to extract the mass \textcolor{blue}{I might try to bring an example}.
+\newpage
+\begin{table}[h!]
     \centering
     \begin{tabular}[pos]{ccc}
         \toprule
@@ -62,10 +104,10 @@ We then choose three values of the bare quark mass, compute the correlator numer
         0.01 & 0.009950330853168092 & 0.009950277657505842 \\
         \bottomrule
     \end{tabular}
-    \caption[Fit of the correlator for free Wilson fermions.]{The correlator for free Wilson fermions is fitted to \textcolor{red}{(eqref)} and compared to its analytical value given by \eqref{eq:analytical_wilson}. The precision for the Conjugate Gradient algorithm was set to $r^2 \leq 10^{-10}$.}
+    \caption[Fit of the correlator for free Wilson fermions.]{The correlator for free Wilson fermions is fitted to equation \eqref{eq:correlator_func} and compared to its analytical value given by \eqref{eq:analytical_wilson}. The precision for the Conjugate Gradient algorithm was set to $r^2 \leq 10^{-10}$.}
     \label{tab:free_wilson_fit}
 \end{table}
-\begin{figure}
+\begin{figure}[h!]
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=1.05\textwidth]{figures/correlator/corrs_free/corr_small.pdf}
@@ -82,19 +124,19 @@ We then choose three values of the bare quark mass, compute the correlator numer
         \includegraphics[width=1.05\textwidth]{figures/correlator/corrs_free/corr_medium.pdf}
         \caption{$m_q = 0.1$}        
     \end{subfigure}
-    \caption[Fit of the correlator for free Wilson fermions.]{Fit of the fermionic correlator to \textcolor{red}{(eqref)}, for three different values of the bare quark mass.}
+    \caption[Fit of the correlator for free Wilson fermions.]{Fit of the fermionic correlator acording to equation \eqref{eq:correlator_func}, for three different values of the bare quark mass.}
     \label{fig:fit_wilson}
 \end{figure}
-\textcolor{green}{The presence of a background field has the same effects on the correlator as a bare quark mass. In fact, if $\phi(x) = v$, one can simply redefine the bare mass as $M_q = m_q + g \, v$ and the properties of the fermionic correlator remain unchanged.}
+
 \newpage
 
 \section{Phase structure}
 We want to start the analysis of the Yukawa theory by doing a parameters scan, in order to have a global picture of the phase diagram in the presence of Wilson fermions. For the remaining of this section, we set the value of the fermionic bare mass to $m_q = 1.0$.\\~\\
 Figure \ref{fig:phase_diagram_g_m} reports a slice of the phase diagram in the $g-m_\phi^2$ plane. \\
-For $g=0$, one reduces to the case of a O(1) scalar theory: for $m_\phi^2>0$ the systems lies in a symmetric state identified by $\expect{\phi} = 0$. 
+For $g=0$, the fermionic and bosonic theories are independent. In particular the scalar theory reduces to a O(1) interacting theory: for $m_\phi^2>0$ the systems lies in a symmetric state identified by $\expect{\phi} = 0$. 
 As the mass goes to negative values, the scalar field gains a non-zero expectation value, signaling the spontaneous breaking of the O(1) symmetry. \\
-When a finite Yukawa coupling is added, the finite bare quark mass and the Wilson term break chiral symmetry explicitly, resulting in a non-zero expectation value of the scalar field. \\
-This is in good agreement with the qualitative description of the phase structure given in section \ref{sec:Yukawa_theory}.
+When a finite Yukawa coupling is added, the finite bare quark mass and the Wilson term, that break chiral symmetry explicitly, are fed to the scalar field, which gains a vacuum expectation value due to the relation \eqref{eq:qualitative_relation_condensate_magnetisation_mass}. \\
+Note that the diagram of the magnetisation is in good agreement with the qualitative description of the phase structure given in section \ref{sec:Yukawa_theory}.
 \begin{figure}[htp]
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
@@ -112,16 +154,16 @@ This is in good agreement with the qualitative description of the phase structur
     \caption{Slice of the phase diagram at fixed $\lambda = 2.0$. \\ Lattice size $32 \times 32$, $N_\text{conf} \approx \mathcal{O}(5 \cdot 10^4)$.}
     \label{fig:phase_diagram_g_m}
 \end{figure}\\
-For finite $m_q$ and $g$ one cannot speak of a proper phase transition, as the symmetry is explicitly broken at the classical level. Thus, one still have a smooth crossover between the two phases. This fact is reflected in the plot of the magnetic susceptibility, which peaks around $m_\phi^2 = 0$ only for small values of $g$. \\
-As explained in section \ref{sec:Yukawa_theory}, and shown in \textcolor{red}{where?}, the presence of a background scalar field can be interpreted as a bare quark mass. This is reflected in the plot of of $m_{q, \text{phys}}$ which resembles the one of $\expect{\phi}$, except for $g=0$, where the two theories are disconnected. \\
-Finally, the chiral condensate, \dots \textcolor{red}{why the hell is is bigger for smaller g? I thought the bigger the condensate, the bigger the breaking.} \\~\\
+The plot of the chiral condensate shows that chiral symmetry is always broken in the model, even for $g=0$. Because of this, even for finite $m_q$ and $g$ one can never speak of a proper phase transition. Thus, one still have a smooth crossover between the two phases. This fact is reflected in the plot of the magnetic susceptibility, which peaks around $m_\phi^2 = 0$ only for small values of $g$. \\
+As explained in section \ref{sec:Yukawa_theory}, the presence of a background scalar field can be interpreted as a bare quark mass. This is reflected in the plot of of $m_{q, \text{phys}}$ which resembles the one of $\expect{\phi}$, except for $g=0$, where the two theories are disconnected. \\~\\
 Figure \ref{fig:phase_diagram_g_lam} reports the phase diagram in the $\lambda - g$ plane. The behavior can be understood qualitatively by means of classical arguments. 
 For $g=0$, one expects a field magnetisation of order 
 \begin{equation*}
     v = \sqrt{-\frac{6 m_\phi^2}{\lambda}}.
 \end{equation*}
 Hence, as $\lambda$ is increased, the expectation value of the field is reduced.
-If $g \neq 0$, the fermion masses contributions increase the expectation value of the field, which in turns works as an additional bare quark mass, hence increasing $m_{q, \text{phys}}$. The behavior of the susceptibility is analogous to the previous case: only if $g=0$ one has a proper phase transition, reflected in the peak around $\lambda = 0, g = 0$.
+If $g \neq 0$, the fermion masses contributions increase the expectation value of the field, which in turn works as an additional bare quark mass, hence increasing $m_{q, \text{phys}}$. The behavior of the susceptibility is analogous to the previous case: only if $g=0$ one has a proper phase transition, reflected in the single peak.
+The precise value of $\lambda$ at which this happens, depends, mainly, on the choice of $m_\phi^2$. \textcolor{red}{potrei anche fare un plot a $m_\phi^2 > 0$}
 \begin{figure}[htp]
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
@@ -139,7 +181,11 @@ If $g \neq 0$, the fermion masses contributions increase the expectation value o
     \caption{Slice of the phase diagram at fixed $m_\phi^2 = -1.0$. \\ Lattice size $32 \times 32$, $N_\text{conf} \approx \mathcal{O}(10^4)$.}
     \label{fig:phase_diagram_g_lam}
 \end{figure}
-\begin{figure}
+\newpage
+Finally, let us give a look at the phase structure in the $\lambda - m_\phi^2$ plane. 
+Since here one always has $g \neq 0$, the expectation value of the scalar field and the chiral condensate are never zero, since the symmetry is broken independetly of the choice of $m_\phi^2$ and $lambda$. This fact is also reflected in the mass plot,
+where one can clearly see that $m_\text{phys}$ is always proportional to the field.
+\begin{figure}[hbp]
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=\textwidth]{figures/phase_diagram/m-lam/phase_diagram_phi.pdf}
@@ -153,9 +199,10 @@ If $g \neq 0$, the fermion masses contributions increase the expectation value o
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=\textwidth]{figures/phase_diagram/m-lam/phase_diagram_chi2.pdf}
     \end{subfigure}
-    \caption{Slice of the phase diagram at fixed $g = 1.5$. \\ Lattice size $32 \times 32$, $N_\text{conf} \approx \mathcal{O}(10^4)$.}
+    \caption{Slice of the phase diagram at fixed $g = 1.5$. \\ Lattice size $64 \times 64$, $N_\text{conf} \approx \mathcal{O}(10^4)$.}
     \label{fig:phase_diagram_m_lam}
 \end{figure}\\
+Moreover, the susceptibility in this case does not show a single peak as the phase transition can only happen for $g=0$. Note in fact the difference in magnitude with respect to figures \ref{fig:phase_diagram_g_m} and \ref{fig:phase_diagram_g_lam}.
 
 \chapter{Numerical results: coloured noise}
 \label{chapt:results_coloured}
@@ -175,13 +222,14 @@ Let us start by analising the coloured noise field in the simulation and relevan
 The system is initialised in the same state for all the configurations on a $64 \times 64$ lattice. We consider a simulation with $s=1$ and then progressively lower the cutoff fraction $s$, keeping fixed all the quantities in the classical action. \\
 Figure \ref{fig:thermalisation_different_noise_fracs} shows the system thermalisation for different values of $s$, namely the Langevin evolution from the initial state to equilibrium. The blue line corresponds to the case $s=0$, a classical simulation, while the brown line corresponds to the case $s=1$, the fully quantum case.  All the parameters settings are reported under the figure. \\
 One can notice that as quantum modes are removed via coloured noise, the systems shifts its equilibrium point. \\~\\ 
-In section \ref{sec:Yukawa_theory} it argued by using classical arguments that the magnetisation, chiral condensate and mass $m_{q, \text{phys}}$ are related via \eqref{eq:classical_EOM_full} and \eqref{eq:qualitative_relation_condensate_magnetisation_mass}. By looking at figure \ref{fig:interpolation_relation_phi_cond_mass} one can clearly see that 
+We now want to make use of coloured noise to understand the relation between scalar field, quark condensate and fermionic mass, which was qualitatively discussed in section \ref{sec:Yukawa_theory} by means of classical arguments. \\
+Keeping all the parameters fixed, we perform simulations changing the value of the cutoff fraction $s$, and we measure the three quantities above mentioned: the results are reported in figure \ref{fig:interpolation_relation_phi_cond_mass}. 
+One can clearly see that as quantum modes are added, the relation between the three quantities
 \begin{equation*}
 	\expect{\phi} \sim \expect{\bar\psi\psi} \sim m_q.
 \end{equation*}
-holds at all levels in the quantum theory. \\
-This is an important result if one interprets it in the context of effective theories such as Gross-Neveu model, Quark-Meson model, NJL model, which are strictly related to our model as explained in section \textcolor{red}{???}. When one performs dynamical bosonisation via Hubbard Stratonovich transformation, the scalar field plays the role of a quark bilinear at all effects.
-\begin{figure}[htp]
+change proportionally.
+\begin{figure}[h]
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=1.0\textwidth]{figures/slide_broken/magnetisation.pdf}
@@ -195,6 +243,9 @@ This is an important result if one interprets it in the context of effective the
     \caption[Relation between magnetisation, condensate and mass]{\textcolor{red}{x label} Relation between magnetisation, chiral condensate and mass, which was motivated in section \ref{sec:Yukawa_theory}. \\ $m_\phi^2=-1.0, \ \lambda=0.7, g=0.2, \ m_q = 1.0$ \\ Lattice size $64 \times 64, \ N_\text{conf} \approx \mathcal{O}(5 \cdot 10^4)$.}
     \label{fig:interpolation_relation_phi_cond_mass}
 \end{figure} \\
+This makes clear at first that the scalar field $\phi$ effectively plays the role of quark bilinear in the dynamics. Moreoveor, the presence of a background field generates a quark, which breaks chiral symmetry. \\
+The interconnection of these phenomena is an important result if one interprets it in the context of effective theories. In fact, often in QCD, the dynamical chiral symmetry breaking mechanism is described by low energy Yukawa-type effective models such as Gross-Neveu, Nambu - Jona-Lasinio or Quark Meson, to name some examples, where a scalar field can emerge after bosonisation via a Hubbard-Stratonovich transformation, as mentioned in chapter \ref{chap:introduction}. \\
+Beeing low-energy effective theories, one expects them to hold only up to a certain eenrgy scale, typically \textcolor{red}{menziona}. Since via coloured noise the cutoff can be controlled, as discussed in \textcolor{red}{where}, knowint that the relation holds at all level is of high relevance. \\
 For $s=0$, the fields are restricted to the classical equations of motion \eqref{eq:classical_EOM_full}. As pointed out in section \ref{sec:Yukawa_theory}, in particular in equation \eqref{eq:background_field}, a background field $\phi(x) = v$ has the same behaviour on the system as a bare quark mass. We then compare the physical quark mass with the theoretical expression for free Wilson fermions \eqref{eq:analytical_wilson} using a shifted bare mass 
 \begin{equation*}
 	M_q = m_q + g \expect{\phi}
@@ -218,14 +269,13 @@ The comparison is reported in table \ref{tab:background_field}
 \newpage
 
 
-\section{Chiral fermions and noise-induced chiral phase transition}
+\section{Chiral fermions and noise-induced transition}
 \label{sec:chiral_PT}
-\textcolor{red}{comment on the configurations}
 As explained in section \ref{sec:Yukawa_theory}, chiral symmetry can be broken, in the continumm theory, either explicitly via the introduction of a finite bare quark mass, or spontaneously if the field gains a non-zero expectation value.\\
 Moreoveor, in the discrete formulation, the introduction of the Wilson term contributes to the explicit breaking of chiral symmetry, as shown in appendix \ref{chap:AppendixB}. This, in particular, means that chiral symmetry is explicitly broken also for $m_q \to 0$. Because of this, one needs a new definition of the bare mass $M_q$, which takes into account the Wilson term contribution, such that chiral symmetry is restored in the limit $M_q \to 0$. \\
 In a lattice study of a theory suchs as  two-flavours QCD, what one typically does \cite{rothe_LGT,gattringer_LQCD} is the following: the spontaneous breaking of chiral symmetry generates three goldstone massless bosons, the pions. If the bare quark mass is zero, the physical mass of the pions has to be zero, as a consequence of Goldstone's theorem \cite{goldstone}. Hence one can measure the pions mass and find a value $m_q^*$ such that when $m_q \to m_q^*$ one has $M_\pi \to 0$. \\
 This approach is not feasible in our theory, since it is described by a discrete chiral symmetry. \\
-In the literature, one can find proposals for the definition of a bare quark mass for similar theories \cite{Iwasaki:1994gq,MAIANI1986265}. Thus such approaches are not followed here, both because of time reasons, but also because it is not our purpose to match any physical results, but rather investigate properties of the coloured noise technique. Hence, here we just consider na\"ive fermions and the chiral limit is reached for $m_q \to 0$. Thus, one has to keep in mind that due to the fermion doubling, this represents a theory with $2N_f = 4$ physical degenerate quarks. \\~\\
+In the literature, one can find proposals for the definition of a bare quark mass for similar theories \cite{Iwasaki:1994gq,MAIANI1986265}. Thus such approaches are not followed here, both because of time reasons, but also because it is not our purpose to match any precise model, but rather investigate properties of the coloured noise technique. Hence, here we just consider na\"ive fermions and the chiral limit is reached for $m_q \to 0$. Thus, one has to keep in mind that due to the fermion doubling this represents a theory with $2N_f = 4$ degenerate quarks. \\~\\
 \begin{figure}[h]
     \centering
     \captionsetup[subfigure]{justification=centering}
@@ -241,7 +291,7 @@ In the literature, one can find proposals for the definition of a bare quark mas
     \caption[Mass scan of the quantum and classical theories]{Mass scan of the quantum and classical theories. The dashed gray line indicates a value $m_\phi^{2, \,*}$, where the classical and quantum systems lie in two different phases.}
     \label{fig:scans_classical_quantum}
 \end{figure} 
-In figure \ref{fig:scans_classical_quantum}, the (absolute) magnetisation and the chiral condensate are studied as a function of the bosonic mass squared, both in the fully quantum and fully classical theory. One can notice that the classical system undergoes a phase transition at values of $m_\phi^2$ bigger than the quantum counterpart. Note that as the bare quark mass is small but finite, this is not a proper phase transition and the latter will be, eventually, reached in the limit $m_q \to 0$. We then pick a value $m_\phi^{2 \, *} = -0.123$ which is represented by a gray line in figure \ref{fig:scans_classical_quantum}.
+In figure \ref{fig:scans_classical_quantum}, the (absolute) magnetisation and the chiral condensate are studied as a function of the bosonic mass squared, both in the fully quantum and fully classical theory. One can notice that the classical system undergoes a phase transition at values of $m_\phi^2$ bigger than the quantum counterpart. Note that as the bare quark mass is small but finite, this is not a proper phase transition and the latter will be, eventually, reached in the limit $m_q \to 0$. We then pick a value $m_\phi^{2 \, *} = -0.123$ which is represented by a gray line in figure \ref{fig:scans_classical_quantum}. \\
 Using coloured noise, we then interpolate between the classical and quantum picture for different values of the quark mass, namely $m_q = 10^{-2}, 5 \cdot 10^{-3}, 10^{-3}$.
 \begin{figure}[h!]
 \centering
@@ -265,16 +315,16 @@ Using coloured noise, we then interpolate between the classical and quantum pict
 \end{figure}\\
 
 One can clearly see in figure \ref{fig:chiral:symmetry_breaking} that as the quark  mass is lowered the difference between the two phases gets sharper, indicating a phase transition. 
-This is especially highligthed in the increasing peak of the magnetic susceptibility, and by the Binder parameters, which is supposed to assume the vlaue $U_L = 0$ in the symmetric phase, and $U_L=2/3$ in the broken phase.
+This is especially highligthed in the increasing peak of the magnetic susceptibility, and by the Binder parameters, which assumes the value $U_L = 0$ in the symmetric phase, and $U_L=2/3$ in the broken phase. \\
+Note that in order to confirm that a phase transition took place, one should first consider $V \to \infty$ and then $m_q \to 0$. If the order parameters of the classical and quantum theories still indicates that the system is 
+in two different phases, one can draw the conclusion.
 
-\newpage
-\textcolor{red}{EMPTY}
 \newpage
 
 \section{Cooling with coloured noise}
 Let us now consider one of the main applications of coloured noise, namely the cooling technique. \\
 We first set up a white noise simulation $s=1$, and then progressively lower $s$. The lowering of the cutoff is compensated by a change in the couplings, as explained in section \ref{sec:lattice_with_coloured_noise}. 
-We study the behavior of the system both as a function of the bosonic mass squared $m_\phi^2$ and the yukawa coupling $g$. 
+We study the behavior of the system both as a function of the bosonic mass squared $m_\phi^2$ and the Yukawa coupling $g$. 
 A summary of the parameters choice for both the experiments is reported in tables \ref{tab:params_cooling} and \ref{tab:params_cooling_yukawa}. \\
 \begin{table}[htp]
     \centering
@@ -307,7 +357,7 @@ A summary of the parameters choice for both the experiments is reported in table
     \label{tab:params_cooling_yukawa}
 \end{table}
 Figure \ref{fig:cooling_M_psibarpsi_chi2} reports the magnetisation, its susceptibility and the chiral condensate as a function of the bare scalar mass squared $m_\phi^2$, while figure \ref{fig:cooling_M_psibarpsi} reports the investigation as a function of the Yukawa coupling. \\
-One can clearly see that there is a general good agreement for the first three block-spin transformations.
+One can clearly see that there is a general good agreement for the first three block-spin transformations, even if based on tree level arguments.
 \begin{figure}[hbp]
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
@@ -340,7 +390,7 @@ The most relevant observables are the magnetisation and the chiral condensate, s
 \begin{equation}
     \begin{aligned}
         \epsilon_\phi(s) &= \frac{\expect{|M|}_{s} - \expect{|M|}}{\expect{|M|}}, \\
-        \epsilon_\psi(s) &= \frac{\expect{|\bar\psi \, \psi|}_{s} - \expect{|\bar\psi \, \psi||}}{\expect{|\bar\psi \, \psi||}}.
+        \epsilon_\psi(s) &= \frac{\expect{|\bar{\hat\psi} \, \hat{\psi}|}_{s} - \expect{|\bar{\hat\psi} \, \hat{\psi|}}}{\expect{|\bar{\hat\psi} \, \hat{\psi}||}}.
     \end{aligned}
     \label{eq:cooling_relative_deviation}
 \end{equation}
@@ -372,7 +422,7 @@ The deviation quantified by such parameters is reported in figures \ref{fig:cool
     \label{fig:cooling_deviation_yukawa}
 \end{figure} \\
 \newpage
-Finally, we also want to look at more complex observables such as the fermionic physical mass and the bosonic renormalised mass. They are reported in figure \ref{fig:cooling_masses}. As one can see, there is a clear deviation for $m_{\phi, r}$ at the third block-spin iteration. This is a systematic deviation because \textcolor{red}{i would say tree level, but I don't think it's the case.}
+Finally, we also want to look at more complex observables such as the fermionic physical mass and the bosonic renormalised mass. They are reported in figure \ref{fig:cooling_masses}. As one can see, there is a clear deviation for $m_{\phi, r}$ at the third block-spin iteration.
 \begin{figure}[h!]
     \begin{minipage}{0.45\textwidth}
         \includegraphics[scale=0.45]{figures/cooling/mass_scan/mphir.pdf}
@@ -385,43 +435,25 @@ Finally, we also want to look at more complex observables such as the fermionic 
     \label{fig:cooling_masses}
 \end{figure} 
 
-\newpage
-
-\section{Control over temperature}
-\begin{table}
+We now want to comment on the results obtained and motivate discrepancies, when possible. Errors obviously increase with successive iterations, since the approximations are multiple. \\
+First of all, a tree level rescaling neglects coupling momentum dependencies which do not stem from spacetime rescaling; the assumption is thus justified for high enough cutoffs.  \\
+Moreover, the assumption that any change due to a modification of the cutoff can be absorbed by a redefinition of the couplings, is itself non-trivial. In fact, following Wilsonian's RG perspective, as momentum shells are integrated out, 
+all relevant operators grow as the cutoff is lowered and, if not present in the action, have to be taken into account. As before, the assumption is justified for high enough cutoffs. A quantitative analysis in this sense was done in \cite{Pawlowski2017CoolingNoise}, where it was proposed a procedure to 
+systematically test untill when it is possible to accomodate the cutoff change by a redefinition of the couplings, eventually including also beyond tree level transformations. \\
+Another delicate issue resides in the use of sharp cutoffs to regulate the noise term. In fact, as shown in section \ref{sec:coloured_noise}, the noise-to-noise correlation function expressed in momentum space exhibits an oscillating behaviour described by a Bessel function, which was calculated and shown in figure \ref{fig:bessel}. \\
+As a consequence, correlation functions are affected by this behaviour. This holds particularly for the connecte two-points function as shown in figure \ref{fig:connected_2ptf}. This explains the big discrepancy encountered in the renormalised mass in figures \ref{fig:cooling_masses} and \textcolor{red}{other plot, when added}. In any case, this error cannot be solved
+by simply going to higher order correction to the rescaling procedure, but can only be fixed by changing the regulating term, since it is an intrinsic characteristic of the latter. Possible alternative regulators are discusses in \cite{Pawlowski2017CoolingNoise}.
+\begin{figure}
     \centering 
-    \begin{tabular}{cccccccccccc}
-        \toprule
-        $N_t$ & $N_x$ & & s & $a_\text{eff}$ & $T/T_0$ & & $m_\phi^2$ & $\lambda$ & $g$ & $m_q$& $K_\psi$\\
-        \midrule
-        8 & 8 & & 1 & a & 1 & & 0.6 & 2.0 & g & 1.0 & $K_\psi$\\
-        \midrule 
-        4 & 8 & & 1 & a & 2 & & 0.6 & 2.0 & 0.3 & 1.0 & $K_\psi$\\
-        2 & 8 & & 1 & a & 4 & & 0.6 & 2.0 & 0.3 & 1.0 & $K_\psi$\\
-        \midrule
-        8 & 16 & & 1/2 & 2a & 2 & & 0.15 & 0.05 & 0.3 & 1.0 & $K_\psi/2$\\
-        8 & 32 & & 1/2 & 4a & 4 & & 0.0375 & 0.0125 & 0.3 & 1.0 & $K_\psi/4$\\
-        \bottomrule
-    \end{tabular}
-    \caption{}
-    \label{tab:temperature_control_yukawa}
-\end{table}
-\label{sec:temperature_control}
-\begin{figure}
-    \centering
     \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\textwidth]{figures/temperature/temp_mag.pdf}
+        \includegraphics[width=\textwidth]{figures/conn2ptf16.pdf}
     \end{subfigure}
     \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\textwidth]{figures/temperature/temp_mag_coloured.pdf}
+        \includegraphics[width=\textwidth]{figures/conn2ptf128.pdf}
     \end{subfigure}
+    \caption[Effect of the sharp cutoff on the connected two-points function]{(Left) Connecte two-points function of the original theory on the $16 \times 16$ lattice. (Right) Connected two-points function after three block spin-iterations at cutoff fraction $s=1/4$. The use of the sharp cutoff as a regulating function results in a disturbance of the signal of the bosonic two-points function. Bessel function profile which was shown in figure \ref{fig:bessel}. This induces errors in the calculation of the effective mass.}
+    \label{fig:connected_2ptf}
 \end{figure}
-\begin{figure}
-    \centering
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\textwidth]{figures/temperature/temp_chi2.pdf}
-    \end{subfigure}
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\textwidth]{figures/temperature/temp_chi2_coloured.pdf}
-    \end{subfigure}
-\end{figure}
+For what concerns the physical quark mass, which also shows some discrepancy for $m_\phi^2 > 0$, we did not investigated further the source of error. \\
+Finally, since the regulating term applies strictly speaking, only to the noise term, after performing a block-spin transformation the quantum theory is set back at its original scale, while the classical one lies at double the spacing, which is now coarser. \\~\\
+It is nevertheless remarkable that observables such as the order parameters are not significantly altered in the coarse-graining procedure, 

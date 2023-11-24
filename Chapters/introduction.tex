@@ -3,34 +3,34 @@
 \label{chap:introduction}
 
 \section{Quantum chromodynamics and its and phase diagram}
-\begin{figure}[htp]
+\begin{figure}[h]
     \centering 
     \includegraphics[scale=1.3]{figures/phase_diagram.pdf}
-    \caption{Conjectured phase diagram of Quantum Chromodynamics}
+    \caption[The phase diagram of QCD]{Conjectured phase diagram of Quantum Chromodynamics. At low temperature and chemical potential, Quantum Chromodynamics exists in a chirally broken state, where quarks and gluons are confined into hadrons and cannot be observed as single particels. As temperature or chemical potential are raised above a critical treshold, chiral symmetry is restored and particles liea in a quark-gluon plasma state. The existence and location of a critical point, as well as the colour superconducting state, is still matter of ongoing research.}
     \label{fig:QCD_phase_diagram}
 \end{figure}
-\textcolor{red}{magari menziona asymptotic freedom?}
-Quantum Chromodynamics (QCD) plays fundamental role in our understanding of the Standard Model. It is the theory describing the strong force among quarks and gluons.
-The QCD phase diagram, reported in figure \ref{fig:QCD_phase_diagram} as a function of temperature (T) and baryon chemical potential ($\mu_B$), shows
-At low temperature and chemical potential QCD exhibits confinement, namely that only colour-neutral states can be observed. The confined phase is characterised by a spontaneously broken chiral symmetry, 
-The restoration of chiral symmetry is expected in the transition towards a quark-gluon plasma at high temperatures or chemical potential. Moreoveor, also new states of matter are hypothesed, such as the existence of the colour superconducting state.
-The precise determination of the location and nature of the critical point remains an unresolved puzzle, and it's a huge challenge that needs the combination of theory, experiment and simulations.
-On the theoretical side, 
-The major experiments were performed at the Relativistic Heavy Ion Collider (RHIC) in New York and the Large Hadron
-Collider (LHC) at CERN. Another promising experiment, currently under construction, is the Facility for Antiproton
-and Ion Research (FAIR) at GSI. On the simulation side, lattice field theory has become the standard approach to study QCD and particle physics.
+Quantum Chromodynamics (QCD) plays a fundamental role in our understanding of the Standard Model. It is the theory describing the strong force among quarks, gluons and the composition of hadrons such as protons and neutrons, which constitutes the base of most of the matter around us.
+The diagram reported in figure \ref{fig:QCD_phase_diagram} illustrate the phases of QCD as a function of temperature (T) and baryon chemical potential ($\mu_B$).
+At low temperature and chemical potential, QCD exhibits confinement \cite{confinement_wilson,confin}, a phenomenom for which only colour-neutral states can be observed. The confined phase is characterised by a spontaneously broken chiral symmetry, while the restoration of chiral symmetry is expected in the transition towards a quark-gluon plasma at high temperatures or chemical potential \cite{Masayuki1989,Stephanov_1998,Berges_1999,doi:10.1142/S0217751X92001757}. Moreoveor, also new states of matter are hypothesized, such as the existence of the colour superconducting state \cite{colorsuper1,colorsuper2,colorsuper3}.
+Much more has to be studied in the phase diagram, such as the precise determination of the location and nature of the critical point (if it exists at all), and it's a huge challenge that needs the combination of theory, experiments and simulations.
+On the theoretical side, a wide number of results have been obtained from functional methods such as the functional renormalisation group and (fRG) and Dyson-Schwinger equations (DSE) \cite{QCDphase,QCDphase2,Gao_2021}.
+The major experiments are performed at the Relativistic Heavy Ion Collider (RHIC) in New York and the Large Hadron
+Collider (LHC) at CERN. The Facility for Antiproton and Ion Research (FAIR) is a new promising Collider under construction. On the simulation side, lattice field theory has become the standard approach to study QCD and particle physics and a large number of results have been obtained \cite{wuppertal,201915,Endroedi_2014}. \\
+For a general overview of the feature of the QCD phase diagram see \cite{phasediag1,Bellwied2015}.
 \section{Lattice Field Theory}
 \vspace{20pt}
-Computing physical quantities from first principle approaches, is not only hard to do, but results often impossible due to the appearence of divergences in the calculations. To fix this, one often relies on expansion techniques such as perturbation theory (\textcolor{red}{CITATION}), in which one tries to regularise the theory order by order in an expansion on the interaction coupling, yielding finite quantities that depend on the truncation order.  While this method is capable of producing incredibly precise results (\textcolor{red}{g-2, fine structure, ...}), it fails completely in treating non-perturbative phenomena, namely effects that cannot be captured by any order in the expansion or that are typical of strongly interacting systems.
-Moreover, such formulation is also not much suitable for numerical computations, since both the path integral and action measure are infinite dimensional objects. \\
-Lattice field theory \cite{Montvay1994QuantumLattice,rothe_LGT,gattringer_LQCD,creutz_2023}, which was proposed by Kenneth G. Wilson in 1974 \cite{wilson_lqcd}, is meant at first as a powerful non-perturbative regularisation tool to prevent divergences to occur and render the computation of the correlation functions finite. Moreover, it also provides a framework to study quantum field theory numerically on a computer. In order to accomplish this, one typically defines the theory on a spacetime lattice and makes use of statistical methods such as Monte Carlo algorithms to compute observables. One may wonder how can one reconstruct the results in the continuum theory, keeping the results finite, and matching the results on the discretised theory to physically measured ones. This task, far from beeing simple, will be  discussed in the next chapters, and it will be of one of the motivations for the introduction of coloured noise in the context of the continuum limit of effective theories, a technique which will be shown to be powerful also for other various reasons, which will be the main focus of the analysis carried in the remaining chapters. \\
+Computing physical quantities from first principle approaches, is not only hard to do, but results often impossible due to the appearence of divergences in the calculations. To fix this, one often relies on expansion techniques such as perturbation theory, in which one tries to regularise the theory order by order in an expansion on the interaction coupling, yielding finite quantities that depend on the truncation order.  While this method is capable of producing incredibly precise results, it fails completely in treating non-perturbative phenomena, namely effects that cannot be captured by any order in the expansion or that are typical of strongly interacting systems.
+Phenomena such as confinement are non-perturbative phenomena.
+A standard formulation of quantum field theory is also not much suitable for numerical computations, since it deals with infinite-dimensional objects. \\
+Lattice field theory \cite{Montvay1994QuantumLattice,rothe_LGT,gattringer_LQCD,creutz_2023}, which was proposed by Kenneth G. Wilson in 1974 \cite{wilson_lqcd}, is meant at first as a powerful non-perturbative regularisation tool to prevent divergences to occur and render the computation of the correlation functions finite. Moreover, it also provides a framework to study quantum field theory numerically on a computer. In order to accomplish this, one defines the theory on a spacetime lattice and makes use of statistical methods such as Monte Carlo algorithms to compute observables. 
+One should not view the lattice as an approximation to the continuum theory. It rather
+provides a definition of a theory that is undefined directly in the continuum \cite{Wiese:2009qsa}. One may then wonder how can one reconstruct a result in the continuum theory, keeping the results finite, and matching the results on the discretised theory to physically measured ones. This task, far from beeing simple, will be  discussed in the next chapters.\
 
 \section{The emergence of effective theories}
 A central role in our investigation will be played by the Wilsonian perspective of the Renormalization Group (RG). Within this paradigm, renormalization ceases to be merely a tool for taming divergences; 
-the Wilsonian RG approach provides a way to resolve physics at different scales. The Wilson framework naturally brings to the concept of effective theory, a model which describes phenomena only in terms of relevant degrees of freedom. In the context of QCD, a diverse array of effective theories are introduced, tailored to specific aspects of the strong force dynamics. 
-Among others, we mention the Nambu-Jona-Lasinio model \cite{Nambu1961DynamicalI, Nambu1961DynamicalII}, the Gross-Neveu model, the Quark-Meson model. All of these theories are Yukawa-type theories, namely with a fermion-fermion-boson interaction.
-\textcolor{red}{magari menziona che Gross Neveu ha applicazioni fuori da QCD}
-\newpage 
+the Wilsonian RG approach provides a rigorous way to perform a change of scale in a physical theory. The Wilson framework naturally brings to the concept of effective theory, a model with the same physical content of another microscopic and detailed theory, where irrelevant degrees of freedom are integrated out and replaced by an effective description only in terms of the relevant variables at the given scale. 
+Effective theories are widely used to study QCD, aiming at tailoring to specific aspects of the strong force dynamics. 
+Among others, we mention the Nambu-Jona-Lasinio model \cite{Nambu1961DynamicalI, Nambu1961DynamicalII}, the Gross-Neveu model, the Quark-Meson model. All of these theories are Yukawa-type theories. From this, the motivation of the choice of the model in our work. \textcolor{red}{All the citations missing for the models}
 \section{Outline}
 Chapter \ref{chap:background} will be devoted to the introduction of the theoretical background that supports this work. 
 We will start with the Kadanoff and Wilson approach to renormalisation in statistical physics and quantum field theory. 
@@ -38,7 +38,7 @@ Lattice field theory will then be introduced as a powerfool tool to simulate qua
 We then turn to stochastic quantisation, the relation between noise and quantum fluctuations and how the standard formulation is modified by the presence of coloured noise. 
 This will results in a deep connection between coloured stochastic quantisation and the renormalisation group.
 The chapter will end with a description of the model on which the above techniques are applied, namely a Yukawa theory. \\~\\
-Chapter \ref{chapt:methods} is devoted to detail techniques and methodologies of the project. We will start by explaining how the continuum model is discretised on a space-time lattice and how it can be simulated via a Monte Carlo method and stochastic quantisation. \\
+Chapter \ref{chapt:methods} is devoted to detail techniques and methodologies of the project. We will start by explaining how the continuum model is discretised on a space-time lattice and how it can be simulated via a Monte Carlo method based on stochastic quantisation. \\
 We will then list some possible applications of coloured noise in lattice QFT and describe some of the numerical experiments that will be carried in the last chapter.\\
 The chapter will end with a description of the relevant observables that are employed to study a lattice quantum field theory. \\~\\
 Chapters \ref{chapt:results_preliminary} and \ref{chapt:results_coloured} are devoted to the numerical investigation. \\

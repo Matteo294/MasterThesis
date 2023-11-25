@@ -1,35 +1,35 @@
 % !TeX root = ../main.tex
-\chapter{Algorithms and technical details}
+\chapter{Computational strategies}
 \label{chap:AppendixC}
-\textcolor{red}{cite also felipe for bilinear}
-
-In this basis 
+The application of coloured noise, and in particular the cooling technique, demand for an efficient volume scaling of the simulation, as pointed out in section \ref{sec:inversion_dirac}. The code for this project was developed accordingly. \\
+While a full documentation of the code esulates from the scope of this thesis, we want to provide some details on the strategies that were adopted. \\~\\
+The code for this project has been developed to run on a Graphical Processing Unit (GPU). This ensures a massive parallelisation for operations such as scalar products and reduction operations such as summing components of a vector, which are extensively used in the project.
+\section*{Choice of the spinor basis}
+The choice of the chiral basis for the spinors illustrated in appendix \ref{chap:AppendixA} was done for computational performance purposes. 
+To see this, one has to look at the explicit expression of the Wilson projectors in the chiral basis:
 \begin{equation*}
     \begin{aligned}
-        \frac{1}{2}\Gamma_{+ \hat 0} = \frac{1 + \gamma_0}{2} &= 
-        \begin{pmatrix}
-            1 & 0 \\
-            0 & 0    
-        \end{pmatrix}
+        \Gamma_{+ \hat 0} &= \left(1+\gamma_0\right) \psi=\left[\begin{array}{ll}
+            2 & 0 \\
+            0 & 0
+            \end{array}\right],
         \qquad 
-        \frac{1}{2}\Gamma_{- \hat 0} = \frac{1 - \gamma_0}{2} &=
-        \begin{pmatrix}
-            0 & 1 \\
-            0 & 0    
-        \end{pmatrix} \\
-        \frac{1}{2}\Gamma_{+ \hat 1} = \frac{1 + \gamma_1}{2} &=
-        \begin{pmatrix}
+        \Gamma_{- \hat 0} = \left(1-\gamma_0\right) \psi=\left[\begin{array}{ll}
+            0 & 0 \\
+            0 & 2
+            \end{array}\right],\\
+        \Gamma_{+ \hat 1} &= \left(1+\gamma_1\right) \psi=\left[\begin{array}{ll}
             1 & 1 \\
-            1 & 1    
-        \end{pmatrix} 
+            1 & 1
+            \end{array}\right],
         \qquad 
-        \frac{1}{2}\Gamma_{- \hat 1} = \frac{1 - \gamma_1}{2} &=
-        \begin{pmatrix}
-            1 & -\vphantom{1}1 \\
-            -\vphantom{1}1 & 1    
-        \end{pmatrix}
+        \Gamma_{- \hat 1} = \left(1-\gamma_1\right) \psi=\left[\begin{array}{cc}
+            1 & -1 \\
+            -1 & 1
+            \end{array}\right].
     \end{aligned}
 \end{equation*}
+Note that all the matrices are degenerate. This implies that when the Wilson projectors are applied to a vector, only half of the components have to be computed, and the other can be deduced since they are either zero or linearly dependent. Explicitly:
 \begin{equation*}
     \begin{aligned}
         & \left(1-\gamma_0\right) \psi=\left[\begin{array}{ll}
@@ -82,49 +82,56 @@ In this basis
 \end{equation*}
 
 
-\section{Conjugate Gradient algorithm and the Dirac operator}
-The full inversion of the Dirac operator is a very expensive computation, given that the Dirac operator has dimension $(2 \, N_t \, N_x \, N_f)^2$, even though it is very sparse and has only few non-zero entries. One can note that for the purpose of computing the fermionic contribution to the drift force and the extraction of the physical quark mass from the correlator (details in section x and section y), only the inverse operator applied to a vector is needed. Hence it is sufficient to compute 
+\section*{Conjugate Gradient algorithm} 
+One can note that for the purpose of computing the fermionic contribution to the drift force and the extraction of the physical quark mass from the correlator (details in section \ref{sec:langevin_monte_carlo} and section \ref{sec:observables}), we do not need the full inverse of the Dirac operator, but only the inverse matrix applied to a vector. Hence it is sufficient to compute 
 \begin{equation}
-    \psi = D^{-1} \left| \eta \right\rangle
+    \psi = D^{-1} \, \eta .
     \label{Dirac_inversion_linear_system}
 \end{equation}
-Computing $\psi$ via equation \eqref{Dirac_inversion_linear_system} is equivalent to solve the linear system $D \psi = \eta$, which can be done efficiently by employing a method for sparse matrices such as Conjugate Gradient (CG) as explained in the following way.
-
+Computing $\psi$ via equation \eqref{Dirac_inversion_linear_system} is equivalent to solve the linear system $D \psi = \eta$, which can be done efficiently by employing a method for sparse matrices such as Conjugate Gradient (CG) as explained in the following way. \\~\\
 We want to solve the equation
 \begin{equation*} 
-    D \, \psi = \eta
+    D \, \psi = \eta.
 \end{equation*}
-CG requires the matrix to be hermitian while D is only $\gamma^5$-hermitian (really? under which assumptions?). One can thus solve the linear system
+CG requires the matrix to be hermitian while D is only $\gamma^5$-hermitian, namely 
 \begin{equation*}
-    \left(D D^{\dagger} \right) \xi = \eta
+    \gamma_5 \, D \, \gamma_5 = D^{\dagger}.
+\end{equation*}
+One can thus solve the linear system
+\begin{equation*}
+    \left(D D^{\dagger} \right) \xi = \eta,
 \end{equation*}
 and then obtain $\psi$ by multiplying the solution $\xi$ by $D^{\dagger}$ since 
 \begin{equation}
-    D^{\dagger} \xi = D^{\dagger} \ \left(D D^{\dagger}\right)^{-1} \eta = D^{-1} \eta = \psi
+    D^{\dagger} \xi = D^{\dagger} \ \left(D D^{\dagger}\right)^{-1} \eta = D^{-1} \eta = \psi.
 \end{equation}
-Analogously one can calculate
+Analogously, one can calculate
 \begin{equation*}
-    \chi = D^{\dagger} \eta
+    \chi = (D^{\dagger})^{-1} \, \eta
 \end{equation*}
 by solving
 \begin{equation*}
-    \left(D^{\dagger} D\right) \xi = \eta
+    \left(D^{\dagger} D\right) \xi = \eta,
 \end{equation*}
 and then applying $D$ to the result.
 
-\section{Bilinear noise scheme}
+\section*{Bilinear noise scheme}
+When computing the drift for the Langevin evolution, one needs to evaluate the trace of the Dirac operator, as shown in section \ref{sec:langevin_monte_carlo}. \\
+We compute the trace by employing the bilinear noise scheme. For this, one needs a set of $N$ vectors of normally distributed random complex numbers, namely vectors $\eta_i$ where each component $\eta_i^\alpha$ satisfies
 \begin{equation*}
-    \text{Tr} \left[ D^{-1} \, \frac{\delta D}{\delta \phi^j} \right] \approx \left\langle \eta \right|  D^{-1} \, \frac{\delta D}{\delta \phi^j} \left| \eta \right\rangle = 
-    \left\langle \psi \right| \frac{\delta D}{\delta \phi^j} \left| \eta \right\rangle
-    \qquad\qquad \left| \psi \right\rangle = D^{-1} \left| \eta \right\rangle = D^\dagger \, \underbrace{(D D^\dagger)^{-1} \left| \eta \right\rangle}_{\text{CG}}
+    \left\langle \eta_i^{\alpha} \right\rangle = 0, \qquad\qquad \left\langle \eta_i^{\alpha}\eta_j^{\beta} \right\rangle = \delta_{i,j} \, \delta^{\alpha \beta}.
 \end{equation*}
+The trace of the matrix is then computed as 
 \begin{equation}
-    \tr {A} = \frac{1}{N} \ \lim_{N \to \infty} \sum_i^N \eta_i^T D_{ij} \eta_j
+    \tr {A} = \frac{1}{N} \ \lim_{N \to \infty} \sum_i^N \eta_i^{\dagger} \, A_{ij} \, \eta_j
     \label{eq:bilinear_noise_scheme}
 \end{equation}
-where $\eta_i$ is a gaussian random field where each component is drawn from a normal distribution $\mathcal{N}(0,1)$. \\
-More precisely each vector component $\eta_i^\alpha$ satisfies
+In our case, we can first compute
 \begin{equation*}
-    \left\langle \eta_i^{\alpha} \right\rangle = 0 \qquad\qquad \left\langle \eta_i^{\alpha}\eta_j^{\beta} \right\rangle = \delta_{i,j} \, \delta^{\alpha \beta}
+    \left| \psi \right\rangle = D^{-1} \left| \eta \right\rangle = D^\dagger \, \underbrace{(D D^\dagger)^{-1} \left| \eta \right\rangle}_{\text{CG}}
 \end{equation*}
-The series \eqref{eq:bilinear_noise_scheme} requires in principle an infinite number of vectors to evaluate the trace exactly. In practice we truncate it and choose $N=1$ \note{:D :D}. The average over Monte Carlo samples will eventually converge nevertheless to the right result. \\~\\
+by means of the Conjugate Gradient algorithm, and then obtain the trace as 
+\begin{equation*}
+    \tr {A} = \left\langle \eta | \psi \right\rangle.
+\end{equation*}
+Not that the series \eqref{eq:bilinear_noise_scheme} requires in principle an infinite number of vectors to evaluate the trace exactly. In practice we truncate it to $N=1$. The average over Monte Carlo samples will eventually converge nevertheless to the right result in the limit of infinite samples. \\~\\

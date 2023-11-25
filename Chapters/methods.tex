@@ -211,7 +211,12 @@ The control over temperature will not be investigted in this work. For a more de
 \newpage
 \section{Definition of relevant observables}
 \label{sec:observables}
-From now on, we will indicate both the dimensionless quantities and dimensionful ones by using the notation of the latters. When beeing on discretised theory, we will be implicitly referring to the dimensionless quantities. A distinction will still be made when relevant. \\~\\
+From now on, we will indicate both the dimensionless quantities and dimensionful ones by using the notation of the latters. When beeing on discretised theory, we will be implicitly referring to the dimensionless quantities. A distinction will still be made when relevant. Moreover, a general spacetime vector 
+will be denoted as 
+\begin{equation*}
+    x = (t, \vec{x}),
+\end{equation*}
+where $t$ is the temporal component and $\vec{x}$ is the spatial component. \\~\\
 We define the magnetisation $M$ of the field $\phi$ as,
 \begin{equation*}
     M = \expect{\frac{1}{V}\sum_n \phi_n}.
@@ -226,9 +231,10 @@ In the continumm, phase transition is characterised by a divergence in the susce
     \chi_2 = V \left(\expect{M^2} - \expect{M}^2\right) = V \expect{\left(M-\expect{M}\right)^2}.
 \end{equation*}
 On a finite volume lattice, one obseres a peak that becomes sharper as the volume is increased. In pratice, the susceptibility of the order parameter 
-\begin{equation*}
+\begin{equation}
     \chi_2 = V \expect{\left(M-\expect{|M|}\right)^2}
-\end{equation*}
+    \label{eq:abs_susceptibility}
+\end{equation}
 will be adopted. \\
 The susceptibility measures the Gaussian fluctuations of the order parameter, the magnetisation. We then introduce the Binder cumulant \cite{binder2010monte}, which quantifies the curtosis of the fluctuations
 \begin{equation*}
@@ -305,8 +311,9 @@ Note that from the second row to the third row translation invariance has been a
 Using this result, together with \eqref{eq:D_inv_condensate} and \eqref{eq:correlator_func}, one gets to the chain of equalities
 \begin{equation*}
     \begin{aligned}
-        C_\psi(t, 0) &\approx \sinh\left(m_{q, \text{phys}}\left(\frac{N_t}{2} - t\right)\right) \\
-        &= \expect{\bar{S}(t,0) \, S(0,0)} = \frac{1}{V} \,  \sum_n e^{-i \vec p \vec r} \expect{\bar\psi_n \psi_0} = (D^{-1})_{n,0}
+        C_\psi(t, 0)  &= \expect{\bar{S}(t,0) \, S(0,0)} = \frac{1}{N_x} \,  \sum_{\vec{x}} \expect{\bar\psi(t,\vec{x}) \psi_(0,0)} \\
+        &= \frac{1}{N_x} \, \sum_{\vec{x}} \, [D^{-1}] \left((t,\vec{x}),(0,0)\right) \\
+        &\approx \sinh\left(m_{q, \text{phys}}\left(\frac{N_t}{2} - t\right)\right)
     \end{aligned}
 \end{equation*}
 This allows to compute the correlator on the lattice and extract the physical quark mass via a fiting procedure. Note that we do not need the full inversion of the Dirac operator. One can in fact write 
@@ -317,12 +324,12 @@ where
 \begin{equation*} 
     \eta_{m} = s \, \delta_{m,0}.
 \end{equation*}
-is a spinor field where only the component at the origin is non-zero, and are given by the spinor $s$. Hence one is reduced to solve the linear system of equations
+is a spinor field where only the component at the origin is non-zero, and is given by the spinor $s$. Hence one is reduced to solve the linear system of equations
 \begin{equation*}
     \sum_n D^{-1}_{mn} \, \psi_m = \eta_n,
 \end{equation*}
 which can be done by means of the Conjugate Gradient algorithm, as detailed in appendix \ref{chap:AppendixC}.\\~\\
-By similar arguments one can introduce the bosonic two point function and connected two points function 
+By similar arguments one can introduce the bosonic two-points function and connected two-points function 
 \begin{equation*}
     \begin{aligned}
         \expect{\phi(x)\phi(y)} = \frac{1}{Z} \, \int \mathcal{D}\phi \, \mathcal{D}\psi \, \mathcal{D}\bar\psi \ \phi(x) \phi(y) \ e^{-S[\phi, \psi, \bar\psi]} \\
@@ -331,8 +338,37 @@ By similar arguments one can introduce the bosonic two point function and connec
 \end{equation*}
 and arrives at the bosonic correlator 
 \begin{equation}
-    C_\phi(t,0) \approx \cosh \left(E_0^{\phi} \left(\frac{N_t}{2} - t\right)\right).
+    \begin{aligned}
+        C_\phi(t,0) &\approx \cosh \left(E_0^{\phi} \left(\frac{N_t}{2} - t\right)\right) \\
+        &= \expect{S(t,0) \, S(0,0)} = \frac{1}{N_x} \sum_n \expect{\phi(t,n) \, \phi(t,0)}_c,
+    \end{aligned}
     \label{eq:correlator_func_bosons}
 \end{equation}
-The hyperbolic cosine appears in place of the hyperbolic sine since one applies periodic boundary condition instead of anti-periodic in equation \eqref{eq:correlator_definition}. \\
-The last quantity needed in the investigation is the renormalised boson mass, which si defined as 
+where the bosonic time slice is defined as 
+\begin{equation*}
+    S(t, \vec{p})=\frac{1}{V} \sum_{\vec{x}} e^{i \vec{p} \vec{x}} \phi(t, \vec{x}),
+\end{equation*}
+and for zero momentum is simply the space average of the field configuration. \\
+The hyperbolic cosine in \eqref{eq:correlator_func_bosons} appears in place of the hyperbolic sine since one applies periodic boundary condition instead of anti-periodic in equation \eqref{eq:correlator_definition}. \\
+The last quantity which will be used in the investigation is the renormalised boson mass $m_{\phi,r}$. A pratictal formula for the computation of such quantity on the lattice can be derived by looking at the expression of the scalar renormalised two-points function, which for small momentum assumes the form
+\begin{equation*}
+    G^(p)=\frac{Z_R}{\sum_\mu p_\mu^2+m_{\phi, r}^2+O\left(p^4\right)}.
+\end{equation*}
+The last expression evaluated at zero momentum gives the susceptibility 
+\begin{equation*}
+    \chi_2=G(0)=\frac{Z_R}{m_R^2}.
+\end{equation*}
+Finally, the second momentum is, by definition,
+\begin{equation*}
+    \mu_2=-\left.\frac{\partial^2}{\partial p_v \partial p_v} G(p)\right|_{p=0}=2 d \frac{Z_R}{m_R^4}.
+\end{equation*}
+Putting all together we arrive at
+\begin{equation*}
+    m_{\phi, r}^2 = 2d \, \frac{\chi_2}{\mu_2},
+\end{equation*}
+This provides a way to compute the renormalised mass, since the susceptibility can be calculated via \eqref{eq:abs_susceptibility}, and the second moment as 
+\begin{equation*}
+    \mu_2 = \sum_x \, x^2 \expect{\phi(x) \, \phi(0,0)}_c = d \, N_x \, \expect{S(t,0) \, S(0,0)}. 
+\end{equation*}
+For a more detailed derivation of these identities we refer to \cite{Pawlowski2017CoolingNoise}. \\
+An important note is that translation invriance was assumed in the derivation. This does not strictly holds for every configuration, but it is assumed to hold on expectation values.

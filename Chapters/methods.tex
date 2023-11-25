@@ -259,25 +259,69 @@ The chiral condensate can then be computed as
 \end{equation*}
 On a finite volume lattice, the correlation of a field at two spacetime points is quantified by the correlator
 \begin{equation}
-    C_\psi(t,0) \equiv \frac{1}{N_x} \sum_{x} \left[\left\langle \psi(t, \vec{x}) \, \bar\psi(0,0)\right\rangle - \left\langle \psi(N_t-t, \vec{x}) \, \bar\psi(0,0)\right\rangle \right] .
+    C_\psi(t,0) \equiv \frac{1}{V} \sum_{x} \left[\left\langle \psi(t, \vec{x}) \, \bar\psi(0,0)\right\rangle_c - \left\langle \psi(N_t-t, \vec{x}) \, \bar\psi(0,0)\right\rangle_c \right] .
     \label{eq:correlator_definition}
 \end{equation}
 Note that we sum up two waves because of the boundary conditions. \\
-In momentum space, one has
+In momentum space, by using a spectral decomposition, one has
+\begin{equation*}
+    \begin{aligned}
+        \frac{1}{V} \sum_{\vec{x}} e^{-i \vec{p} \vec{x}}\langle\bar\psi(t, \vec{x}) \psi(0, \vec{0})\rangle_c & =\frac{1}{V} \sum_{\vec{x}} e^{-i \vec{p} \vec{x}} \sum_k\langle 0|\bar\psi(t, \vec{x})| k\rangle\langle k|\psi(0, \vec{0})| 0\rangle \\
+        & =\frac{1}{V} \sum_{\vec{x}} e^{i \vec{p} \vec{x}} \sum_k\left\langle 0\left|e^{-i p^{\prime} x} \bar\psi(0, \vec{0}) e^{i p^{\prime} x}\right| k\right\rangle\langle k|\psi(0, \vec{0})| 0\rangle \\
+        & =\frac{1}{V} \sum_{\vec{x}} e^{-i \vec{p} \vec{x}} \sum_k e^{i k x}\langle 0|\bar\psi(0, \vec{0})| k\rangle\langle k|\psi(0, \vec{0})| 0\rangle \\
+        & =\frac{1}{V} \sum_{\vec{x}, k} e^{-i(\vec{p}-\vec{k}) \vec{x}} e^{-E_k t}|\langle 0|\psi(0, \vec{0})| k\rangle|^2 \\
+        & =\frac{1}{V} \sum_k \delta(\vec{p}-\vec{k}) e^{-i(\vec{p}-\vec{k}) \vec{x}} e^{-E_k t}|\langle 0|\psi(0, \vec{0})| k\rangle|^2 \\
+        & =\frac{1}{V} \sum_n e^{-E_n(\vec{p}) t}\left|\left\langle 0|\psi(0, \vec{0})| p_n\right\rangle\right|^2.
+        \end{aligned}
+\end{equation*}
+Using this, equation \ref{eq:correlator_definition} can be rewritten as
 \begin{equation*} 
     \begin{aligned}
-        C(t, \vec{p}) & =\frac{1}{V} \sum_{\vec{x}} e^{-i \vec{p} \vec{x}}\left(\langle\psi(t, \vec{x}) \bar{\psi}(0, \vec{0})\rangle-\left\langle\psi\left(N_t-t, \vec{x}\right) \bar{\psi}(0, \vec{0})\right\rangle\right) \\
+        C(t, \vec{p}) & =\frac{1}{V} \sum_{\vec{x}} e^{-i \vec{p} \vec{x}}\left(\langle\psi(t, \vec{x}) \bar{\psi}(0, \vec{0})\rangle_c-\left\langle\psi\left(N_t-t, \vec{x}\right) \bar{\psi}(0, \vec{0})\right\rangle_c\right) \\
         & \propto \sum_n e^{-E_n(\vec{p}) t}-e^{-E_n(\vec{p})\left(N_t-t\right)}=\sum_n 2 e^{-E_n(\vec{p}) \frac{N_t}{2}} \sinh \left[E_n(\vec{p})\left(\frac{N_t}{2}-t\right)\right] .
     \end{aligned}
 \end{equation*}
-For large times all the contributions but the ground state are suppressed, so that 
+By projecting onto $p=0$, one can note that for large times all the contributions but the ground state are suppressed, so that 
 the fermionic correlator assumes the form 
 \begin{equation}
     C_\psi(t,0) \approx \sinh \left(E_0^{\psi} \left(\frac{N_t}{2} - t\right)\right),
     \label{eq:correlator_func}
 \end{equation}
 where $E_0^{\psi}$ is the fermionic mass gap, which will be denoted as $m_{q,\text{phys}}$. \\
-Hence by computing the correlator on the lattice by means of \eqref{eq:D_inv_condensate}, one can measure fermionic masses in the simulation by making a fit to expression \eqref{eq:correlator_func}. \\
+An important quantity to compute the correlator on the lattice are the so called time slices
+\begin{equation*} 
+    S(t, \vec{p})=\frac{1}{V} \sum_{\vec{x}} e^{i \vec{p} \vec{x}} \psi(t, \vec{x}), \qquad \bar{S}(t, \vec{p})=\frac{1}{V} \sum_{\vec{x}} \bar\psi(t, \vec{x}) \, e^{-i \vec{p} \vec{x}}
+\end{equation*}
+In fact, they are related to the correlator via
+\begin{equation*}
+    \begin{aligned}
+        \left\langle \bar{S}\left(t_1, \vec{p}\right) S\left(t_2,-\vec{p}\right)\right\rangle_c & =\frac{1}{V^2} \sum_{\vec{x}} e^{-i \vec{p} \vec{x}} \sum_{\vec{y}} e^{i \vec{p} \vec{y}}\left\langle\bar\psi\left(t_1, \vec{x}\right) \psi\left(t_2, \vec{y}\right)\right\rangle_c \\
+        & =\frac{1}{V^2} \sum_{\vec{x}, \vec{y}} e^{-i \vec{p}(\vec{x}-\vec{y})}\left\langle\bar\psi\left(t_1, \vec{x}\right) \psi\left(t_2, \vec{y}\right)\right\rangle_c \\
+        & =\frac{1}{V} \sum_{\vec{r}} e^{-i \vec{p} \vec{r}}\left\langle\bar\psi\left(t_1, \vec{r}\right) \psi\left(t_2, \vec{0}\right)\right\rangle_c \\
+        & =C\left(t_1-t_2, \vec{p}\right) .
+        \end{aligned}
+\end{equation*}
+Note that from the second row to the third row translation invariance has been assumed. \\
+Using this result, together with \eqref{eq:D_inv_condensate} and \eqref{eq:correlator_func}, one gets to the chain of equalities
+\begin{equation*}
+    \begin{aligned}
+        C_\psi(t, 0) &\approx \sinh\left(m_{q, \text{phys}}\left(\frac{N_t}{2} - t\right)\right) \\
+        &= \expect{\bar{S}(t,0) \, S(0,0)} = \frac{1}{V} \,  \sum_n e^{-i \vec p \vec r} \expect{\bar\psi_n \psi_0} = (D^{-1})_{n,0}
+    \end{aligned}
+\end{equation*}
+This allows to compute the correlator on the lattice and extract the physical quark mass via a fiting procedure. Note that we do not need the full inversion of the Dirac operator. One can in fact write 
+\begin{equation*}
+    (D^{-1})_{n,0} = D^{-1}_{nm} \, \eta_{m},
+\end{equation*}
+where 
+\begin{equation*} 
+    \eta_{m} = s \, \delta_{m,0}.
+\end{equation*}
+is a spinor field where only the component at the origin is non-zero, and are given by the spinor $s$. Hence one is reduced to solve the linear system of equations
+\begin{equation*}
+    \sum_n D^{-1}_{mn} \, \psi_m = \eta_n,
+\end{equation*}
+which can be done by means of the Conjugate Gradient algorithm, as detailed in appendix \ref{chap:AppendixC}.\\~\\
 By similar arguments one can introduce the bosonic two point function and connected two points function 
 \begin{equation*}
     \begin{aligned}
@@ -288,7 +332,7 @@ By similar arguments one can introduce the bosonic two point function and connec
 and arrives at the bosonic correlator 
 \begin{equation}
     C_\phi(t,0) \approx \cosh \left(E_0^{\phi} \left(\frac{N_t}{2} - t\right)\right).
-    \label{eq:correlator_func}
+    \label{eq:correlator_func_bosons}
 \end{equation}
-The hyperbolic cosine appears in place of the hyperbolic sine since one applies periodic boundary condition instead of anti-periodic in equation \eqref{eq:correlator_definition}.
-\textcolor{red}{add renormalised mass, time slices, translation invariance}
+The hyperbolic cosine appears in place of the hyperbolic sine since one applies periodic boundary condition instead of anti-periodic in equation \eqref{eq:correlator_definition}. \\
+The last quantity needed in the investigation is the renormalised boson mass, which si defined as 

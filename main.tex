@@ -50,7 +50,13 @@ headsepline, % Uncomment to get a line under the header
 \usepackage{graphicx}
 \usepackage{caption}
 
-\usepackage[style=ieee]{biblatex}
+\usepackage[style=ieee, citestyle=numeric-comp,sorting=none]{biblatex}
+\renewbibmacro{in:}{}
+
+%\bibliographystyle{apsrev.bst}
+\DeclareFieldFormat[article]{volume}{\textbf{#1}}
+\DeclareFieldFormat*{cite title}{\mkbibquote{#1\isdot}}
+\DeclareFieldFormat*{title}{\mkbibquote{#1\isdot}}
  % Use the bibtex backend with the authoryear citation style (which resembles APA)
 \addbibresource{resources.bib} % The filename of the bibliography
 

@@ -3,7 +3,7 @@
 \label{chap:AppendixC}
 The application of coloured noise, and in particular the cooling technique, demand for an efficient volume scaling of the simulation, as pointed out in section \ref{sec:inversion_dirac}. The code for this project was developed accordingly. \\
 While a full documentation of the code esulates from the scope of this thesis, we want to provide some details on the strategies that were adopted. \\~\\
-The code for this project has been developed to run on a Graphical Processing Unit (GPU). This ensures a massive parallelisation for operations such as scalar products and reduction operations such as summing components of a vector, which are extensively used in the project.
+The code for this project has been developed to run on a Graphical Processing Unit (GPU). This ensures a massive parallelisation for operations such as scalar products and reduction operations such as summing components of a vector, which are extensively used in the course of the project.
 \section*{Choice of the spinor basis}
 The choice of the chiral basis for the spinors illustrated in appendix \ref{chap:AppendixA} was done for computational performance purposes. 
 To see this, one has to look at the explicit expression of the Wilson projectors in the chiral basis:
@@ -32,7 +32,7 @@ To see this, one has to look at the explicit expression of the Wilson projectors
 Note that all the matrices are degenerate. This implies that when the Wilson projectors are applied to a vector, only half of the components have to be computed, and the other can be deduced since they are either zero or linearly dependent. Explicitly:
 \begin{equation*}
     \begin{aligned}
-        & \left(1-\gamma_0\right) \psi=\left[\begin{array}{ll}
+        & \left(1-\gamma_0\right) \psi(n+\hat 0)=\left[\begin{array}{ll}
         0 & 0 \\
         0 & 2
         \end{array}\right]\left[\begin{array}{l}
@@ -42,7 +42,7 @@ Note that all the matrices are degenerate. This implies that when the Wilson pro
         0 \\
         2 \psi_2
         \end{array}\right], \\
-        & \left(1+\gamma_0\right) \psi=\left[\begin{array}{ll}
+        & \left(1+\gamma_0\right) \psi(n-\hat 0)=\left[\begin{array}{ll}
         2 & 0 \\
         0 & 0
         \end{array}\right]\left[\begin{array}{l}
@@ -52,7 +52,7 @@ Note that all the matrices are degenerate. This implies that when the Wilson pro
         2 \psi_1 \\
         0
         \end{array}\right], \\
-        & \left(1-\gamma_1\right) \psi=\left[\begin{array}{cc}
+        & \left(1-\gamma_1\right) \psi(n+\hat 1)=\left[\begin{array}{cc}
         1 & -1 \\
         -1 & 1
         \end{array}\right]\left[\begin{array}{l}
@@ -62,10 +62,10 @@ Note that all the matrices are degenerate. This implies that when the Wilson pro
         \psi_1-\psi_2 \\
         -\psi_1+\psi_2
         \end{array}\right] \equiv\left[\begin{array}{c}
-        \eta_{+1} \\
-        -\eta_{+1}
+        \eta \\
+        -\eta
         \end{array}\right], \\
-        & \left(1+\gamma_1\right) \psi=\left[\begin{array}{ll}
+        & \left(1+\gamma_1\right) \psi(n-\hat 1)=\left[\begin{array}{ll}
         1 & 1 \\
         1 & 1
         \end{array}\right]\left[\begin{array}{l}
@@ -75,8 +75,8 @@ Note that all the matrices are degenerate. This implies that when the Wilson pro
         \psi_1+\psi_2 \\
         \psi_1+\psi_2
         \end{array}\right] \equiv\left[\begin{array}{l}
-        \eta_{-1} \\
-        \eta_{-1}
+        \chi \\
+        \chi
         \end{array}\right] .
         \end{aligned}
 \end{equation*}

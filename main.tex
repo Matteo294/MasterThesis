@@ -50,8 +50,8 @@ headsepline, % Uncomment to get a line under the header
 \usepackage{graphicx}
 \usepackage{caption}
 
-\usepackage[style=nature]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
-
+\usepackage[style=ieee]{biblatex}
+ % Use the bibtex backend with the authoryear citation style (which resembles APA)
 \addbibresource{resources.bib} % The filename of the bibliography
 
 %\usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
@@ -112,20 +112,20 @@ headsepline, % Uncomment to get a line under the header
 
 \AtEveryBibitem{
   \clearfield{pages} % Remove pages
-  %\clearfield{volume} % Remove volume
+  \clearfield{volume} % Remove volume
   \clearfield{number} % Remove number
   \clearfield{doi} % Remove DOI
-  %\clearfield{url} % Remove URL
+  \clearfield{url} % Remove URL
   \clearfield{note} % Remove note
-  \clearfield{eprint} % Remove eprint (arXiv, etc.)
+  %\clearfield{eprint} % Remove eprint (arXiv, etc.)
   \clearfield{isbn} % Remove ISBN
   \clearfield{issn} % Remove ISSN
   \clearfield{series} % Remove series
   \clearfield{month} % Remove month
-  \clearlist{publisher} % Remove publisher
+  %\clearlist{publisher} % Remove publisher
   \clearname{editor} % Remove editor
   \clearfield{eventtitle} % Remove conference name
-  \clearfield{year}
+  %\clearfield{year}
 }
 
 

@@ -9,21 +9,21 @@ The choice of the chiral basis for the spinors illustrated in appendix \ref{chap
 To see this, one has to look at the explicit expression of the Wilson projectors in the chiral basis:
 \begin{equation*}
     \begin{aligned}
-        \Gamma_{+ \hat 0} &= \left(1+\gamma_0\right) \psi=\left[\begin{array}{ll}
+        \Gamma_{- \hat 0} &= \left(1+\gamma_0\right) \psi=\left[\begin{array}{ll}
             2 & 0 \\
             0 & 0
             \end{array}\right],
         \qquad 
-        \Gamma_{- \hat 0} = \left(1-\gamma_0\right) \psi=\left[\begin{array}{ll}
+        \Gamma_{+ \hat 0} = \left(1-\gamma_0\right) \psi=\left[\begin{array}{ll}
             0 & 0 \\
             0 & 2
             \end{array}\right],\\
-        \Gamma_{+ \hat 1} &= \left(1+\gamma_1\right) \psi=\left[\begin{array}{ll}
+        \Gamma_{- \hat 1} &= \left(1+\gamma_1\right) \psi=\left[\begin{array}{ll}
             1 & 1 \\
             1 & 1
             \end{array}\right],
         \qquad 
-        \Gamma_{- \hat 1} = \left(1-\gamma_1\right) \psi=\left[\begin{array}{cc}
+        \Gamma_{+ \hat 1} = \left(1-\gamma_1\right) \psi=\left[\begin{array}{cc}
             1 & -1 \\
             -1 & 1
             \end{array}\right].
@@ -82,7 +82,7 @@ Note that all the matrices are degenerate. This implies that when the Wilson pro
 \end{equation*}
 
 
-\section*{Conjugate Gradient algorithm} 
+\section*{Inverting the Dirac operator} 
 One can note that for the purpose of computing the fermionic contribution to the drift force and the extraction of the physical quark mass from the correlator (details in section \ref{sec:langevin_monte_carlo} and section \ref{sec:observables}), we do not need the full inverse of the Dirac operator, but only the inverse matrix applied to a vector. Hence it is sufficient to compute 
 \begin{equation}
     \psi = D^{-1} \, \eta .

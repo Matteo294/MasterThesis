@@ -57,6 +57,7 @@ headsepline, % Uncomment to get a line under the header
 \DeclareFieldFormat[article]{volume}{\textbf{#1}}
 \DeclareFieldFormat*{cite title}{\mkbibquote{#1\isdot}}
 \DeclareFieldFormat*{title}{\mkbibquote{#1\isdot}}
+%\DeclareFieldFormat{journal}{\href{\thefield{url}}{#1}}
  % Use the bibtex backend with the authoryear citation style (which resembles APA)
 \addbibresource{resources.bib} % The filename of the bibliography
 
@@ -117,13 +118,13 @@ headsepline, % Uncomment to get a line under the header
 \newcommand{\mycomment}[1]{}
 
 \AtEveryBibitem{
-  \clearfield{pages} % Remove pages
-  \clearfield{volume} % Remove volume
-  \clearfield{number} % Remove number
+  %\clearfield{pages} % Remove pages
+  %\clearfield{volume} % Remove volume
+  %\clearfield{number} % Remove number
   \clearfield{doi} % Remove DOI
   \clearfield{url} % Remove URL
   \clearfield{note} % Remove note
-  %\clearfield{eprint} % Remove eprint (arXiv, etc.)
+  \clearfield{eprint} % Remove eprint (arXiv, etc.)
   \clearfield{isbn} % Remove ISBN
   \clearfield{issn} % Remove ISSN
   \clearfield{series} % Remove series
@@ -144,7 +145,17 @@ headsepline, % Uncomment to get a line under the header
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
-\includepdf[pages={3,4,5}]{layo.pdf}
+\includepdf[pages={3,4}]{layo.pdf}
+\pagestyle{plain} % Default to the plain heading style until the thesis style is called for the body content
+\vspace{50pt}
+\noindent\textbf{\large Investigating a Yukawa Theory with Coloured Stochastic Quantisation}
+\vspace{20pt}\\
+Stochastic quantisation with coloured noise allows to explicit control of the momentum dependency of 
+quantum fluctuations in a quantum field theory.
+In this thesis, the technique is implemented via a Langevin Monte Carlo algorithm to investigate a two flavours Yukawa model.
+Applications include studying the fluctuations content of the theory, noise-induced 
+phase transitions and 
+cooling the simulation by systematically removing ultraviolet degrees of freedom, in connection with the Kadanoff-Wilson renormalisation group.
 
 \cleardoublepage
 
@@ -162,11 +173,6 @@ headsepline, % Uncomment to get a line under the header
 %	QUOTATION PAGE
 %----------------------------------------------------------------------------------------
 
-\vspace*{0.2\textheight}
-\newpage
-\noindent\enquote{\itshape Grazie a tutti.}\bigbreak
-
-\hfill Matteo Zortea
 
 
 %----------------------------------------------------------------------------------------
@@ -189,11 +195,24 @@ headsepline, % Uncomment to get a line under the header
 \include{Chapters/results}
 
 \include{Chapters/conclusions}
+\chapter*{Acknowledgements}
+\addcontentsline{toc}{chapter}{Acknowledgements}
+\thispagestyle{empty}
+\vspace*{0.2\textheight}
+\noindent\textit{At this point I would like to thank Jan Pawlowski for the opportunity to work on this project in the group of Strongly Correlated Systems, as well as for the guidance and general supervision in the course of the last year. \\~\\ 
+I am grateful to Thomas Gasenzer, for accepting to be the co-advisor of this thesis. \\~\\ 
+Many thanks to Felipe Attansio, for the continuous and invaluable support offered over the last year, and for his guidance in the jungle of GPU programming. \\~\\
+I am grateful also to the Heidelberg Institue for Theoretical Physics (ITP) and Baden-W\"urttemberg computing facilities for the computational resources, without which this project would have not been possible. \\~\\
+Thanks to Luca, Alessandro, Davide, and Javier for proofreading this thesis, and contributing to its outcome. \\~\\ 
+Finally, thanks to my family and all of my friends for the support and encouragement given in these years. \\[3cm]
+\vspace{50pt}
+\hfill Matteo Zortea}
+
+\pagestyle{thesis} % Return the page headers back to the "thesis" style
 
 %----------------------------------------------------------------------------------------
 %	THESIS CONTENT - APPENDICES
 %----------------------------------------------------------------------------------------
-
 \appendix % Cue to tell LaTeX that the following "chapters" are Appendices
 
 % Include the appendices of the thesis as separate files from the Appendices folder
@@ -204,7 +223,6 @@ headsepline, % Uncomment to get a line under the header
 \include{Appendices/AppendixB}
 
 \include{Appendices/AppendixC}
-
 
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
@@ -230,7 +248,10 @@ headsepline, % Uncomment to get a line under the header
 \textbf{fRG} & \textbf{F}unctional \textbf{R}enormalisation \textbf{G}group\\
 \textbf{UV} & \textbf{U}ltra\textbf{v}iolet\\
 \textbf{IR} & \textbf{I}nfra\textbf{r}ed\\
-\textbf{QFT} & \textbf{Q}uantum \textbf{F}ield \textbf{Theory}
+\textbf{QFT} & \textbf{Q}uantum \textbf{F}ield \textbf{Theory} \\
+\textbf{QCD} & \textbf{Q}uantum \textbf{C}hromo\textbf{d}ynamics \\
+\textbf{NJL} & \textbf{N}ambu \textendash{} \textbf{J}ona-\textbf{L}asinio \\
+\textbf{CG} & \textbf{C}onjugate \textbf{G}radient
 
 \end{abbreviations}
 

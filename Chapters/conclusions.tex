@@ -1,4 +1,21 @@
 % !TeX root = ../main.tex
 
-\chapter{Conclusions and outlook}
+\chapter{Summary and outlook}
 \label{chap:conclusions}
+\section*{Summary}
+In this thesis stochastic quantisation with coloured noise was introduced as a framework to control the momentum dependency of quantum fluctuations in a lattice field theory simulation. \\
+Chapter \ref{chap:background} and Chapter \ref{chapt:methods} were devoted to the introduction of the relevant theoretical aspects and methodologies for this work. In particular, the formulation 
+of stochastic quantisation in the presence of coloured noise resulted in a deep connection with the Wilsonian (functional) renormalisation group. \\
+We then turned to the numerical analysis and experiments, applying the technique to a fermionic theory, a Yukawa model. In Chapter \ref{chapt:results_preliminary}, a preliminary analysis was carried out. The phase diagram of the theory showed that a proper phase transition in the model can happen only for vanishing Yukawa interaction due to the presence of Wilson 
+fermions, which break chiral symmetry explicitly. Nevertheless, relevant features of the model such as the relation between magnetisation, chiral condensate, and fermionic mass, could be investigated. \\
+After switching momentarily to the formulation with na\"ive fermions, removing the Wilson term, we studied the behavior of the system in the presence of different noise degrees of freedom and it was shown that for a particular combination of the bare parameters
+a phase transition can happen while smoothly interpolating between the classical and quantum theory. \\
+Finally, it was shown how the simulation can be cooled from ultraviolet degrees of freedom by encoding them in a redefinition of the bare couplings by performing block-spin transformations. It was shown that observables such as the magentisation, chiral condensate, and magnetic susceptibility are left invariant after the coarse-graining procedure.
+Other observables such as the scalar renormalised mass and fermionic pole mass, were shown to present some problems in the procedure. While the cause for the former has been elucidated and attributed to the choice of the regulating function for the noise term, more investigation is needed to understand the cause of the latter. 
+\newpage 
+\section*{Outlook}
+The main result of this work is that for the coarse-graining procedure via block-spin transformations was successfully applied to a fermionic theory. This adds another step towards a bigger goal, namely taking the continuum limit of a lattice low energy effective theory such as the Quark-Meson model. 
+This would not only allow to compare numerical results with analytical ones, but also remove the undesired effects of the Wilson term in the action. An interesting step forward starting from this work, would be to extend the investigation to  systems with finite temperature ($T$) and chemical potential ($\mu$). 
+This could have particular benefits in improving the stabilisation of lattice algorithms for the investigations of systems at finite chemical potential, which suffer from the famous sign problem. \\
+An application of the technique to gauge theories would also be of great interest, since the cooling procedure could then be applied to simulations of full QCD.  
+An application in Yang-Mills theories could also allow for a connection with the Wilson gradient flow of gauge links and allow for a precise control of the latter. Thus, this would be quite harder due to the fact that a momentum space cutoff breaks the gauge invariance of the theory.

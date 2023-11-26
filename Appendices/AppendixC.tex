@@ -5,7 +5,7 @@ The application of coloured noise, and in particular the cooling technique, dema
 While a full documentation of the code esulates from the scope of this thesis, we want to provide some details on the strategies that were adopted. \\~\\
 The code for this project has been developed to run on a Graphical Processing Unit (GPU). This ensures a massive parallelisation for operations such as scalar products and reduction operations such as summing components of a vector, which are extensively used in the course of the project.
 \section*{Choice of the spinor basis}
-The choice of the chiral basis for the spinors illustrated in appendix \ref{chap:AppendixA} was done for computational performance purposes. 
+The choice of the chiral basis for the spinors illustrated in Appendix \ref{chap:AppendixA} was done for computational performance purposes. 
 To see this, one has to look at the explicit expression of the Wilson projectors in the chiral basis:
 \begin{equation*}
     \begin{aligned}
@@ -126,12 +126,12 @@ The trace of the matrix is then computed as
     \tr {A} = \frac{1}{N} \ \lim_{N \to \infty} \sum_i^N \eta_i^{\dagger} \, A_{ij} \, \eta_j
     \label{eq:bilinear_noise_scheme}
 \end{equation}
-In our case, we can first compute
+In our case, since $A = D^{-1}$, we can first compute
 \begin{equation*}
-    \left| \psi \right\rangle = D^{-1} \left| \eta \right\rangle = D^\dagger \, \underbrace{(D D^\dagger)^{-1} \left| \eta \right\rangle}_{\text{CG}}
+    \psi = D^{-1} \, \eta = D^\dagger \, \underbrace{(D D^\dagger)^{-1} \, \eta}_{\text{CG}},
 \end{equation*}
 by means of the Conjugate Gradient algorithm, and then obtain the trace as 
 \begin{equation*}
-    \tr {A} = \left\langle \eta | \psi \right\rangle.
+    \tr {A} = \eta^{\dagger} \, \psi.
 \end{equation*}
 Not that the series \eqref{eq:bilinear_noise_scheme} requires in principle an infinite number of vectors to evaluate the trace exactly. In practice we truncate it to $N=1$. The average over Monte Carlo samples will eventually converge nevertheless to the right result in the limit of infinite samples. \\~\\

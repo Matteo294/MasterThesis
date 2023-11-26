@@ -47,7 +47,7 @@ For what concerns the fermionic action, a na\"ive discretisation is not sufficie
 \begin{equation}
 		S_\psi\left[\psihat, \psibarhat \right] + S_\text{int}\left[\phihat, \psihat, \psibarhat \right] = \sum_{f=1}^{N_f}\hat{\bar{\psi}}_m^{(f)} \, \widehat{D}_{mn} \, \hat{\psi}_n^{(f)},
 \end{equation}
-with $\psi_n$ beeing a two-component spinor, and $\widehat{D}_{m,n}$ the Wilson-Dirac operator defined as 
+with $\psi_n$ being a two-component spinor, and $\widehat{D}_{m,n}$ the Wilson-Dirac operator defined as 
 \begin{equation}
     \begin{aligned}
     \widehat{D}_{m, n} = &- \left(\frac{\Gamma_{+\hat 0}}{2} \, \delta_{m, m+\hat 0} +\frac{\Gamma_{-\hat 0}}{2} \, \delta_{m, m-\hat 0} + \frac{\Gamma_{+\hat 1}}{2} \, \delta_{m, m+\hat 1} + \frac{\Gamma_{- \hat 1}}{2} \, \delta_{m, m-\hat 1}\right)  \\
@@ -84,13 +84,13 @@ In the remaining of this work, both the original action $S$ and the effective ac
 
 \section{Langevin Monte Carlo}
 \label{sec:langevin_monte_carlo}
-The relations \eqref{eq:probability_field_configuration_full,eq:expectation_observables} suggest that equation \eqref{eq:Langevin_scalar_full} can be integrated numerically for discrete time steps $\tau_n$ to generate field configurations distributed according to \eqref{eq:probability_field_configuration_full}. 
+The relations \eqref{eq:probability_field_configuration_full} and \eqref{eq:expectation_observables} suggest that equation \eqref{eq:Langevin_scalar_full} can be integrated numerically for discrete time steps $\tau_n$ to generate field configurations distributed according to \eqref{eq:probability_field_configuration_full}. 
 The simplest first-order integration algorithm is the Euler-Majorana scheme \cite{ParisiWu}
 \begin{equation*}
     \phi(\tau_{n+1}, x) = \phi(\tau_{n}, x) - \epsilon \,  \frac{\delta S[\phi]}{\delta \phi (\tau_n, x)} + \sqrt{\epsilon} \, \eta(\tau_n, x) + O(\epsilon^2),
 \end{equation*}
 where $\epsilon = \tau_{n+1} - \tau_n$. Higher order integration schemes are possible (see e.g.\cite{bilinearnoise1,Kronfeld1993}), but not adopted in this work, and an adaptive step size is employed as detailed in Appendix \ref{chap:AppendixC}.
-In this way, for any observable $O$, one can introduce a Monte-Carlo estimator $\expect{O}_*$ which converges to the expectiation value given by \eqref{eq:expectation_observables} in the limit of infinite samples
+In this way, for any observable $O$, one can introduce a Monte-Carlo estimator $\expect{O}_*$ which converges to the expectation value given by \eqref{eq:expectation_observables} in the limit of infinite samples
 \begin{equation}
     \expect{O}_{*} = \frac{1}{N_\text{samp}} \sum^{N_\text{samp}}_{i=1} O_i \quad \underset{N_\text{samp} \to \infty}{\longrightarrow} \quad \expect{O} = \frac{1}{Z} \, \int D\phi \ O(\phi) \, \exp\left(-S[\phi]\right),
     \label{eq:monte_carlo_estimator}
@@ -104,7 +104,7 @@ For the discretised action of the Yukawa theory \eqref{eq:discretised_effective_
     \end{aligned}
     \label{eq:drift_continuum_full_theory}
 \end{equation}
-While the bosonic contribution can be computed in a straightforward manner, the computation of the fermionc contribution requires the inversion of the Dirac operator. This, in general, cannot be done straightforwardly, mainly due to computational reasons.
+While the bosonic contribution can be computed in a straightforward manner, the computation of the fermionic contribution requires the inversion of the Dirac operator. This, in general, cannot be done straightforwardly, mainly due to computational reasons.
 In fact, the full Dirac operator would be a $(2 \cdot N_t \cdot N_x \cdot N_f)^2$ dimensional object and a full inversion would be very expensive. In fact, $D^{-1}$ has to be recomputed at every step and the best available algorithm as today for the matrix inversion has a computational complexity of $O(n^{2.371552})$ \cite{williams2023new}. To circumvent this, we use the bilinear noise scheme \cite{bilinearnoise1,bilinearnoise2} which is illustrated in Appendix \ref{chap:AppendixC}.
 
 \newpage
@@ -112,7 +112,7 @@ In fact, the full Dirac operator would be a $(2 \cdot N_t \cdot N_x \cdot N_f)^2
 
 \section{Applications of coloured noise in lattice QFT}
 \label{sec:lattice_with_coloured_noise}
-After the general introduction on coloured noise given in the previous paragraph, let us now look more closely on the lattice formulation and at some possible applications of the technique, some of which will be studied numerically in chapter \ref{chapt:results}. \\~\\
+After the general introduction on coloured noise given in the previous paragraph, let us now look more closely on the lattice formulation and at some possible applications of the technique, some of which will be studied numerically in Chapter{chapt:results}. \\~\\
 To this end, let us consider a two-dimensional lattice with side lengths $L_t, L_x$ and spacing $a = a_x = a_t$. This implies a maximum momentum $p_\text{max} = \pi / a$ in each spacetime direction and $N_x=L_x/a, N_t=L_t/a$ points in each direction. Let us also define 
 \begin{equation}
 	\Lambda_0^2 \equiv (p^x_\text{max})^2 + (p^t_\text{max})^2,
@@ -124,7 +124,6 @@ We then consider a simulation with a regularised noise defined by a cutoff $\Lam
 \end{equation}
 Note that $\Lambda$ implicitly defines a length scale given by  $a_\text{eff} = \pi/\Lambda$.\\
 
-
 \subsection{Classical-to-quantum interpolation}
 The use of coloured noise, allows for a smooth interpolation between the fully classical and fully quantum picture. In fact, one can perform various simulations changing the value of the cutoff fraction $s$ and adding or removing quantum degrees of freedom, as pictured in figure \textcolor{red}{add figure}. This can be used either to investigate the role 
 of quantum fluctuations in the system, or to remove irrelevant degrees of freedom, resulting in a speed-up of the simulation.
@@ -135,7 +134,7 @@ whether noise can qualitatively affect the behaviour of a system. In our case, s
 This question will be addressed in section \ref{sec:chiral_PT} and it will be shown that for small negative bosonic mass, the classical system lies in a state of broken symmetry, while in the quantum case, the symmetry is restored.
 
 \subsection{Cooling and the continuum limit of effective theories}
-Following the paradigm of Kadanoff-Wilson of chapter \ref{chap:background}, we want to use RG properties to encode quantum fluctuations in a redefinition of the couplings of the bare action. This removes short-distance fluctuations from the simulation, without changing the physical content of the theory. Note that this would, in principle, require a detailed knowledge of 
+Following the paradigm of Kadanoff-Wilson of Chapter{chap:background}, we want to use RG properties to encode quantum fluctuations in a redefinition of the couplings of the bare action. This removes short-distance fluctuations from the simulation, without changing the physical content of the theory. Note that this would, in principle, require a detailed knowledge of 
 the $\beta$-functions of the theory. Thus, for sufficiently high cutoff, approximate Ansatz such as dimensional rescalings are generally enough. We will pursue this way, as follows. \\~\\
 Let us consider a simulation with $s=1$ and a set of bare couplings $\{g^i_0\}$, and another simulation with $s'<1$ and new set of couplings $\{g^{i \, \prime}_0\}$. \\
 For what concerns the scalar part of the action, a dimensional rescaling, which corresponds to a tree-level RG transformation, is rather straightforward
@@ -189,7 +188,7 @@ We want to mention that the cooling procedure has important consequences on the 
 \begin{figure}
     \centering 
     \includegraphics[width=0.8\textwidth]{figures/temperatures.pdf}
-    \caption[Temperatures on the lattice]{}
+    \caption[Temperatures on the lattice]{Pictorial representation of the accessible dimensionless temperatures on a lattice. Since $\hat T = 1/N_t$, there is a low resolution of temperatures for small $N_t$, and a bounded range of values that can be accessed.}
     \label{fig:temperatures_lattice}
 \end{figure}
 The use of coloured noise allows one to access a wider and finer range of temperatures. In fact, as already mentioned in section \ref{sec:lattice_continuum_}, the temperature on the lattice is given by 
@@ -201,17 +200,17 @@ Hence one can change temperature either by changing the spacing $a$, or by chang
 Both approaches pose serious constraints on the range of accessible temperatures. The spacing $a$ is often determined by the energy scale at which one wants to simulate theory. 
 For example in an effective theory, as explained in section \ref{sec:lattice_continuum_}, one has to keep $\Lambda \leq \Lambda_\text{phys}$, and since $a = \pi/\Lambda$, one ends with a constraint on the spacing $a \geq \pi/\Lambda_\text{phys}$. \\
 The highest temperature reachable is then limited by mathematical arguments as one cannot have $N_t < 1$, even though in a simulation one often needs $N_t \geq 2$. On the other side the minimum temperature reachable is limited by computational resources as one cannot afford $N_t \to \infty$.
-Moreoveor, the resolution of high temperatures is very coarse due to the relation \eqref{eq:temperature_lattice}, in the sense that for small $N_t$, a change in the number of time points causes a significant variation in the temperature. \\~\\
+Moreover, the resolution of high temperatures is very coarse due to the relation \eqref{eq:temperature_lattice}, in the sense that for small $N_t$, a change in the number of time points causes a significant variation in the temperature. \\~\\
 By means of coloured noise one can change the temperature by changing the effective spacing. In fact, if one follows the cooling procedure by keeping $N_t$ fixed, one sets a new temperature which is given by 
 \begin{equation*}
-    T_\text{eff} = \frac{1}{a_\text{eff} \, N_t} = \frac{1}{sa \, N_t} = \frac{1}{s} \, T,
+    T_\text{eff} = \frac{1}{a_\text{eff} \, N_t} = \frac{1}{sa \, N_t} = T / s, 
 \end{equation*}
 where $s = \Lambda_\text{eff} / \Lambda \leq 1$. Note that not only the temperature has been raised, but one has also gained resolution around $T_\text{eff}$. In fact, to reach this temperature by changing $N_t$, one should change the number of time points to $N_t \to s N_t$, and for what explained before a lower $N_t$ comes with a loss of resolution. \\
-The control over temperature will not be investigted in this work. For a more detailed explanation of the procedure and its relevance in the context of the quark-meson model, we refer to \cite{attanasio2022low}.
+The control over temperature will not be investigated in this work. For a more detailed explanation of the procedure and its relevance in the context of the quark-meson model, we refer to \cite{attanasio2022low}.
 \newpage
 \section{Definition of relevant observables}
 \label{sec:observables}
-From now on, we will indicate both the dimensionless quantities and dimensionful ones by using the notation of the latters. When beeing on discretised theory, we will be implicitly referring to the dimensionless quantities. A distinction will still be made when relevant. Moreover, a general spacetime vector 
+From now on, we will indicate both the dimensionless quantities and dimensionful ones by using the notation of the latter. When being on discretised theory, we will be implicitly referring to the dimensionless quantities. A distinction will still be made when relevant. Moreover, a general spacetime vector 
 will be denoted as 
 \begin{equation*}
     x = (t, \vec{x}),
@@ -226,7 +225,7 @@ Thus, in a finite volume lattice system, the absolute magnetisation
     M = \expect{\frac{1}{V}\left|\sum_n \phi_n\right|}.
 \end{equation*}
 is better suited as an order parameter \cite{friedli_velenik_2017,gattringer_LQCD}. \\
-In the continumm, phase transition is characterised by a divergence in the susceptibility, or connected two-points function
+In the continumm, phase transition is characterised by a divergence in the susceptibility, or connected two-point function
 \begin{equation*}
     \chi_2 = V \left(\expect{M^2} - \expect{M}^2\right) = V \expect{\left(M-\expect{M}\right)^2}.
 \end{equation*}
@@ -244,7 +243,7 @@ It is particular useful to characterise phase transitions in terms of the order 
 \begin{equation*}
     U_L = \begin{cases}0 \quad \hphantom{/3} \text{symmetric phase}, \\ 2/3 \quad \text{broken phase}. \end{cases}
 \end{equation*}
-We define the fermionic two-points function
+We define the fermionic two-point function
 \begin{equation} 
 \begin{aligned}
     \left\langle \psi(x) \, \bar\psi(y) \right\rangle 
@@ -316,7 +315,7 @@ Using this result, together with \eqref{eq:D_inv_condensate} and \eqref{eq:corre
         &\approx \sinh\left(m_{q, \text{phys}}\left(\frac{N_t}{2} - t\right)\right)
     \end{aligned}
 \end{equation*}
-This allows to compute the correlator on the lattice and extract the physical quark mass via a fiting procedure. Note that we do not need the full inversion of the Dirac operator. One can in fact write 
+This allows to compute the correlator on the lattice and extract the physical quark mass via a fitting procedure. Note that we do not need the full inversion of the Dirac operator. One can in fact write 
 \begin{equation*}
     (D^{-1})_{n,0} = D^{-1}_{nm} \, \eta_{m},
 \end{equation*}
@@ -328,8 +327,8 @@ is a spinor field where only the component at the origin is non-zero, and is giv
 \begin{equation*}
     \sum_n D^{-1}_{mn} \, \psi_m = \eta_n,
 \end{equation*}
-which can be done by means of the Conjugate Gradient algorithm, as detailed in appendix \ref{chap:AppendixC}.\\~\\
-By similar arguments one can introduce the bosonic two-points function and connected two-points function 
+which can be done by means of the Conjugate Gradient algorithm, as detailed in Appendix \ref{chap:AppendixC}.\\~\\
+By similar arguments one can introduce the bosonic two-point function and connected two-point function 
 \begin{equation*}
     \begin{aligned}
         \expect{\phi(x)\phi(y)} = \frac{1}{Z} \, \int \mathcal{D}\phi \, \mathcal{D}\psi \, \mathcal{D}\bar\psi \ \phi(x) \phi(y) \ e^{-S[\phi, \psi, \bar\psi]} \\
@@ -350,7 +349,7 @@ where the bosonic time slice is defined as
 \end{equation*}
 and for zero momentum is simply the space average of the field configuration. \\
 The hyperbolic cosine in \eqref{eq:correlator_func_bosons} appears in place of the hyperbolic sine since one applies periodic boundary condition instead of anti-periodic in equation \eqref{eq:correlator_definition}. \\
-The last quantity which will be used in the investigation is the renormalised boson mass $m_{\phi,r}$. A pratictal formula for the computation of such quantity on the lattice can be derived by looking at the expression of the scalar renormalised two-points function, which for small momentum assumes the form
+The last quantity which will be used in the investigation is the renormalised boson mass $m_{\phi,r}$. A practical formula for the computation of such quantity on the lattice can be derived by looking at the expression of the scalar renormalised two-points function, which for small momentum assumes the form
 \begin{equation*}
     G^(p)=\frac{Z_R}{\sum_\mu p_\mu^2+m_{\phi, r}^2+O\left(p^4\right)}.
 \end{equation*}
@@ -371,4 +370,4 @@ This provides a way to compute the renormalised mass, since the susceptibility c
     \mu_2 = \sum_x \, x^2 \expect{\phi(x) \, \phi(0,0)}_c = d \, N_x \, \expect{S(t,0) \, S(0,0)}. 
 \end{equation*}
 For a more detailed derivation of these identities we refer to \cite{Pawlowski2017CoolingNoise}. \\
-An important note is that translation invriance was assumed in the derivation. This does not strictly holds for every configuration, but it is assumed to hold on expectation values.
+An important note is that translation invariance was assumed in the derivation. This does not strictly holds for every configuration, but it is assumed to hold on expectation values.

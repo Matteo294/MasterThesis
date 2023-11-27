@@ -9,7 +9,7 @@ In order to make the theory suitable for a numerical simulation on a computer, t
 For what concerns the bosonic part of the action, a discretisation can be done straightforwardly with the following replacements
 \begin{equation*}
     \begin{aligned}
-        \int d^x \quad &\to \quad a^2 \sum_x, \\
+        \int d^x \quad &\to \quad a^2 \sum_x \, , \\
         \partial^2_t + \partial^2_x = \frac{\partial^2}{\partial t^2} + \frac{\partial^2}{\partial x_1^2} \quad &\to \quad \sum_\mu \left[\frac{\delta_{m,n+\mu} + \delta_{m,n-\mu} - 2 \delta_{m,n}}{a^2}\right],
     \end{aligned}
 \end{equation*}
@@ -17,21 +17,21 @@ which yields to the lattice action
 \begin{equation*}
         \begin{aligned} 
         		S_\phi [\phi] 	&=  a^2 \left( \frac{1}{2} \, \sum_{m,n} \phi_m \, K_{mn} \, \phi_n + \frac{\lambda}{4!} \, \sum_n \phi_n^4 \right)\\
-        					&=  \frac{1}{2} \, \sum_{m,n} \hat{\phi}_m \, \widehat{K}_{mn} \, \hat{\phi}_n + \frac{\hat{\lambda}}{4!} \, \sum_n \hat{\phi}_n^4,
+        					&=  \frac{1}{2} \, \sum_{m,n} \hat{\phi}_m \, \widehat{K}_{mn} \, \hat{\phi}_n + \frac{\hat{\lambda}}{4!} \, \sum_n \hat{\phi}_n^4 \, ,
 	\end{aligned}
 \end{equation*}
 where we expressed everything in dimensionless quantities
 \begin{equation}
     \begin{aligned}
-        \hat m_\phi^2 &= a^2 \, m_\phi^2, \\
-        \hat \lambda &= a^{2} \, \lambda, \\
+        \hat m_\phi^2 &= a^2 \, m_\phi^2 \, , \\
+        \hat \lambda &= a^{2} \, \lambda \, , \\
         \widehat{K}_{mn} &= a^2 K_{mn}.
     \end{aligned}
     \label{eq:couplings_redefinition}
 \end{equation}
 The operator components $\widehat{K}_{mn}$ are the discretised version of \eqref{eq:definition_kinetic_terms_continuum_position}
 \begin{equation}
-    \widehat{K}_{mn} = - \sum_\mu \left[\delta_{m,n+\hat\mu} + \delta_{m,n-\hat\mu} - 2 \, \delta_{m,n}\right] + \hat{m}_\phi^2 \, \delta_{mn},
+    \widehat{K}_{mn} = - \sum_\mu \left[\delta_{m,n+\hat\mu} + \delta_{m,n-\hat\mu} - 2 \, \delta_{m,n}\right] + \hat{m}_\phi^2 \, \delta_{mn} \, ,
     \label{eq:discretised_kinetic_op_bosons}
 \end{equation}
 and its representation in momentum space is
@@ -77,7 +77,7 @@ For later reference, we also report the discretised version of the effective act
 \end{equation}
 The full discrete path-integral reads
 \begin{equation}
-    Z = \int \prod_n d\hat\phi_n \ e^{-S_\text{eff}[\hat\phi]}.
+    Z = \int \prod_n d\hat\phi_n \ e^{-S_\text{eff}[\hat\phi]} \, .
     \label{eq:discretised_path_integral}
 \end{equation}
 In the remainder of this work, both the original action $S$ and the effective action $S_\text{eff}$ will be denoted by $S$ for simplicity. It will be clear from the context which of the two we will be referring to.
@@ -143,7 +143,7 @@ Let us consider a simulation with $s=1$ and a set of bare couplings $\{g^i_0\}$,
 For what concerns the scalar part of the action, a dimensional rescaling, which corresponds to a tree-level RG transformation, is rather straightforward
 \begin{equation*}
     \begin{aligned}
-    \hat{m}_\phi^2 = (a^2m_\phi^2) \ \to \ s^2(a^2m_\phi^2) = s^2 \, \hat{m}_\phi^2, &\qquad \hat{\lambda} = (a^2\lambda) \ \to  \ s^2 (a^2\lambda) = s^2\hat{\lambda}, \\
+    \hat{m}_\phi^2 = (a^2m_\phi^2) \ \to \ s^2(a^2m_\phi^2) = s^2 \, \hat{m}_\phi^2 \, , &\qquad \hat{\lambda} = (a^2\lambda) \ \to  \ s^2 (a^2\lambda) = s^2\hat{\lambda} \, , \\
     \hat\phi = \phi \ &\to \ \phi = \hat\phi.
     \end{aligned}
 \end{equation*}
@@ -166,7 +166,7 @@ On the other side, when computing the drift via the original action \eqref{eq:fu
 \begin{equation}
     \begin{aligned}
         K &= - \frac{\delta S}{\delta \phi} = K_\phi - g \, \bar\psi\psi = \\
-        &= - K \, \phi - \frac{\lambda}{6} \, \phi^3 - g \, \bar\psi\psi.
+        &= - K \, \phi - \frac{\lambda}{6} \, \phi^3 - g \, \bar\psi\psi \, ,
     \end{aligned}
     \label{eq:drift_continuum_from_full_action}
 \end{equation}
@@ -176,12 +176,12 @@ where, in the last row, K indicates the bosonic operator whose components are gi
 \end{equation*}
 Note that all the terms in the equation \eqref{eq:drift_continuum_from_full_action} have dimension 2, in units of energy, which means, in particular, that after a lattice block-spin transformation where $a \to sa$, one has
 \begin{equation}
-    \widehat{K}'_\psi = (ag) (a\bar\psi \psi) \to s^2 (ag) (a\bar\psi \psi) = s^2 \widehat{K}'_\psi,
+    \widehat{K}'_\psi = (ag) (a\bar\psi \psi) \to s^2 (ag) (a\bar\psi \psi) = s^2 \widehat{K}'_\psi \, ,
     \label{eq:rescaling_blinear}
 \end{equation}
 in contrast with \eqref{eq:fermionic_rescaling_na\"ive}. For this reason, in order to have the correct scaling, we compute the contribution to the drift without rescaling the Dirac operator (and hence the Yukawa coupling), and then rescale the whole drift via 
 \begin{equation*}
-    \widehat{K}_\psi \to s^2 \widehat{K}_\psi,
+    \widehat{K}_\psi \to s^2 \widehat{K}_\psi \, ,
 \end{equation*}
 so that the scaling dimension of the other terms in \eqref{eq:drift_continuum_from_full_action} is matched. \\~\\
 We want to mention that the cooling procedure has important consequences on the issue of continuum limit of low-energy effective theories. In fact, in the standard lattice regularisation procedure, one always has $a \sim \Lambda_0^{-1}$, which means that the continuum limit $a \to 0$ is always connected to the limit $\Lambda_0 \to \infty$, in accordance to what discussed in sections \ref{sec:RG} and \ref{sec:lattice_continuum_}. 
@@ -190,7 +190,7 @@ By means of  $\Lambda = s \Lambda_0$, one can keep an effective cutoff fixed at 
 \subsection{Control over temperature}
 \begin{figure}[b]
     \centering 
-    \includegraphics[width=0.8\textwidth]{figures/temperatures.pdf}
+    \includegraphics[width=0.6\linewidth]{figures/temperatures.pdf}
     \caption[Temperatures on the lattice]{Pictorial representation of the accessible temperatures in a standard lattice simulation. Since $T = 1/aN_t$, there is a low resolution of temperatures for small $N_t$, and a bounded range of values that can be accessed for fixed $a$.}
     \label{fig:temperatures_lattice}
 \end{figure}
@@ -240,7 +240,7 @@ In practice, the susceptibility of the order parameter
 will be adopted. \\
 The susceptibility measures the Gaussian fluctuations of the order parameter, the magnetisation. We then introduce the Binder cumulant \cite{binder2010monte}, which quantifies the curtosis of the fluctuations
 \begin{equation*}
-    U_L \equiv 1 - \frac{1}{3} \, \frac{\expect{M^4}}{\expect{M^2}^2}.
+    U_L \equiv 1 - \frac{1}{3} \, \frac{\expect{M^4}}{\expect{M^2}^2} \, .
 \end{equation*}
 It is particular useful to characterise phase transitions in terms of the order parameter $\phi$, since it assumes the values 
 \begin{equation*}
@@ -298,7 +298,7 @@ the fermionic correlator assumes the form
 where $E_0^{\psi}$ is the fermionic mass gap, which will be denoted as $m_{q,\text{phys}}$. \\
 An important quantity to compute the correlator on the lattice are the so called time slices
 \begin{equation*} 
-    S(t, \vec{p})=\frac{1}{V} \sum_{\vec{x}} e^{i \vec{p} \vec{x}} \psi(t, \vec{x}), \qquad \bar{S}(t, \vec{p})=\frac{1}{V} \sum_{\vec{x}} e^{i \vec{p} \vec{x}} \, \bar\psi(t, \vec{x}) 
+    S(t, \vec{p})=\frac{1}{V} \sum_{\vec{x}} e^{i \vec{p} \vec{x}} \psi(t, \vec{x}), \qquad \bar{S}(t, \vec{p})=\frac{1}{V} \sum_{\vec{x}} e^{i \vec{p} \vec{x}} \, \bar\psi(t, \vec{x}) \, .
 \end{equation*}
 In fact, they are related to the correlator via
 \begin{equation*}
@@ -315,40 +315,40 @@ Using this result, together with \eqref{eq:D_inv_condensate} and \eqref{eq:corre
     \begin{aligned}
         C_\psi(t, 0)  &= \expect{\bar{S}(t,0) \, S(0,0)} = \frac{1}{N_x} \,  \sum_{\vec{x}} \expect{\bar\psi(t,\vec{x}) \psi_(0,0)} \\
         &= \frac{1}{N_x} \, \sum_{\vec{x}} \, [D^{-1}] \left((t,\vec{x}),(0,0)\right) \\
-        &\approx \sinh\left(m_{q, \text{phys}}\left(\frac{N_t}{2} - t\right)\right)
+        &\approx \sinh\left(m_{q, \text{phys}}\left(\frac{N_t}{2} - t\right)\right) \, .
     \end{aligned}
 \end{equation*}
 This allows to compute the correlator on the lattice and extract the physical quark mass via a fitting procedure. Note that we do not need the full inversion of the Dirac operator. One can in fact write 
 \begin{equation*}
-    (D^{-1})_{n,0} = D^{-1}_{nm} \, \eta_{m},
+    (D^{-1})_{n,0} = D^{-1}_{nm} \, \eta_{m} \, ,
 \end{equation*}
 where 
 \begin{equation*} 
-    \eta_{m} = s \, \delta_{m,0}.
+    \eta_{m} = s \, \delta_{m,0}
 \end{equation*}
 is a spinor field, where only the component at the origin is non-zero, and is given by the spinor $s$. Hence, one is reduced to solve the linear system of equations
 \begin{equation*}
-    \sum_n D^{-1}_{mn} \, \psi_m = \eta_n,
+    \sum_n D^{-1}_{mn} \, \psi_m = \eta_n \, ,
 \end{equation*}
 which can be done by means of the Conjugate Gradient algorithm, as detailed in Appendix \ref{chap:AppendixC}.\\~\\
 By similar arguments one can introduce the bosonic two-point function and connected two-point function 
 \begin{equation*}
     \begin{aligned}
-        \expect{\phi(x)\phi(y)} = \frac{1}{Z} \, \int \mathcal{D}\phi \, \mathcal{D}\psi \, \mathcal{D}\bar\psi \ \phi(x) \phi(y) \ e^{-S[\phi, \psi, \bar\psi]} \\
-        \expect{\phi(x)\phi(y)}_c = \expect{\phi(x)\phi(y)} - \expect{\phi(x)}\expect{\phi(y)}
+        \expect{\phi(x)\phi(y)} &= \frac{1}{Z} \, \int \mathcal{D}\phi \, \mathcal{D}\psi \, \mathcal{D}\bar\psi \ \phi(x) \phi(y) \ e^{-S[\phi, \psi, \bar\psi]} \, ,\\
+        \expect{\phi(x)\phi(y)}_c &= \expect{\phi(x)\phi(y)} - \expect{\phi(x)}\expect{\phi(y)} \, ,
     \end{aligned}
 \end{equation*}
 and arrives at the bosonic correlator 
 \begin{equation}
     \begin{aligned}
         C_\phi(t,0) &\approx \cosh \left(E_0^{\phi} \left(\frac{N_t}{2} - t\right)\right) \\
-        &= \expect{S(t,0) \, S(0,0)} = \frac{1}{N_x} \sum_n \expect{\phi(t,n) \, \phi(t,0)}_c,
+        &= \expect{S(t,0) \, S(0,0)} = \frac{1}{N_x} \sum_n \expect{\phi(t,n) \, \phi(t,0)}_c \, ,
     \end{aligned}
     \label{eq:correlator_func_bosons}
 \end{equation}
 where the bosonic time slice is defined as 
 \begin{equation*}
-    S(t, \vec{p})=\frac{1}{V} \sum_{\vec{x}} e^{i \vec{p} \vec{x}} \phi(t, \vec{x}),
+    S(t, \vec{p})=\frac{1}{V} \sum_{\vec{x}} e^{i \vec{p} \vec{x}} \phi(t, \vec{x}) \, ,
 \end{equation*}
 and for zero momentum is simply the space average of the field configuration. \\
 The hyperbolic cosine in \eqref{eq:correlator_func_bosons} appears in place of the hyperbolic sine since one applies periodic boundary conditions instead of anti-periodic in equation \eqref{eq:correlator_definition}. \\
@@ -366,11 +366,11 @@ Finally, the second moment is, by definition,
 \end{equation*}
 Putting all together we arrive at
 \begin{equation*}
-    m_{\phi, r}^2 = 2d \, \frac{\chi_2}{\mu_2},
+    m_{\phi, r}^2 = 2d \, \frac{\chi_2}{\mu_2} \, .
 \end{equation*}
 This provides a way to compute the renormalised mass, since the susceptibility can be calculated via \eqref{eq:abs_susceptibility}, and the second moment as 
 \begin{equation*}
-    \mu_2 = \sum_x \, x^2 \expect{\phi(x) \, \phi(0,0)}_c = d \, N_x \, \expect{S(t,0) \, S(0,0)}. 
+    \mu_2 = \sum_x \, x^2 \expect{\phi(x) \, \phi(0,0)}_c = d \, N_x \, \expect{S(t,0) \, S(0,0)} \, .
 \end{equation*}
 For a more detailed derivation of these identities we refer to \cite{Pawlowski2017CoolingNoise}. \\
 An important note is that translation invariance was assumed in the derivation. This does not strictly holds for every configuration, but it is assumed to hold on expectation values.

@@ -119,19 +119,19 @@ and then applying $D$ to the result.
 When computing the drift for the Langevin evolution, one needs to evaluate the trace of the Dirac operator, as shown in Section \ref{sec:langevin_monte_carlo}. \\
 We compute the trace by employing the bilinear noise scheme. For this, one needs a set of $N$ vectors of normally distributed random complex numbers, namely vectors $\eta_i$ where each component $\eta_i^\alpha$ satisfies
 \begin{equation*}
-    \left\langle \eta_i^{\alpha} \right\rangle = 0, \qquad\qquad \left\langle \eta_i^{\alpha}\eta_j^{\beta} \right\rangle = \delta_{i,j} \, \delta^{\alpha \beta}.
+    \left\langle \eta_i^{\alpha} \right\rangle = 0, \qquad\qquad \left\langle \eta_i^{\alpha}\eta_j^{\beta} \right\rangle = \delta_{ij} \, \delta^{\alpha \beta}.
 \end{equation*}
 The trace of the matrix is then computed as 
 \begin{equation}
-    \tr {A} = \frac{1}{N} \ \lim_{N \to \infty} \sum_i^N \eta_i^{\dagger} \, A_{ij} \, \eta_j
+    \tr {A} = \frac{1}{N} \ \lim_{N \to \infty} \sum_i^N \eta_i^{\dagger} \, A_{ij} \, \eta_j \, .
     \label{eq:bilinear_noise_scheme}
 \end{equation}
 In our case, since $A = D^{-1}$, we can first compute
 \begin{equation*}
-    \psi = D^{-1} \, \eta = D^\dagger \, \underbrace{(D D^\dagger)^{-1} \, \eta}_{\text{CG}},
+    \psi = D^{-1} \, \eta = D^\dagger \, \underbrace{(D D^\dagger)^{-1} \, \eta}_{\text{CG}}
 \end{equation*}
 by means of the Conjugate Gradient algorithm, and then obtain the trace as 
 \begin{equation*}
-    \tr {A} = \eta^{\dagger} \, \psi.
+    \tr {A} = \eta^{\dagger} \, \psi \, .
 \end{equation*}
 Not that the series \eqref{eq:bilinear_noise_scheme} requires in principle an infinite number of vectors to evaluate the trace exactly. In practice we truncate it to $N=1$. The average over Monte Carlo samples will eventually converge nevertheless to the right result in the limit of infinite samples. \\~\\

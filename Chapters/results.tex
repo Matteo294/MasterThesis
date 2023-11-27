@@ -25,13 +25,13 @@ we fit our data according to the model
 \end{equation*}
 We find 
 \begin{equation*}
-    \log a = -3.1 \pm 0.1 \qquad b = 1.02 \, \pm 0.02.
+    \log a = -3.1 \pm 0.1 \qquad \text{and} \qquad b = 1.02 \, \pm 0.02.
 \end{equation*}
 Note that for a standard Gaussian elimination procedure we would have found $b \approx 3.0$. This is of particular relevance in the case of this work, since the cooling technique via coloured noise requires doubling the number of lattice points in each direction at each block spin step; hence the volume of the lattice is increased by a factor $2^d$ at each iteration, where $d$ is the spacetime dimension. \\
 Typical lattices sizes in this work are up to $128 \times 128 \times N_f \times N_s \approx 10^5$, where $N_f$ is the number of flavours and $N_s$ is the number of spinor components. Therefore, a good volume scaling of the algorithm is strictly necessary.
 \begin{figure}[t]
     \centering
-    \includegraphics[scale=0.65]{figures/complexity.pdf}
+    \includegraphics[scale=0.6]{figures/complexity.pdf}
     \caption[Computational complexity of the Conjugate Gradient algorithm.]{Computational complexity of the Conjugate Gradient algorithm in our model. The results show the operation time scales as $t \sim \mathcal{O}(V^{1.03})$ for large vector sizes, while for a standard inversion via Gaussian elimination one would have $t \sim \mathcal{O}(V^3)$.}
     \label{fig:complexity}
 \end{figure}
@@ -42,25 +42,25 @@ Let us for the moment restrict to $g = 0$, so that the Dirac operator reduces to
 \begin{equation}
     \begin{aligned}
     \widehat{D}_{m, n} = &- \left(\frac{\Gamma_{+\hat 0}}{2} \, \delta_{m, m+\hat 0} +\frac{\Gamma_{-\hat 0}}{2} \, \delta_{m, m-\hat 0} + \frac{\Gamma_{+\hat 1}}{2} \, \delta_{m, m+\hat 1} + \frac{\Gamma_{- \hat 1}}{2} \, \delta_{m, m-\hat 1}\right)  \\
-     &+ \left(2ar + \hat m \right) \, \delta_{s,s'} \, \delta_{m,n}. \\
+     &+ \left(2ar + \hat m \right) \, \delta_{s,s'} \, \delta_{m,n} \, . \\
     \end{aligned}
     \label{eq:wilson-dirac_operator_free}
 \end{equation}
 We then compute the correlator \eqref{eq:correlator_func} numerically via a single inversion of the Dirac operator using the Conjugate Gradient algorithm as detailed in Appendix \ref{chap:AppendixC}. The lattice volume is chosen to be $128 \times 128$. \\
 Figure \ref{fig:correlator_mass} reports the fermionic correlator as a function of $m_q$. One can see that a bigger bare quark mass results in a quicker decay, according to the decay law 
 \begin{equation}
-    \lim_{t \to \infty} \expect{\psi(t)\bar\psi(t)}_{s,s'} \propto e^{-m_\text{phys} \, t}.
+    \lim_{t \to \infty} \expect{\psi(t)\bar\psi(t)}_{s,s'} \propto e^{-m_\text{phys} \, t} \, .
     \label{eq:decay_law_correlator}
 \end{equation}
 On the other side, a smaller mass results in a slower decay and tends to deform the characteristic shape of the correlator.
-\begin{figure}[h]
+\begin{figure}[]
     \centering 
     \includegraphics[scale=0.6]{figures/correlator/correlator.pdf}
     \caption[Fermionic correlator]{Normalised fermionic correlator for different values of the bare quark mass. A bigger mass results in a quicker decay of the correlator.}
     \label{fig:correlator_mass}
 \end{figure}\\
 Figure \ref{fig:correlator_CGiter} shows the number of iterations needed for convergence of the Conjugate Gradient algorithm. While the exact number depends on the desired tolerance, one can clearly see that the number of iterations grows as $m_q \to 0$, due to an increase in the condition number \cite{cond_num_ref} in the Dirac operator. \\
-\begin{figure}[h!]
+\begin{figure}[]
     \centering 
     \includegraphics[scale=0.6]{figures/correlator/CGiter.pdf}
     \caption[Conjugate Gradient algorithm iterations as a function of the bare quark mass.]{Conjugate Gradient algorithm iterations as a function of the bare quark mass. As $m_q \to 0$ the number of iterations grows due to an increase in the condition number.}
@@ -160,12 +160,7 @@ By fitting the correlator in the region highlighted by a plateau in the effectiv
 \newpage
 
 \section{Phase structure of the Yukawa theory}
-We want to start the analysis of the Yukawa theory by doing a parameter scan, in order to have a global picture of the phase diagram in the presence of Wilson fermions. For the remainder of this section we set the value of the fermionic bare mass to $m_q = 1.0$.\\~\\
-Figure \ref{fig:phase_diagram_g_m} reports a slice of the phase diagram in the $g-m_\phi^2$ plane. \\
-For $g=0$, the fermionic and bosonic theories are independent. In particular the scalar theory reduces to a O(1) interacting theory: for $m_\phi^2>0$ the system lies in a symmetric state identified by $\expect{\phi} = 0$. 
-As the mass squared goes to negative values, the scalar field gains a non-zero expectation value, signaling the spontaneous breaking of the O(1) symmetry. \\
-When a finite Yukawa coupling is added, the finite bare quark mass and the Wilson term, that break chiral symmetry explicitly, are fed to the scalar field, which gains a vacuum expectation value due to the relation \eqref{eq:qualitative_relation_condensate_magnetisation_mass}.
-\begin{figure}[htp]
+\begin{figure}[]
     \centering
     \begin{subfigure}[b]{0.47\textwidth}
         \includegraphics[width=\textwidth]{figures/phase_diagram/g-m/phase_diagram_phi.pdf}
@@ -179,20 +174,10 @@ When a finite Yukawa coupling is added, the finite bare quark mass and the Wilso
     \begin{subfigure}[b]{0.47\textwidth}
         \includegraphics[width=\textwidth]{figures/phase_diagram/g-m/phase_diagram_chi2.pdf}
     \end{subfigure}
-    \caption[Phase diagram in the $g-m_\phi^2$ plane]{Slice of the phase diagram at fixed $\lambda = 2.0$. \\ Lattice size $32 \times 32$, $N_\text{conf} = \mathcal{O}(10^4)$.\\ The white dots indicate where data was taken. All the other values have been interpolated.}
+    \caption[Phase diagram in the $g-m_\phi^2$ plane]{Slice of the phase diagram at fixed $\lambda = 2.0$. The white dots indicate where data was taken. All the other values have been interpolated. Lattice size $32 \times 32$, $N_\text{conf} = \mathcal{O}(10^4)$.}
     \label{fig:phase_diagram_g_m}
-\end{figure}\\
-The plot of the chiral condensate shows that chiral symmetry is always broken in the model, even for $g=0$. Because of this, for $g \neq 0$, one can never speak of a proper phase transition. Thus, one still has a smooth crossover between the two phases. This fact is reflected in the plot of the magnetic susceptibility, which peaks around $m_\phi^2 = 0$ only for small values of $g$. \\
-As explained in Section \ref{sec:Yukawa_theory}, the presence of a background scalar field can be interpreted as a bare quark mass. This is reflected in the plot of of $m_{q, \text{phys}}$ which resembles the one of $\expect{\phi}$, except for $g=0$, since the two theories are disconnected. \\~\\
-Figure \ref{fig:phase_diagram_g_lam} reports the phase diagram in the $\lambda - g$ plane. The behavior can be understood qualitatively by means of classical arguments. 
-For $g=0$, one expects a field magnetisation of order 
-\begin{equation*}
-    v = \sqrt{-\frac{6 m_\phi^2}{\lambda}}.
-\end{equation*}
-Hence, as $\lambda$ is increased, the expectation value of the field is reduced.
-If $g \neq 0$, the fermion mass and the Wilson term contributions increase the expectation value of the field, which in turn works as an additional bare quark mass, hence increasing $m_{q, \text{phys}}$. The behavior of the susceptibility is analogous to the previous case: only if $g=0$ one has a proper phase transition, reflected in the single peak.
-The precise value of $\lambda$ at which this happens depends, mainly, on the choice of $m_\phi^2$.
-\begin{figure}[htp]
+\end{figure}
+\begin{figure}[]
     \centering
     \begin{subfigure}[b]{0.47\textwidth}
         \includegraphics[width=\textwidth]{figures/phase_diagram/g-lam/phase_diagram_phi.pdf}
@@ -206,13 +191,10 @@ The precise value of $\lambda$ at which this happens depends, mainly, on the cho
     \begin{subfigure}[b]{0.47\textwidth}
         \includegraphics[width=\textwidth]{figures/phase_diagram/g-lam/phase_diagram_chi2.pdf}
     \end{subfigure}
-    \caption[Phase diagram in the $\lambda-g$ plane]{Slice of the phase diagram at fixed $m_\phi^2 = -1.0$. \\ Lattice size $32 \times 32$, $N_\text{conf} = \mathcal{O}(10^4)$. \\ The white dots indicate where data was taken. All the other values have been interpolated.}
+    \caption[Phase diagram in the $\lambda-g$ plane]{Slice of the phase diagram at fixed $m_\phi^2 = -1.0$. The white dots indicate where data was taken. All the other values have been interpolated. Lattice size $32 \times 32$, $N_\text{conf} = \mathcal{O}(10^4)$.}
     \label{fig:phase_diagram_g_lam}
-\end{figure} \newpage
-Finally, let us give a look at the phase structure in the $\lambda - m_\phi^2$ plane. 
-Since here one always has $g \neq 0$, the expectation value of the scalar field and the chiral condensate are never zero, since the symmetry is broken independently of the choice of $m_\phi^2$ and $\lambda$. This fact is also reflected in the mass plot,
-where one can clearly see that $m_{q,\text{phys}}$ is always proportional to the scalar field.
-\begin{figure}[hbp]
+\end{figure}
+\begin{figure}[]
     \centering
     \begin{subfigure}[b]{0.47\textwidth}
         \includegraphics[width=\textwidth]{figures/phase_diagram/m-lam/phase_diagram_phi.pdf}
@@ -226,9 +208,27 @@ where one can clearly see that $m_{q,\text{phys}}$ is always proportional to the
     \begin{subfigure}[b]{0.47\textwidth}
         \includegraphics[width=\textwidth]{figures/phase_diagram/m-lam/phase_diagram_chi2.pdf}
     \end{subfigure}
-    \caption[Phase diagram in the $\lambda-m_\phi^2$ plane]{Slice of the phase diagram at fixed $g = 1.5$. \\ Lattice size $64 \times 64$, $N_\text{conf} = \mathcal{O}(10^4)$. \\ The white dots indicate where data was taken. All the other values have been interpolated.}
+    \caption[Phase diagram in the $\lambda-m_\phi^2$ plane]{Slice of the phase diagram at fixed $g = 1.5$. The white dots indicate where data was taken. All the other values have been interpolated. Lattice size $64 \times 64$, $N_\text{conf} = \mathcal{O}(10^4)$. }
     \label{fig:phase_diagram_m_lam}
-\end{figure}\\
+\end{figure}
+We want to start the analysis of the Yukawa theory by doing a parameter scan, in order to have a global picture of the phase diagram in the presence of Wilson fermions. For the remainder of this section we set the value of the fermionic bare mass to $m_q = 1.0$.\\~\\
+Figure \ref{fig:phase_diagram_g_m} reports a slice of the phase diagram in the $g-m_\phi^2$ plane. \\
+For $g=0$, the fermionic and bosonic theories are independent. In particular the scalar theory reduces to a O(1) interacting theory: for $m_\phi^2>0$ the system lies in a symmetric state identified by $\expect{\phi} = 0$. 
+As the mass squared goes to negative values, the scalar field gains a non-zero expectation value, signaling the spontaneous breaking of the O(1) symmetry. \\
+When a finite Yukawa coupling is added, the finite bare quark mass and the Wilson term that break chiral symmetry explicitly, influence the scalar field, which gains a vacuum expectation value due to the relation \eqref{eq:qualitative_relation_condensate_magnetisation_mass}.
+The plot of the chiral condensate shows that chiral symmetry is always broken in the model, even for $g=0$. Because of this, for $g \neq 0$, one can never speak of a proper phase transition. Thus, one still has a smooth crossover between the two phases. This fact is reflected in the plot of the magnetic susceptibility, which peaks around $m_\phi^2 = 0$ only for small values of $g$. \\
+As explained in Section \ref{sec:Yukawa_theory}, the presence of a background scalar field can be interpreted as a bare quark mass. This is reflected in the plot of of $m_{q, \text{phys}}$ which resembles the one of $\expect{\phi}$, except for $g=0$, since the two theories are disconnected. \\~\\
+Figure \ref{fig:phase_diagram_g_lam} reports the phase diagram in the $\lambda - g$ plane. The behavior can be understood qualitatively by means of classical arguments. 
+For $g=0$, one expects a field magnetisation of order 
+\begin{equation*}
+    v = \sqrt{-\frac{6 m_\phi^2}{\lambda}}.
+\end{equation*}
+Hence, as $\lambda$ is increased, the expectation value of the field is reduced.
+If $g \neq 0$, the fermion mass and the Wilson term contributions increase the expectation value of the field, which in turn works as an additional bare quark mass, hence increasing $m_{q, \text{phys}}$. The behavior of the susceptibility is analogous to the previous case: only if $g=0$ one has a proper phase transition, reflected in the single peak.
+The precise value of $\lambda$ at which this happens depends, mainly, on the choice of $m_\phi^2$. \\
+Finally, let us give a look at the phase structure in the $\lambda - m_\phi^2$ plane. 
+Since here one always has $g \neq 0$, the expectation value of the scalar field and the chiral condensate are never zero, since the symmetry is broken independently of the choice of $m_\phi^2$ and $\lambda$. This fact is also reflected in the mass plot,
+where one can clearly see that $m_{q,\text{phys}}$ is always proportional to the scalar field. \\
 Moreover, the susceptibility in this case does not show a single peak as the phase transition can only happen for $g=0$. Note in fact the difference in magnitude with respect to Figures \ref{fig:phase_diagram_g_m} and \ref{fig:phase_diagram_g_lam}.
 
 \chapter{Numerical investigation: coloured noise}
@@ -239,10 +239,10 @@ Moreover, the susceptibility in this case does not show a single peak as the pha
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/slide_broken/thermalisation.pdf}
-    \caption[Thermalisation of the system for different values of the noise fraction $s$.]{Thermalisation of the system for different values of the noise fraction $s$. As noise is added, the equilibrium state of the system shifts accordingly. Coloured noise allows for a smooth interpolation between the fully classical and fully quantum picture.\\ $\tau$ indicates the Langevin time evolution from the initial configuration. \\ Lattice size $64 \times 64, \ m_\phi^2=-1.0, \ \lambda=0.5, \ g=0.08, \ m_q = 0.5$.}
+    \caption[Thermalisation of the system for different values of the noise fraction $s$.]{Thermalisation of the system for different values of the noise fraction $s$. As noise is added, the equilibrium state of the system shifts accordingly. Coloured noise allows for a smooth interpolation between the fully classical and fully quantum picture. $\tau$ indicates the Langevin time evolution from the initial configuration. Lattice size $64 \times 64, \ m_\phi^2=-1.0, \ \lambda=0.5, \ g=0.08, \ m_q = 0.5$.}
     \label{fig:thermalisation_different_noise_fracs}
 \end{figure}
-Let us start by analising the coloured noise field in the simulation and relevant properties that emerge from it. We consider the Yukawa model described by the continuum action \eqref{eq:full_action_continuum} and its discrete version \eqref{eq:discretised_action}, \eqref{eq:discretised_effective_action}.\\
+\noindent Let us start by analising the coloured noise field in the simulation and relevant properties that emerge from it. We consider the Yukawa model described by the continuum action \eqref{eq:full_action_continuum} and its discrete version \eqref{eq:discretised_action}, \eqref{eq:discretised_effective_action}.\\
 The system is initialised in the same state for all the configurations on a $64 \times 64$ lattice. We consider a simulation with $s=1$ and then progressively lower the cutoff fraction $s$, keeping fixed all the quantities in the classical action. \\
 Figure \ref{fig:thermalisation_different_noise_fracs} shows the system thermalisation for different values of $s$, namely the Langevin evolution from the initial state to equilibrium. The blue line corresponds to the case $s=0$, a classical simulation, while the yellow line corresponds to the $s=1$, the fully quantum case.  All the parameters settings are reported under the figure. As quantum modes are removed via coloured noise, the system shifts its equilibrium point. \\~\\ 
 We now want to make use of coloured noise to understand the relation between scalar field, quark condensate and fermionic mass, which was qualitatively discussed in Section \ref{sec:Yukawa_theory} by means of classical arguments. \\
@@ -251,7 +251,7 @@ One can clearly see that as quantum modes are added, one has
 \begin{equation*}
 	\expect{\phi} \sim \expect{\bar\psi\psi} \sim m_q.
 \end{equation*}
-\begin{figure}[h]
+\begin{figure}[]
     \centering
     \begin{subfigure}[b]{0.47\textwidth}
         \includegraphics[width=1.0\textwidth]{figures/slide_broken/magnetisation.pdf}
@@ -265,9 +265,9 @@ One can clearly see that as quantum modes are added, one has
         \includegraphics[width=1.0\textwidth]{figures/slide_broken/mass.pdf}
         \caption{Physical quark mass}
     \end{subfigure}
-    \caption[Relation between magnetisation, condensate and mass]{Relation between magnetisation, chiral condensate and mass, which was motivated in Section \ref{sec:Yukawa_theory}. \\ $m_\phi^2=-1.0, \ \lambda=0.7, g=0.2, \ m_q = 1.0$ \\ Lattice size $64 \times 64, \ N_\text{conf} = \mathcal{O}(5 \cdot 10^4)$.}
+    \caption[Relation between magnetisation, condensate and mass]{Relation between magnetisation, chiral condensate and mass, which was motivated in Section \ref{sec:Yukawa_theory}. $m_\phi^2=-1.0, \ \lambda=0.7$, $g=0.2, \ m_q = 1.0$. Lattice size $64 \times 64, \ N_\text{conf} = \mathcal{O}(5 \cdot 10^4)$.}
     \label{fig:interpolation_relation_phi_cond_mass}
-\end{figure} \\
+\end{figure}
 This makes clear at first that the scalar field $\phi$ effectively plays the role of quark bilinear in the dynamics. Moreover, the physical mass of the quark grows proportionally to the scalar field magnetisation at all levels in the quantum theory. \\
 The interconnection of these phenomena is an important result if one interprets it in the context of effective theories. In fact, often in QCD, the dynamical chiral symmetry breaking mechanism is described by low energy Yukawa-type effective models such as Gross-Neveu, Nambu \textendash{} Jona-Lasinio or Quark Meson, to name some examples, where a scalar field emerges after a Hubbard-Stratonovich transformation \cite{hubbard}. \\
 \section{Chiral fermions and noise-induced transition}
@@ -292,7 +292,7 @@ the underlying lattice, and one expects to recover the desired continuum QFT. A 
         \caption{Chiral condensate}
     \end{subfigure}
     \caption[Scalar mass scan of the quantum and classical theories]{Scalar mass scan of the quantum and classical theories. \\ One can see that for values of scalar squared mass $-0.2 \leq m_\phi^2 \leq 0$, the classical and the quantum systems lie in two different phases. \\
-    $\lambda=1.951, g=0.08,$ Lattice size $32 \times 32, \ N_\text{conf} = \mathcal{O}(10^4)$}
+    $\lambda=1.951, g=0.08$. Lattice size $32 \times 32, \ N_\text{conf} = \mathcal{O}(10^4)$.}
     \label{fig:scans_classical_quantum}
 \end{figure} \\
 In Figure \ref{fig:scans_classical_quantum}, the (absolute) magnetisation and the chiral condensate are studied as a function of the bosonic mass squared, both in the fully quantum and fully classical theory. One can notice that the classical system undergoes a phase transition at values of $m_\phi^2$ bigger than the quantum counterpart. \\
@@ -300,27 +300,27 @@ Note that as the bare quark mass is small but finite, this is not a proper phase
 We then pick a value $m_\phi^{2 \, *} = -0.123$. Using coloured noise, we then interpolate between the classical and quantum pictures for different values of the quark mass, namely $m_q = 10^{-2}, \, 5 \cdot 10^{-3}, \, 10^{-3}$.
 \begin{figure}[h!]
 \centering
-\begin{subfigure}{0.47\textwidth}	
+\begin{subfigure}{0.49\textwidth}	
 	\includegraphics[width=\textwidth]{figures/chiral_PT/magnetisation.pdf}
     \caption{Magnetisation}
 \end{subfigure}
-\begin{subfigure}{0.47\textwidth}	
+\begin{subfigure}{0.49\textwidth}	
 	\includegraphics[width=\textwidth]{figures/chiral_PT/condensate.pdf}
     \caption{Chiral condensate}
 \end{subfigure}
-\begin{subfigure}{0.47\textwidth}	
+\begin{subfigure}{0.49\textwidth}	
 	\includegraphics[width=\textwidth]{figures/chiral_PT/chi2.pdf}
     \caption{Magnetic susceptibility}
 \end{subfigure}
-\begin{subfigure}{0.47\textwidth}
+\begin{subfigure}{0.49\textwidth}
 	\includegraphics[width=\textwidth]{figures/chiral_PT/binder.pdf}
     \caption{Binder cumulant}
 \end{subfigure}\\
-\begin{subfigure}{0.47\textwidth}
+\begin{subfigure}{0.49\textwidth}
     \includegraphics[width=\textwidth]{figures/chiral_PT/mphir.pdf}
     \caption{Renormalised scalar mass}
 \end{subfigure}
-\caption[Noise-induced transition]{Noise-induced transition. The classical theory lies in the broken phase, while the symmetry is restored in the quantum theory. \\ $m_\phi^2=-0.123, \ \lambda=1.951, g=0.08,$ \\ Lattice size $64 \times 64, \ N_\text{conf} = \mathcal{O}(5 \cdot 10^4)$}
+\caption[Noise-induced transition]{Noise-induced transition. The classical theory lies in the broken phase, while the symmetry is restored in the quantum theory. \\ $m_\phi^2=-0.123, \ \lambda=1.951, g=0.08$. \\ Lattice size $64 \times 64, \ N_\text{conf} = \mathcal{O}(5 \cdot 10^4)$.}
 \label{fig:chiral:symmetry_breaking}
 \end{figure}\\
 One can clearly see in Figure \ref{fig:chiral:symmetry_breaking} that as the quark  mass is lowered the difference between the two phases gets more pronounced, indicating a phase transition. \\
@@ -354,7 +354,7 @@ A summary of the parameters choice for both the experiments is reported in table
         1/8 & 128 & 128 & $m_\phi^2/64$ & 0.00625 & 0.3 & $0.5$ & $K_\psi/64$ \\
         \bottomrule
     \end{tabular}
-    \caption[Parameter settings in the cooling procedure for the bosonic mass squared scan]{Parameter settings in the cooling procedure for the bosonic mass squared scan. Each coupling in the bosonic action is rescaled according to its canonical dimension, while the fermionic sector rescaling is implemented directly at the drift level, as detailed in Section \ref{sec:lattice_with_coloured_noise}}.
+    \caption[Parameter settings in the cooling procedure for the bosonic mass squared scan]{Parameter settings in the cooling procedure for the bosonic mass squared scan. Each coupling in the bosonic action is rescaled according to its canonical dimension, while the fermionic sector rescaling is implemented directly at the drift level, as detailed in Section \ref{sec:lattice_with_coloured_noise}.}
     \label{tab:params_cooling}
 \end{table}
 \begin{table}[htp]
@@ -369,23 +369,23 @@ A summary of the parameters choice for both the experiments is reported in table
         1/8 & 128 & 128 & $0.03125$ & 0.001094 & g & $1.0$ & $K_\psi/64$ \\
         \bottomrule
     \end{tabular}
-    \caption[Parameter settings in the cooling procedure for the Yukawa coupling scan.]{Parameters setting in the cooling procedure for the Yukawa coupling scan. Each coupling in the bosonic action is rescaled according to its canonical dimension, while the fermionic sector rescaling is implemented directly at the drift level, as detailed in Section \ref{sec:lattice_with_coloured_noise}}.
+    \caption[Parameter settings in the cooling procedure for the Yukawa coupling scan.]{Parameters setting in the cooling procedure for the Yukawa coupling scan. Each coupling in the bosonic action is rescaled according to its canonical dimension, while the fermionic sector rescaling is implemented directly at the drift level, as detailed in Section \ref{sec:lattice_with_coloured_noise}.}
     \label{tab:params_cooling_yukawa}
 \end{table} \\
 Figure \ref{fig:cooling_M_psibarpsi_chi2} reports the magnetisation, its susceptibility and the chiral condensate as a function of the bare scalar mass squared $m_\phi^2$, while Figure \ref{fig:cooling_M_psibarpsi} reports the investigation as a function of the Yukawa coupling.
 One can clearly see that there is a general good agreement for the first three block-spin transformations, even if based on tree level arguments.
 \begin{figure}[hbp]
     \centering
-    \begin{subfigure}[b]{0.47\textwidth}
+    \begin{subfigure}[b]{0.49\textwidth}
         \includegraphics[width=\textwidth]{figures/cooling/mass_scan/magnetisation.pdf}
         \caption{Magnetisation}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.47\textwidth}
+    \begin{subfigure}[b]{0.49\textwidth}
         \includegraphics[width=\textwidth]{figures/cooling/mass_scan/susceptibility.pdf}
         \caption{Magnetic susceptibility}
     \end{subfigure}
-    \begin{subfigure}[b]{0.47\textwidth}
+    \begin{subfigure}[b]{0.49\textwidth}
         \includegraphics[width=\textwidth]{figures/cooling/mass_scan/condensate.pdf}
         \caption{Chiral condensate}
     \end{subfigure}
@@ -394,12 +394,12 @@ One can clearly see that there is a general good agreement for the first three b
 \end{figure}
 \begin{figure}[hbp]
     \centering
-    \begin{subfigure}[b]{0.47\textwidth}
+    \begin{subfigure}[b]{0.49\textwidth}
         \includegraphics[width=\textwidth]{figures/cooling/yukawa_scan/magnetisation.pdf}
         \caption{Magnetisation}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.47\textwidth}
+    \begin{subfigure}[b]{0.49\textwidth}
         \includegraphics[width=\textwidth]{figures/cooling/yukawa_scan/condensate.pdf}
         \caption{Chiral condensate}
     \end{subfigure}
@@ -420,7 +420,7 @@ The deviations quantified by such parameters is reported in Figure \ref{fig:cool
     \centering
     \begin{subfigure}[b]{0.47\textwidth}
         \includegraphics[width=1.0\textwidth]{figures/cooling/mass_scan/deviation.pdf}
-        \caption{Absolute magnetisation error}
+        \caption{Magnetisation error}
     \end{subfigure}
     \begin{subfigure}[b]{0.47\textwidth}
         \includegraphics[width=1.0\textwidth]{figures/cooling/mass_scan/deviation_cond.pdf}
@@ -433,7 +433,7 @@ The deviations quantified by such parameters is reported in Figure \ref{fig:cool
     \centering
     \begin{subfigure}[b]{0.47\textwidth}
         \includegraphics[width=\textwidth]{figures/cooling/yukawa_scan/deviation.pdf}
-        \caption{Absolute magnetisation error}
+        \caption{Magnetisation error}
     \end{subfigure}
     \begin{subfigure}[b]{0.47\textwidth}
         \includegraphics[width=\textwidth]{figures/cooling/yukawa_scan/deviation_cond.pdf}

@@ -89,7 +89,7 @@ The simplest first-order integration algorithm is the Euler-Maruyama scheme \cit
 \begin{equation*}
     \phi(\tau_{n+1}, x) = \phi(\tau_{n}, x) - \epsilon \,  \frac{\delta S[\phi]}{\delta \phi (\tau_n, x)} + \sqrt{\epsilon} \, \eta(\tau_n, x) + O(\epsilon^2),
 \end{equation*}
-where $\epsilon = \tau_{n+1} - \tau_n$. Higher order integration schemes are possible (see e.g.\cite{bilinearnoise1,Kronfeld1993}), but not adopted in this work, and an adaptive step size is employed as detailed in Appendix \ref{chap:AppendixC}.
+where $\epsilon = \tau_{n+1} - \tau_n$. Higher order integration schemes are possible (see e.g.\cite{bilinearnoise1,Kronfeld1993}), but not adopted in this work, and an adaptive step size is employed.
 In this way, for any observable $O$, one can introduce a Monte-Carlo estimator $\expect{O}_*$ which converges to the expectation value given by \eqref{eq:expectation_observables} in the limit of infinite samples
 \begin{equation}
     \expect{O}_{*} = \frac{1}{N_\text{samp}} \sum^{N_\text{samp}}_{i=1} O_i \quad \underset{N_\text{samp} \to \infty}{\longrightarrow} \quad \expect{O} = \frac{1}{Z} \, \int D\phi \ O(\phi) \, \exp\left(-S[\phi]\right),
@@ -105,14 +105,14 @@ For the discretised action of the Yukawa theory \eqref{eq:discretised_effective_
     \label{eq:drift_continuum_full_theory}
 \end{equation}
 While the bosonic contribution can be computed in a straightforward manner, the computation of the fermionic contribution requires the inversion of the Dirac operator. This, in general, cannot be done straightforwardly, mainly due to computational reasons.
-In fact, the full Dirac operator would be a $(2 \cdot N_t \cdot N_x \cdot N_f)^2$ dimensional object and a full inversion would be very expensive. In fact, $D^{-1}$ has to be recomputed at every step and the best available algorithm as today for the matrix inversion has a computational complexity of $O(n^{2.371552})$ \cite{williams2023new}. To circumvent this, we the use the bilinear noise scheme \cite{bilinearnoise1,bilinearnoise2} in combination with the Conjugate Gradient algorithm to evaluate the trace, as detailed in Appendix \ref{chap:AppendixC}.
+The full Dirac operator would be a $(2 \cdot N_t \cdot N_x \cdot N_f)^2$ dimensional object and a full inversion would be very expensive. In fact, $D^{-1}$ has to be recomputed at every step and the best available algorithm as today for the matrix inversion has a computational complexity of $O(n^{2.371552})$ \cite{williams2023new}. To circumvent this, we the use the bilinear noise scheme \cite{bilinearnoise1,bilinearnoise2} in combination with the Conjugate Gradient algorithm to evaluate the trace, as detailed in Appendix \ref{chap:AppendixC}, avoiding to invert the full matrix.
 
 \newpage
 
 
 \section{Applications of coloured noise in lattice QFT}
 \label{sec:lattice_with_coloured_noise}
-After the general introduction on coloured noise given in Section \ref{sec:coloured_noise}, let us now look more closely on the lattice formulation and at some possible applications of the technique, some of which will be studied numerically in Chapter{chapt:results}. \\~\\
+After the general introduction on coloured noise given in Section \ref{sec:coloured_noise}, let us now look more closely on the lattice formulation and at some possible applications of the technique, some of which will be studied numerically in Chapter \ref{chapt:results_coloured}. \\~\\
 To this end, let us consider a two-dimensional lattice with side lengths $L_t, L_x$ and spacing $a = a_x = a_t$. This implies a maximum momentum $p_\text{max} = \pi / a$ in each spacetime direction and $N_x=L_x/a, N_t=L_t/a$ points in each direction. Let us also define 
 \begin{equation}
 	\Lambda_0^2 \equiv (p^x_\text{max})^2 + (p^t_\text{max})^2,
@@ -125,12 +125,12 @@ We then consider a simulation with a regularised noise defined by a cutoff $\Lam
 Note that $\Lambda$ implicitly defines a length scale given by  $a_\text{eff} = \pi/\Lambda$.\\
 
 \subsection{Classical-to-quantum interpolation}
-The use of coloured noise, allows for a smooth interpolation between the fully classical and fully quantum picture. In fact, one can perform various simulations changing the value of the cutoff fraction $s$ and adding or removing quantum degrees of freedom. This can be used either to investigate the role 
-of quantum fluctuations in the system, or to remove irrelevant degrees of freedom, resulting in a speed-up of the simulation.
+The use of coloured noise allows for a smooth interpolation between the fully classical and fully quantum pictures. In fact, one can perform various simulations changing the value of the cutoff fraction $s$ and adding or removing quantum degrees of freedom. This can be used either to investigate the role 
+of quantum fluctuations in the system or to remove irrelevant degrees of freedom, resulting in a speed-up of the simulation.
 
 \subsection{Noise-induced transition}
-Noise-induced transition is a well known field of stochastic dynamics \cite{gardiner,noiseinduced} and consists in investigating
-whether noise can qualitatively affect the behaviour of a system. In our case, since noise is due to quantum fluctuations, we are interested in understanding if quantum fluctuations can trigger a phase transition with respect to the classical system, with the same parameters settings. \\
+Noise-induced transition is a well-known field of stochastic dynamics \cite{gardiner,noiseinduced} and consists in investigating
+whether noise can qualitatively affect the behaviour of a system. In our case, since noise is due to quantum fluctuations, we are interested in understanding if quantum fluctuations can trigger a phase transition with respect to the classical system, with the same parameter settings. \\
 This question will be addressed in Section \ref{sec:chiral_PT} and it will be shown that for small negative bosonic mass squared, the classical system lies in a state of broken symmetry, while in the quantum case, the symmetry is restored. \\
 Note that there is a subtle distinction between noise-induced transitions and noise-induced phase transitions \cite{noiseinduced_2}. In simple words, the former refer to the possibility for the system to change its state qualitatively due to the introduction of noise. On the other side, a noise-induced phase transition is characterised by a change in the order parameter which persists at equilibrium. 
 Strictly speaking, in a finite volume lattice simulation, one cannot observe phase transitions, since the latter 
@@ -138,8 +138,8 @@ can only be reached in the infinite volume limit, with an infinite number of con
 
 \subsection{Cooling and the continuum limit of effective theories}
 Following the paradigm of Kadanoff-Wilson of Chapter \ref{chap:background}, we want to use RG properties to encode quantum fluctuations in a redefinition of the couplings of the bare action. This removes short-distance fluctuations from the simulation, without changing the physical content of the theory in terms of expectation values. \footnote{This fact attributes the name cooling to the procedure.}
-Note that this would, in principle, require a detailed knowledge of the $\beta$-functions of the theory. Thus, for sufficiently high cutoff, approximate Ansatz such as dimensional rescalings are generally enough. We will pursue this way, as follows: \\
-Let us consider a simulation with $s=1$ and a set of bare couplings $\{g^i_0\}$, and another simulation with $s'<1$ and new set of couplings $\{g^{i \, \prime}_0\}$. \\
+Note that this would, in principle, require a detailed knowledge of the $\beta$-functions of the theory. Thus, for a sufficiently high cutoff, approximate Ansatz such as dimensional rescalings are generally enough. We will pursue this way, as follows: \\
+Let us consider a simulation with $s=1$ and a set of bare couplings $\{g^i_0\}$, and another simulation with $s'<1$ and a new set of couplings $\{g^{i \, \prime}_0\}$. \\
 For what concerns the scalar part of the action, a dimensional rescaling, which corresponds to a tree-level RG transformation, is rather straightforward
 \begin{equation*}
     \begin{aligned}
@@ -166,12 +166,11 @@ On the other side, when computing the drift via the original action \eqref{eq:fu
 \begin{equation}
     \begin{aligned}
         K &= - \frac{\delta S}{\delta \phi} = K_\phi - g \, \bar\psi\psi = \\
-        &= - \hat K_{mn} \, \phi_n - \frac{\lambda}{6} \, \phi^3 - g \, \bar\psi\psi.
+        &= - K \, \phi - \frac{\lambda}{6} \, \phi^3 - g \, \bar\psi\psi.
     \end{aligned}
     \label{eq:drift_continuum_from_full_action}
 \end{equation}
-where, in the last row, $\widehat{K}_{mn}$ indicates the bosonic operator components \eqref{eq:discretised_kinetic_op_bosons}.\\
-The fermionic contribution is given by
+where, in the last row, K indicates the bosonic operator whose components are given by \eqref{eq:discretised_kinetic_op_bosons}. The fermionic contribution is given by
 \begin{equation*}
     K_{\psi}' = - g \, \bar\psi\psi.
 \end{equation*}
@@ -185,13 +184,14 @@ in contrast with \eqref{eq:fermionic_rescaling_na\"ive}. For this reason, in ord
     \widehat{K}_\psi \to s^2 \widehat{K}_\psi,
 \end{equation*}
 so that the scaling dimension of the other terms in \eqref{eq:drift_continuum_from_full_action} is matched. \\~\\
-We want to mention that the cooling procedure has important consequences on the issue of continuum limit of low-energy effective theories. In fact, in the standard lattice regularisation procedure, one always has $a \sim \Lambda_0^{-1}$, which means that the continuum limit $a \to 0$ is always connected to the limit $\Lambda_0 \to \infty$, in accordance to what discussed in sections \ref{sec:RG} and \ref{sec:lattice_continuum_}.
+We want to mention that the cooling procedure has important consequences on the issue of continuum limit of low-energy effective theories. In fact, in the standard lattice regularisation procedure, one always has $a \sim \Lambda_0^{-1}$, which means that the continuum limit $a \to 0$ is always connected to the limit $\Lambda_0 \to \infty$, in accordance to what discussed in sections \ref{sec:RG} and \ref{sec:lattice_continuum_}. 
+By means of  $\Lambda = s \Lambda_0$, one can keep an effective cutoff fixed at the desired scale while taking the limit $a \to 0, \Lambda_0 \to \infty$. This allows for the continuum limit of the effective theory at scale $\Lambda$, which is important to reduce lattice artifacts and to allow for a comparison with continuum methods.
 
 \subsection{Control over temperature}
-\begin{figure}
+\begin{figure}[b]
     \centering 
     \includegraphics[width=0.8\textwidth]{figures/temperatures.pdf}
-    \caption[Temperatures on the lattice]{Pictorial representation of the accessible dimensionless temperatures on a lattice. Since $\hat T = 1/N_t$, there is a low resolution of temperatures for small $N_t$, and a bounded range of values that can be accessed.}
+    \caption[Temperatures on the lattice]{Pictorial representation of the accessible temperatures in a standard lattice simulation. Since $T = 1/aN_t$, there is a low resolution of temperatures for small $N_t$, and a bounded range of values that can be accessed for fixed $a$.}
     \label{fig:temperatures_lattice}
 \end{figure}
 The use of coloured noise allows one to access a wider and finer range of temperatures. In fact, as already mentioned in Section \ref{sec:lattice_continuum_}, the temperature on the lattice is given by 
@@ -199,17 +199,17 @@ The use of coloured noise allows one to access a wider and finer range of temper
     T = \frac{1}{a \, N_t}.
     \label{eq:temperature_lattice}
 \end{equation}
-Hence one can change temperature either by changing the spacing $a$, or by changing the number points in the time direction $N_t$. 
+Hence one can change temperature either by changing the spacing $a$ or by changing the number of points in the time direction $N_t$. 
 Both approaches pose serious constraints on the range of accessible temperatures. The spacing $a$ is often determined by the energy scale at which one wants to simulate theory. 
 For example in an effective theory, as explained in Section \ref{sec:lattice_continuum_}, one has to keep $\Lambda \leq \Lambda_\text{phys}$, and since $a = \pi/\Lambda$, one ends with a constraint on the spacing $a \geq \pi/\Lambda_\text{phys}$. \\
-The highest temperature reachable is then limited by mathematical arguments as one cannot have $N_t < 1$, even though in a simulation one often needs $N_t \geq 2$. On the other side the minimum temperature reachable is limited by computational resources as one cannot afford $N_t \to \infty$.
+The highest temperature reachable is then limited by mathematical arguments as one cannot have $N_t < 1$, even though in a simulation one often needs $N_t \geq 2$. On the other side, the minimum temperature reachable is limited by computational resources as one cannot afford $N_t \to \infty$.
 Moreover, the resolution of high temperatures is very coarse due to the relation \eqref{eq:temperature_lattice}, in the sense that for small $N_t$, a change in the number of time points causes a significant variation in the temperature. \\~\\
-By means of coloured noise one can change the temperature by changing the effective spacing. In fact, if one follows the cooling procedure by keeping $N_t$ fixed, one sets a new temperature which is given by 
+By means of coloured noise, one can change the temperature by changing the effective spacing. In fact, if one follows the cooling procedure by keeping $N_t$ fixed, one sets a new temperature which is given by 
 \begin{equation*}
     T_\text{eff} = \frac{1}{a_\text{eff} \, N_t} = \frac{1}{sa \, N_t} = T / s, 
 \end{equation*}
-where $s = \Lambda_\text{eff} / \Lambda \leq 1$. Note that not only the temperature has been raised, but one has also gained resolution around $T_\text{eff}$. In fact, to reach this temperature by changing $N_t$, one should change the number of time points to $N_t \to s N_t$, and for what explained before a lower $N_t$ comes with a loss of resolution. \\
-The control over temperature will not be investigated in this work. For a more detailed explanation of the procedure and its relevance in the context of the quark-meson model, we refer to \cite{attanasio2022low}.
+where $s = \Lambda_\text{eff} / \Lambda \leq 1$. Note that not only the temperature has been raised, but one has also gained resolution around $T_\text{eff}$. In fact, to reach this temperature by changing $N_t$, one should change the number of time points to $N_t \to s N_t$, and for what explained before, a lower $N_t$ comes with a loss of resolution. \\
+The control over temperature will not be investigated in this work. For a more detailed explanation of the procedure and its relevance in the context of the Quark-Meson model, we refer to \cite{attanasio2022low}.
 \section{Definition of relevant observables}
 \label{sec:observables}
 From now on, we will indicate both the dimensionless quantities and dimensionful ones by using the notation of the latter. When dealing with the discretised theory, we will be implicitly referring to the dimensionless quantities. A distinction will still be made when relevant. Moreover, a general spacetime vector 
@@ -224,10 +224,10 @@ We define the magnetisation $M$ of the field $\phi$ as
 \end{equation*}
 In a finite volume lattice system, the absolute magnetisation
 \begin{equation*}
-    M = \expect{\frac{1}{V}\left|\sum_n \phi_n\right|}.
+    M = \expect{\frac{1}{V}\left|\sum_n \phi_n\right|}
 \end{equation*}
 is better suited \cite{friedli_velenik_2017,gattringer_LQCD} as an order parameter. 
-In the continuum, phase transition is characterised by a divergence in the susceptibility, or connected two-point function
+In the continuum, phase transition is characterised by a divergence in the susceptibility or connected two-point function
 \begin{equation*}
     \chi_2 = V \left(\expect{M^2} - \expect{M}^2\right) = V \expect{\left(M-\expect{M}\right)^2}.
 \end{equation*}
@@ -274,7 +274,7 @@ Note that we sum up two waves because of the boundary conditions. \\
 In momentum space, by using a spectral decomposition, one has
 \begin{equation*}
     \begin{aligned}
-        \frac{1}{V} \sum_{\vec{x}} e^{-i \vec{p} \vec{x}}\langle\bar\psi(t, \vec{x}) \psi(0, \vec{0})\rangle_c & =\frac{1}{V} \sum_{\vec{x}} e^{-i \vec{p} \vec{x}} \sum_k\langle 0|\bar\psi(t, \vec{x})| k\rangle\langle k|\psi(0, \vec{0})| 0\rangle \\
+        \frac{1}{V} \sum_{\vec{x}} e^{-i \vec{p} \vec{x}}\langle\bar\psi(t, \vec{x}) \psi(0, \vec{0})\rangle & =\frac{1}{V} \sum_{\vec{x}} e^{-i \vec{p} \vec{x}} \sum_k\langle 0|\bar\psi(t, \vec{x})| k\rangle\langle k|\psi(0, \vec{0})| 0\rangle \\
         & =\frac{1}{V} \sum_{\vec{x}} e^{i \vec{p} \vec{x}} \sum_k\left\langle 0\left|e^{-i p^{\prime} x} \bar\psi(0, \vec{0}) e^{i p^{\prime} x}\right| k\right\rangle\langle k|\psi(0, \vec{0})| 0\rangle \\
         & =\frac{1}{V} \sum_{\vec{x}} e^{-i \vec{p} \vec{x}} \sum_k e^{i k x}\langle 0|\bar\psi(0, \vec{0})| k\rangle\langle k|\psi(0, \vec{0})| 0\rangle \\
         & =\frac{1}{V} \sum_{\vec{x}, k} e^{-i(\vec{p}-\vec{k}) \vec{x}} e^{-E_k t}|\langle 0|\psi(0, \vec{0})| k\rangle|^2 \\
@@ -298,7 +298,7 @@ the fermionic correlator assumes the form
 where $E_0^{\psi}$ is the fermionic mass gap, which will be denoted as $m_{q,\text{phys}}$. \\
 An important quantity to compute the correlator on the lattice are the so called time slices
 \begin{equation*} 
-    S(t, \vec{p})=\frac{1}{V} \sum_{\vec{x}} e^{i \vec{p} \vec{x}} \psi(t, \vec{x}), \qquad \bar{S}(t, \vec{p})=\frac{1}{V} \sum_{\vec{x}} \bar\psi(t, \vec{x}) \, e^{-i \vec{p} \vec{x}}
+    S(t, \vec{p})=\frac{1}{V} \sum_{\vec{x}} e^{i \vec{p} \vec{x}} \psi(t, \vec{x}), \qquad \bar{S}(t, \vec{p})=\frac{1}{V} \sum_{\vec{x}} e^{i \vec{p} \vec{x}} \, \bar\psi(t, \vec{x}) 
 \end{equation*}
 In fact, they are related to the correlator via
 \begin{equation*}
@@ -326,7 +326,7 @@ where
 \begin{equation*} 
     \eta_{m} = s \, \delta_{m,0}.
 \end{equation*}
-is a spinor field where only the component at the origin is non-zero, and is given by the spinor $s$. Hence one is reduced to solve the linear system of equations
+is a spinor field, where only the component at the origin is non-zero, and is given by the spinor $s$. Hence, one is reduced to solve the linear system of equations
 \begin{equation*}
     \sum_n D^{-1}_{mn} \, \psi_m = \eta_n,
 \end{equation*}

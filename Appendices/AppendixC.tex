@@ -1,7 +1,7 @@
 % !TeX root = ../main.tex
 \chapter{Computational strategies}
 \label{chap:AppendixC}
-The application of coloured noise, and in particular the cooling technique, demand for an efficient volume scaling of the simulation, as pointed out in section \ref{sec:inversion_dirac}. The code for this project was developed accordingly. \\
+The application of coloured noise, and in particular the cooling technique, demand for an efficient volume scaling of the simulation, as pointed out in Section \ref{sec:inversion_dirac}. The code for this project was developed accordingly. \\
 While a full documentation of the code esulates from the scope of this thesis, we want to provide some details on the strategies that were adopted. \\~\\
 The code for this project has been developed to run on a Graphical Processing Unit (GPU). This ensures a massive parallelisation for operations such as scalar products and reduction operations such as summing components of a vector, which are extensively used in the course of the project.
 \section*{Choice of the spinor basis}
@@ -9,21 +9,21 @@ The choice of the chiral basis for the spinors illustrated in Appendix \ref{chap
 To see this, one has to look at the explicit expression of the Wilson projectors in the chiral basis:
 \begin{equation*}
     \begin{aligned}
-        \Gamma_{- \hat 0} &= \left(1+\gamma_0\right) \psi=\left[\begin{array}{ll}
+        \Gamma_{- \hat 0} &= \left(1+\gamma_0\right)=\left[\begin{array}{ll}
             2 & 0 \\
             0 & 0
             \end{array}\right],
         \qquad 
-        \Gamma_{+ \hat 0} = \left(1-\gamma_0\right) \psi=\left[\begin{array}{ll}
+        \Gamma_{+ \hat 0} = \left(1-\gamma_0\right)=\left[\begin{array}{ll}
             0 & 0 \\
             0 & 2
             \end{array}\right],\\
-        \Gamma_{- \hat 1} &= \left(1+\gamma_1\right) \psi=\left[\begin{array}{ll}
+        \Gamma_{- \hat 1} &= \left(1+\gamma_1\right)=\left[\begin{array}{ll}
             1 & 1 \\
             1 & 1
             \end{array}\right],
         \qquad 
-        \Gamma_{+ \hat 1} = \left(1-\gamma_1\right) \psi=\left[\begin{array}{cc}
+        \Gamma_{+ \hat 1} = \left(1-\gamma_1\right)=\left[\begin{array}{cc}
             1 & -1 \\
             -1 & 1
             \end{array}\right].
@@ -83,7 +83,7 @@ Note that all the matrices are degenerate. This implies that when the Wilson pro
 
 
 \section*{Inverting the Dirac operator} 
-One can note that for the purpose of computing the fermionic contribution to the drift force and the extraction of the physical quark mass from the correlator (details in section \ref{sec:langevin_monte_carlo} and section \ref{sec:observables}), we do not need the full inverse of the Dirac operator, but only the inverse matrix applied to a vector. Hence it is sufficient to compute 
+One can note that for the purpose of computing the fermionic contribution to the drift force and the extraction of the physical quark mass from the correlator (details in Section \ref{sec:langevin_monte_carlo} and Section \ref{sec:observables}), we do not need the full inverse of the Dirac operator, but only the inverse matrix applied to a vector. Hence it is sufficient to compute 
 \begin{equation}
     \psi = D^{-1} \, \eta .
     \label{Dirac_inversion_linear_system}
@@ -116,7 +116,7 @@ by solving
 and then applying $D$ to the result.
 
 \section*{Bilinear noise scheme}
-When computing the drift for the Langevin evolution, one needs to evaluate the trace of the Dirac operator, as shown in section \ref{sec:langevin_monte_carlo}. \\
+When computing the drift for the Langevin evolution, one needs to evaluate the trace of the Dirac operator, as shown in Section \ref{sec:langevin_monte_carlo}. \\
 We compute the trace by employing the bilinear noise scheme. For this, one needs a set of $N$ vectors of normally distributed random complex numbers, namely vectors $\eta_i$ where each component $\eta_i^\alpha$ satisfies
 \begin{equation*}
     \left\langle \eta_i^{\alpha} \right\rangle = 0, \qquad\qquad \left\langle \eta_i^{\alpha}\eta_j^{\beta} \right\rangle = \delta_{i,j} \, \delta^{\alpha \beta}.

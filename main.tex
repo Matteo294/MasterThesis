@@ -49,19 +49,29 @@ headsepline, % Uncomment to get a line under the header
 
 \usepackage{graphicx}
 \usepackage{caption}
+\usepackage{jabbrv}
 
-\usepackage[style=ieee, citestyle=numeric-comp,sorting=none]{biblatex}
-\renewbibmacro{in:}{}
+%\usepackage[style=ieee, citestyle=numeric-comp,sorting=none]{biblatex}
+%\renewbibmacro{in:}{}
 
 %\bibliographystyle{apsrev.bst}
-\DeclareFieldFormat[article]{volume}{\textbf{#1}}
-\DeclareFieldFormat*{cite title}{\mkbibquote{#1\isdot}}
-\DeclareFieldFormat*{title}{\mkbibquote{#1\isdot}}
+%\DeclareFieldFormat[article]{volume}{\textbf{#1}}
+%\DeclareFieldFormat*{cite title}{\mkbibquote{#1\isdot}}
+%\DeclareFieldFormat*{title}{\mkbibquote{#1\isdot}}
 %\DeclareFieldFormat{journal}{\href{\thefield{url}}{#1}}
  % Use the bibtex backend with the authoryear citation style (which resembles APA)
-\addbibresource{resources.bib} % The filename of the bibliography
+%\addbibresource{resources.bib} % The filename of the bibliography
 
 %\usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
+
+\usepackage[backend=biber,style=nature,sorting=none,isbn=false, citestyle=numeric-comp, doi=false, url=false, date=year]{biblatex}
+\newbibmacro{string+doi}[1]{%
+\iffieldundef{doi}{#1}{\href{http://dx.doi.org/\thefield{doi}}{#1}}}
+\DeclareFieldFormat{title}{\usebibmacro{string+doi}{\mkbibemph{#1}}}
+\DeclareFieldFormat[article]{title}{\usebibmacro{string+doi}{\mkbibquote{#1}}}
+\DeclareFieldFormat[article,periodical]{volume}{\mkbibbold{#1}}
+\DeclareFieldFormat{journaltitle}{#1\isdot}
+\addbibresource{resources.bib} % The filename of the bibliography
 
 
 %----------------------------------------------------------------------------------------
@@ -121,17 +131,18 @@ headsepline, % Uncomment to get a line under the header
   %\clearfield{pages} % Remove pages
   %\clearfield{volume} % Remove volume
   %\clearfield{number} % Remove number
-  \clearfield{doi} % Remove DOI
-  \clearfield{url} % Remove URL
+  \clearfield{issue}
+  %\clearfield{doi} % Remove DOI
+  %\clearfield{url} % Remove URL
   \clearfield{note} % Remove note
-  \clearfield{eprint} % Remove eprint (arXiv, etc.)
+  %\clearfield{eprint} % Remove eprint (arXiv, etc.)
   \clearfield{isbn} % Remove ISBN
   \clearfield{issn} % Remove ISSN
   \clearfield{series} % Remove series
   \clearfield{month} % Remove month
   %\clearlist{publisher} % Remove publisher
-  \clearname{editor} % Remove editor
-  \clearfield{eventtitle} % Remove conference name
+  %\clearname{editor} % Remove editor
+  %\clearfield{eventtitle} % Remove conference name
   %\clearfield{year}
 }
 
